@@ -1,0 +1,17 @@
+[Protocol]
+exec=kio_bup
+protocol=bup
+input=filesystem
+listing=Name,Type,Size,Date,AccessDate,Access,Owner,Group,Link
+output=filesystem
+reading=true
+source=true
+writing=false
+makedir=false
+deleting=false
+moving=false
+opening=true
+linking=false
+Icon=folder-important
+Description=A kioslave for bup backup repositories
+Class=:local

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Exec=kcmshell4 kcm_kup
+Icon=chronometer
+Type=Service
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=kcm_kup
+X-KDE-ParentApp=kcontrol
+X-KDE-System-Settings-Parent-Category=system-administration
+
+Name=Backups
+Comment=Configure backup plans

@@ -1,0 +1,10 @@
+[Global]
+IconName=chronometer
+Comment=Kup Backup System
+Name=Kup
+
+[Event/StartBackup]
+Name=Start taking backup
+Comment=A question if user wants to start taking a backup
+Action=Popup
+

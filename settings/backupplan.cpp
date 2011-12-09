@@ -1,0 +1,122 @@
+/***************************************************************************
+ *   Copyright Simon Persson                                               *
+ *   simonop@spray.se                                                      *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+#include "backupplan.h"
+
+#include <QDir>
+#include <QString>
+
+#include <KGlobalSettings>
+#include <KIcon>
+#include <KLocale>
+
+BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent)
+   :KCoreConfigSkeleton(pConfig, pParent), mPlanNumber(pPlanNumber)
+{
+	setCurrentGroup(QString("Plan/%1").arg(mPlanNumber));
+
+	addItemString("Description", mDescription, i18n("Backup plan %1").arg(pPlanNumber));
+	QStringList lDefaultIncludeList;
+	lDefaultIncludeList << QDir::homePath();
+	addItemStringList("Paths included", mPathsIncluded, lDefaultIncludeList);
+	QStringList lDefaultExcludeList;
+	lDefaultExcludeList << KGlobalSettings::musicPath();
+	lDefaultExcludeList << KGlobalSettings::videosPath();
+	QMutableListIterator<QString> i(lDefaultExcludeList);
+	while(i.hasNext()) {
+		QString &lPath = i.next();
+		if(lPath.endsWith('/'))
+			lPath.chop(1);
+	}
+
+	addItemStringList("Paths excluded", mPathsExcluded, lDefaultExcludeList);
+	addItemStringList("Patterns excluded", mPatternsExcluded);
+	addItemBool("Use system exclude list", mUseSystemExcludeList, true);
+	addItemBool("Use user exclude list", mUseUserExcludeList, true);
+	addItemInt("Schedule type", mScheduleType, 1);
+	addItemInt("Schedule interval", mScheduleInterval, 1);
+	addItemInt("Schedule interval unit", mScheduleIntervalUnit, 3);
+
+	addItemInt("Destination type", mDestinationType, 1);
+
+	addItem(new KCoreConfigSkeleton::ItemUrl(currentGroup(),
+	                                         "Filesystem destination path",
+	                                         mFilesystemDestinationPath,
+	                                         QDir::homePath() + QDir::separator() + ".bup"));
+
+	addItemString("External drive UUID", mExternalUUID);
+	addItemPath("External drive destination path", mExternalDestinationPath, i18n("Backups"));
+
+//	addItemString("SSH server name", mSshServerName);
+//	addItemString("SSH login name", mSshLoginName);
+//	addItemPassword("SSH login password", mSshLoginPassword);
+//	addItemPath("SSH destination path", mSshDestinationPath);
+
+	addItemDateTime("Last complete backup", mLastCompleteBackup);
+	addItemDouble("Last backup size", mLastBackupSize);
+	addItemDouble("Last available space", mLastAvailableSpace);
+	readConfig();
+}
+
+BackupPlan::~BackupPlan() {
+}
+
+void BackupPlan::setPlanNumber(int pPlanNumber) {
+	mPlanNumber = pPlanNumber;
+	QString lGroupName = QString("Plan/%1").arg(mPlanNumber);
+	foreach(KConfigSkeletonItem *lItem, items()) {
+		lItem->setGroup(lGroupName);
+	}
+}
+
+void BackupPlan::removePlanFromConfig() {
+	config()->deleteGroup(QString("Plan/%1").arg(mPlanNumber));
+}
+
+QDateTime BackupPlan::nextScheduledTime() {
+	Q_ASSERT(mScheduleType == 1);
+	if(!mLastCompleteBackup.isValid())
+		return QDateTime(); //plan has never been run
+
+	return mLastCompleteBackup.addSecs(scheduleIntervalInSeconds());
+}
+
+int BackupPlan::scheduleIntervalInSeconds() {
+	Q_ASSERT(mScheduleType == 1);
+
+	switch(mScheduleIntervalUnit) {
+	case 0:
+		return mScheduleInterval * 60;
+	case 1:
+		return mScheduleInterval * 60 * 60;
+	case 2:
+		return mScheduleInterval * 60 * 60 * 24;
+	case 3:
+		return mScheduleInterval * 60 * 60 * 24 * 7;
+	default:
+		return 0;
+	}
+}
+
+void BackupPlan::usrReadConfig() {
+	//correct the time spec after default read routines.
+	mLastCompleteBackup.setTimeSpec(Qt::UTC);
+}
+
