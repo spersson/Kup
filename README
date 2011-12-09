@@ -1,0 +1,11 @@
+To compile you need:
+ - CMake
+ - Development headers for libqt4, libkdeui, libkfile and libsolid. 
+
+Run from the source directory:
+mkdir build
+cd build
+cmake .. 
+make
+sudo make install
+
