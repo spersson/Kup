@@ -22,7 +22,7 @@
 #include "backupplan.h"
 
 KupSettings::KupSettings(KSharedConfigPtr pConfig, QObject *pParent)
-   : KCoreConfigSkeleton(pConfig, pParent)
+   : KConfigSkeleton(pConfig, pParent)
 {
 	setCurrentGroup(QLatin1String("Kup settings"));
 	addItemBool(QLatin1String("Backups enabled"), mBackupsEnabled);

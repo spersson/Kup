@@ -24,7 +24,7 @@
 #include <KConfigSkeleton>
 #include <KSharedConfig>
 
-class KupSettings : public KCoreConfigSkeleton
+class KupSettings : public KConfigSkeleton
 {
 	Q_OBJECT
 public:
