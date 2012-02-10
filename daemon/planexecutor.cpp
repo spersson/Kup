@@ -87,7 +87,7 @@ void PlanExecutor::enterAvailableState() {
 			}
 		} else {
 			lShouldBeTakenLater = true;
-			lTimeUntilNextWakeup = lNow.msecsTo(lNextTime);
+			lTimeUntilNextWakeup = lNow.secsTo(lNextTime)*1000;
 		}
 		break;
 	}
