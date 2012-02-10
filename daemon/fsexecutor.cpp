@@ -109,7 +109,7 @@ void FSExecutor::slotBackupDone(KJob *pJob) {
 		KNotification::event(KNotification::Error, i18n("Problem"), pJob->errorText());
 		exitBackupRunningState(false);
 	} else {
-		mPlan->mLastCompleteBackup = QDateTime::currentDateTimeUtc();
+		mPlan->mLastCompleteBackup = QDateTime::currentDateTime().toUTC();
 		KDiskFreeSpaceInfo lSpaceInfo = KDiskFreeSpaceInfo::freeSpaceInfo(mDestinationPath);
 		if(lSpaceInfo.isValid())
 			mPlan->mLastAvailableSpace = (double)lSpaceInfo.available();

@@ -126,11 +126,11 @@ BackupPlan::Status BackupPlan::backupStatus() {
 
 	switch(mScheduleType) {
 	case MANUAL:
-		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTimeUtc());
+		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTime().toUTC());
 		lInterval = 60*60*24*7; //assume seven days is safe interval
 		break;
 	case INTERVAL:
-		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTimeUtc());
+		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTime().toUTC());
 		lInterval = scheduleIntervalInSeconds();
 		break;
 	case USAGE:

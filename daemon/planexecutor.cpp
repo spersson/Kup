@@ -69,7 +69,7 @@ void PlanExecutor::enterAvailableState() {
 	bool lShouldBeTakenLater = false;
 	int lTimeUntilNextWakeup;
 	QString lUserQuestion;
-	QDateTime lNow = QDateTime::currentDateTimeUtc();
+	QDateTime lNow = QDateTime::currentDateTime().toUTC();
 
 	switch(mPlan->mScheduleType) {
 	case BackupPlan::MANUAL:
