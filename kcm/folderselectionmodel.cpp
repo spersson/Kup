@@ -7,6 +7,7 @@
    (C) 2004 Mark Kretschmann <markey@web.de>
    (C) 2008 Seb Ruiz <ruiz@kde.org>
    (C) 2008-2009 Sebastian Trueg <trueg@kde.org>
+	(C) 2012 Simon Persson <simonpersson1@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -72,10 +73,10 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 	if( index.isValid() && index.column() == 0 ) {
 		if( role == Qt::CheckStateRole ) {
 			QString path = filePath(index);
-			const IncludeState state = includeState(path);
+			const InclusionState state = inclusionState(path);
 			switch( state ) {
 			case StateNone:
-			case StateExclude:
+			case StateExcluded:
 			case StateExcludeInherited:
 				foreach(QString tested, m_included) {
 					if(tested.startsWith(path)) {
@@ -83,7 +84,7 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 					}
 				}
 				return Qt::Unchecked;
-			case StateInclude:
+			case StateIncluded:
 			case StateIncludeInherited:
 				foreach(QString tested, m_excluded) {
 					if(tested.startsWith(path)) {
@@ -94,18 +95,18 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 			}
 		}
 		else if( role == IncludeStateRole ) {
-			return includeState( index );
+			return inclusionState( index );
 		}
 		else if( role == Qt::ForegroundRole ) {
-			IncludeState state = includeState( index );
+			InclusionState state = inclusionState( index );
 			QBrush brush = QFileSystemModel::data( index, role ).value<QBrush>();
 			switch( state ) {
-			case StateInclude:
+			case StateIncluded:
 			case StateIncludeInherited:
 				brush = QPalette().brush( QPalette::Active, QPalette::Text );
 				break;
 			case StateNone:
-			case StateExclude:
+			case StateExcluded:
 			case StateExcludeInherited:
 				brush = QPalette().brush( QPalette::Disabled, QPalette::Text );
 				break;
@@ -113,8 +114,8 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 			return QVariant::fromValue( brush );
 		}
 		else if ( role == Qt::ToolTipRole ) {
-			IncludeState state = includeState( index );
-			if ( state == StateInclude || state == StateIncludeInherited ) {
+			InclusionState state = inclusionState( index );
+			if ( state == StateIncluded || state == StateIncludeInherited ) {
 				return i18nc("@info:tooltip %1 is the path of the folder in a listview",
 				             "<filename>%1</filename><nl/>(will be included in the backup)", filePath( index ) );
 			}
@@ -138,14 +139,14 @@ bool FolderSelectionModel::setData( const QModelIndex& index, const QVariant& va
 {
 	if( index.isValid() && index.column() == 0 && role == Qt::CheckStateRole ) {
 		const QString path = filePath( index );
-		const IncludeState state = includeState( path );
+		const InclusionState state = inclusionState( path );
 
 		// here we ignore the check value, we treat it as a toggle
 		// This is due to our using the Qt checking system in a virtual way
-		if( state == StateInclude ||
+		if( state == StateIncluded ||
 		    state == StateIncludeInherited ) {
 			excludePath( path );
-			emit excludePathsChanged();
+			emit excludedPathsChanged();
 			QModelIndex lRecurseIndex = index;
 			while(lRecurseIndex.isValid()) {
 				emit dataChanged(lRecurseIndex, lRecurseIndex);
@@ -155,7 +156,7 @@ bool FolderSelectionModel::setData( const QModelIndex& index, const QVariant& va
 		}
 		else {
 			includePath(path);
-			emit includePathsChanged();
+			emit includedPathsChanged();
 			QModelIndex lRecurseIndex = index;
 			while(lRecurseIndex.isValid()) {
 				emit dataChanged(lRecurseIndex, lRecurseIndex);
@@ -201,7 +202,7 @@ void FolderSelectionModel::includePath( const QString& path )
 		m_excluded.remove( path );
 
 		// only really include if the parent is not already included
-		if( includeState( path ) != StateIncludeInherited ) {
+		if( inclusionState( path ) != StateIncludeInherited ) {
 			m_included.insert( path );
 		}
 		emit dataChanged( index( path ), findLastLeaf( index( path ), this ) );
@@ -218,7 +219,7 @@ void FolderSelectionModel::excludePath( const QString& path )
 		m_included.remove( path );
 
 		// only really exclude the path if a parent is included
-		if( includeState( path ) == StateIncludeInherited ) {
+		if( inclusionState( path ) == StateIncludeInherited ) {
 			m_excluded.insert( path );
 		}
 		emit dataChanged( index( path ), findLastLeaf( index( path ), this ) );
@@ -235,13 +236,13 @@ void FolderSelectionModel::setFolders( const QStringList& includeDirs, const QSt
 }
 
 
-QStringList FolderSelectionModel::includeFolders() const
+QStringList FolderSelectionModel::includedFolders() const
 {
 	return m_included.toList();
 }
 
 
-QStringList FolderSelectionModel::excludeFolders() const
+QStringList FolderSelectionModel::excludedFolders() const
 {
 	return m_excluded.toList();
 }
@@ -261,19 +262,19 @@ inline bool FolderSelectionModel::isForbiddenPath( const QString& path ) const
 }
 
 
-FolderSelectionModel::IncludeState FolderSelectionModel::includeState( const QModelIndex& index ) const
+FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState( const QModelIndex& index ) const
 {
-	return includeState( filePath( index ) );
+	return inclusionState( filePath( index ) );
 }
 
 
-FolderSelectionModel::IncludeState FolderSelectionModel::includeState( const QString& path ) const
+FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState( const QString& path ) const
 {
 	if( m_included.contains( path ) ) {
-		return StateInclude;
+		return StateIncluded;
 	}
 	else if( m_excluded.contains( path ) ) {
-		return StateExclude;
+		return StateExcluded;
 	}
 	else {
 		QString parent = path.section( QDir::separator(), 0, -2, QString::SectionSkipEmpty|QString::SectionIncludeLeadingSep );
@@ -285,10 +286,10 @@ FolderSelectionModel::IncludeState FolderSelectionModel::includeState( const QSt
 			return StateNone;
 		}
 		else {
-			IncludeState state = includeState( parent );
+			InclusionState state = inclusionState( parent );
 			if( state == StateNone )
 				return StateNone;
-			else if( state == StateInclude || state == StateIncludeInherited )
+			else if( state == StateIncluded || state == StateIncludeInherited )
 				return StateIncludeInherited;
 			else
 				return StateExcludeInherited;

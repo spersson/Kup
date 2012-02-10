@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -25,6 +25,7 @@
 #include "fsexecutor.h"
 
 #include <QDBusConnection>
+#include <QTimer>
 
 #include <KLocale>
 #include <KMenu>
@@ -41,9 +42,6 @@ KupDaemon::KupDaemon()
 }
 
 KupDaemon::~KupDaemon() {
-	QDBusConnection lDBus = QDBusConnection::sessionBus();
-	lDBus.disconnect(QString(), KUP_DBUS_OBJECT_PATH, KUP_DBUS_INTERFACE_NAME,
-	                 KUP_DBUS_RELOAD_CONFIG_MESSAGE, this, SLOT(reloadConfig()));
 	while(!mExecutors.isEmpty()) {
 		delete mExecutors.takeFirst();
 	}
@@ -54,34 +52,33 @@ bool KupDaemon::shouldStart() {
 }
 
 void KupDaemon::setupGuiStuff() {
+	mUsageAccumulatorTimer = new QTimer(this);
+	mUsageAccumulatorTimer->start(KUP_USAGE_MONITOR_INTERVAL_S * 1000);
+
 	setupTrayIcon();
 	setupExecutors();
 	setupContextMenu();
-	updateStatusNotifier();
+	updateTrayIcon();
 
 	QDBusConnection lDBus = QDBusConnection::sessionBus();
-	lDBus.connect(QString(), KUP_DBUS_OBJECT_PATH, KUP_DBUS_INTERFACE_NAME,
-	             KUP_DBUS_RELOAD_CONFIG_MESSAGE, this, SLOT(reloadConfig()));
-}
-
-void KupDaemon::requestQuit() {
-	kapp->quit();
+	if(lDBus.isConnected()) {
+		if(lDBus.registerService(KUP_DBUS_SERVICE_NAME)) {
+			lDBus.registerObject(KUP_DBUS_OBJECT_PATH, this, QDBusConnection::ExportAllSlots);
+		}
+	}
 }
 
 void KupDaemon::reloadConfig() {
 	mSettings->readConfig();
-//	delete mStatusNotifier;
-//	delete mContextMenu;
 	while(!mExecutors.isEmpty()) {
 		delete mExecutors.takeFirst();
 	}
 	if(!mSettings->mBackupsEnabled)
 		kapp->quit();
 
-//	setupTrayIcon();
 	setupExecutors();
 	setupContextMenu();
-	updateStatusNotifier();
+	updateTrayIcon();
 }
 
 void KupDaemon::showConfig() {
@@ -92,17 +89,50 @@ void KupDaemon::showConfig() {
 	}
 }
 
-void KupDaemon::updateStatusNotifier() {
-	mStatusNotifier->setStatus(KStatusNotifierItem::Passive);
+void KupDaemon::updateTrayIcon() {
+	KStatusNotifierItem::ItemStatus lStatus = KStatusNotifierItem::Passive;
+	QString lIconName = QLatin1String("kup");
+	QString lToolTipTitle = i18n("Backup destination unavailable");
+	QString lToolTipSubTitle = i18n("Backup status OK");
+	QString lToolTipIconName = BackupPlan::iconName(BackupPlan::GOOD);
+
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->destinationAvailable()) {
-			mStatusNotifier->setStatus(KStatusNotifierItem::Active);
+			lStatus = KStatusNotifierItem::Active;
+			lToolTipTitle = i18n("Backup destination available");
 		}
 	}
-//	foreach(PlanExecutor *lExec, mExecutors) {
-//		if(lExec->running())
-//			mStatusNotifier->setStatus(KStatusNotifierItem::NeedsAttention);
-//	}
+
+	foreach(PlanExecutor *lExec, mExecutors) {
+		if(lExec->planStatus() == BackupPlan::MEDIUM) {
+			lToolTipIconName = BackupPlan::iconName(BackupPlan::MEDIUM);
+			lToolTipSubTitle = i18n("New backup suggested");
+		}
+	}
+
+	foreach(PlanExecutor *lExec, mExecutors) {
+		if(lExec->planStatus() == BackupPlan::BAD) {
+			if(lExec->scheduleType() != BackupPlan::MANUAL) {
+				lStatus = KStatusNotifierItem::Active;
+			}
+			lIconName = BackupPlan::iconName(BackupPlan::BAD);
+			lToolTipIconName = BackupPlan::iconName(BackupPlan::BAD);
+			lToolTipSubTitle = i18n("New backup neeeded");
+		}
+	}
+	foreach(PlanExecutor *lExec, mExecutors) {
+		if(lExec->running()) {
+			lStatus = KStatusNotifierItem::NeedsAttention;
+			lToolTipIconName = QLatin1String("kup");
+			lToolTipTitle = i18n("Taking new backup");
+			lToolTipSubTitle = lExec->description(); // TODO: show percentage etc.
+		}
+	}
+	mStatusNotifier->setStatus(lStatus);
+	mStatusNotifier->setIconByName(lIconName);
+	mStatusNotifier->setToolTipIconByName(lToolTipIconName);
+	mStatusNotifier->setToolTipTitle(lToolTipTitle);
+	mStatusNotifier->setToolTipSubTitle(lToolTipSubTitle);
 }
 
 void KupDaemon::setupExecutors() {
@@ -122,19 +152,18 @@ void KupDaemon::setupExecutors() {
 	}
 	foreach(PlanExecutor *lExecutor, mExecutors) {
 		lExecutor->checkStatus(); //connect after to trigger less updates here, do one check after instead.
-		connect(lExecutor, SIGNAL(statusUpdated()), this, SLOT(updateStatusNotifier()));
+		connect(lExecutor, SIGNAL(stateChanged()), SLOT(updateTrayIcon()));
+		connect(lExecutor, SIGNAL(backupStatusChanged()), SLOT(updateTrayIcon()));
+		connect(mUsageAccumulatorTimer, SIGNAL(timeout()), lExecutor, SLOT(updateAccumulatedUsageTime()));
 	}
 }
 
 void KupDaemon::setupTrayIcon() {
 	mStatusNotifier = new KStatusNotifierItem(this);
-	mStatusNotifier->setTitle(i18n("Backups"));
-	mStatusNotifier->setIconByName(QLatin1String("drive-removable-media"));
 	mStatusNotifier->setCategory(KStatusNotifierItem::SystemServices);
-	mStatusNotifier->setToolTipIconByName(QLatin1String("drive-removable-media")); //TODO: show status emblem, how recently run
-	mStatusNotifier->setToolTipTitle(i18n("Backups"));
-	mStatusNotifier->setStatus(KStatusNotifierItem::Passive);
 	mStatusNotifier->setStandardActionsEnabled(false);
+	mStatusNotifier->setTitle(i18n("Backups"));
+	mStatusNotifier->setAttentionMovieByName(QLatin1String("kuprunning"));
 }
 
 void KupDaemon::setupContextMenu() {

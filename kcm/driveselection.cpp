@@ -1,14 +1,7 @@
 #include "driveselection.h"
 #include "driveselectiondelegate.h"
 
-//#include <kservicetypeprofile.h>
-//#include <kservicetype.h>
-//#include <kservicetypetrader.h>
-//#include <kconfig.h>
 #include <QStringList>
-//#include <QListWidgetItem>
-//#include <kapplication.h>
-//#include <kicon.h>
 #include <QList>
 #include <Solid/Device>
 #include <Solid/DeviceNotifier>
@@ -19,7 +12,6 @@
 #include <QStandardItemModel>
 
 #include <KConfigDialogManager>
-//#include <KDebug>
 #include <KDiskFreeSpaceInfo>
 #include <KLocale>
 
@@ -34,7 +26,7 @@ DriveSelection::DriveSelection(QWidget *parent)
 	setItemDelegate(m_drivesDelegate);
 	setSelectionMode(QAbstractItemView::SingleSelection);
 
-//	reloadDrives();
+	reloadDrives();
 	connect(selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
 	        this, SLOT(updateSelectedDrive(QItemSelection,QItemSelection)));
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(QString)), SLOT(reloadDrives()));
@@ -55,9 +47,7 @@ void DriveSelection::reloadDrives()
 		QList<Solid::Device> storageVolumes = Solid::Device::listFromType(Solid::DeviceInterface::StorageVolume, drives[vNum].udi());
 		for (int svNum=0;svNum < storageVolumes.size();svNum++) {
 			Solid::StorageVolume *storageVolume = storageVolumes[svNum].as<Solid::StorageVolume>();
-			if (!storageVolume
-			      || storageVolume->usage() != Solid::StorageVolume::FileSystem
-			      || storageVolume->fsType() == QLatin1String("fat")) {
+			if (!storageVolume || storageVolume->usage() != Solid::StorageVolume::FileSystem) {
 				continue;
 			}
 			QStandardItem *item = new QStandardItem();

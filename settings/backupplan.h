@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -47,17 +47,17 @@ public:
 	// True if files from the user-specific exclude list shall be excluded.
 	bool mUseUserExcludeList;
 
+	enum ScheduleType {MANUAL=0, INTERVAL, USAGE};
 	qint32 mScheduleType;
 	qint32 mScheduleInterval;
 	qint32 mScheduleIntervalUnit;
+	qint32 mUsageLimit; // in hours
+	bool mAskBeforeTakingBackup;
 
 	qint32 mDestinationType;
-
 	KUrl mFilesystemDestinationPath;
-
 	QString mExternalUUID;
 	QString mExternalDestinationPath;
-
 //	QString mSshServerName;
 //	QString mSshLoginName;
 //	QString mSshLoginPassword; //TODO: move to kwallet
@@ -68,9 +68,15 @@ public:
 	double mLastBackupSize;
 	// Last known available space on destination
 	double mLastAvailableSpace;
+	// How long has Kup been running since last backup (s)
+	quint32 mAccumulatedUsageTime;
 
 	virtual QDateTime nextScheduledTime();
 	virtual int scheduleIntervalInSeconds();
+
+	enum Status {GOOD, MEDIUM, BAD};
+	Status backupStatus();
+	static QString iconName(Status pStatus);
 
 protected:
 	virtual void usrReadConfig();

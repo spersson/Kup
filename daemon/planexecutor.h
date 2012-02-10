@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -23,61 +23,90 @@
 
 #include "backupplan.h"
 
-#include <QObject>
 #include <KProcess>
 
 class KRun;
-class KUiServerJobTracker;
-//class KTempDir;
+class KNotification;
+class KProcess;
 
 class QAction;
 class QMenu;
+class QTimer;
+
+#define KUP_USAGE_MONITOR_INTERVAL_S 10*60
 
 class PlanExecutor : public QObject
 {
 	Q_OBJECT
 public:
 	PlanExecutor(BackupPlan *pPlan, QObject *pParent);
+	virtual ~PlanExecutor();
 
-	virtual bool destinationAvailable() {
-		return mDestinationAvailable;
+	bool destinationAvailable() {
+		return mState != NOT_AVAILABLE;
 	}
 
-	virtual bool running() {
-		return mRunning;
+	bool running() {
+		return mState == RUNNING;
 	}
 
 	virtual QMenu *planActions() {
 		return mActionMenu;
 	}
 
-	virtual QString description() {
+	QString description() {
 		return mPlan->mDescription;
 	}
 
+	BackupPlan::Status planStatus() {
+		return mPlan->backupStatus();
+	}
+
+	BackupPlan::ScheduleType scheduleType() {
+		return (BackupPlan::ScheduleType)mPlan->mScheduleType;
+	}
+
 public slots:
-	virtual void checkStatus();
-	virtual void startBackup();
-	void showFiles();
+	virtual void checkStatus() = 0;
+	virtual void showFilesClicked();
+	void updateAccumulatedUsageTime();
 
 signals:
-	void statusUpdated();
+	void stateChanged();
+	void backupStatusChanged();
 
 protected slots:
-	void bupFuseFinished(int pExitCode, QProcess::ExitStatus pExitStatus);
+	virtual void startBackup() = 0;
+
+	void enterBackupRunningState();
+	void exitBackupRunningState(bool pWasSuccessful);
+	void enterAvailableState();
+	void enterNotAvailableState();
+
+	void askUser(const QString &pQuestion);
+	void discardUserQuestion();
+
+	void mountBupFuse();
 	void unmountBupFuse();
+	void bupFuseFinished(int pExitCode, QProcess::ExitStatus pExitStatus);
+	void showMountedBackup();
 
 protected:
-	bool mDestinationAvailable;
-	bool mRunning;
+	enum ExecutorState {NOT_AVAILABLE, WAITING_FOR_FIRST_BACKUP,
+		                 WAITING_FOR_BACKUP_AGAIN, RUNNING, WAITING_FOR_MANUAL_BACKUP};
+	ExecutorState mState;
+
 	QString mDestinationPath;
 	BackupPlan *mPlan;
-	KUiServerJobTracker *mJobTracker;
 	QMenu *mActionMenu;
 	QAction *mShowFilesAction;
 	QAction *mRunBackupAction;
 	KProcess *mBupFuseProcess;
 	QString mTempDir;
+	KNotification *mQuestion;
+	QTimer *mSchedulingTimer;
+
+	bool mOkToShowBackup;
 };
 
 #endif // PLANEXECUTOR_H

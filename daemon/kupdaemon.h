@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -23,9 +23,8 @@
 
 #include <KSharedConfig>
 
-#define KUP_DBUS_INTERFACE_NAME QLatin1String("org.kde.kupdaemon")
-#define KUP_DBUS_OBJECT_PATH QLatin1String("/Configuration")
-#define KUP_DBUS_RELOAD_CONFIG_MESSAGE QLatin1String("reloadConfig")
+#define KUP_DBUS_SERVICE_NAME QLatin1String("org.kde.kupdaemon")
+#define KUP_DBUS_OBJECT_PATH QLatin1String("/DaemonControl")
 
 
 class KupSettings;
@@ -33,6 +32,8 @@ class PlanExecutor;
 
 class KMenu;
 class KStatusNotifierItem;
+
+class QTimer;
 
 class KupDaemon : public QObject
 {
@@ -45,10 +46,9 @@ public:
 	void setupGuiStuff();
 
 public slots:
-	void requestQuit();
 	void reloadConfig();
 	void showConfig();
-	void updateStatusNotifier();
+	void updateTrayIcon();
 
 private:
 	void setupExecutors();
@@ -60,6 +60,7 @@ private:
 	QList<PlanExecutor *> mExecutors;
 	KStatusNotifierItem *mStatusNotifier;
 	KMenu *mContextMenu;
+	QTimer *mUsageAccumulatorTimer;
 };
 
 #endif /*KUPDAEMON_H*/

@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -27,122 +27,88 @@
 #include <KDiskFreeSpaceInfo>
 #include <KLocale>
 #include <KNotification>
-#include <kuiserverjobtracker.h>
 
 #include <QAction>
 #include <QDir>
 #include <QFileInfo>
-#include <QMenu>
 #include <QTimer>
 
 FSExecutor::FSExecutor(BackupPlan *pPlan, QObject *pParent)
-   :PlanExecutor(pPlan, pParent), mQuestion(NULL)
+   :PlanExecutor(pPlan, pParent)
 {
-	mRunBackupTimer = new QTimer(this);
-	mRunBackupTimer->setSingleShot(true);
-	connect(mRunBackupTimer, SIGNAL(timeout()), this, SLOT(startBackup()));
-
-	mAskUserTimer = new QTimer(this);
-	mAskUserTimer->setSingleShot(true);
-	connect(mAskUserTimer, SIGNAL(timeout()), this, SLOT(askUserToStartBackup()));
-
 	mDestinationPath = QDir::cleanPath(mPlan->mFilesystemDestinationPath.toLocalFile());
-
-	KDirWatch::self()->addDir(mDestinationPath);
-	connect(KDirWatch::self(), SIGNAL(created(QString)), SLOT(checkStatus()));
-	connect(KDirWatch::self(), SIGNAL(deleted(QString)), SLOT(checkStatus()));
+	mDirWatch = new KDirWatch(this);
+	connect(mDirWatch, SIGNAL(deleted(QString)), SLOT(checkStatus()));
 }
 
 void FSExecutor::checkStatus() {
-	checkAccessibility();
-	mShowFilesAction->setEnabled(mDestinationAvailable);
-	mRunBackupAction->setEnabled(mDestinationAvailable);
-	mActionMenu->setEnabled(mDestinationAvailable);
-	if(mDestinationAvailable)
-		askUserToStartBackup();
-}
-
-void FSExecutor::checkAccessibility() {
-	bool lPrevStatus = mDestinationAvailable;
-
-	if(KDirWatch::self()->contains(mWatchedParentDir)) {
-		KDirWatch::self()->removeDir(mWatchedParentDir);
-		disconnect(KDirWatch::self(), SIGNAL(dirty(QString)), this, SLOT(checkStatus()));
-		mWatchedParentDir.clear();
+	static bool lComingBackLater = false;
+	if(!mWatchedParentDir.isEmpty() && !lComingBackLater) {
+		// came here because something happened to a parent folder,
+		// come back in a few seconds, give a new mount some time before checking
+		// status of destination folder
+		QTimer::singleShot(5000, this, SLOT(checkStatus()));
+		lComingBackLater = true;
+		return;
 	}
+	lComingBackLater = false;
 
 	QDir lDir(mDestinationPath);
 	if(!lDir.exists()) {
-		mDestinationAvailable = false;
+		// Destination doesn't exist, find nearest existing parent folder and
+		// watch that for dirty or deleted
+		if(mDirWatch->contains(mDestinationPath)) {
+			mDirWatch->removeDir(mDestinationPath);
+		}
+
 		QString lExisting = mDestinationPath;
 		do {
 			lExisting += QLatin1String("/..");
 			lDir = QDir(QDir::cleanPath(lExisting));
 		} while(!lDir.exists());
+		lExisting = lDir.canonicalPath();
 
-		mWatchedParentDir = lDir.canonicalPath();
-		if(!KDirWatch::self()->contains(mWatchedParentDir)) {
-			KDirWatch::self()->addDir(mWatchedParentDir);
-			connect(KDirWatch::self(), SIGNAL(dirty(QString)), SLOT(checkStatus()));
+		if(lExisting != mWatchedParentDir) { // new parent to watch
+			if(!mWatchedParentDir.isEmpty()) { // were already watching a parent
+				mDirWatch->removeDir(mWatchedParentDir);
+			} else { // start watching a parent
+				connect(mDirWatch, SIGNAL(dirty(QString)), SLOT(checkStatus()));
+			}
+			mWatchedParentDir = lExisting;
+			mDirWatch->addDir(mWatchedParentDir);
+		}
+		if(mState != NOT_AVAILABLE) {
+			enterNotAvailableState();
 		}
 	} else {
-		QFileInfo lInfo(mDestinationPath);
-		mDestinationAvailable = lInfo.isWritable();
-	}
-	if(lPrevStatus != mDestinationAvailable) {
-		emit statusUpdated();
-	}
-}
-
-void FSExecutor::askUserToStartBackup() {
-	if(mPlan->mScheduleType == 1 && mQuestion == NULL) {
-		QDateTime lNextTime = mPlan->nextScheduledTime();
-		QDateTime lNow = QDateTime::currentDateTimeUtc();
-		if(!lNextTime.isValid() || lNextTime < lNow) {
-			mQuestion = new KNotification(QLatin1String("StartBackup"), KNotification::Persistent);
-			mQuestion->setTitle(i18n("Backup Device Available"));
-			if(!mPlan->mLastCompleteBackup.isValid())
-				mQuestion->setText(i18n("Do you want to take a first backup now?"));
-			else {
-				mQuestion->setText(i18n("It's been %1 since the last backup was taken, do you want to take a backup now?",
-				                        KGlobal::locale()->prettyFormatDuration(mPlan->mLastCompleteBackup.secsTo(lNow) * 1000)));
-			}
-			QStringList lAnswers;
-			lAnswers << i18n("Yes") <<i18n("No");
-			mQuestion->setActions(lAnswers);
-			connect(mQuestion, SIGNAL(action1Activated()), this, SLOT(startBackup()));
-			connect(mQuestion, SIGNAL(action2Activated()), this, SLOT(discardNotification()));
-			mQuestion->sendEvent();
-		} else {
-			// schedule a wakeup for asking again when the time is right.
-			mAskUserTimer->start(lNow.msecsTo(lNextTime));
+		// Destination exists... only watch for delete
+		if(!mWatchedParentDir.isEmpty()) {
+			disconnect(mDirWatch, SIGNAL(dirty(QString)), this, SLOT(checkStatus()));
+			mDirWatch->removeDir(mWatchedParentDir);
+			mWatchedParentDir.clear();
 		}
-	} else if(mPlan->mScheduleType == 2) {
-		//run continous without question
-	}
-}
+		mDirWatch->addDir(mDestinationPath);
 
-void FSExecutor::discardNotification() {
-	mQuestion->deleteLater();
-	mQuestion = NULL;
+		QFileInfo lInfo(mDestinationPath);
+		if(lInfo.isWritable() && mState == NOT_AVAILABLE) {
+			enterAvailableState();
+		}else if(!lInfo.isWritable() && mState != NOT_AVAILABLE) {
+			enterNotAvailableState();
+		}
+	}
 }
 
 void FSExecutor::startBackup() {
-	if(mQuestion) {
-		mQuestion->deleteLater();
-		mQuestion = NULL;
-	}
-
 	BupJob *lJob = new BupJob(mPlan, mDestinationPath, this);
-	mJobTracker->registerJob(lJob);
-	connect(lJob, SIGNAL(result(KJob*)), this, SLOT(slotBackupDone(KJob*)));
+	connect(lJob, SIGNAL(result(KJob*)), SLOT(slotBackupDone(KJob*)));
 	lJob->start();
-	mRunning = true;
-	emit statusUpdated();
 }
 
 void FSExecutor::slotBackupDone(KJob *pJob) {
-	if(pJob->error() == 0) {
+	if(pJob->error()) {
+		KNotification::event(KNotification::Error, i18n("Problem"), pJob->errorText());
+		exitBackupRunningState(false);
+	} else {
 		mPlan->mLastCompleteBackup = QDateTime::currentDateTimeUtc();
 		KDiskFreeSpaceInfo lSpaceInfo = KDiskFreeSpaceInfo::freeSpaceInfo(mDestinationPath);
 		if(lSpaceInfo.isValid())
@@ -151,23 +117,19 @@ void FSExecutor::slotBackupDone(KJob *pJob) {
 			mPlan->mLastAvailableSpace = -1.0; //unknown size
 
 		KIO::DirectorySizeJob *lSizeJob = KIO::directorySize(mDestinationPath);
-		connect(lSizeJob, SIGNAL(result(KJob*)), this, SLOT(slotBackupSizeDone(KJob*)));
+		connect(lSizeJob, SIGNAL(result(KJob*)), SLOT(slotBackupSizeDone(KJob*)));
 		lSizeJob->start();
-
-		QDateTime lNextTime = mPlan->nextScheduledTime();
-		mRunBackupTimer->start(mPlan->mLastCompleteBackup.msecsTo(lNextTime));
 	}
-	mRunning = false;
-	emit statusUpdated();
 }
 
 void FSExecutor::slotBackupSizeDone(KJob *pJob) {
-	if(pJob->error() == 0) {
+	if(pJob->error()) {
+		KNotification::event(KNotification::Error, i18n("Problem"), pJob->errorText());
+		mPlan->mLastBackupSize = -1.0; //unknown size
+	} else {
 		KIO::DirectorySizeJob *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);
 		mPlan->mLastBackupSize = (double)lSizeJob->totalSize();
-	} else {
-		mPlan->mLastBackupSize = -1.0; //unknown size
 	}
 	mPlan->writeConfig();
+	exitBackupRunningState(pJob->error() == 0);
 }
-

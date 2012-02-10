@@ -7,6 +7,7 @@
    (C) 2004 Mark Kretschmann <markey@web.de>
    (C) 2008 Seb Ruiz <ruiz@kde.org>
    (C) 2008-2009 Sebastian Trueg <trueg@kde.org>
+   (C) 2012 Simon Persson <simonpersson1@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -38,10 +39,10 @@ public:
 	FolderSelectionModel( QObject* parent = 0 );
 	virtual ~FolderSelectionModel();
 
-	enum IncludeState {
+	enum InclusionState {
 		StateNone,
-		StateInclude,
-		StateExclude,
+		StateIncluded,
+		StateExcluded,
 		StateIncludeInherited,
 		StateExcludeInherited
 	};
@@ -55,8 +56,8 @@ public:
 	bool setData( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
 
 	void setFolders( const QStringList& includeDirs, const QStringList& exclude );
-	QStringList includeFolders() const;
-	QStringList excludeFolders() const;
+	QStringList includedFolders() const;
+	QStringList excludedFolders() const;
 
 	/**
 	* Include the specified path. All subdirs will be reset.
@@ -70,15 +71,15 @@ public:
 
 	int columnCount( const QModelIndex& ) const { return 1; }
 
-	IncludeState includeState( const QModelIndex& ) const;
-	IncludeState includeState( const QString& path ) const;
+	InclusionState inclusionState( const QModelIndex& ) const;
+	InclusionState inclusionState( const QString& path ) const;
 
 public Q_SLOTS:
 	void setHiddenFoldersShown( bool shown );
 
 signals:
-	void includePathsChanged();
-	void excludePathsChanged();
+	void includedPathsChanged();
+	void excludedPathsChanged();
 
 private:
 	bool isForbiddenPath( const QString& path ) const;

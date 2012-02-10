@@ -1,0 +1,15 @@
+ - what happens if you change configuration while backup is running? 
+   Executor gets deleted, slot gets disconnected and backup never registered as 
+   finished? But if we wait with deleting until backup has completed, maybe we 
+   will overwrite the correct status with backup status for a plan that no longer exists..
+ - SSH as backup destination. Would be easy to add but I have not been motivated yet.
+ - KIO slave to see a bup archive in a file manager, could be based on libgit2 instead of fuse-mount. 
+   Also could be nice to have a view here where each file is represented as a directory and under 
+   that is the different timestamps of that file, would make it easier to find earlier versions of files.
+ - Continous backups: monitoring the local filesystem for changes and imediately backing up 
+   the changed file if destination is available.
+ - Make bup give out percentage complete and use this to present completion in systray tooltip.
+ - Figure out a file format for backup exclude config files, maybe system-wide under something like /etc/backup-exclude.d/10-firefox-cache.exclude
+   and user specific could be under ~/.config/fd.o/backup-exclude.d/
+ - Make an "Advanced" page of backup plan configuration to tweak behaviors. Like whether to respect those exclude lists or not.
+ - Clean up code for driveselection/driveselectiondelegate. Ugly to ask solid for devices from a paint() funtion! 

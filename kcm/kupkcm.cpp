@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -26,8 +26,7 @@
 #include "planstatuswidget.h"
 
 #include <QCheckBox>
-#include <QDBusConnection>
-#include <QDBusMessage>
+#include <QDBusInterface>
 #include <QLabel>
 #include <QScrollArea>
 #include <QStackedLayout>
@@ -49,7 +48,7 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 	KAboutData *lAboutData = new KAboutData("kcm_kup", "kcm_kup", ki18n("Kup Configuration Module"),
 	                                        "0.1.0", ki18n("Configuration of backup plans for the Kup backup system"),
 	                                        KAboutData::License_GPL, ki18n("Copyright 2011 Simon Persson"));
-	lAboutData->addAuthor(ki18n("Simon Persson"), ki18n("Maintainer"), "simonop@spray.se");
+	lAboutData->addAuthor(ki18n("Simon Persson"), ki18n("Maintainer"), "simonpersson1@gmail.com");
 	setAboutData(lAboutData);
 	setObjectName("kcm_kup"); //needed for the kconfigdialogmanager magic
 	setButtons((Apply | buttons()) & ~Default);
@@ -121,18 +120,13 @@ void KupKcm::save() {
 	mSettings->mNumberOfPlans = mPlans.count();
 	mSettings->writeConfig();
 
-	//check previous enabled against current enable before they are set equal.
-	bool lStartDaemon = mEnableCheckBox->isChecked() && !mSettings->mBackupsEnabled;
 	KCModule::save();
 
-	QDBusMessage lMessage = QDBusMessage::createSignal(KUP_DBUS_OBJECT_PATH,
-	                                                   KUP_DBUS_INTERFACE_NAME,
-	                                                   KUP_DBUS_RELOAD_CONFIG_MESSAGE);
-	QDBusConnection::sessionBus().send(lMessage);
-
-	if(lStartDaemon) {
-		// daemon is likely not started, try to start it. it's a kuniqueapplication anyway..
-		KProcess::execute(QLatin1String("kupdaemon"));
+	QDBusInterface lInterface(KUP_DBUS_SERVICE_NAME, KUP_DBUS_OBJECT_PATH);
+	if(lInterface.isValid()) {
+		lInterface.call(QLatin1String("reloadConfig"));
+	} else {
+		KProcess::execute(QLatin1String("kupdaemon")); // kuniqueapplication, should exit very quickly.
 	}
 }
 

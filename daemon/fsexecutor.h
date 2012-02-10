@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -27,10 +27,14 @@ class BackupPlan;
 
 class KDirWatch;
 class KJob;
-class KNotification;
 
 class QTimer;
 
+// Plan executor that stores the backup to a path in the local
+// filesystem, uses KDirWatch to monitor for when the folder
+// becomes available/unavailable. Can be used for external
+// drives or networked filesystems if you always mount it at
+// the same mountpoint.
 class FSExecutor: public PlanExecutor
 {
 Q_OBJECT
@@ -40,18 +44,15 @@ public:
 
 public slots:
 	virtual void checkStatus();
-	void checkAccessibility();
-	void askUserToStartBackup();
+
+protected slots:
 	virtual void startBackup();
-	void discardNotification();
 	void slotBackupDone(KJob *pJob);
 	void slotBackupSizeDone(KJob *pJob);
 
 protected:
-	KNotification *mQuestion;
-	QTimer *mRunBackupTimer;
-	QTimer *mAskUserTimer;
 	QString mWatchedParentDir;
+	KDirWatch *mDirWatch;
 };
 
 #endif // FSEXECUTOR_H

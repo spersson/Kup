@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,7 +19,6 @@
  ***************************************************************************/
 
 #include "bupjob.h"
-//#include "processlistener.h"
 #include "backupplan.h"
 
 #include <QDebug>
@@ -45,7 +44,9 @@ void BupJob::startIndexing() {
 	mInitProcess << QLatin1String("init");
 
 	if(mInitProcess.execute() != 0) {
-		emit warning(this, i18n("Backup destination could not be initialised by bup."));
+		setError(1);
+		setErrorText(i18n("Backup destination could not be initialised by bup:\n%1",
+		                  QString(mInitProcess.readAllStandardError())));
 		emitResult();
 		return;
 	}
@@ -63,18 +64,20 @@ void BupJob::startIndexing() {
 		mIndexProcess << lInclude;
 	}
 
-	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
-	qDebug() << mIndexProcess.program();
+	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
 	mIndexProcess.start();
 	emit description(this, i18n("Checking what has changed since last backup..."));
 }
 
 void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
-	if(pExitStatus != QProcess::NormalExit || pExitCode != 0)
-		emit warning(this, i18n("Indexing of file system did not complete successfully: %1",
-		                        QString(mIndexProcess.readAllStandardError())));
+	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
+		setError(1);
+		setErrorText(i18n("Indexing of file system did not complete successfully:\n%1",
+		                  QString(mIndexProcess.readAllStandardError())));
+		emitResult();
+		return;
+	}
 
-	mSaveProcess.clearProgram();
 	mSaveProcess << QLatin1String("bup");
 	mSaveProcess << QLatin1String("-d") << mDestinationPath;
 	mSaveProcess << QLatin1String("save");
@@ -84,18 +87,17 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		mSaveProcess << lInclude;
 	}
 
-	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotSavingDone(int,QProcess::ExitStatus)));
-	qDebug() << mSaveProcess.program();
-//	mProcessListener = new ProcessListener(&mSaveProcess);
+	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
 	mSaveProcess.start();
-	emit description(this, i18n("Saving changes to backup..."));
+	emit description(this, i18n("Saving changes to backup destination..."));
 }
 
 void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
-//	qDebug() << mProcessListener->stdOut();
-	if(pExitStatus != QProcess::NormalExit || pExitCode != 0)
-		emit warning(this, i18n("Backup did not complete successfully: %1",
-		                        QString(mSaveProcess.readAllStandardError())));
+	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
+		setError(1);
+		setErrorText(i18n("Backup did not complete successfully:\n%1",
+		                  QString(mSaveProcess.readAllStandardError())));
+	}
 	emitResult();
 }
 

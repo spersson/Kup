@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -42,11 +42,8 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	lDescriptionFont.setBold(true);
 	mDescriptionLabel->setFont(lDescriptionFont);
 	mStatusIconLabel = new QLabel();
-	mStatusIconLabel->setPixmap(KIconLoader::global()->loadIcon(statusIconName(),
-	                                                            KIconLoader::Desktop,
-	                                                            KIconLoader::SizeHuge));
 	mStatusTextLabel = new QLabel(statusText()); //TODO: add dbus interface to be notified from daemon when this is updated.
-	mConfigureButton = new KPushButton(i18n("Configure"));
+	mConfigureButton = new KPushButton(KIcon("configure"), i18n("Configure"));
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(configureMe()));
 	mRemoveButton = new KPushButton(KIcon("list-remove"), i18n("Remove"));
 	connect(mRemoveButton, SIGNAL(clicked()), this, SIGNAL(removeMe()));
@@ -61,6 +58,8 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	lHLayout2->addWidget(mRemoveButton);
 	lVLayout1->addLayout(lHLayout2);
 	setLayout(lVLayout1);
+
+	updateIcon();
 }
 
 QString PlanStatusWidget::statusText() {
@@ -82,29 +81,8 @@ QString PlanStatusWidget::statusText() {
 	return lStatus;
 }
 
-QString PlanStatusWidget::statusIconName() {
-	if(!mPlan->mLastCompleteBackup.isValid())
-		return QLatin1String("security-low");
-
-	int lStatus = mPlan->mLastCompleteBackup.secsTo(QDateTime::currentDateTimeUtc());
-	int lInterval;
-
-	if(mPlan->mScheduleType == 1) //interval specified...
-		lInterval = mPlan->scheduleIntervalInSeconds();
-	else
-		lInterval = 60*60*24*3; //assume three days is safe interval
-
-	if(lStatus < lInterval)
-		return QLatin1String("security-high");
-	else if(lStatus < lInterval * 3)
-		return QLatin1String("security-medium");
-	else
-		return QLatin1String("security-low");
-}
-
 void PlanStatusWidget::updateIcon() {
-	mStatusIconLabel->setPixmap(KIconLoader::global()->loadIcon(statusIconName(),
-	                                                            KIconLoader::Desktop,
-	                                                            KIconLoader::SizeHuge));
+	mStatusIconLabel->setPixmap(KIconLoader::global()->loadIcon(mPlan->iconName(mPlan->backupStatus()),
+	                                                            KIconLoader::Desktop, KIconLoader::SizeHuge));
 }
 

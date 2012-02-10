@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -50,17 +50,18 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	addItemStringList("Patterns excluded", mPatternsExcluded);
 	addItemBool("Use system exclude list", mUseSystemExcludeList, true);
 	addItemBool("Use user exclude list", mUseUserExcludeList, true);
-	addItemInt("Schedule type", mScheduleType, 1);
+
+	addItemInt("Schedule type", mScheduleType, 2);
 	addItemInt("Schedule interval", mScheduleInterval, 1);
 	addItemInt("Schedule interval unit", mScheduleIntervalUnit, 3);
+	addItemInt("Usage limit", mUsageLimit, 25);
+	addItemBool("Ask first", mAskBeforeTakingBackup, true);
 
 	addItemInt("Destination type", mDestinationType, 1);
-
 	addItem(new KCoreConfigSkeleton::ItemUrl(currentGroup(),
 	                                         "Filesystem destination path",
 	                                         mFilesystemDestinationPath,
 	                                         QDir::homePath() + QDir::separator() + ".bup"));
-
 	addItemString("External drive UUID", mExternalUUID);
 	addItemPath("External drive destination path", mExternalDestinationPath, i18n("Backups"));
 
@@ -72,6 +73,7 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	addItemDateTime("Last complete backup", mLastCompleteBackup);
 	addItemDouble("Last backup size", mLastBackupSize);
 	addItemDouble("Last available space", mLastAvailableSpace);
+	addItemUInt("Accumulated usage time", mAccumulatedUsageTime);
 	readConfig();
 }
 
@@ -113,6 +115,48 @@ int BackupPlan::scheduleIntervalInSeconds() {
 	default:
 		return 0;
 	}
+}
+
+BackupPlan::Status BackupPlan::backupStatus() {
+	if(!mLastCompleteBackup.isValid())
+		return BAD;
+
+	int lStatus = 5; //trigger BAD status if schedule type is something strange
+	int lInterval = 1;
+
+	switch(mScheduleType) {
+	case MANUAL:
+		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTimeUtc());
+		lInterval = 60*60*24*7; //assume seven days is safe interval
+		break;
+	case INTERVAL:
+		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTimeUtc());
+		lInterval = scheduleIntervalInSeconds();
+		break;
+	case USAGE:
+		lStatus = mAccumulatedUsageTime;
+		lInterval = mUsageLimit * 3600;
+		break;
+	}
+
+	if(lStatus < lInterval)
+		return GOOD;
+	else if(lStatus < lInterval * 3)
+		return MEDIUM;
+	else
+		return BAD;
+}
+
+QString BackupPlan::iconName(Status pStatus) {
+	switch(pStatus) {
+	case GOOD:
+		return QLatin1String("security-high");
+	case MEDIUM:
+		return QLatin1String("security-medium");
+	case BAD:
+		return QLatin1String("security-low");
+	}
+	return QLatin1String("unknown");
 }
 
 void BackupPlan::usrReadConfig() {

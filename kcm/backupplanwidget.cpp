@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -35,6 +35,8 @@
 #include <KUrlRequester>
 
 #include <QBoxLayout>
+#include <QCheckBox>
+#include <QFile>
 #include <QFormLayout>
 #include <QLabel>
 #include <QRadioButton>
@@ -50,18 +52,24 @@ static void expandRecursively(const QModelIndex& pIndex, QTreeView* pTreeView) {
 ConfigIncludeDummy::ConfigIncludeDummy(FolderSelectionModel *pModel, QTreeView *pParent)
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)
 {
-	connect(mModel, SIGNAL(includePathsChanged()), this, SIGNAL(includeListChanged()));
+	connect(mModel, SIGNAL(includedPathsChanged()), this, SIGNAL(includeListChanged()));
 	KConfigDialogManager::changedMap()->insert("ConfigIncludeDummy", SIGNAL(includeListChanged()));
 }
 
 QStringList ConfigIncludeDummy::includeList() {
-	return mModel->includeFolders();
+	return mModel->includedFolders();
 }
 
 void ConfigIncludeDummy::setIncludeList(QStringList pIncludeList) {
-	mModel->setFolders(pIncludeList, mModel->excludeFolders());
+	for(int i = 0; i < pIncludeList.count(); ++i) {
+		if(!QFile::exists(pIncludeList.at(i))) {
+			pIncludeList.removeAt(i--);
+		}
+	}
+
+	mModel->setFolders(pIncludeList, mModel->excludedFolders());
 	mTreeView->collapseAll();
-	foreach(const QString& lFolder, mModel->includeFolders() + mModel->excludeFolders()) {
+	foreach(const QString& lFolder, mModel->includedFolders() + mModel->excludedFolders()) {
 		expandRecursively(mModel->index(lFolder).parent(), mTreeView);
 	}
 }
@@ -69,17 +77,23 @@ void ConfigIncludeDummy::setIncludeList(QStringList pIncludeList) {
 ConfigExcludeDummy::ConfigExcludeDummy(FolderSelectionModel *pModel, QTreeView *pParent)
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)
 {
-	connect(mModel, SIGNAL(excludePathsChanged()), this, SIGNAL(excludeListChanged()));
+	connect(mModel, SIGNAL(excludedPathsChanged()), this, SIGNAL(excludeListChanged()));
 	KConfigDialogManager::changedMap()->insert("ConfigExcludeDummy", SIGNAL(excludeListChanged()));
 }
 
 QStringList ConfigExcludeDummy::excludeList() {
-	return mModel->excludeFolders();
+	return mModel->excludedFolders();
 }
 
 void ConfigExcludeDummy::setExcludeList(QStringList pExcludeList) {
-	mModel->setFolders(mModel->includeFolders(), pExcludeList);
-	foreach(const QString& lFolder, mModel->includeFolders() + mModel->excludeFolders()) {
+	for(int i = 0; i < pExcludeList.count(); ++i) {
+		if(!QFile::exists(pExcludeList.at(i))) {
+			pExcludeList.removeAt(i--);
+		}
+	}
+
+	mModel->setFolders(mModel->includedFolders(), pExcludeList);
+	foreach(const QString& lFolder, mModel->includedFolders() + mModel->excludedFolders()) {
 		expandRecursively(mModel->index(lFolder).parent(), mTreeView);
 	}
 }
@@ -91,20 +105,27 @@ public:
 	FolderSelectionWidget(QWidget *pParent = 0)
 	   : QTreeView(pParent)
 	{
-		FolderSelectionModel *lModel = new FolderSelectionModel(this);
-		lModel->setRootPath("/");
+		mModel = new FolderSelectionModel(this);
+		mModel->setRootPath("/");
 		setAnimated(true);
-		setModel(lModel);
-		ConfigIncludeDummy *lIncludeDummy = new ConfigIncludeDummy(lModel, this);
+		setModel(mModel);
+		ConfigIncludeDummy *lIncludeDummy = new ConfigIncludeDummy(mModel, this);
 		lIncludeDummy->setObjectName("kcfg_Paths included");
-		ConfigExcludeDummy *lExcludeDummy = new ConfigExcludeDummy(lModel, this);
+		ConfigExcludeDummy *lExcludeDummy = new ConfigExcludeDummy(mModel, this);
 		lExcludeDummy->setObjectName("kcfg_Paths excluded");
 	}
+	FolderSelectionModel *mModel;
 };
 
 KPageWidgetItem *BackupPlanWidget::createSourcePage(QWidget *pParent) {
-	//TODO: perhaps add a checkbox for showing hidden files to the widget?
+//	QWidget *lSourceWidget = new QWidget(pParent);
+//	QVBoxLayout *lSourceLayout = new QVBoxLayout;
+//	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18n("Show hidden folders"));
+//	lSourceLayout->addWidget(lShowHiddenCheckBox);
 	FolderSelectionWidget *lSelectionWidget = new FolderSelectionWidget(pParent);
+//	lSourceLayout->addWidget(lSelectionWidget);
+//	lSourceWidget->setLayout(lSourceLayout);
+//	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), lSelectionWidget->mModel, SLOT(setHiddenFoldersShown(bool)));
 	KPageWidgetItem *lPage = new KPageWidgetItem(lSelectionWidget);
 	lPage->setName(i18n("Sources"));
 	lPage->setHeader(i18n("Select which folders to include in backup"));
@@ -179,8 +200,9 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage(QWidget *pParent) {
 }
 
 KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
-
-	KButtonGroup *lButtonGroup = new KButtonGroup(pParent);
+	QWidget *lTopWidget = new QWidget(pParent);
+	QVBoxLayout *lTopLayout = new QVBoxLayout;
+	KButtonGroup *lButtonGroup = new KButtonGroup;
 	lButtonGroup->setObjectName("kcfg_Schedule type");
 	lButtonGroup->setFlat(true);
 
@@ -190,7 +212,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	QVBoxLayout *lVLayout = new QVBoxLayout;
 	QRadioButton *lManualRadio = new QRadioButton(i18n("Manual Only"));
 	QRadioButton *lIntervalRadio = new QRadioButton(i18n("Interval"));
-//	QRadioButton *lContinousRadio = new QRadioButton(i18n("Continous"));
+	QRadioButton *lUsageRadio = new QRadioButton(i18n("Active Usage Time"));
 
 	QLabel *lManualLabel = new QLabel(i18n("Backups are only taken when manually requested. "
 	                                       "This can be done by using the popup menu from "
@@ -229,15 +251,44 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	lIntervalVertLayout->addLayout(lIntervalLayout, 1, 1);
 	lIntervalWidget->setLayout(lIntervalVertLayout);
 
+	QWidget *lUsageWidget = new QWidget;
+	lUsageWidget->setVisible(false);
+	QObject::connect(lUsageRadio, SIGNAL(toggled(bool)), lUsageWidget, SLOT(setVisible(bool)));
+	QLabel *lUsageLabel = new QLabel(i18n("New backup will be triggered when backup "
+	                                      "destination becomes available and you have "
+	                                      "been logged in for more than the configured "
+	                                      "limit since the last backup was taken."));
+	lUsageLabel->setWordWrap(true);
+	QGridLayout *lUsageVertLayout = new QGridLayout;
+	lUsageVertLayout->setColumnMinimumWidth(0, lIndentation);
+	lUsageVertLayout->addWidget(lUsageLabel, 0, 1);
+	QHBoxLayout *lUsageLayout = new QHBoxLayout;
+	KIntSpinBox *lUsageSpinBox = new KIntSpinBox;
+	lUsageSpinBox->setObjectName("kcfg_Usage limit");
+	lUsageSpinBox->setMinimum(1);
+	lUsageLayout->addWidget(lUsageSpinBox);
+	lUsageLayout->addWidget(new QLabel(i18n("hours")));
+	lUsageLayout->addStretch();
+	lUsageVertLayout->addLayout(lUsageLayout, 1, 1);
+	lUsageWidget->setLayout(lUsageVertLayout);
+
+	QCheckBox *lAskFirstCheckBox = new QCheckBox(i18n("Ask for confirmation before taking backup"));
+	lAskFirstCheckBox->setObjectName("kcfg_Ask first");
+
 	lVLayout->addWidget(lManualRadio);
 	lVLayout->addLayout(lManualLayout);
 	lVLayout->addWidget(lIntervalRadio);
 	lVLayout->addWidget(lIntervalWidget);
-//	lVLayout->addWidget(lContinousRadio);
-	lVLayout->addStretch();
+	lVLayout->addWidget(lUsageRadio);
+	lVLayout->addWidget(lUsageWidget);
 	lButtonGroup->setLayout(lVLayout);
 
-	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
+	lTopLayout->addWidget(lButtonGroup);
+	lTopLayout->addStretch();
+	lTopLayout->addWidget(lAskFirstCheckBox);
+	lTopWidget->setLayout(lTopLayout);
+
+	KPageWidgetItem *lPage = new KPageWidgetItem(lTopWidget);
 	lPage->setName(i18n("Schedule"));
 	lPage->setHeader(i18n("Specify the backup schedule"));
 	lPage->setIcon(KIcon("view-time-schedule"));

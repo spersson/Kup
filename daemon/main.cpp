@@ -1,7 +1,7 @@
 
 /***************************************************************************
  *   Copyright Simon Persson                                               *
- *   simonop@spray.se                                                      *
+ *   simonpersson1@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -39,8 +39,8 @@ int main(int argc, char **argv) {
 	if(lDaemon->shouldStart()) {
 		KAboutData lAbout("kupdaemon", "kup", ki18n("Kup Daemon"), version, ki18n(description),
 		                  KAboutData::License_GPL, ki18n("Copyright (C) 2011 Simon Persson"),
-		                  KLocalizedString(), 0, "simonop@spray.se");
-		lAbout.addAuthor( ki18n("Simon Persson"), KLocalizedString(), "simonop@spray.se" );
+		                  KLocalizedString(), 0, "simonpersson1@gmail.com");
+		lAbout.addAuthor( ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com" );
 		KCmdLineArgs::init(argc, argv, &lAbout);
 
 		KUniqueApplication::addCmdLineOptions();
