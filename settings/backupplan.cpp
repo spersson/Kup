@@ -28,7 +28,7 @@
 #include <KLocale>
 
 BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent)
-   :KCoreConfigSkeleton(pConfig, pParent), mPlanNumber(pPlanNumber)
+   :KConfigSkeleton(pConfig, pParent), mPlanNumber(pPlanNumber)
 {
 	setCurrentGroup(QString("Plan/%1").arg(mPlanNumber));
 
