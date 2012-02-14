@@ -54,6 +54,7 @@ void BupJob::startIndexing() {
 	mIndexProcess << QLatin1String("bup");
 	mIndexProcess << QLatin1String("-d") << mDestinationPath;
 	mIndexProcess << QLatin1String("index");
+	mIndexProcess << QLatin1String("-u");
 
 	foreach(QString lExclude, mPlan->mPathsExcluded) {
 		mIndexProcess << QLatin1String("--exclude");
