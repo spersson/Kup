@@ -151,10 +151,7 @@ void PlanExecutor::discardUserQuestion() {
 }
 
 void PlanExecutor::enterBackupRunningState() {
-	if(mQuestion) {
-		mQuestion->deleteLater();
-		mQuestion = NULL;
-	}
+	discardUserQuestion();
 	mState = RUNNING;
 	emit stateChanged();
 	mRunBackupAction->setEnabled(false);
@@ -193,7 +190,9 @@ void PlanExecutor::updateAccumulatedUsageTime() {
 		mPlan->writeConfig();
 	}
 
-	// trigger refresh of backup status, potentially changed...
+	// trigger refresh of backup status, potentially changed since some time has passed...
+	// this is the reason why this slot is called repeatedly even when
+	// not in BackupPlan::USAGE mode
 	emit backupStatusChanged();
 
 	//if we're waiting to run backup again, check if it is time now.

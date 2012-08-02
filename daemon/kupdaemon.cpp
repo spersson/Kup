@@ -35,8 +35,7 @@
 #include <KStatusNotifierItem>
 #include <KUniqueApplication>
 
-KupDaemon::KupDaemon()
-{
+KupDaemon::KupDaemon() {
 	mConfig = KSharedConfig::openConfig("kuprc");
 	mSettings = new KupSettings(mConfig, this);
 }
@@ -52,6 +51,8 @@ bool KupDaemon::shouldStart() {
 }
 
 void KupDaemon::setupGuiStuff() {
+	// timer to update logged time and also trigger warning if too long
+	// time has now passed since last backup
 	mUsageAccumulatorTimer = new QTimer(this);
 	mUsageAccumulatorTimer->start(KUP_USAGE_MONITOR_INTERVAL_S * 1000);
 
