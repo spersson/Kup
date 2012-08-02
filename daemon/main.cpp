@@ -36,33 +36,32 @@ static const char version[] = "0.1";
 
 int main(int argc, char **argv) {
 	KupDaemon *lDaemon = new KupDaemon();
-	if(lDaemon->shouldStart()) {
-		KAboutData lAbout("kupdaemon", "kup", ki18n("Kup Daemon"), version, ki18n(description),
-		                  KAboutData::License_GPL, ki18n("Copyright (C) 2011 Simon Persson"),
-		                  KLocalizedString(), 0, "simonpersson1@gmail.com");
-		lAbout.addAuthor( ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com" );
-		KCmdLineArgs::init(argc, argv, &lAbout);
-
-		KUniqueApplication::addCmdLineOptions();
-		if (!KUniqueApplication::start()) {
-			qWarning() <<i18n("Kup is already running!");
-			return 0;
-		}
-		KUniqueApplication lApp;
-
-// Use for debugging...
-//		KApplication lApp;
-
-		lApp.setQuitOnLastWindowClosed(false);
-		lApp.disableSessionManagement();
-
-		KStartupInfo::appStarted(); //make startup notification go away.
-
-		lDaemon->setupGuiStuff();
-
-		return lApp.exec();
-	} else {
-		qWarning() <<i18n("Kup is not enabled, enable it from system settings module.");
+	if(!lDaemon->shouldStart()) {
+		qWarning() <<i18n("Kup is not enabled, enable it from the system settings module.");
 		return 0;
 	}
+	KAboutData lAbout("kupdaemon", "kup", ki18n("Kup Daemon"), version, ki18n(description),
+	                  KAboutData::License_GPL, ki18n("Copyright (C) 2011 Simon Persson"),
+	                  KLocalizedString(), 0, "simonpersson1@gmail.com");
+	lAbout.addAuthor( ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com" );
+	KCmdLineArgs::init(argc, argv, &lAbout);
+
+	KUniqueApplication::addCmdLineOptions();
+	if (!KUniqueApplication::start()) {
+		qWarning() <<i18n("Kup is already running!");
+		return 0;
+	}
+	KUniqueApplication lApp;
+
+	// Use for debugging...
+	//		KApplication lApp;
+
+	lApp.setQuitOnLastWindowClosed(false);
+	lApp.disableSessionManagement();
+
+	KStartupInfo::appStarted(); //make startup notification go away.
+
+	lDaemon->setupGuiStuff();
+
+	return lApp.exec();
 }
