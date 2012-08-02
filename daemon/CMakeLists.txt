@@ -18,7 +18,7 @@ kupsettings
 ${KDE4_KDEUI_LIBS}
 ${KDE4_KFILE_LIBS}
 ${KDE4_SOLID_LIBS}
-#${KDE4_KIO_LIBS}
+${KDE4_KIDLETIME_LIBS}
 )
 
 ########### install files ###############

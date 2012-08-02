@@ -27,6 +27,7 @@
 #include <QDBusConnection>
 #include <QTimer>
 
+#include <KIdleTime>
 #include <KLocale>
 #include <KMenu>
 #include <KRun>
@@ -44,6 +45,7 @@ KupDaemon::~KupDaemon() {
 	while(!mExecutors.isEmpty()) {
 		delete mExecutors.takeFirst();
 	}
+	KIdleTime::instance()->removeAllIdleTimeouts();
 }
 
 bool KupDaemon::shouldStart() {
@@ -54,7 +56,12 @@ void KupDaemon::setupGuiStuff() {
 	// timer to update logged time and also trigger warning if too long
 	// time has now passed since last backup
 	mUsageAccumulatorTimer = new QTimer(this);
-	mUsageAccumulatorTimer->start(KUP_USAGE_MONITOR_INTERVAL_S * 1000);
+	mUsageAccumulatorTimer->setInterval(KUP_USAGE_MONITOR_INTERVAL_S * 1000);
+	mUsageAccumulatorTimer->start();
+	KIdleTime::instance()->addIdleTimeout(KUP_IDLE_TIMEOUT_S * 1000);
+	connect(KIdleTime::instance(), SIGNAL(timeoutReached(int)), mUsageAccumulatorTimer, SLOT(stop()));
+	connect(KIdleTime::instance(), SIGNAL(timeoutReached(int)), KIdleTime::instance(), SLOT(catchNextResumeEvent()));
+	connect(KIdleTime::instance(), SIGNAL(resumingFromIdle()), mUsageAccumulatorTimer, SLOT(start()));
 
 	setupTrayIcon();
 	setupExecutors();

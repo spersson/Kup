@@ -33,7 +33,10 @@ class QAction;
 class QMenu;
 class QTimer;
 
-#define KUP_USAGE_MONITOR_INTERVAL_S 10*60
+// Accumulate usage time every KUP_USAGE_MONITOR_INTERVAL_S while user is active.
+// Consider user inactive after KUP_IDLE_TIMEOUT_S s of no keyboard or mouse activity.
+#define KUP_USAGE_MONITOR_INTERVAL_S 2*60
+#define KUP_IDLE_TIMEOUT_S 30
 
 class PlanExecutor : public QObject
 {
