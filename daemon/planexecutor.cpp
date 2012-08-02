@@ -254,7 +254,7 @@ void PlanExecutor::bupFuseFinished(int pExitCode, QProcess::ExitStatus pExitStat
 
 void PlanExecutor::showMountedBackup() {
 	if(mOkToShowBackup) {
-		KRun::runUrl(KUrl(mTempDir + "kup"), QLatin1String("inode/directory"), 0);
+		KRun::runUrl(KUrl(mTempDir + QLatin1String("kup")), QLatin1String("inode/directory"), 0);
 		mShowFilesAction->setChecked(true);
 	}
 }

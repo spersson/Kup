@@ -21,7 +21,6 @@
 #include "bupjob.h"
 #include "backupplan.h"
 
-#include <QDebug>
 #include <KLocale>
 
 #include <QTimer>
@@ -51,10 +50,7 @@ void BupJob::startIndexing() {
 		return;
 	}
 
-	mIndexProcess << QLatin1String("bup");
-	mIndexProcess << QLatin1String("-d") << mDestinationPath;
-	mIndexProcess << QLatin1String("index");
-	mIndexProcess << QLatin1String("-u");
+	mIndexProcess << QLatin1String("bup") << QLatin1String("index") << QLatin1String("-u");
 
 	foreach(QString lExclude, mPlan->mPathsExcluded) {
 		mIndexProcess << QLatin1String("--exclude");
@@ -79,10 +75,9 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		return;
 	}
 
-	mSaveProcess << QLatin1String("bup");
-	mSaveProcess << QLatin1String("-d") << mDestinationPath;
-	mSaveProcess << QLatin1String("save");
+	mSaveProcess << QLatin1String("bup") << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
+	mSaveProcess << QLatin1String("-r") << mDestinationPath;
 
 	foreach(QString lInclude, mPlan->mPathsIncluded) {
 		mSaveProcess << lInclude;
