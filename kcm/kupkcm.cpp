@@ -178,6 +178,7 @@ void KupKcm::addPlan() {
 	mStatusWidgets.append(NULL);
 	createPlanWidgets(mPlans.count() - 1);
 	updateChangedStatus();
+	mStatusWidgets.at(mPlans.count() - 1)->mConfigureButton->click();
 }
 
 void KupKcm::createSettingsFrontPage() {
