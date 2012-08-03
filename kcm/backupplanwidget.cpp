@@ -159,6 +159,8 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage(QWidget *pParent) {
 	QLabel *lDriveDestLabel = new QLabel(i18n("Folder on Destination Drive:"));
 	KLineEdit *lDriveDestination = new KLineEdit;
 	lDriveDestination->setObjectName("kcfg_External drive destination path");
+	lDriveDestination->setToolTip(i18n("The specified folder will be created if it does not exist."));
+	lDriveDestLabel->setToolTip(i18n("The specified folder will be created if it does not exist."));
 	lDriveDestLabel->setBuddy(lDriveDestination);
 	lDriveHoriLayout->addWidget(lDriveDestLabel);
 	lDriveHoriLayout->addWidget(lDriveDestination);
@@ -254,10 +256,10 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	QWidget *lUsageWidget = new QWidget;
 	lUsageWidget->setVisible(false);
 	QObject::connect(lUsageRadio, SIGNAL(toggled(bool)), lUsageWidget, SLOT(setVisible(bool)));
-	QLabel *lUsageLabel = new QLabel(i18n("New backup will be triggered when backup "
-	                                      "destination becomes available and you have "
-	                                      "been logged in for more than the configured "
-	                                      "limit since the last backup was taken."));
+	QLabel *lUsageLabel = new QLabel(i18n("New backup will be triggered when backup destination "
+	                                      "becomes available and you have been using your "
+	                                      "computer actively for more than the configured "
+	                                      "time limit since the last backup was taken."));
 	lUsageLabel->setWordWrap(true);
 	QGridLayout *lUsageVertLayout = new QGridLayout;
 	lUsageVertLayout->setColumnMinimumWidth(0, lIndentation);
@@ -284,8 +286,9 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	lButtonGroup->setLayout(lVLayout);
 
 	lTopLayout->addWidget(lButtonGroup);
-	lTopLayout->addStretch();
+	lTopLayout->addSpacing(lAskFirstCheckBox->fontMetrics().height());
 	lTopLayout->addWidget(lAskFirstCheckBox);
+	lTopLayout->addStretch();
 	lTopWidget->setLayout(lTopLayout);
 
 	KPageWidgetItem *lPage = new KPageWidgetItem(lTopWidget);
