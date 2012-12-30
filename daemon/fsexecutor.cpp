@@ -106,7 +106,7 @@ void FSExecutor::startBackup() {
 
 void FSExecutor::slotBackupDone(KJob *pJob) {
 	if(pJob->error()) {
-		KNotification::event(KNotification::Error, i18n("Problem"), pJob->errorText());
+		KNotification::event(KNotification::Error, i18nc("@title", "Problem"), pJob->errorText());
 		exitBackupRunningState(false);
 	} else {
 		mPlan->mLastCompleteBackup = QDateTime::currentDateTime().toUTC();
@@ -124,7 +124,7 @@ void FSExecutor::slotBackupDone(KJob *pJob) {
 
 void FSExecutor::slotBackupSizeDone(KJob *pJob) {
 	if(pJob->error()) {
-		KNotification::event(KNotification::Error, i18n("Problem"), pJob->errorText());
+		KNotification::event(KNotification::Error, i18nc("@title", "Problem"), pJob->errorText());
 		mPlan->mLastBackupSize = -1.0; //unknown size
 	} else {
 		KIO::DirectorySizeJob *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);

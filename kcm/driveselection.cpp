@@ -88,7 +88,7 @@ void DriveSelection::reloadDrives()
 		QStandardItem *item = new QStandardItem();
 //		QString name = daemon->getDeviceName();
 //		if (name.isEmpty())
-		item->setText(i18n("Selected Backup Device (disconnected)"));
+		item->setText(i18nc("@item", "Selected Backup Device (disconnected)"));
 //		else
 //			item->setText(i18n("%1 (disconnected)").arg(name));
 

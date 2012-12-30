@@ -7,7 +7,5 @@ X-KDE-Library=kcm_kup
 X-KDE-ParentApp=kcontrol
 X-KDE-System-Settings-Parent-Category=system-administration
 
-Name=Backups
-Name[sv]=Säkerhetskopior
-Comment=Configure backup plans
-Comment[sv]=Konfigurera planer för säkerhetskopiering
+_Name=Backups
+_Comment=Configure backup plans

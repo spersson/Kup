@@ -16,6 +16,7 @@ add_subdirectory(settings)
 add_subdirectory(kcm)
 add_subdirectory(daemon)
 add_subdirectory(icons)
+add_subdirectory(po)
 #add_subdirectory(runner)
 #add_subdirectory(kioslave)
 

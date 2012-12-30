@@ -40,12 +40,12 @@
 #include <KPushButton>
 
 K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
-K_EXPORT_PLUGIN(KupKcmFactory("kcm_kup"))
+K_EXPORT_PLUGIN(KupKcmFactory("kcm_kup", "kup"))
 
 KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
    : KCModule(KupKcmFactory::componentData(), pParent, pArgs)
 {
-	KAboutData *lAboutData = new KAboutData("kcm_kup", "kcm_kup", ki18n("Kup Configuration Module"),
+	KAboutData *lAboutData = new KAboutData("kcm_kup", 0, ki18n("Kup Configuration Module"),
 	                                        "0.1.0", ki18n("Configuration of backup plans for the Kup backup system"),
 	                                        KAboutData::License_GPL, ki18n("Copyright 2011 Simon Persson"));
 	lAboutData->addAuthor(ki18n("Simon Persson"), ki18n("Maintainer"), "simonpersson1@gmail.com");
@@ -192,10 +192,10 @@ void KupKcm::createSettingsFrontPage() {
 	lScrollArea->setWidgetResizable(true);
 	lScrollArea->setFrameStyle(QFrame::NoFrame);
 
-	mAddPlanButton = new KPushButton(KIcon("list-add"), i18n("Add New Plan"));
+	mAddPlanButton = new KPushButton(KIcon("list-add"), i18nc("@action:button", "Add New Plan"));
 	connect(mAddPlanButton, SIGNAL(clicked()), this, SLOT(addPlan()));
 
-	mEnableCheckBox = new QCheckBox(i18n("Backups Enabled"));
+	mEnableCheckBox = new QCheckBox(i18nc("@option:check", "Backups Enabled"));
 	mEnableCheckBox->setObjectName("kcfg_Backups enabled");
 	connect(mEnableCheckBox, SIGNAL(toggled(bool)), mAddPlanButton, SLOT(setEnabled(bool)));
 

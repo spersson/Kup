@@ -33,12 +33,12 @@
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
    :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mBupFuseProcess(NULL), mQuestion(NULL), mOkToShowBackup(false)
 {
-	mShowFilesAction = new QAction(i18n("Show Files"), this);
+	mShowFilesAction = new QAction(i18nc("@action:inmenu", "Show Files"), this);
 	mShowFilesAction->setCheckable(true);
 	mShowFilesAction->setEnabled(false);
 	connect(mShowFilesAction, SIGNAL(triggered()), SLOT(showFilesClicked()));
 
-	mRunBackupAction = new QAction(i18n("Take Backup Now"), this);
+	mRunBackupAction = new QAction(i18nc("@action:inmenu", "Take Backup Now"), this);
 	mRunBackupAction->setEnabled(false);
 	connect(mRunBackupAction, SIGNAL(triggered()), SLOT(enterBackupRunningState()));
 
@@ -79,10 +79,10 @@ void PlanExecutor::enterAvailableState() {
 		if(!lNextTime.isValid() || lNextTime < lNow) {
 			lShouldBeTakenNow = true;
 			if(!mPlan->mLastCompleteBackup.isValid())
-				lUserQuestion = i18n("Do you want to take a first backup now?");
+				lUserQuestion = i18nc("@info", "Do you want to take a first backup now?");
 			else {
 				QString t = KGlobal::locale()->prettyFormatDuration(mPlan->mLastCompleteBackup.secsTo(lNow) * 1000);
-				lUserQuestion = i18n("It's been %1 since the last backup was taken, "
+				lUserQuestion = i18nc("@info", "It's been %1 since the last backup was taken, "
 				                     "do you want to take a backup now?", t);
 			}
 		} else {
@@ -94,11 +94,11 @@ void PlanExecutor::enterAvailableState() {
 	case BackupPlan::USAGE:
 		if(!mPlan->mLastCompleteBackup.isValid()) {
 			lShouldBeTakenNow = true;
-			lUserQuestion = i18n("Do you want to take a first backup now?");
+			lUserQuestion = i18nc("@info", "Do you want to take a first backup now?");
 		} else if(mPlan->mAccumulatedUsageTime > (quint32)mPlan->mUsageLimit * 3600) {
 			lShouldBeTakenNow = true;
 			QString t = KGlobal::locale()->prettyFormatDuration(mPlan->mAccumulatedUsageTime * 1000);
-			lUserQuestion = i18n("You've been logged in for %1 since the last backup was taken, "
+			lUserQuestion = i18nc("@info", "You've been active with this computer for %1 since the last backup was taken, "
 			                     "do you want to take a backup now?", t);
 		}
 		break;
@@ -128,10 +128,10 @@ void PlanExecutor::enterNotAvailableState() {
 
 void PlanExecutor::askUser(const QString &pQuestion) {
 	mQuestion = new KNotification(QLatin1String("StartBackup"), KNotification::Persistent);
-	mQuestion->setTitle(i18n("Backup Device Available - %1", mPlan->mDescription));
+	mQuestion->setTitle(i18nc("@title:window", "Backup Device Available - %1", mPlan->mDescription));
 	mQuestion->setText(pQuestion);
 	QStringList lAnswers;
-	lAnswers << i18n("Yes") <<i18n("No");
+	lAnswers << i18nc("@action:button", "Yes") << i18nc("@action:button", "No");
 	mQuestion->setActions(lAnswers);
 	connect(mQuestion, SIGNAL(action1Activated()), SLOT(enterBackupRunningState()));
 	connect(mQuestion, SIGNAL(action2Activated()), SLOT(discardUserQuestion()));
@@ -234,14 +234,20 @@ void PlanExecutor::unmountBupFuse() {
 	lUnmount.setOutputChannelMode(KProcess::OnlyStderrChannel);
 	lUnmount << QLatin1String("fusermount") << QLatin1String("-u") <<mTempDir;
 	if(lUnmount.execute()) {
-		KNotification::event(KNotification::Error, i18n("Error when trying to unmount backup"), lUnmount.readAllStandardError());
+		KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
+		                     i18nc("@info", "Error when trying to unmount backup archive:</nl>"
+		                           "<message>%1</message>",
+		                           QString::fromLocal8Bit(lUnmount.readAllStandardError())));
 		mShowFilesAction->setChecked(true);
 	}
 }
 
 void PlanExecutor::bupFuseFinished(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		KNotification::event(KNotification::Error, i18n("Error when trying to mount backup"), mBupFuseProcess->readAllStandardError());
+		KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
+		                     i18nc("@info", "Error when trying to mount backup archive:</nl>"
+		                           "<message>%1</message>",
+		                           QString::fromLocal8Bit(mBupFuseProcess->readAllStandardError())));
 	}
 
 	mShowFilesAction->setChecked(false);

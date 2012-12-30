@@ -100,21 +100,21 @@ void KupDaemon::showConfig() {
 void KupDaemon::updateTrayIcon() {
 	KStatusNotifierItem::ItemStatus lStatus = KStatusNotifierItem::Passive;
 	QString lIconName = QLatin1String("kup");
-	QString lToolTipTitle = i18n("Backup destination unavailable");
-	QString lToolTipSubTitle = i18n("Backup status OK");
+	QString lToolTipTitle = i18nc("@info:tooltip", "Backup destination unavailable");
+	QString lToolTipSubTitle = i18nc("@info:tooltip", "Backup status OK");
 	QString lToolTipIconName = BackupPlan::iconName(BackupPlan::GOOD);
 
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->destinationAvailable()) {
 			lStatus = KStatusNotifierItem::Active;
-			lToolTipTitle = i18n("Backup destination available");
+			lToolTipTitle = i18nc("@info:tooltip", "Backup destination available");
 		}
 	}
 
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->planStatus() == BackupPlan::MEDIUM) {
 			lToolTipIconName = BackupPlan::iconName(BackupPlan::MEDIUM);
-			lToolTipSubTitle = i18n("New backup suggested");
+			lToolTipSubTitle = i18nc("@info:tooltip", "New backup suggested");
 		}
 	}
 
@@ -125,14 +125,14 @@ void KupDaemon::updateTrayIcon() {
 			}
 			lIconName = BackupPlan::iconName(BackupPlan::BAD);
 			lToolTipIconName = BackupPlan::iconName(BackupPlan::BAD);
-			lToolTipSubTitle = i18n("New backup neeeded");
+			lToolTipSubTitle = i18nc("@info:tooltip", "New backup neeeded");
 		}
 	}
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->running()) {
 			lStatus = KStatusNotifierItem::NeedsAttention;
 			lToolTipIconName = QLatin1String("kup");
-			lToolTipTitle = i18n("Taking new backup");
+			lToolTipTitle = i18nc("@info:tooltip", "Taking new backup");
 			lToolTipSubTitle = lExec->description(); // TODO: show percentage etc.
 		}
 	}
@@ -170,13 +170,13 @@ void KupDaemon::setupTrayIcon() {
 	mStatusNotifier = new KStatusNotifierItem(this);
 	mStatusNotifier->setCategory(KStatusNotifierItem::SystemServices);
 	mStatusNotifier->setStandardActionsEnabled(false);
-	mStatusNotifier->setTitle(i18n("Backups"));
+	mStatusNotifier->setTitle(i18nc("@title:window", "Backups"));
 	mStatusNotifier->setAttentionMovieByName(QLatin1String("kuprunning"));
 }
 
 void KupDaemon::setupContextMenu() {
-	mContextMenu = new KMenu(i18n("Backups"));
-	mContextMenu->addAction(i18n("Configure Backups"), this, SLOT(showConfig()));
+	mContextMenu = new KMenu(i18nc("@title:menu", "Backups"));
+	mContextMenu->addAction(i18nc("@action:inmenu", "Configure Backups"), this, SLOT(showConfig()));
 	foreach(PlanExecutor *lExec, mExecutors) {
 		mContextMenu->addMenu(lExec->planActions());
 	}

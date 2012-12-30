@@ -127,8 +127,8 @@ KPageWidgetItem *BackupPlanWidget::createSourcePage(QWidget *pParent) {
 //	lSourceWidget->setLayout(lSourceLayout);
 //	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), lSelectionWidget->mModel, SLOT(setHiddenFoldersShown(bool)));
 	KPageWidgetItem *lPage = new KPageWidgetItem(lSelectionWidget);
-	lPage->setName(i18n("Sources"));
-	lPage->setHeader(i18n("Select which folders to include in backup"));
+	lPage->setName(i18nc("@title", "Sources"));
+	lPage->setHeader(i18nc("@label", "Select which folders to include in backup"));
 	lPage->setIcon(KIcon("folder-important"));
 	return lPage;
 }
@@ -138,9 +138,9 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage(QWidget *pParent) {
 	lButtonGroup->setObjectName("kcfg_Destination type");
 	lButtonGroup->setFlat(true);
 	QVBoxLayout *lVLayout = new QVBoxLayout;
-	QRadioButton *lFileSystemRadio = new QRadioButton(i18n("Local Filesystem"));
-	QRadioButton *lDriveRadio = new QRadioButton(i18n("External Storage"));
-//	QRadioButton *lSshRadio = new QRadioButton(i18n("SSH Server"));
+	QRadioButton *lFileSystemRadio = new QRadioButton(i18nc("@option:radio", "Local Filesystem"));
+	QRadioButton *lDriveRadio = new QRadioButton(i18nc("@option:radio", "External Storage"));
+//	QRadioButton *lSshRadio = new QRadioButton(i18nc("@option:radio", "SSH Server"));
 
 	KUrlRequester *lUrlEdit = new KUrlRequester;
 	lUrlEdit->setVisible(false);
@@ -156,11 +156,11 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage(QWidget *pParent) {
 	lDriveSelection->setObjectName("kcfg_External drive UUID");
 	lDriveLayout->addWidget(lDriveSelection);
 	QHBoxLayout *lDriveHoriLayout = new QHBoxLayout;
-	QLabel *lDriveDestLabel = new QLabel(i18n("Folder on Destination Drive:"));
+	QLabel *lDriveDestLabel = new QLabel(i18nc("@label:textbox", "Folder on Destination Drive:"));
 	KLineEdit *lDriveDestination = new KLineEdit;
 	lDriveDestination->setObjectName("kcfg_External drive destination path");
-	lDriveDestination->setToolTip(i18n("The specified folder will be created if it does not exist."));
-	lDriveDestLabel->setToolTip(i18n("The specified folder will be created if it does not exist."));
+	lDriveDestination->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
+	lDriveDestLabel->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
 	lDriveDestLabel->setBuddy(lDriveDestination);
 	lDriveHoriLayout->addWidget(lDriveDestLabel);
 	lDriveHoriLayout->addWidget(lDriveDestination);
@@ -195,8 +195,8 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage(QWidget *pParent) {
 	lButtonGroup->setLayout(lVLayout);
 
 	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
-	lPage->setName(i18n("Destination"));
-	lPage->setHeader(i18n("Select the backup destination"));
+	lPage->setName(i18nc("@title", "Destination"));
+	lPage->setHeader(i18nc("@label", "Select the backup destination"));
 	lPage->setIcon(KIcon("folder-downloads"));
 	return lPage;
 }
@@ -212,11 +212,11 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	      lButtonGroup->style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing);
 
 	QVBoxLayout *lVLayout = new QVBoxLayout;
-	QRadioButton *lManualRadio = new QRadioButton(i18n("Manual Only"));
-	QRadioButton *lIntervalRadio = new QRadioButton(i18n("Interval"));
-	QRadioButton *lUsageRadio = new QRadioButton(i18n("Active Usage Time"));
+	QRadioButton *lManualRadio = new QRadioButton(i18nc("@option:radio", "Manual Only"));
+	QRadioButton *lIntervalRadio = new QRadioButton(i18nc("@option:radio", "Interval"));
+	QRadioButton *lUsageRadio = new QRadioButton(i18nc("@option:radio", "Active Usage Time"));
 
-	QLabel *lManualLabel = new QLabel(i18n("Backups are only taken when manually requested. "
+	QLabel *lManualLabel = new QLabel(i18nc("@info", "Backups are only taken when manually requested. "
 	                                       "This can be done by using the popup menu from "
 	                                       "the backup system tray icon."));
 	lManualLabel->setVisible(false);
@@ -229,7 +229,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	QWidget *lIntervalWidget = new QWidget;
 	lIntervalWidget->setVisible(false);
 	QObject::connect(lIntervalRadio, SIGNAL(toggled(bool)), lIntervalWidget, SLOT(setVisible(bool)));
-	QLabel *lIntervalLabel = new QLabel(i18n("New backup will be triggered when backup "
+	QLabel *lIntervalLabel = new QLabel(i18nc("@info", "New backup will be triggered when backup "
 	                                         "destination becomes available and more than "
 	                                         "the configured interval has passed since the "
 	                                         "last backup was taken."));
@@ -244,10 +244,10 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	lIntervalLayout->addWidget(lIntervalSpinBox);
 	KComboBox *lIntervalUnit = new KComboBox;
 	lIntervalUnit->setObjectName("kcfg_Schedule interval unit");
-	lIntervalUnit->addItem(i18n("Minutes"));
-	lIntervalUnit->addItem(i18n("Hours"));
-	lIntervalUnit->addItem(i18n("Days"));
-	lIntervalUnit->addItem(i18n("Weeks"));
+	lIntervalUnit->addItem(i18nc("@item:inlistbox", "Minutes"));
+	lIntervalUnit->addItem(i18nc("@item:inlistbox", "Hours"));
+	lIntervalUnit->addItem(i18nc("@item:inlistbox", "Days"));
+	lIntervalUnit->addItem(i18nc("@item:inlistbox", "Weeks"));
 	lIntervalLayout->addWidget(lIntervalUnit);
 	lIntervalLayout->addStretch();
 	lIntervalVertLayout->addLayout(lIntervalLayout, 1, 1);
@@ -256,7 +256,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	QWidget *lUsageWidget = new QWidget;
 	lUsageWidget->setVisible(false);
 	QObject::connect(lUsageRadio, SIGNAL(toggled(bool)), lUsageWidget, SLOT(setVisible(bool)));
-	QLabel *lUsageLabel = new QLabel(i18n("New backup will be triggered when backup destination "
+	QLabel *lUsageLabel = new QLabel(i18nc("@info", "New backup will be triggered when backup destination "
 	                                      "becomes available and you have been using your "
 	                                      "computer actively for more than the configured "
 	                                      "time limit since the last backup was taken."));
@@ -269,12 +269,12 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	lUsageSpinBox->setObjectName("kcfg_Usage limit");
 	lUsageSpinBox->setMinimum(1);
 	lUsageLayout->addWidget(lUsageSpinBox);
-	lUsageLayout->addWidget(new QLabel(i18n("hours")));
+	lUsageLayout->addWidget(new QLabel(i18nc("@item:inlistbox", "Hours")));
 	lUsageLayout->addStretch();
 	lUsageVertLayout->addLayout(lUsageLayout, 1, 1);
 	lUsageWidget->setLayout(lUsageVertLayout);
 
-	QCheckBox *lAskFirstCheckBox = new QCheckBox(i18n("Ask for confirmation before taking backup"));
+	QCheckBox *lAskFirstCheckBox = new QCheckBox(i18nc("@option:check", "Ask for confirmation before taking backup"));
 	lAskFirstCheckBox->setObjectName("kcfg_Ask first");
 
 	lVLayout->addWidget(lManualRadio);
@@ -292,8 +292,8 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	lTopWidget->setLayout(lTopLayout);
 
 	KPageWidgetItem *lPage = new KPageWidgetItem(lTopWidget);
-	lPage->setName(i18n("Schedule"));
-	lPage->setHeader(i18n("Specify the backup schedule"));
+	lPage->setName(i18nc("@title", "Schedule"));
+	lPage->setHeader(i18nc("@label", "Specify the backup schedule"));
 	lPage->setIcon(KIcon("view-time-schedule"));
 	return lPage;
 }
@@ -307,9 +307,9 @@ BackupPlanWidget::BackupPlanWidget(bool pCreatePages, QWidget *pParent)
 	mDescriptionEdit = new KLineEdit;
 	mDescriptionEdit->setObjectName("kcfg_Description");
 	mDescriptionEdit->setClearButtonShown(true);
-	QLabel *lDescriptionLabel = new QLabel(i18n("Description:"));
+	QLabel *lDescriptionLabel = new QLabel(i18nc("@label", "Description:"));
 	lDescriptionLabel->setBuddy(mDescriptionEdit);
-	mConfigureButton = new KPushButton(KIcon("go-previous-view"), i18n("Back to overview"));
+	mConfigureButton = new KPushButton(KIcon("go-previous-view"), i18nc("@action:button", "Back to overview"));
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(requestOverviewReturn()));
 
 	mConfigPages = new KPageWidget;

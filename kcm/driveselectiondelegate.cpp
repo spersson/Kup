@@ -60,8 +60,9 @@ void DriveSelectionDelegate::paint(QPainter* painter, const QStyleOptionViewItem
 					else {
 						KDiskFreeSpaceInfo info = KDiskFreeSpaceInfo::freeSpaceInfo(access->filePath());
 						if (info.isValid()) {
-							label = i18n("%1: %2 total capacity", volume->label(), lLocale->formatByteSize(info.size(), 1));
-							freeSpace = i18nc("available size of hard drive","%1 free",
+							label = i18nc("@label %1 is drive(partition) label, %2 is storage capacity",
+							              "%1: %2 total capacity", volume->label(), lLocale->formatByteSize(info.size(), 1));
+							freeSpace = i18nc("@label %1 is amount of free storage space of hard drive","%1 free",
 							                  lLocale->formatByteSize(info.size() - info.used(), 1));
 							KCapacityBar capacityBar(KCapacityBar::DrawTextInline);
 							capacityBar.setValue((info.used() * 100) / info.size());
@@ -78,8 +79,9 @@ void DriveSelectionDelegate::paint(QPainter* painter, const QStyleOptionViewItem
 		capacityBar.setValue((lUsedSize * 100) / lTotalSize);
 		capacityBar.drawCapacityBar(painter, option.rect.adjusted(cMargin, cMargin+QApplication::fontMetrics().height()+cMargin, -cMargin, -cMargin));
 
-		label = i18n("%1: %2 total capacity", index.data().toString(), lLocale->formatByteSize(lTotalSize, 1));
-		freeSpace = i18nc("available size of hard drive","%1 free",
+		label = i18nc("@label %1 is drive(partition) label, %2 is storage capacity",
+		         "%1: %2 total capacity", index.data().toString(), lLocale->formatByteSize(lTotalSize, 1));
+		freeSpace = i18nc("@label %1 is amount of free storage space of hard drive","%1 free",
 		                  lLocale->formatByteSize(lTotalSize - lUsedSize, 1));
 	}
 	if (option.state & QStyle::State_Selected)

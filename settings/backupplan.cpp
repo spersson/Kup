@@ -32,7 +32,9 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 {
 	setCurrentGroup(QString("Plan/%1").arg(mPlanNumber));
 
-	addItemString("Description", mDescription, i18n("Backup plan %1").arg(pPlanNumber));
+	addItemString("Description", mDescription,
+	              i18nc("@label Default name for a new backup plan, %1 is the number of the plan in order",
+	                    "Backup plan %1", pPlanNumber));
 	QStringList lDefaultIncludeList;
 	lDefaultIncludeList << QDir::homePath();
 	addItemStringList("Paths included", mPathsIncluded, lDefaultIncludeList);

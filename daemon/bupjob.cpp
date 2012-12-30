@@ -44,8 +44,8 @@ void BupJob::startIndexing() {
 
 	if(mInitProcess.execute() != 0) {
 		setError(1);
-		setErrorText(i18n("Backup destination could not be initialised by bup:\n%1",
-		                  QString(mInitProcess.readAllStandardError())));
+		setErrorText(i18nc("@info", "Backup destination could not be initialised by bup:</nl>"
+		                   "<message>%1</message>", QString(mInitProcess.readAllStandardError())));
 		emitResult();
 		return;
 	}
@@ -63,14 +63,14 @@ void BupJob::startIndexing() {
 
 	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
 	mIndexProcess.start();
-	emit description(this, i18n("Checking what has changed since last backup..."));
+	emit description(this, i18nc("@info:progress", "Checking what has changed since last backup..."));
 }
 
 void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		setError(1);
-		setErrorText(i18n("Indexing of file system did not complete successfully:\n%1",
-		                  QString(mIndexProcess.readAllStandardError())));
+		setErrorText(i18nc("@info", "Indexing of file system did not complete successfully:</nl>"
+		                   "<message>%1</message>", QString(mIndexProcess.readAllStandardError())));
 		emitResult();
 		return;
 	}
@@ -85,14 +85,14 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
 	mSaveProcess.start();
-	emit description(this, i18n("Saving changes to backup destination..."));
+	emit description(this, i18nc("@info:progress", "Saving changes to backup destination..."));
 }
 
 void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		setError(1);
-		setErrorText(i18n("Backup did not complete successfully:\n%1",
-		                  QString(mSaveProcess.readAllStandardError())));
+		setErrorText(i18nc("@info", "Backup did not complete successfully:</nl>"
+		                   "<message>%1</message>", QString(mSaveProcess.readAllStandardError())));
 	}
 	emitResult();
 }
