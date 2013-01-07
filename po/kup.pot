@@ -414,6 +414,10 @@ msgstr ""
 msgid "Configure backup plans"
 msgstr ""
 
+#: po/rc.cpp:5 rc.cpp:5
+msgid "backup,recovery,safety"
+msgstr ""
+
 #: runner/main.cpp:36
 msgid "Kup Runner"
 msgstr ""

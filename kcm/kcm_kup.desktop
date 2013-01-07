@@ -11,3 +11,5 @@ Name=Backups
 Name[sv]=Säkerhetskopior
 Comment=Configure backup plans
 Comment[sv]=Konfigurera planer för säkerhetskopiering
+X-KDE-Keywords=backup,recovery,safety
+X-KDE-Keywords[sv]=säkerhetskopior,återställning,backup
