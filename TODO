@@ -9,7 +9,12 @@
  - Continous backups: monitoring the local filesystem for changes and imediately backing up 
    the changed file if destination is available.
  - Make bup give out percentage complete and use this to present completion in systray tooltip.
+    - Patch done and posted to mailing list, probably no one noticed...
  - Figure out a file format for backup exclude config files, maybe system-wide under something like /etc/backup-exclude.d/10-firefox-cache.exclude
    and user specific could be under ~/.config/fd.o/backup-exclude.d/
  - Make an "Advanced" page of backup plan configuration to tweak behaviors. Like whether to respect those exclude lists or not.
  - Clean up code for driveselection/driveselectiondelegate. Ugly to ask solid for devices from a paint() funtion! 
+ - Make it possible to select/deselect hidden folders.
+ - Add a kauth-based runner for running a backup job as root.
+ - Make use of nice and ionice for running the backups.
+ - Fix driveselection to also show partition label for disconnected drive.
