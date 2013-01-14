@@ -24,6 +24,7 @@
 #include <QWidget>
 
 class BackupPlan;
+class DriveSelection;
 class FolderSelectionModel;
 
 class KLineEdit;
@@ -63,15 +64,18 @@ class BackupPlanWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit BackupPlanWidget(bool pCreatePages = true, QWidget *pParent = 0);
+	explicit BackupPlanWidget(BackupPlan *pBackupPlan, bool pCreatePages = true, QWidget *pParent = 0);
 
-	static KPageWidgetItem *createSourcePage(QWidget *pParent = NULL);
-	static KPageWidgetItem *createDestinationPage(QWidget *pParent = NULL);
-	static KPageWidgetItem *createSchedulePage(QWidget *pParent = NULL);
+	void saveExtraData();
+
+	KPageWidgetItem *createSourcePage(QWidget *pParent = NULL);
+	KPageWidgetItem *createDestinationPage(BackupPlan *pBackupPlan, QWidget *pParent = NULL);
+	KPageWidgetItem *createSchedulePage(QWidget *pParent = NULL);
 
 	KLineEdit *mDescriptionEdit;
 	KPushButton *mConfigureButton;
 	KPageWidget *mConfigPages;
+	DriveSelection *mDriveSelection;
 
 signals:
 	void requestOverviewReturn();

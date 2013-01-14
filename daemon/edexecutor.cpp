@@ -55,12 +55,21 @@ void EDExecutor::checkStatus() {
 
 void EDExecutor::deviceAdded(const QString &pUdi) {
 	Solid::Device lDevice(pUdi);
-	if(!lDevice.isValid() || !lDevice.is<Solid::StorageVolume>()) {
+	if(!lDevice.is<Solid::StorageVolume>()) {
 		return;
 	}
 	Solid::StorageVolume *lVolume = lDevice.as<Solid::StorageVolume>();
-	if(mPlan->mExternalUUID == lVolume->uuid())
-	{
+	QString lUUID = lVolume->uuid();
+	if(lUUID.isEmpty()) { //seems to happen for vfat partitions
+		Solid::Device lDriveDevice;
+		if(lDevice.is<Solid::StorageDrive>()) {
+			lDriveDevice = lDevice;
+		} else {
+			lDriveDevice = lDevice.parent();
+		}
+		lUUID = lDriveDevice.description() + "|" + lVolume->label();
+	}
+	if(mPlan->mExternalUUID == lUUID) {
 		mCurrentUdi = pUdi;
 		mStorageAccess = lDevice.as<Solid::StorageAccess>();
 		enterAvailableState();

@@ -58,6 +58,11 @@ public:
 	KUrl mFilesystemDestinationPath;
 	QString mExternalUUID;
 	QString mExternalDestinationPath;
+	QString mExternalVolumeLabel;
+	QString mExternalDeviceDescription;
+	int mExternalPartitionNumber;
+	int mExternalPartitionsOnDrive;
+	qulonglong mExternalVolumeCapacity;
 //	QString mSshServerName;
 //	QString mSshLoginName;
 //	QString mSshLoginPassword; //TODO: move to kwallet

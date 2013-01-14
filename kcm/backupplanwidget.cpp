@@ -133,7 +133,7 @@ KPageWidgetItem *BackupPlanWidget::createSourcePage(QWidget *pParent) {
 	return lPage;
 }
 
-KPageWidgetItem *BackupPlanWidget::createDestinationPage(QWidget *pParent) {
+KPageWidgetItem *BackupPlanWidget::createDestinationPage(BackupPlan *pBackupPlan, QWidget *pParent) {
 	KButtonGroup *lButtonGroup = new KButtonGroup(pParent);
 	lButtonGroup->setObjectName("kcfg_Destination type");
 	lButtonGroup->setFlat(true);
@@ -152,9 +152,9 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage(QWidget *pParent) {
 	lDriveWidget->setVisible(false);
 	QObject::connect(lDriveRadio, SIGNAL(toggled(bool)), lDriveWidget, SLOT(setVisible(bool)));
 	QVBoxLayout *lDriveLayout = new QVBoxLayout;
-	DriveSelection *lDriveSelection = new DriveSelection;
-	lDriveSelection->setObjectName("kcfg_External drive UUID");
-	lDriveLayout->addWidget(lDriveSelection);
+	mDriveSelection = new DriveSelection(pBackupPlan);
+	mDriveSelection->setObjectName("kcfg_External drive UUID");
+	lDriveLayout->addWidget(mDriveSelection);
 	QHBoxLayout *lDriveHoriLayout = new QHBoxLayout;
 	QLabel *lDriveDestLabel = new QLabel(i18nc("@label:textbox", "Folder on Destination Drive:"));
 	KLineEdit *lDriveDestination = new KLineEdit;
@@ -298,7 +298,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	return lPage;
 }
 
-BackupPlanWidget::BackupPlanWidget(bool pCreatePages, QWidget *pParent)
+BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, bool pCreatePages, QWidget *pParent)
    : QWidget(pParent)
 {
 	QVBoxLayout *lVLayout1 = new QVBoxLayout;
@@ -315,7 +315,7 @@ BackupPlanWidget::BackupPlanWidget(bool pCreatePages, QWidget *pParent)
 	mConfigPages = new KPageWidget;
 	if(pCreatePages) {
 		mConfigPages->addPage(createSourcePage(this));
-		mConfigPages->addPage(createDestinationPage(this));
+		mConfigPages->addPage(createDestinationPage(pBackupPlan, this));
 		mConfigPages->addPage(createSchedulePage(this));
 	}
 
@@ -328,5 +328,9 @@ BackupPlanWidget::BackupPlanWidget(bool pCreatePages, QWidget *pParent)
 	lVLayout1->setSpacing(0);
 
 	setLayout(lVLayout1);
+}
+
+void BackupPlanWidget::saveExtraData() {
+	mDriveSelection->saveExtraData();
 }
 

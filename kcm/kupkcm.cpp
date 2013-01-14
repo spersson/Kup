@@ -104,6 +104,7 @@ void KupKcm::save() {
 				// nothing was saved anyway, either under old or new group name.
 				lPlan->setDefaults();
 			}
+			mPlanWidgets.at(i)->saveExtraData();
 			lManager->updateSettings();
 			mStatusWidgets.at(i)->updateIcon();
 		}
@@ -211,7 +212,7 @@ void KupKcm::createSettingsFrontPage() {
 }
 
 void KupKcm::createPlanWidgets(int pIndex) {
-	BackupPlanWidget *lPlanWidget = new BackupPlanWidget;
+	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex));
 	connect(lPlanWidget, SIGNAL(requestOverviewReturn()), this, SLOT(showFrontPage()));
 	KConfigDialogManager *lConfigManager = new KConfigDialogManager(lPlanWidget, mPlans.at(pIndex));
 	lConfigManager->setObjectName(objectName());

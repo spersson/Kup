@@ -66,6 +66,11 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	                                         QDir::homePath() + QDir::separator() + ".bup"));
 	addItemString("External drive UUID", mExternalUUID);
 	addItemPath("External drive destination path", mExternalDestinationPath, i18n("Backups"));
+	addItemString("External volume label", mExternalVolumeLabel);
+	addItemULongLong("External volume capacity", mExternalVolumeCapacity);
+	addItemString("External device description", mExternalDeviceDescription);
+	addItemInt("External partition number", mExternalPartitionNumber);
+	addItemInt("External partitions count", mExternalPartitionsOnDrive);
 
 //	addItemString("SSH server name", mSshServerName);
 //	addItemString("SSH login name", mSshLoginName);

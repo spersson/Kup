@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2012-12-30 01:05+0100\n"
+"POT-Creation-Date: 2013-01-15 05:58+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr ""
 
-#: daemon/edexecutor.cpp:116 daemon/edexecutor.cpp:134
+#: daemon/edexecutor.cpp:125 daemon/edexecutor.cpp:143
 #: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:127
 #: daemon/planexecutor.cpp:237 daemon/planexecutor.cpp:247
 msgctxt "@title"
@@ -302,19 +302,41 @@ msgctxt "@action:button"
 msgid "Back to overview"
 msgstr ""
 
-#: kcm/driveselection.cpp:91
-msgctxt "@item"
-msgid "Selected Backup Device (disconnected)"
+#: kcm/driveselectiondelegate.cpp:70
+msgctxt "@item:inlistbox this text is added if selected drive is disconnected"
+msgid " (disconnected)"
 msgstr ""
 
-#: kcm/driveselectiondelegate.cpp:64 kcm/driveselectiondelegate.cpp:83
-msgctxt "@label %1 is drive(partition) label, %2 is storage capacity"
-msgid "%1: %2 total capacity"
-msgstr ""
-
-#: kcm/driveselectiondelegate.cpp:65 kcm/driveselectiondelegate.cpp:84
+#: kcm/driveselectiondelegate.cpp:73
 msgctxt "@label %1 is amount of free storage space of hard drive"
 msgid "%1 free"
+msgstr ""
+
+#: kcm/driveselectiondelegate.cpp:85
+msgctxt ""
+"@item:inlistbox used for unnamed filesystems, more than one filesystem on "
+"device. %1 is partition number, %2 is device description, %3 is either empty "
+"or the \" (disconnected)\" text"
+msgid "Partition %1 on %2%3"
+msgstr ""
+
+#: kcm/driveselectiondelegate.cpp:88
+msgctxt ""
+"@item:inlistbox used when there is only one unnamed filesystem on device. %1 "
+"is device description, %2 is either empty or the \" (disconnected)\" text"
+msgid "%1%2"
+msgstr ""
+
+#: kcm/driveselectiondelegate.cpp:92
+msgctxt ""
+"@item:inlistbox %1 is filesystem label, %2 is the device description, %3 is "
+"either empty or the \" (disconnected)\" text"
+msgid "%1 on %2%3"
+msgstr ""
+
+#: kcm/driveselectiondelegate.cpp:99
+msgctxt "@item:inlistbox %1 is drive(partition) label, %2 is storage capacity"
+msgid "%1: %2 total capacity"
 msgstr ""
 
 #: kcm/folderselectionmodel.cpp:120
@@ -345,12 +367,12 @@ msgstr ""
 msgid "Maintainer"
 msgstr ""
 
-#: kcm/kupkcm.cpp:195
+#: kcm/kupkcm.cpp:196
 msgctxt "@action:button"
 msgid "Add New Plan"
 msgstr ""
 
-#: kcm/kupkcm.cpp:198
+#: kcm/kupkcm.cpp:199
 msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr ""
