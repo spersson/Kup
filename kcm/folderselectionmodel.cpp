@@ -36,11 +36,63 @@
 #include <KIcon>
 #include <KLocale>
 
+namespace {
+void removeSubDirs( const QString& path, QSet<QString>& set ) {
+	QSet<QString>::iterator it = set.begin();
+	while( it != set.end() ) {
+		if( it->startsWith( path ) )
+			it = set.erase( it );
+		else
+			++it;
+	}
+}
 
-FolderSelectionModel::FolderSelectionModel( QObject* parent )
+QModelIndex findLastLeaf( const QModelIndex& index, FolderSelectionModel* model ) {
+	int rows = model->rowCount( index );
+	if( rows > 0 ) {
+		return findLastLeaf( model->index( rows-1, 0, index ), model );
+	}
+	else {
+		return index;
+	}
+}
+
+// we need the trailing slash to be able to use the startsWith() function to check for parent dirs.
+QString ensureTrailingSlash( const QString &path )
+{
+	return path.endsWith( QDir::separator() ) ? path : path + QDir::separator();
+}
+
+bool isForbiddenPath( const QString& path )
+{
+	QString pathWithSlash = ensureTrailingSlash( path );
+	QFileInfo fi( pathWithSlash );
+	return( pathWithSlash.startsWith( QLatin1String( "/proc/" ) ) ||
+	        pathWithSlash.startsWith( QLatin1String( "/dev/" ) ) ||
+	        pathWithSlash.startsWith( QLatin1String( "/sys/" ) ) ||
+	        pathWithSlash.startsWith( QLatin1String( "/run/" ) ) ||
+	        !fi.isReadable() ||
+	        !fi.isExecutable() );
+}
+
+bool setContainsSubdir( QSet<QString> pSet, const QString &pParentDir)
+{
+	QString pathWithSlash = ensureTrailingSlash( pParentDir );
+	foreach(QString tested, pSet) {
+		if(tested.startsWith(pathWithSlash)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+}
+
+
+FolderSelectionModel::FolderSelectionModel( bool showHiddenFolders, QObject *parent )
    : QFileSystemModel( parent )
 {
-	setHiddenFoldersShown( false );
+	setHiddenFoldersShown( showHiddenFolders );
 }
 
 
@@ -72,24 +124,20 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 {
 	if( index.isValid() && index.column() == 0 ) {
 		if( role == Qt::CheckStateRole ) {
-			QString path = filePath(index);
-			const InclusionState state = inclusionState(path);
+			QString path = filePath( index );
+			const InclusionState state = inclusionState( path );
 			switch( state ) {
 			case StateNone:
 			case StateExcluded:
 			case StateExcludeInherited:
-				foreach(QString tested, m_included) {
-					if(tested.startsWith(path)) {
-						return Qt::PartiallyChecked;
-					}
+				if(setContainsSubdir(m_included, path)) {
+					return Qt::PartiallyChecked;
 				}
 				return Qt::Unchecked;
 			case StateIncluded:
 			case StateIncludeInherited:
-				foreach(QString tested, m_excluded) {
-					if(tested.startsWith(path)) {
-						return Qt::PartiallyChecked;
-					}
+				if(setContainsSubdir(m_excluded, path)) {
+					return Qt::PartiallyChecked;
 				}
 				return Qt::Checked;
 			}
@@ -146,7 +194,6 @@ bool FolderSelectionModel::setData( const QModelIndex& index, const QVariant& va
 		if( state == StateIncluded ||
 		    state == StateIncludeInherited ) {
 			excludePath( path );
-			emit excludedPathsChanged();
 			QModelIndex lRecurseIndex = index;
 			while(lRecurseIndex.isValid()) {
 				emit dataChanged(lRecurseIndex, lRecurseIndex);
@@ -156,7 +203,6 @@ bool FolderSelectionModel::setData( const QModelIndex& index, const QVariant& va
 		}
 		else {
 			includePath(path);
-			emit includedPathsChanged();
 			QModelIndex lRecurseIndex = index;
 			while(lRecurseIndex.isValid()) {
 				emit dataChanged(lRecurseIndex, lRecurseIndex);
@@ -171,59 +217,38 @@ bool FolderSelectionModel::setData( const QModelIndex& index, const QVariant& va
 }
 
 
-namespace {
-void removeSubDirs( const QString& path, QSet<QString>& set ) {
-	QSet<QString>::iterator it = set.begin();
-	while( it != set.end() ) {
-		if( it->startsWith( path ) )
-			it = set.erase( it );
-		else
-			++it;
+void FolderSelectionModel::includePath(const QString &path ) {
+	if(m_included.contains(path)) {
+		return;
 	}
-}
-
-QModelIndex findLastLeaf( const QModelIndex& index, FolderSelectionModel* model ) {
-	int rows = model->rowCount( index );
-	if( rows > 0 ) {
-		return findLastLeaf( model->index( rows-1, 0, index ), model );
+	InclusionState state = inclusionState(path);
+	removeSubDirs(path, m_included);
+	removeSubDirs(path, m_excluded);
+	if(state == StateExcluded) {
+		emit excludedPathsChanged();
+	} else if(state != StateIncludeInherited) {
+		m_included.insert(path);
+		emit includedPathsChanged();
 	}
-	else {
-		return index;
-	}
-}
-}
-
-void FolderSelectionModel::includePath( const QString& path )
-{
-	if( !m_included.contains( path ) ) {
-		// remove all subdirs
-		removeSubDirs( path, m_included );
-		removeSubDirs( path, m_excluded );
-		m_excluded.remove( path );
-
-		// only really include if the parent is not already included
-		if( inclusionState( path ) != StateIncludeInherited ) {
-			m_included.insert( path );
-		}
-		emit dataChanged( index( path ), findLastLeaf( index( path ), this ) );
-	}
+	emit dataChanged(index(path), findLastLeaf(index(path), this));
 }
 
 
 void FolderSelectionModel::excludePath( const QString& path )
 {
-	if( !m_excluded.contains( path ) ) {
-		// remove all subdirs
-		removeSubDirs( path, m_included );
-		removeSubDirs( path, m_excluded );
-		m_included.remove( path );
-
-		// only really exclude the path if a parent is included
-		if( inclusionState( path ) == StateIncludeInherited ) {
-			m_excluded.insert( path );
-		}
-		emit dataChanged( index( path ), findLastLeaf( index( path ), this ) );
+	if( m_excluded.contains( path ) ) {
+		return;
 	}
+	InclusionState state = inclusionState( path );
+	removeSubDirs( path, m_included );
+	removeSubDirs( path, m_excluded );
+	if(state == StateIncluded) {
+		emit includedPathsChanged();
+	} else if( state == StateIncludeInherited ) {
+		m_excluded.insert( path );
+		emit excludedPathsChanged();
+	}
+	emit dataChanged( index( path ), findLastLeaf( index( path ), this ) );
 }
 
 
@@ -248,20 +273,6 @@ QStringList FolderSelectionModel::excludedFolders() const
 }
 
 
-inline bool FolderSelectionModel::isForbiddenPath( const QString& path ) const
-{
-	// we need the trailing slash otherwise we could forbid "/dev-music" for example
-	QString _path = path.endsWith( '/' ) ? path : path + '/';
-	QFileInfo fi( _path );
-	return( _path.startsWith( QLatin1String( "/proc/" ) ) ||
-	       _path.startsWith( QLatin1String( "/dev/" ) ) ||
-	       _path.startsWith( QLatin1String( "/sys/" ) ) ||
-	       _path.startsWith( QLatin1String( "/run/" ) ) ||
-	       !fi.isReadable() ||
-	       !fi.isExecutable() );
-}
-
-
 FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState( const QModelIndex& index ) const
 {
 	return inclusionState( filePath( index ) );
@@ -279,10 +290,6 @@ FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState( const
 	else {
 		QString parent = path.section( QDir::separator(), 0, -2, QString::SectionSkipEmpty|QString::SectionIncludeLeadingSep );
 		if( parent.isEmpty() ) {
-			return StateNone;
-		}
-		else if ( QFileInfo( path ).isHidden() ) {
-			// we treat hidden files special - they are disabled by default
 			return StateNone;
 		}
 		else {

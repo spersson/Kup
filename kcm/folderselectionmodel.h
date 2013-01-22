@@ -36,7 +36,7 @@ class FolderSelectionModel : public QFileSystemModel
 	Q_OBJECT
 
 public:
-	FolderSelectionModel( QObject* parent = 0 );
+	FolderSelectionModel( bool showHiddenFolders = false, QObject* parent = 0 );
 	virtual ~FolderSelectionModel();
 
 	enum InclusionState {
@@ -62,17 +62,17 @@ public:
 	/**
 	* Include the specified path. All subdirs will be reset.
 	*/
-	void includePath( const QString& );
+	void includePath( const QString &path );
 
 	/**
 	* Exclude the specified path. All subdirs will be reset.
 	*/
-	void excludePath( const QString& );
+	void excludePath( const QString &path );
 
 	int columnCount( const QModelIndex& ) const { return 1; }
 
-	InclusionState inclusionState( const QModelIndex& ) const;
-	InclusionState inclusionState( const QString& path ) const;
+	InclusionState inclusionState( const QModelIndex &index ) const;
+	InclusionState inclusionState( const QString &path ) const;
 
 public Q_SLOTS:
 	void setHiddenFoldersShown( bool shown );
@@ -82,8 +82,6 @@ signals:
 	void excludedPathsChanged();
 
 private:
-	bool isForbiddenPath( const QString& path ) const;
-
 	QSet<QString> m_included;
 	QSet<QString> m_excluded;
 };

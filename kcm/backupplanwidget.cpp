@@ -105,7 +105,7 @@ public:
 	FolderSelectionWidget(QWidget *pParent = 0)
 	   : QTreeView(pParent)
 	{
-		mModel = new FolderSelectionModel(this);
+		mModel = new FolderSelectionModel(false, this);
 		mModel->setRootPath("/");
 		setAnimated(true);
 		setModel(mModel);
