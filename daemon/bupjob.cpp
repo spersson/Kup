@@ -78,6 +78,7 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mSaveProcess << QLatin1String("bup") << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
 	mSaveProcess << QLatin1String("-r") << mDestinationPath;
+	mSaveProcess << QString("-%1").arg(mPlan->mCompressionLevel);
 
 	foreach(QString lInclude, mPlan->mPathsIncluded) {
 		mSaveProcess << lInclude;

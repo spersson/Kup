@@ -81,6 +81,7 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 //	addItemPath("SSH destination path", mSshDestinationPath);
 
 	addItemBool("Show hidden folders", mShowHiddenFolders);
+	addItemInt("Compression level", mCompressionLevel, 1);
 
 	addItemDateTime("Last complete backup", mLastCompleteBackup);
 	addItemDouble("Last backup size", mLastBackupSize);

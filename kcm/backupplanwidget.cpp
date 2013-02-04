@@ -42,6 +42,8 @@
 #include <QRadioButton>
 #include <QTreeView>
 
+#include <cmath>
+
 static void expandRecursively(const QModelIndex& pIndex, QTreeView* pTreeView) {
 	if(pIndex.isValid()) {
 		pTreeView->expand(pIndex);
@@ -291,10 +293,21 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 
 KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	QWidget *lAdvancedWidget = new QWidget(this);
-	QVBoxLayout *lAdvancedLayout = new QVBoxLayout;
-	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18n("Show hidden folders in source selection"));
+	QFormLayout *lAdvancedLayout = new QFormLayout;
+
+	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check", "Enabled"));
 	lShowHiddenCheckBox->setObjectName(QLatin1String("kcfg_Show hidden folders"));
-	lAdvancedLayout->addWidget(lShowHiddenCheckBox);
+	lAdvancedLayout->addRow(i18nc("@label", "Hidden folders in source selection:"), lShowHiddenCheckBox);
+
+	KComboBox *lCompressionLevel = new KComboBox;
+	lCompressionLevel->setObjectName(QLatin1String("kcfg_Compression level"));
+	lCompressionLevel->setToolTip(i18nc("@info:tooltip", "Higher compression means less space is used by "
+	                                    "the backup archive but more cpu time is used when it is taken."));
+	for(int i=0; i<10; ++i) {
+		lCompressionLevel->addItem(QString("%1 %").arg(lrint(i*100/9)));
+	}
+	lAdvancedLayout->addRow(i18nc("@label", "Compression level:"), lCompressionLevel);
+
 	lAdvancedWidget->setLayout(lAdvancedLayout);
 	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
 	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);
