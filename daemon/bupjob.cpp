@@ -25,8 +25,8 @@
 
 #include <QTimer>
 
-BupJob::BupJob(const BackupPlan *pPlan, const QString &pDestinationPath, QObject *pParent)
-   :KJob(pParent), mPlan(pPlan), mDestinationPath(pDestinationPath)
+BupJob::BupJob(const BackupPlan *pBackupPlan, const QString &pDestinationPath, QObject *pParent)
+   :KJob(pParent), mBackupPlan(pBackupPlan), mDestinationPath(pDestinationPath)
 {
 	mInitProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -52,12 +52,12 @@ void BupJob::startIndexing() {
 
 	mIndexProcess << QLatin1String("bup") << QLatin1String("index") << QLatin1String("-u");
 
-	foreach(QString lExclude, mPlan->mPathsExcluded) {
+	foreach(QString lExclude, mBackupPlan->mPathsExcluded) {
 		mIndexProcess << QLatin1String("--exclude");
 		mIndexProcess << lExclude;
 	}
 
-	foreach(QString lInclude, mPlan->mPathsIncluded) {
+	foreach(QString lInclude, mBackupPlan->mPathsIncluded) {
 		mIndexProcess << lInclude;
 	}
 
@@ -78,9 +78,9 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mSaveProcess << QLatin1String("bup") << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
 	mSaveProcess << QLatin1String("-r") << mDestinationPath;
-	mSaveProcess << QString("-%1").arg(mPlan->mCompressionLevel);
+	mSaveProcess << QString("-%1").arg(mBackupPlan->mCompressionLevel);
 
-	foreach(QString lInclude, mPlan->mPathsIncluded) {
+	foreach(QString lInclude, mBackupPlan->mPathsIncluded) {
 		mSaveProcess << lInclude;
 	}
 

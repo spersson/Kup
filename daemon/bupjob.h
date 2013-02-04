@@ -25,14 +25,13 @@
 #include <KProcess>
 
 class BackupPlan;
-//class ProcessListener;
 
 class BupJob : public KJob
 {
 	Q_OBJECT
 
 public:
-	BupJob(const BackupPlan *pPlan, const QString &pDestinationPath, QObject *pParent = 0);
+	BupJob(const BackupPlan *pBackupPlan, const QString &pDestinationPath, QObject *pParent = 0);
 	virtual void start();
 
 protected slots:
@@ -44,8 +43,7 @@ private:
 	KProcess mInitProcess;
 	KProcess mIndexProcess;
 	KProcess mSaveProcess;
-//	ProcessListener *mProcessListener;
-	const BackupPlan *mPlan;
+	const BackupPlan *mBackupPlan;
 	QString mDestinationPath;
 };
 
