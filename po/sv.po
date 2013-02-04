@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-01-15 05:58+0800\n"
-"PO-Revision-Date: 2013-01-07 18:50+0100\n"
+"POT-Creation-Date: 2013-02-04 20:16+0800\n"
+"PO-Revision-Date: 2013-02-04 20:23+0800\n"
 "Last-Translator: Simon Persson <simonpersson1@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -41,12 +41,12 @@ msgid ""
 msgstr ""
 "Indexering av filsystemet gick inte helt bra:</nl><message>%1</message>"
 
-#: daemon/bupjob.cpp:88
+#: daemon/bupjob.cpp:89
 msgctxt "@info:progress"
 msgid "Saving changes to backup destination..."
 msgstr "Kopierar förändringar till säkerhetskopia..."
 
-#: daemon/bupjob.cpp:94
+#: daemon/bupjob.cpp:95
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr "Säkerhetskopieringen gick inte helt bra:</nl><message>%1</message>"
@@ -191,62 +191,62 @@ msgctxt "@info"
 msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
 msgstr "Fel uppstod när arkivet skulle monteras:</nl><message>%1</message>"
 
-#: kcm/backupplanwidget.cpp:130
+#: kcm/backupplanwidget.cpp:123
 msgctxt "@title"
 msgid "Sources"
 msgstr "Källor"
 
-#: kcm/backupplanwidget.cpp:131
+#: kcm/backupplanwidget.cpp:124
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr "Välj vilka mappar som ska inkluderas i säkerhetskopior"
 
-#: kcm/backupplanwidget.cpp:141
+#: kcm/backupplanwidget.cpp:134
 msgctxt "@option:radio"
 msgid "Local Filesystem"
 msgstr "Lokalt filsystem"
 
-#: kcm/backupplanwidget.cpp:142
+#: kcm/backupplanwidget.cpp:135
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr "Externt lagringsmedium"
 
-#: kcm/backupplanwidget.cpp:159
+#: kcm/backupplanwidget.cpp:152
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr "Mapp på destinationsenheten:"
 
-#: kcm/backupplanwidget.cpp:162 kcm/backupplanwidget.cpp:163
+#: kcm/backupplanwidget.cpp:155 kcm/backupplanwidget.cpp:156
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr "Den mapp som väljs kommer att skapas om den inte redan finns."
 
-#: kcm/backupplanwidget.cpp:198
+#: kcm/backupplanwidget.cpp:191
 msgctxt "@title"
 msgid "Destination"
 msgstr "Lagringsplats"
 
-#: kcm/backupplanwidget.cpp:199
+#: kcm/backupplanwidget.cpp:192
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr "Välj lagringsplats för säkerhetskopior"
 
-#: kcm/backupplanwidget.cpp:215
+#: kcm/backupplanwidget.cpp:208
 msgctxt "@option:radio"
 msgid "Manual Only"
 msgstr "Endast manuellt"
 
-#: kcm/backupplanwidget.cpp:216
+#: kcm/backupplanwidget.cpp:209
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr "Intervall"
 
-#: kcm/backupplanwidget.cpp:217
+#: kcm/backupplanwidget.cpp:210
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr "Aktiv användningstid"
 
-#: kcm/backupplanwidget.cpp:219
+#: kcm/backupplanwidget.cpp:212
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
@@ -255,7 +255,7 @@ msgstr ""
 "Säkerhetskopior tas endast när du ber om det. Detta kan göras från "
 "popupmenyn när du högerklickar på ikonen i systembrickan."
 
-#: kcm/backupplanwidget.cpp:232
+#: kcm/backupplanwidget.cpp:225
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -264,27 +264,27 @@ msgstr ""
 "En ny säkerhetskopia kommer tas när lagringsplatsen är tillgänglig och mer "
 "än konfigurerat intervall har gått sedan förra kopian togs."
 
-#: kcm/backupplanwidget.cpp:247
+#: kcm/backupplanwidget.cpp:240
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr "Minuter"
 
-#: kcm/backupplanwidget.cpp:248 kcm/backupplanwidget.cpp:272
+#: kcm/backupplanwidget.cpp:241 kcm/backupplanwidget.cpp:265
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr "Timmar"
 
-#: kcm/backupplanwidget.cpp:249
+#: kcm/backupplanwidget.cpp:242
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr "Dagar"
 
-#: kcm/backupplanwidget.cpp:250
+#: kcm/backupplanwidget.cpp:243
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr "Veckor"
 
-#: kcm/backupplanwidget.cpp:259
+#: kcm/backupplanwidget.cpp:252
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -295,27 +295,61 @@ msgstr ""
 "har använt datorn aktivt under mer än konfigurerad tidsgräns sedan förra "
 "kopian togs."
 
-#: kcm/backupplanwidget.cpp:277
+#: kcm/backupplanwidget.cpp:270
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr "Fråga innan ny säkerhetskopia tas"
 
-#: kcm/backupplanwidget.cpp:295
+#: kcm/backupplanwidget.cpp:288
 msgctxt "@title"
 msgid "Schedule"
 msgstr "Schema"
 
-#: kcm/backupplanwidget.cpp:296
+#: kcm/backupplanwidget.cpp:289
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "Specificera schema för säkerhetskopiering"
 
-#: kcm/backupplanwidget.cpp:310
+#: kcm/backupplanwidget.cpp:298
+msgctxt "@option:check"
+msgid "Enabled"
+msgstr "Ska visas"
+
+#: kcm/backupplanwidget.cpp:300
+msgctxt "@label"
+msgid "Hidden folders in source selection:"
+msgstr "Dolda mappar i val av källor:"
+
+#: kcm/backupplanwidget.cpp:304
+msgctxt "@info:tooltip"
+msgid ""
+"Higher compression means less space is used by the backup archive but more "
+"cpu time is used when it is taken."
+msgstr ""
+"Högre kompression ger mindre storlek på säkerhetskopiorna men kräver mer "
+"processortid när säkerhetskopian tas."
+
+#: kcm/backupplanwidget.cpp:309
+msgctxt "@label"
+msgid "Compression level:"
+msgstr "Kompressionsnivå:"
+
+#: kcm/backupplanwidget.cpp:314
+msgctxt "@title"
+msgid "Advanced"
+msgstr "Avancerat"
+
+#: kcm/backupplanwidget.cpp:315
+msgctxt "@label"
+msgid "Extra options for advanced users"
+msgstr "Extra inställningar för avancerade användare"
+
+#: kcm/backupplanwidget.cpp:329
 msgctxt "@label"
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: kcm/backupplanwidget.cpp:312
+#: kcm/backupplanwidget.cpp:331
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr "Tillbaka till översikten"
@@ -357,12 +391,12 @@ msgctxt "@item:inlistbox %1 is drive(partition) label, %2 is storage capacity"
 msgid "%1: %2 total capacity"
 msgstr "%1: %2 total kapacitet"
 
-#: kcm/folderselectionmodel.cpp:120
+#: kcm/folderselectionmodel.cpp:168
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>(will be included in the backup)"
 msgstr "<filename>%1</filename><nl/>(kommer inkluderas)"
 
-#: kcm/folderselectionmodel.cpp:124
+#: kcm/folderselectionmodel.cpp:172
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> (will <emphasis>not</emphasis> be included in "
@@ -447,7 +481,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "simonpersson1@gmail.com"
 
-#: po/rc.cpp:3 settings/backupplan.cpp:68 rc.cpp:3
+#: po/rc.cpp:3 settings/backupplan.cpp:71 rc.cpp:3
 msgid "Backups"
 msgstr "Säkerhetskopior"
 
@@ -469,3 +503,4 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Säkerhetskopia %1"
+
