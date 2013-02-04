@@ -68,7 +68,6 @@ void ConfigIncludeDummy::setIncludeList(QStringList pIncludeList) {
 	}
 
 	mModel->setFolders(pIncludeList, mModel->excludedFolders());
-	mTreeView->collapseAll();
 	foreach(const QString& lFolder, mModel->includedFolders() + mModel->excludedFolders()) {
 		expandRecursively(mModel->index(lFolder).parent(), mTreeView);
 	}
@@ -91,7 +90,6 @@ void ConfigExcludeDummy::setExcludeList(QStringList pExcludeList) {
 			pExcludeList.removeAt(i--);
 		}
 	}
-
 	mModel->setFolders(mModel->includedFolders(), pExcludeList);
 	foreach(const QString& lFolder, mModel->includedFolders() + mModel->excludedFolders()) {
 		expandRecursively(mModel->index(lFolder).parent(), mTreeView);
@@ -102,10 +100,9 @@ void ConfigExcludeDummy::setExcludeList(QStringList pExcludeList) {
 class FolderSelectionWidget : public QTreeView
 {
 public:
-	FolderSelectionWidget(QWidget *pParent = 0)
-	   : QTreeView(pParent)
+	FolderSelectionWidget(FolderSelectionModel *pModel, QWidget *pParent = 0)
+	   : QTreeView(pParent), mModel(pModel)
 	{
-		mModel = new FolderSelectionModel(false, this);
 		mModel->setRootPath("/");
 		setAnimated(true);
 		setModel(mModel);
@@ -117,15 +114,9 @@ public:
 	FolderSelectionModel *mModel;
 };
 
-KPageWidgetItem *BackupPlanWidget::createSourcePage(QWidget *pParent) {
-//	QWidget *lSourceWidget = new QWidget(pParent);
-//	QVBoxLayout *lSourceLayout = new QVBoxLayout;
-//	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18n("Show hidden folders"));
-//	lSourceLayout->addWidget(lShowHiddenCheckBox);
-	FolderSelectionWidget *lSelectionWidget = new FolderSelectionWidget(pParent);
-//	lSourceLayout->addWidget(lSelectionWidget);
-//	lSourceWidget->setLayout(lSourceLayout);
-//	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), lSelectionWidget->mModel, SLOT(setHiddenFoldersShown(bool)));
+KPageWidgetItem *BackupPlanWidget::createSourcePage() {
+	mSourceSelectionModel = new FolderSelectionModel(mBackupPlan->mShowHiddenFolders, this);
+	FolderSelectionWidget *lSelectionWidget = new FolderSelectionWidget(mSourceSelectionModel, this);
 	KPageWidgetItem *lPage = new KPageWidgetItem(lSelectionWidget);
 	lPage->setName(i18nc("@title", "Sources"));
 	lPage->setHeader(i18nc("@label", "Select which folders to include in backup"));
@@ -133,8 +124,8 @@ KPageWidgetItem *BackupPlanWidget::createSourcePage(QWidget *pParent) {
 	return lPage;
 }
 
-KPageWidgetItem *BackupPlanWidget::createDestinationPage(BackupPlan *pBackupPlan, QWidget *pParent) {
-	KButtonGroup *lButtonGroup = new KButtonGroup(pParent);
+KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
+	KButtonGroup *lButtonGroup = new KButtonGroup(this);
 	lButtonGroup->setObjectName("kcfg_Destination type");
 	lButtonGroup->setFlat(true);
 	QVBoxLayout *lVLayout = new QVBoxLayout;
@@ -152,7 +143,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage(BackupPlan *pBackupPlan
 	lDriveWidget->setVisible(false);
 	QObject::connect(lDriveRadio, SIGNAL(toggled(bool)), lDriveWidget, SLOT(setVisible(bool)));
 	QVBoxLayout *lDriveLayout = new QVBoxLayout;
-	mDriveSelection = new DriveSelection(pBackupPlan);
+	mDriveSelection = new DriveSelection(mBackupPlan);
 	mDriveSelection->setObjectName("kcfg_External drive UUID");
 	lDriveLayout->addWidget(mDriveSelection);
 	QHBoxLayout *lDriveHoriLayout = new QHBoxLayout;
@@ -201,8 +192,8 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage(BackupPlan *pBackupPlan
 	return lPage;
 }
 
-KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
-	QWidget *lTopWidget = new QWidget(pParent);
+KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
+	QWidget *lTopWidget = new QWidget(this);
 	QVBoxLayout *lTopLayout = new QVBoxLayout;
 	KButtonGroup *lButtonGroup = new KButtonGroup;
 	lButtonGroup->setObjectName("kcfg_Schedule type");
@@ -298,8 +289,23 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage(QWidget *pParent) {
 	return lPage;
 }
 
-BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, bool pCreatePages, QWidget *pParent)
-   : QWidget(pParent)
+KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
+	QWidget *lAdvancedWidget = new QWidget(this);
+	QVBoxLayout *lAdvancedLayout = new QVBoxLayout;
+	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18n("Show hidden folders in source selection"));
+	lShowHiddenCheckBox->setObjectName(QLatin1String("kcfg_Show hidden folders"));
+	lAdvancedLayout->addWidget(lShowHiddenCheckBox);
+	lAdvancedWidget->setLayout(lAdvancedLayout);
+	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
+	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);
+	lPage->setName(i18nc("@title", "Advanced"));
+	lPage->setHeader(i18nc("@label", "Extra options for advanced users"));
+	lPage->setIcon(KIcon("preferences-other"));
+	return lPage;
+}
+
+BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, QWidget *pParent)
+   : QWidget(pParent), mBackupPlan(pBackupPlan)
 {
 	QVBoxLayout *lVLayout1 = new QVBoxLayout;
 	QHBoxLayout *lHLayout1 = new QHBoxLayout;
@@ -313,11 +319,10 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, bool pCreatePages, Q
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(requestOverviewReturn()));
 
 	mConfigPages = new KPageWidget;
-	if(pCreatePages) {
-		mConfigPages->addPage(createSourcePage(this));
-		mConfigPages->addPage(createDestinationPage(pBackupPlan, this));
-		mConfigPages->addPage(createSchedulePage(this));
-	}
+	mConfigPages->addPage(createSourcePage());
+	mConfigPages->addPage(createDestinationPage());
+	mConfigPages->addPage(createSchedulePage());
+	mConfigPages->addPage(createAdvancedPage());
 
 	lHLayout1->addWidget(mConfigureButton);
 	lHLayout1->addStretch();

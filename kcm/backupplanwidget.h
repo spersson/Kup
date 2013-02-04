@@ -64,18 +64,21 @@ class BackupPlanWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit BackupPlanWidget(BackupPlan *pBackupPlan, bool pCreatePages = true, QWidget *pParent = 0);
+	explicit BackupPlanWidget(BackupPlan *pBackupPlan, QWidget *pParent = 0);
 
 	void saveExtraData();
 
-	KPageWidgetItem *createSourcePage(QWidget *pParent = NULL);
-	KPageWidgetItem *createDestinationPage(BackupPlan *pBackupPlan, QWidget *pParent = NULL);
-	KPageWidgetItem *createSchedulePage(QWidget *pParent = NULL);
+	KPageWidgetItem *createSourcePage();
+	KPageWidgetItem *createDestinationPage();
+	KPageWidgetItem *createSchedulePage();
+	KPageWidgetItem *createAdvancedPage();
 
 	KLineEdit *mDescriptionEdit;
 	KPushButton *mConfigureButton;
 	KPageWidget *mConfigPages;
+	BackupPlan *mBackupPlan;
 	DriveSelection *mDriveSelection;
+	FolderSelectionModel *mSourceSelectionModel;
 
 signals:
 	void requestOverviewReturn();

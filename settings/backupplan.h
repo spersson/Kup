@@ -68,6 +68,8 @@ public:
 //	QString mSshLoginPassword; //TODO: move to kwallet
 //	QString mSshDestinationPath;
 
+	bool mShowHiddenFolders;
+
 	QDateTime mLastCompleteBackup;
 	// Size of the last backup in bytes.
 	double mLastBackupSize;

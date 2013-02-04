@@ -77,6 +77,8 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 //	addItemPassword("SSH login password", mSshLoginPassword);
 //	addItemPath("SSH destination path", mSshDestinationPath);
 
+	addItemBool("Show hidden folders", mShowHiddenFolders);
+
 	addItemDateTime("Last complete backup", mLastCompleteBackup);
 	addItemDouble("Last backup size", mLastBackupSize);
 	addItemDouble("Last available space", mLastAvailableSpace);
