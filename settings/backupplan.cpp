@@ -41,6 +41,9 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	QStringList lDefaultExcludeList;
 	lDefaultExcludeList << KGlobalSettings::musicPath();
 	lDefaultExcludeList << KGlobalSettings::videosPath();
+	lDefaultExcludeList << QDir::homePath() + QDir::separator() + QLatin1String(".cache");
+	lDefaultExcludeList << QDir::homePath() + QDir::separator() + QLatin1String(".bup");
+	lDefaultExcludeList << QDir::homePath() + QDir::separator() + QLatin1String(".thumbnails");
 	QMutableListIterator<QString> i(lDefaultExcludeList);
 	while(i.hasNext()) {
 		QString &lPath = i.next();
