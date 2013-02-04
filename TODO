@@ -3,6 +3,8 @@
    finished? But if we wait with deleting until backup has completed, maybe we 
    will overwrite the correct status with backup status for a plan that no longer exists..
  - SSH as backup destination. Would be easy to add but I have not been motivated yet.
+   - could use ssh to test destination availablility:
+     ssh -q -o "BatchMode=yes" user@host "echo 2>&1" && echo "OK" || echo "NOK"
  - KIO slave to see a bup archive in a file manager, could be based on libgit2 instead of fuse-mount. 
    Also could be nice to have a view here where each file is represented as a directory and under 
    that is the different timestamps of that file, would make it easier to find earlier versions of files.
