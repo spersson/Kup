@@ -25,6 +25,19 @@
 
 #include <QTimer>
 
+#ifdef Q_OS_LINUX
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <sys/resource.h>
+static void makeNice(int pPid) {
+	// See linux documentation Documentation/block/ioprio.txt for details of the syscall
+	syscall(SYS_ioprio_set, 1, pPid, 3 << 13 | 7);
+	setpriority(PRIO_PROCESS, pPid, 19);
+}
+#else
+static void makeNice(int) {}
+#endif
+
 BupJob::BupJob(const BackupPlan *pBackupPlan, const QString &pDestinationPath, QObject *pParent)
    :KJob(pParent), mBackupPlan(pBackupPlan), mDestinationPath(pDestinationPath)
 {
@@ -62,8 +75,13 @@ void BupJob::startIndexing() {
 	}
 
 	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
+	connect(&mIndexProcess, SIGNAL(started()), SLOT(slotIndexingStarted()));
 	mIndexProcess.start();
 	emit description(this, i18nc("@info:progress", "Checking what has changed since last backup..."));
+}
+
+void BupJob::slotIndexingStarted() {
+	makeNice(mIndexProcess.pid());
 }
 
 void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
@@ -85,8 +103,13 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	}
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
+	connect(&mSaveProcess, SIGNAL(started()), SLOT(slotSavingStarted()));
 	mSaveProcess.start();
 	emit description(this, i18nc("@info:progress", "Saving changes to backup destination..."));
+}
+
+void BupJob::slotSavingStarted() {
+	makeNice(mSaveProcess.pid());
 }
 
 void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {

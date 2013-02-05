@@ -36,7 +36,9 @@ public:
 
 protected slots:
 	void startIndexing();
+	void slotIndexingStarted();
 	void slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
+	void slotSavingStarted();
 	void slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 
 private:
