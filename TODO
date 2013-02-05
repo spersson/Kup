@@ -7,14 +7,12 @@
      ssh -q -o "BatchMode=yes" user@host "echo 2>&1" && echo "OK" || echo "NOK"
  - KIO slave to see a bup archive in a file manager, could be based on libgit2 instead of fuse-mount. 
    Also could be nice to have a view here where each file is represented as a directory and under 
-   that is the different timestamps of that file, would make it easier to find earlier versions of files.
+   that is the different timestamps of that file, would make it much easier to find earlier versions of 
+   the file you are looking for.
  - Continous backups: monitoring the local filesystem for changes and imediately backing up 
    the changed file if destination is available.
  - Make bup give out percentage complete and use this to present completion in systray tooltip.
     - Patch done and posted to mailing list, probably no one noticed...
  - Figure out a file format for backup exclude config files, maybe system-wide under something like /etc/backup-exclude.d/10-firefox-cache.exclude
    and user specific could be under ~/.config/fd.o/backup-exclude.d/
- - Make an "Advanced" page of backup plan configuration to tweak behaviors. Like whether to respect those exclude lists or not.
- - Make it possible to select/deselect hidden folders.
  - Add a kauth-based runner for running a backup job as root.
- - Make use of nice and ionice for running the backups.
