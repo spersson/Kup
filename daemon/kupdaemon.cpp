@@ -37,6 +37,7 @@
 #include <KUniqueApplication>
 
 KupDaemon::KupDaemon() {
+	mWaitingToReloadConfig = false;
 	mConfig = KSharedConfig::openConfig("kuprc");
 	mSettings = new KupSettings(mConfig, this);
 }
@@ -77,6 +78,14 @@ void KupDaemon::setupGuiStuff() {
 }
 
 void KupDaemon::reloadConfig() {
+	foreach(PlanExecutor *lExecutor, mExecutors) {
+		if(lExecutor->running()) {
+			mWaitingToReloadConfig = true;
+			return;
+		}
+	}
+	mWaitingToReloadConfig = false;
+
 	mSettings->readConfig();
 	while(!mExecutors.isEmpty()) {
 		delete mExecutors.takeFirst();
@@ -141,6 +150,11 @@ void KupDaemon::updateTrayIcon() {
 	mStatusNotifier->setToolTipIconByName(lToolTipIconName);
 	mStatusNotifier->setToolTipTitle(lToolTipTitle);
 	mStatusNotifier->setToolTipSubTitle(lToolTipSubTitle);
+
+	if(mWaitingToReloadConfig) {
+		// quite likely the config can be reloaded now, give it a try.
+		QTimer::singleShot(0, this, SLOT(reloadConfig()));
+	}
 }
 
 void KupDaemon::setupExecutors() {

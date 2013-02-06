@@ -1,7 +1,3 @@
- - what happens if you change configuration while backup is running? 
-   Executor gets deleted, slot gets disconnected and backup never registered as 
-   finished? But if we wait with deleting until backup has completed, maybe we 
-   will overwrite the correct status with backup status for a plan that no longer exists..
  - SSH as backup destination. Would be easy to add but I have not been motivated yet.
    - could use ssh to test destination availablility:
      ssh -q -o "BatchMode=yes" user@host "echo 2>&1" && echo "OK" || echo "NOK"

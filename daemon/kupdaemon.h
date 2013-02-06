@@ -61,6 +61,7 @@ private:
 	KStatusNotifierItem *mStatusNotifier;
 	KMenu *mContextMenu;
 	QTimer *mUsageAccumulatorTimer;
+	bool mWaitingToReloadConfig;
 };
 
 #endif /*KUPDAEMON_H*/
