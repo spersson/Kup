@@ -46,6 +46,7 @@ public:
 	bool mUseSystemExcludeList;
 	// True if files from the user-specific exclude list shall be excluded.
 	bool mUseUserExcludeList;
+	bool mRunAsRoot;
 
 	enum ScheduleType {MANUAL=0, INTERVAL, USAGE};
 	qint32 mScheduleType;

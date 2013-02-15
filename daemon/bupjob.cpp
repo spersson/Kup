@@ -23,23 +23,29 @@
 
 #include <KLocale>
 
+#include <QDir>
 #include <QTimer>
 
-#ifdef Q_OS_LINUX
 #include <unistd.h>
-#include <sys/syscall.h>
 #include <sys/resource.h>
-static void makeNice(int pPid) {
-	// See linux documentation Documentation/block/ioprio.txt for details of the syscall
-	syscall(SYS_ioprio_set, 1, pPid, 3 << 13 | 7);
-	setpriority(PRIO_PROCESS, pPid, 19);
-}
-#else
-static void makeNice(int) {}
+#ifdef Q_OS_LINUX
+#include <sys/syscall.h>
 #endif
 
-BupJob::BupJob(const BackupPlan *pBackupPlan, const QString &pDestinationPath, QObject *pParent)
-   :KJob(pParent), mBackupPlan(pBackupPlan), mDestinationPath(pDestinationPath)
+static void makeNice(int pPid) {
+#ifdef Q_OS_LINUX
+	// See linux documentation Documentation/block/ioprio.txt for details of the syscall
+	syscall(SYS_ioprio_set, 1, pPid, 3 << 13 | 7);
+#endif
+	setpriority(PRIO_PROCESS, pPid, 19);
+}
+
+BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
+               const QString &pDestinationPath, int pCompressionLevel, bool pRunAsRoot,
+               QObject *pParent)
+   :KJob(pParent), mPathsIncluded(pPathsIncluded), mPathsExcluded(pPathsExcluded),
+     mDestinationPath(pDestinationPath), mCompressionLevel(pCompressionLevel),
+     mRunAsRoot(pRunAsRoot)
 {
 	mInitProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -47,7 +53,26 @@ BupJob::BupJob(const BackupPlan *pBackupPlan, const QString &pDestinationPath, Q
 }
 
 void BupJob::start() {
-	QTimer::singleShot(0, this, SLOT(startIndexing()));
+	if(mRunAsRoot) {
+		Action lAction(QLatin1String("org.kde.kup.runner.takebackup"));
+		lAction.setHelperID(QLatin1String("org.kde.kup.runner"));
+		connect(lAction.watcher(), SIGNAL(actionPerformed(ActionReply)), SLOT(slotHelperDone(ActionReply)));
+		QVariantMap lArguments;
+		lArguments[QLatin1String("pathsIncluded")] = mPathsIncluded;
+		lArguments[QLatin1String("pathsExcluded")] = mPathsExcluded;
+		lArguments[QLatin1String("destinationPath")] = mDestinationPath;
+		lArguments[QLatin1String("compressionLevel")] = mCompressionLevel;
+		lArguments[QLatin1String("bupPath")] = QDir::homePath() + QDir::separator() + QLatin1String(".bup");
+		lArguments[QLatin1String("uid")] = (uint)geteuid();
+		lArguments[QLatin1String("gid")] = (uint)getegid();
+		lAction.setArguments(lArguments);
+		ActionReply lReply = lAction.execute();
+		if(checkForError(lReply)) {
+			emitResult();
+		}
+	} else {
+		QTimer::singleShot(0, this, SLOT(startIndexing()));
+	}
 }
 
 void BupJob::startIndexing() {
@@ -63,16 +88,17 @@ void BupJob::startIndexing() {
 		return;
 	}
 
-	mIndexProcess << QLatin1String("bup") << QLatin1String("index") << QLatin1String("-u");
+	mIndexProcess << QLatin1String("bup");
+	if(!mBupPath.isEmpty()) {
+		mIndexProcess << QLatin1String("-d") << mBupPath;
+	}
+	mIndexProcess << QLatin1String("index") << QLatin1String("-u");
 
-	foreach(QString lExclude, mBackupPlan->mPathsExcluded) {
+	foreach(QString lExclude, mPathsExcluded) {
 		mIndexProcess << QLatin1String("--exclude");
 		mIndexProcess << lExclude;
 	}
-
-	foreach(QString lInclude, mBackupPlan->mPathsIncluded) {
-		mIndexProcess << lInclude;
-	}
+	mIndexProcess << mPathsIncluded;
 
 	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
 	connect(&mIndexProcess, SIGNAL(started()), SLOT(slotIndexingStarted()));
@@ -93,14 +119,15 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		return;
 	}
 
-	mSaveProcess << QLatin1String("bup") << QLatin1String("save");
+	mSaveProcess << QLatin1String("bup");
+	if(!mBupPath.isEmpty()) {
+		mSaveProcess << QLatin1String("-d") << mBupPath;
+	}
+	mSaveProcess << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
 	mSaveProcess << QLatin1String("-r") << mDestinationPath;
-	mSaveProcess << QString("-%1").arg(mBackupPlan->mCompressionLevel);
-
-	foreach(QString lInclude, mBackupPlan->mPathsIncluded) {
-		mSaveProcess << lInclude;
-	}
+	mSaveProcess << QString("-%1").arg(mCompressionLevel);
+	mSaveProcess << mPathsIncluded;
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
 	connect(&mSaveProcess, SIGNAL(started()), SLOT(slotSavingStarted()));
@@ -119,5 +146,25 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		                   "<message>%1</message>", QString(mSaveProcess.readAllStandardError())));
 	}
 	emitResult();
+}
+
+void BupJob::slotHelperDone(ActionReply pReply) {
+	checkForError(pReply);
+	emitResult();
+}
+
+bool BupJob::checkForError(ActionReply pReply) {
+	if(pReply.failed()) {
+		setError(1);
+		if(pReply.type() == ActionReply::KAuthError) {
+			if(pReply.errorCode() != ActionReply::UserCancelled) {
+				setErrorText(i18nc("@info", "Failed to take backup as root: %1", pReply.errorDescription()));
+			}
+		} else {
+			setErrorText(pReply.errorDescription());
+		}
+		return true;
+	}
+	return false;
 }
 

@@ -11,4 +11,3 @@
     - Patch done and posted to mailing list, probably no one noticed...
  - Figure out a file format for backup exclude config files, maybe system-wide under something like /etc/backup-exclude.d/10-firefox-cache.exclude
    and user specific could be under ~/.config/fd.o/backup-exclude.d/
- - Add a kauth-based runner for running a backup job as root.

@@ -107,7 +107,8 @@ void EDExecutor::startBackup() {
 			}
 			QFileInfo lInfo(mDestinationPath);
 			if(lInfo.isWritable()) {
-				BupJob *lJob = new BupJob(mPlan, mDestinationPath, this);
+				BupJob *lJob = new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath,
+				                          mPlan->mCompressionLevel, mPlan->mRunAsRoot, this);
 				connect(lJob, SIGNAL(result(KJob*)), SLOT(slotBackupDone(KJob*)));
 				lJob->start();
 				mWantsToRunBackup = false; //reset, only used to retrigger this state-entering if drive wasn't already mounted

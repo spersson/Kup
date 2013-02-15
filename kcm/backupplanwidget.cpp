@@ -295,9 +295,13 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	QWidget *lAdvancedWidget = new QWidget(this);
 	QFormLayout *lAdvancedLayout = new QFormLayout;
 
-	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check", "Enabled"));
+	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check", "Yes"));
 	lShowHiddenCheckBox->setObjectName(QLatin1String("kcfg_Show hidden folders"));
-	lAdvancedLayout->addRow(i18nc("@label", "Hidden folders in source selection:"), lShowHiddenCheckBox);
+	lAdvancedLayout->addRow(i18nc("@label", "Show hidden folders in source selection:"), lShowHiddenCheckBox);
+
+	QCheckBox *lRunAsRootCheckBox = new QCheckBox(i18nc("@option:check", "Yes"));
+	lRunAsRootCheckBox->setObjectName(QLatin1String("kcfg_Run as root"));
+	lAdvancedLayout->addRow(i18nc("@label", "Take backups as root:"), lRunAsRootCheckBox);
 
 	KComboBox *lCompressionLevel = new KComboBox;
 	lCompressionLevel->setObjectName(QLatin1String("kcfg_Compression level"));

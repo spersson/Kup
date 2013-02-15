@@ -18,46 +18,23 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef BUPJOB_H
-#define BUPJOB_H
+#ifndef BUPHELPER_H
+#define BUPHELPER_H
 
-#include <kauth.h>
+#include <KAuth/ActionReply>
 using namespace KAuth;
-#include <KJob>
-#include <KProcess>
 
-class BackupPlan;
+#include <QObject>
+#include <QVariantMap>
 
-class BupJob : public KJob
+class BupHelper: public QObject
 {
 	Q_OBJECT
-
 public:
-	BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	       const QString &pDestinationPath, int pCompressionLevel, bool pRunAsRoot,
-	       QObject *pParent = 0);
-	void setBupPath(const QString &pBupPath) {mBupPath = pBupPath;}
-	virtual void start();
+	explicit BupHelper(QObject *parent = 0);
 
-protected slots:
-	void startIndexing();
-	void slotIndexingStarted();
-	void slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
-	void slotSavingStarted();
-	void slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
-	void slotHelperDone(ActionReply pReply);
-
-private:
-	bool checkForError(ActionReply pReply);
-	KProcess mInitProcess;
-	KProcess mIndexProcess;
-	KProcess mSaveProcess;
-	QStringList mPathsIncluded;
-	QStringList mPathsExcluded;
-	QString mDestinationPath;
-	QString mBupPath;
-	int mCompressionLevel;
-	bool mRunAsRoot;
+public slots:
+	ActionReply takebackup(const QVariantMap &pArguments);
 };
 
-#endif /*BUPJOB_H*/
+#endif // BUPHELPER_H

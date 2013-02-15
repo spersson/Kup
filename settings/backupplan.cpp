@@ -55,6 +55,7 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	addItemStringList("Patterns excluded", mPatternsExcluded);
 	addItemBool("Use system exclude list", mUseSystemExcludeList, true);
 	addItemBool("Use user exclude list", mUseUserExcludeList, true);
+	addItemBool("Run as root", mRunAsRoot);
 
 	addItemInt("Schedule type", mScheduleType, 2);
 	addItemInt("Schedule interval", mScheduleInterval, 1);

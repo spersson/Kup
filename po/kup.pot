@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-04 20:16+0800\n"
+"POT-Creation-Date: 2013-02-14 11:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,90 +18,95 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: daemon/bupjob.cpp:47
+#: daemon/bupjob.cpp:85
 msgctxt "@info"
 msgid ""
 "Backup destination could not be initialised by bup:</nl><message>%1</message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:66
+#: daemon/bupjob.cpp:106
 msgctxt "@info:progress"
 msgid "Checking what has changed since last backup..."
 msgstr ""
 
-#: daemon/bupjob.cpp:72
+#: daemon/bupjob.cpp:116
 msgctxt "@info"
 msgid ""
 "Indexing of file system did not complete successfully:</nl><message>%1</"
 "message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:89
+#: daemon/bupjob.cpp:135
 msgctxt "@info:progress"
 msgid "Saving changes to backup destination..."
 msgstr ""
 
-#: daemon/bupjob.cpp:95
+#: daemon/bupjob.cpp:145
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr ""
 
-#: daemon/edexecutor.cpp:125 daemon/edexecutor.cpp:143
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:127
+#: daemon/bupjob.cpp:161
+msgctxt "@info"
+msgid "Failed to take backup as root: %1"
+msgstr ""
+
+#: daemon/edexecutor.cpp:126 daemon/edexecutor.cpp:144
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:128
 #: daemon/planexecutor.cpp:237 daemon/planexecutor.cpp:247
 msgctxt "@title"
 msgid "Problem"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:103
+#: daemon/kupdaemon.cpp:112
 msgctxt "@info:tooltip"
 msgid "Backup destination unavailable"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:104
+#: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
 msgid "Backup status OK"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:110
+#: daemon/kupdaemon.cpp:119
 msgctxt "@info:tooltip"
 msgid "Backup destination available"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:117
+#: daemon/kupdaemon.cpp:126
 msgctxt "@info:tooltip"
 msgid "New backup suggested"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:128
+#: daemon/kupdaemon.cpp:137
 msgctxt "@info:tooltip"
 msgid "New backup neeeded"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:135
+#: daemon/kupdaemon.cpp:144
 msgctxt "@info:tooltip"
 msgid "Taking new backup"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:173
+#: daemon/kupdaemon.cpp:187
 msgctxt "@title:window"
 msgid "Backups"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:178
+#: daemon/kupdaemon.cpp:192
 msgctxt "@title:menu"
 msgid "Backups"
 msgstr ""
 
-#: daemon/kupdaemon.cpp:179
+#: daemon/kupdaemon.cpp:193
 msgctxt "@action:inmenu"
 msgid "Configure Backups"
 msgstr ""
 
-#: daemon/main.cpp:31 runner/main.cpp:29
+#: daemon/main.cpp:31
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
-"This allows it to quickly perform incrementel backups, only saving the parts "
+"This allows it to quickly perform incremental backups, only saving the parts "
 "of files that has actually changed since last backup was taken."
 msgstr ""
 
@@ -292,44 +297,49 @@ msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:298
+#: kcm/backupplanwidget.cpp:298 kcm/backupplanwidget.cpp:302
 msgctxt "@option:check"
-msgid "Enabled"
+msgid "Yes"
 msgstr ""
 
 #: kcm/backupplanwidget.cpp:300
 msgctxt "@label"
-msgid "Hidden folders in source selection:"
+msgid "Show hidden folders in source selection:"
 msgstr ""
 
 #: kcm/backupplanwidget.cpp:304
+msgctxt "@label"
+msgid "Take backups as root:"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:308
 msgctxt "@info:tooltip"
 msgid ""
 "Higher compression means less space is used by the backup archive but more "
 "cpu time is used when it is taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:309
+#: kcm/backupplanwidget.cpp:313
 msgctxt "@label"
 msgid "Compression level:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:314
+#: kcm/backupplanwidget.cpp:318
 msgctxt "@title"
 msgid "Advanced"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:315
+#: kcm/backupplanwidget.cpp:319
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:329
+#: kcm/backupplanwidget.cpp:333
 msgctxt "@label"
 msgid "Description:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:331
+#: kcm/backupplanwidget.cpp:335
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr ""
@@ -460,7 +470,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: po/rc.cpp:3 settings/backupplan.cpp:71 rc.cpp:3
+#: po/rc.cpp:3 settings/backupplan.cpp:72 rc.cpp:3
 msgid "Backups"
 msgstr ""
 
@@ -470,6 +480,13 @@ msgstr ""
 
 #: po/rc.cpp:5 rc.cpp:5
 msgid "backup,recovery,safety"
+msgstr ""
+
+#: runner/main.cpp:29
+msgid ""
+"Kup is a flexible backup solution using the backup storage system 'bup'. "
+"This allows it to quickly perform incrementel backups, only saving the parts "
+"of files that has actually changed since last backup was taken."
 msgstr ""
 
 #: runner/main.cpp:36
