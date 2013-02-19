@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-14 11:43+0800\n"
+"POT-Creation-Date: 2013-02-19 18:57+0800\n"
 "PO-Revision-Date: 2013-02-14 11:50+0800\n"
 "Last-Translator: Simon Persson <simonpersson1@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -128,11 +128,11 @@ msgctxt "@title"
 msgid "Kup Daemon"
 msgstr "Kupdemon"
 
-#: daemon/main.cpp:44 runner/main.cpp:37
+#: daemon/main.cpp:44
 msgid "Copyright (C) 2011 Simon Persson"
 msgstr "Kopieringskydd 2011 Simon Persson"
 
-#: daemon/main.cpp:46 kcm/kupkcm.cpp:51 runner/main.cpp:39
+#: daemon/main.cpp:46 kcm/kupkcm.cpp:51
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
@@ -502,21 +502,6 @@ msgstr "Konfigurera planer för säkerhetskopiering"
 #: po/rc.cpp:5 rc.cpp:5
 msgid "backup,recovery,safety"
 msgstr "säkerhetskopior,återställning,backup"
-
-#: runner/main.cpp:29
-msgid ""
-"Kup is a flexible backup solution using the backup storage system 'bup'. "
-"This allows it to quickly perform incrementel backups, only saving the parts "
-"of files that has actually changed since last backup was taken."
-msgstr ""
-"Kup är en flexibel lösning för säkerhetskopiering som använder programmet "
-"'bup' för lagring. Detta ger möjlighet att snabbt ta inkrementella "
-"säkerhetskopior, endast de delar av filer som har ändrats sedan förra "
-"kopieringen kopieras på nytt."
-
-#: runner/main.cpp:36
-msgid "Kup Runner"
-msgstr ""
 
 #: settings/backupplan.cpp:37
 msgctxt ""

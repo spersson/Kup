@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-14 11:43+0800\n"
+"POT-Creation-Date: 2013-02-19 18:57+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,11 +119,11 @@ msgctxt "@title"
 msgid "Kup Daemon"
 msgstr ""
 
-#: daemon/main.cpp:44 runner/main.cpp:37
+#: daemon/main.cpp:44
 msgid "Copyright (C) 2011 Simon Persson"
 msgstr ""
 
-#: daemon/main.cpp:46 kcm/kupkcm.cpp:51 runner/main.cpp:39
+#: daemon/main.cpp:46 kcm/kupkcm.cpp:51
 msgid "Simon Persson"
 msgstr ""
 
@@ -480,17 +480,6 @@ msgstr ""
 
 #: po/rc.cpp:5 rc.cpp:5
 msgid "backup,recovery,safety"
-msgstr ""
-
-#: runner/main.cpp:29
-msgid ""
-"Kup is a flexible backup solution using the backup storage system 'bup'. "
-"This allows it to quickly perform incrementel backups, only saving the parts "
-"of files that has actually changed since last backup was taken."
-msgstr ""
-
-#: runner/main.cpp:36
-msgid "Kup Runner"
 msgstr ""
 
 #: settings/backupplan.cpp:37
