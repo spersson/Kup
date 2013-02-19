@@ -42,11 +42,13 @@
 K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
 K_EXPORT_PLUGIN(KupKcmFactory("kcm_kup", "kup"))
 
+static const char version[] = "0.3";
+
 KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
    : KCModule(KupKcmFactory::componentData(), pParent, pArgs)
 {
 	KAboutData *lAboutData = new KAboutData("kcm_kup", 0, ki18n("Kup Configuration Module"),
-	                                        "0.1.0", ki18n("Configuration of backup plans for the Kup backup system"),
+	                                        version, ki18n("Configuration of backup plans for the Kup backup system"),
 	                                        KAboutData::License_GPL, ki18n("Copyright 2011 Simon Persson"));
 	lAboutData->addAuthor(ki18n("Simon Persson"), ki18n("Maintainer"), "simonpersson1@gmail.com");
 	setAboutData(lAboutData);
