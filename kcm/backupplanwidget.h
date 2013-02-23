@@ -64,14 +64,14 @@ class BackupPlanWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit BackupPlanWidget(BackupPlan *pBackupPlan, QWidget *pParent = 0);
+	explicit BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion, QWidget *pParent = 0);
 
 	void saveExtraData();
 
 	KPageWidgetItem *createSourcePage();
 	KPageWidgetItem *createDestinationPage();
 	KPageWidgetItem *createSchedulePage();
-	KPageWidgetItem *createAdvancedPage();
+	KPageWidgetItem *createAdvancedPage(const QString &pBupVersion);
 
 	KLineEdit *mDescriptionEdit;
 	KPushButton *mConfigureButton;

@@ -49,13 +49,13 @@ protected slots:
 
 private:
 	bool checkForError(ActionReply pReply);
-	KProcess mInitProcess;
 	KProcess mIndexProcess;
 	KProcess mSaveProcess;
 	QStringList mPathsIncluded;
 	QStringList mPathsExcluded;
 	QString mDestinationPath;
 	QString mBupPath;
+	QString mBupVersion;
 	int mCompressionLevel;
 	bool mRunAsRoot;
 };

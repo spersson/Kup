@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-19 18:57+0800\n"
+"POT-Creation-Date: 2013-02-23 17:41+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,35 +18,42 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: daemon/bupjob.cpp:85
+#: daemon/bupjob.cpp:83
+msgctxt "@info"
+msgid ""
+"The \"bup\" program is needed but could not be found, maybe it is not "
+"installed?"
+msgstr ""
+
+#: daemon/bupjob.cpp:97
 msgctxt "@info"
 msgid ""
 "Backup destination could not be initialised by bup:</nl><message>%1</message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:106
+#: daemon/bupjob.cpp:118
 msgctxt "@info:progress"
 msgid "Checking what has changed since last backup..."
 msgstr ""
 
-#: daemon/bupjob.cpp:116
+#: daemon/bupjob.cpp:128
 msgctxt "@info"
 msgid ""
 "Indexing of file system did not complete successfully:</nl><message>%1</"
 "message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:135
+#: daemon/bupjob.cpp:149
 msgctxt "@info:progress"
 msgid "Saving changes to backup destination..."
 msgstr ""
 
-#: daemon/bupjob.cpp:145
+#: daemon/bupjob.cpp:159
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:161
+#: daemon/bupjob.cpp:175
 msgctxt "@info"
 msgid "Failed to take backup as root: %1"
 msgstr ""
@@ -123,7 +130,7 @@ msgstr ""
 msgid "Copyright (C) 2011 Simon Persson"
 msgstr ""
 
-#: daemon/main.cpp:46 kcm/kupkcm.cpp:51
+#: daemon/main.cpp:46 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
 msgstr ""
 
@@ -312,34 +319,34 @@ msgctxt "@label"
 msgid "Take backups as root:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:308
+#: kcm/backupplanwidget.cpp:309
 msgctxt "@info:tooltip"
 msgid ""
 "Higher compression means less space is used by the backup archive but more "
 "cpu time is used when it is taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:313
+#: kcm/backupplanwidget.cpp:314
 msgctxt "@label"
 msgid "Compression level:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:318
+#: kcm/backupplanwidget.cpp:320
 msgctxt "@title"
 msgid "Advanced"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:319
+#: kcm/backupplanwidget.cpp:321
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:333
+#: kcm/backupplanwidget.cpp:335
 msgctxt "@label"
 msgid "Description:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:335
+#: kcm/backupplanwidget.cpp:337
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr ""
@@ -393,28 +400,35 @@ msgid ""
 "the backup)"
 msgstr ""
 
-#: kcm/kupkcm.cpp:48
+#: kcm/kupkcm.cpp:50
 msgid "Kup Configuration Module"
 msgstr ""
 
-#: kcm/kupkcm.cpp:49
+#: kcm/kupkcm.cpp:51
 msgid "Configuration of backup plans for the Kup backup system"
 msgstr ""
 
-#: kcm/kupkcm.cpp:50
+#: kcm/kupkcm.cpp:52
 msgid "Copyright 2011 Simon Persson"
 msgstr ""
 
-#: kcm/kupkcm.cpp:51
+#: kcm/kupkcm.cpp:53
 msgid "Maintainer"
 msgstr ""
 
-#: kcm/kupkcm.cpp:196
+#: kcm/kupkcm.cpp:70
+msgctxt "@info:label"
+msgid ""
+"You need to install the program called \"bup\" before you can activate any "
+"backup plans."
+msgstr ""
+
+#: kcm/kupkcm.cpp:220
 msgctxt "@action:button"
 msgid "Add New Plan"
 msgstr ""
 
-#: kcm/kupkcm.cpp:199
+#: kcm/kupkcm.cpp:223
 msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr ""

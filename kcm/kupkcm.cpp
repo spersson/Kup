@@ -55,25 +55,47 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 	setObjectName("kcm_kup"); //needed for the kconfigdialogmanager magic
 	setButtons((Apply | buttons()) & ~Default);
 
-	mStackedLayout = new QStackedLayout;
-
-	mConfig = KSharedConfig::openConfig("kuprc");
-	mSettings = new KupSettings(mConfig, this);
-	for(int i = 0; i < mSettings->mNumberOfPlans; ++i) {
-		mPlans.append(new BackupPlan(i+1, mConfig, this));
-		mConfigManagers.append(NULL);
-		mPlanWidgets.append(NULL);
-		mStatusWidgets.append(NULL);
+	KProcess lBupProcess;
+	lBupProcess << QLatin1String("bup") << QLatin1String("version");
+	lBupProcess.setOutputChannelMode(KProcess::SeparateChannels);
+	int lExitCode = lBupProcess.execute();
+	if(lExitCode >= 0) {
+		mBupVersion = lBupProcess.readAllStandardOutput();
 	}
 
-	createSettingsFrontPage();
-	addConfig(mSettings, mFrontPage);
-	mStackedLayout->addWidget(mFrontPage);
-	setLayout(mStackedLayout);
+	if(mBupVersion.isEmpty()) {
+		QLabel *lSorryIcon = new QLabel;
+		lSorryIcon->setPixmap(KIconLoader::global()->loadIcon(QLatin1String("dialog-error"),
+		                                                      KIconLoader::Dialog, KIconLoader::SizeHuge));
+		QLabel *lSorryText = new QLabel(i18nc("@info:label", "You need to install the program "
+		                                      "called \"bup\" before you can activate any backup plans."));
+		QHBoxLayout *lHLayout = new QHBoxLayout;
+		lHLayout->addWidget(lSorryIcon);
+		lHLayout->addWidget(lSorryText);
+		lHLayout->addStretch();
+		setLayout(lHLayout);
+	} else {
+		mConfig = KSharedConfig::openConfig("kuprc");
+		mSettings = new KupSettings(mConfig, this);
+		for(int i = 0; i < mSettings->mNumberOfPlans; ++i) {
+			mPlans.append(new BackupPlan(i+1, mConfig, this));
+			mConfigManagers.append(NULL);
+			mPlanWidgets.append(NULL);
+			mStatusWidgets.append(NULL);
+		}
+		createSettingsFrontPage();
+		addConfig(mSettings, mFrontPage);
+		mStackedLayout = new QStackedLayout;
+		mStackedLayout->addWidget(mFrontPage);
+		setLayout(mStackedLayout);
+	}
 }
 
 
 void KupKcm::load() {
+	if(mBupVersion.isEmpty()) {
+		return;
+	}
 	// status will be set correctly after construction, set to checked here to
 	// match the enabled status of other widgets
 	mEnableCheckBox->setChecked(true);
@@ -214,7 +236,7 @@ void KupKcm::createSettingsFrontPage() {
 }
 
 void KupKcm::createPlanWidgets(int pIndex) {
-	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex));
+	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion);
 	connect(lPlanWidget, SIGNAL(requestOverviewReturn()), this, SLOT(showFrontPage()));
 	KConfigDialogManager *lConfigManager = new KConfigDialogManager(lPlanWidget, mPlans.at(pIndex));
 	lConfigManager->setObjectName(objectName());

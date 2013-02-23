@@ -73,6 +73,7 @@ private:
 	QVBoxLayout *mVerticalLayout;
 	QCheckBox *mEnableCheckBox;
 	KPushButton *mAddPlanButton;
+	QString mBupVersion;
 };
 
 #endif // KUPKCM_H

@@ -47,7 +47,6 @@ BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExclu
      mDestinationPath(pDestinationPath), mCompressionLevel(pCompressionLevel),
      mRunAsRoot(pRunAsRoot)
 {
-	mInitProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
 }
@@ -76,14 +75,27 @@ void BupJob::start() {
 }
 
 void BupJob::startIndexing() {
-	mInitProcess << QLatin1String("bup");
-	mInitProcess << QLatin1String("-d") << mDestinationPath;
-	mInitProcess << QLatin1String("init");
+	KProcess lVersionProcess;
+	lVersionProcess.setOutputChannelMode(KProcess::SeparateChannels);
+	lVersionProcess << QLatin1String("bup") << QLatin1String("version");
+	if(lVersionProcess.execute() < 0) {
+		setError(1);
+		setErrorText(i18nc("@info", "The \"bup\" program is needed but could not be found, "
+		                   "maybe it is not installed?"));
+		emitResult();
+		return;
+	}
+	mBupVersion = lVersionProcess.readAllStandardOutput();
 
-	if(mInitProcess.execute() != 0) {
+	KProcess lInitProcess;
+	lInitProcess.setOutputChannelMode(KProcess::SeparateChannels);
+	lInitProcess << QLatin1String("bup");
+	lInitProcess << QLatin1String("-d") << mDestinationPath;
+	lInitProcess << QLatin1String("init");
+	if(lInitProcess.execute() != 0) {
 		setError(1);
 		setErrorText(i18nc("@info", "Backup destination could not be initialised by bup:</nl>"
-		                   "<message>%1</message>", QString(mInitProcess.readAllStandardError())));
+		                   "<message>%1</message>", QString(lInitProcess.readAllStandardError())));
 		emitResult();
 		return;
 	}
@@ -126,7 +138,9 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mSaveProcess << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
 	mSaveProcess << QLatin1String("-r") << mDestinationPath;
-	mSaveProcess << QString("-%1").arg(mCompressionLevel);
+	if(mBupVersion >= QLatin1String("0.25")) {
+		mSaveProcess << QString("-%1").arg(mCompressionLevel);
+	}
 	mSaveProcess << mPathsIncluded;
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));

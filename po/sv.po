@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-19 18:57+0800\n"
-"PO-Revision-Date: 2013-02-14 11:50+0800\n"
+"POT-Creation-Date: 2013-02-23 17:41+0800\n"
+"PO-Revision-Date: 2013-02-23 17:45+0800\n"
 "Last-Translator: Simon Persson <simonpersson1@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -19,7 +19,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: daemon/bupjob.cpp:85
+#: daemon/bupjob.cpp:83
+msgctxt "@info"
+msgid ""
+"The \"bup\" program is needed but could not be found, maybe it is not "
+"installed?"
+msgstr ""
+"Programmet \"bup\" behövs men kunde inte hittas, det kanske inte är "
+"installerat?"
+
+#: daemon/bupjob.cpp:97
 msgctxt "@info"
 msgid ""
 "Backup destination could not be initialised by bup:</nl><message>%1</message>"
@@ -27,13 +36,13 @@ msgstr ""
 "Destinationen för säkerhetskopior kunde inte initieras av bup:</nl><message>"
 "%1</message>"
 
-#: daemon/bupjob.cpp:106
+#: daemon/bupjob.cpp:118
 msgctxt "@info:progress"
 msgid "Checking what has changed since last backup..."
 msgstr ""
 "Kontrollerar vad som har ändrats efter att senaste säkerhetskopian togs..."
 
-#: daemon/bupjob.cpp:116
+#: daemon/bupjob.cpp:128
 msgctxt "@info"
 msgid ""
 "Indexing of file system did not complete successfully:</nl><message>%1</"
@@ -41,17 +50,17 @@ msgid ""
 msgstr ""
 "Indexering av filsystemet gick inte helt bra:</nl><message>%1</message>"
 
-#: daemon/bupjob.cpp:135
+#: daemon/bupjob.cpp:149
 msgctxt "@info:progress"
 msgid "Saving changes to backup destination..."
 msgstr "Kopierar förändringar till säkerhetskopia..."
 
-#: daemon/bupjob.cpp:145
+#: daemon/bupjob.cpp:159
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr "Säkerhetskopieringen gick inte helt bra:</nl><message>%1</message>"
 
-#: daemon/bupjob.cpp:161
+#: daemon/bupjob.cpp:175
 msgctxt "@info"
 msgid "Failed to take backup as root: %1"
 msgstr "Misslyckades att köra säkerhetskopieringen som root: %1"
@@ -132,7 +141,7 @@ msgstr "Kupdemon"
 msgid "Copyright (C) 2011 Simon Persson"
 msgstr "Kopieringskydd 2011 Simon Persson"
 
-#: daemon/main.cpp:46 kcm/kupkcm.cpp:51
+#: daemon/main.cpp:46 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
@@ -330,7 +339,7 @@ msgctxt "@label"
 msgid "Take backups as root:"
 msgstr "Kör säkerhetskopieringen som root:"
 
-#: kcm/backupplanwidget.cpp:308
+#: kcm/backupplanwidget.cpp:309
 msgctxt "@info:tooltip"
 msgid ""
 "Higher compression means less space is used by the backup archive but more "
@@ -339,27 +348,27 @@ msgstr ""
 "Högre kompression ger mindre storlek på säkerhetskopiorna men kräver mer "
 "processortid när säkerhetskopian tas."
 
-#: kcm/backupplanwidget.cpp:313
+#: kcm/backupplanwidget.cpp:314
 msgctxt "@label"
 msgid "Compression level:"
 msgstr "Kompressionsnivå:"
 
-#: kcm/backupplanwidget.cpp:318
+#: kcm/backupplanwidget.cpp:320
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: kcm/backupplanwidget.cpp:319
+#: kcm/backupplanwidget.cpp:321
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Extra inställningar för avancerade användare"
 
-#: kcm/backupplanwidget.cpp:333
+#: kcm/backupplanwidget.cpp:335
 msgctxt "@label"
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: kcm/backupplanwidget.cpp:335
+#: kcm/backupplanwidget.cpp:337
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr "Tillbaka till översikten"
@@ -414,28 +423,37 @@ msgid ""
 msgstr ""
 "<filename>%1</filename><nl/> (kommer <emphasis>inte</emphasis> inkluderas)"
 
-#: kcm/kupkcm.cpp:48
+#: kcm/kupkcm.cpp:50
 msgid "Kup Configuration Module"
 msgstr "Kup Konfigurationsmodul"
 
-#: kcm/kupkcm.cpp:49
+#: kcm/kupkcm.cpp:51
 msgid "Configuration of backup plans for the Kup backup system"
 msgstr "Konfiguration av säkerhetskopior för Kup"
 
-#: kcm/kupkcm.cpp:50
+#: kcm/kupkcm.cpp:52
 msgid "Copyright 2011 Simon Persson"
 msgstr "Kopieringskydd 2011 Simon Persson"
 
-#: kcm/kupkcm.cpp:51
+#: kcm/kupkcm.cpp:53
 msgid "Maintainer"
 msgstr "Underhållsansvarig"
 
-#: kcm/kupkcm.cpp:196
+#: kcm/kupkcm.cpp:70
+msgctxt "@info:label"
+msgid ""
+"You need to install the program called \"bup\" before you can activate any "
+"backup plans."
+msgstr ""
+"Du behöver installera programmet \"bup\" innan du kan aktivera "
+"säkerhetskopiering."
+
+#: kcm/kupkcm.cpp:220
 msgctxt "@action:button"
 msgid "Add New Plan"
 msgstr "Lägg till säkerhetskopia"
 
-#: kcm/kupkcm.cpp:199
+#: kcm/kupkcm.cpp:223
 msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr "Säkerhetskopiering aktivt"

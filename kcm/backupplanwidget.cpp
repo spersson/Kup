@@ -291,7 +291,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	return lPage;
 }
 
-KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
+KPageWidgetItem *BackupPlanWidget::createAdvancedPage(const QString &pBupVersion) {
 	QWidget *lAdvancedWidget = new QWidget(this);
 	QFormLayout *lAdvancedLayout = new QFormLayout;
 
@@ -303,14 +303,16 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	lRunAsRootCheckBox->setObjectName(QLatin1String("kcfg_Run as root"));
 	lAdvancedLayout->addRow(i18nc("@label", "Take backups as root:"), lRunAsRootCheckBox);
 
-	KComboBox *lCompressionLevel = new KComboBox;
-	lCompressionLevel->setObjectName(QLatin1String("kcfg_Compression level"));
-	lCompressionLevel->setToolTip(i18nc("@info:tooltip", "Higher compression means less space is used by "
-	                                    "the backup archive but more cpu time is used when it is taken."));
-	for(int i=0; i<10; ++i) {
-		lCompressionLevel->addItem(QString("%1 %").arg(lrint(i*100/9)));
+	if(pBupVersion >= QLatin1String("0.25")) {
+		KComboBox *lCompressionLevel = new KComboBox;
+		lCompressionLevel->setObjectName(QLatin1String("kcfg_Compression level"));
+		lCompressionLevel->setToolTip(i18nc("@info:tooltip", "Higher compression means less space is used by "
+		                                    "the backup archive but more cpu time is used when it is taken."));
+		for(int i=0; i<10; ++i) {
+			lCompressionLevel->addItem(QString("%1 %").arg(lrint(i*100/9)));
+		}
+		lAdvancedLayout->addRow(i18nc("@label", "Compression level:"), lCompressionLevel);
 	}
-	lAdvancedLayout->addRow(i18nc("@label", "Compression level:"), lCompressionLevel);
 
 	lAdvancedWidget->setLayout(lAdvancedLayout);
 	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
@@ -321,7 +323,7 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	return lPage;
 }
 
-BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, QWidget *pParent)
+BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion, QWidget *pParent)
    : QWidget(pParent), mBackupPlan(pBackupPlan)
 {
 	QVBoxLayout *lVLayout1 = new QVBoxLayout;
@@ -339,7 +341,7 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, QWidget *pParent)
 	mConfigPages->addPage(createSourcePage());
 	mConfigPages->addPage(createDestinationPage());
 	mConfigPages->addPage(createSchedulePage());
-	mConfigPages->addPage(createAdvancedPage());
+	mConfigPages->addPage(createAdvancedPage(pBupVersion));
 
 	lHLayout1->addWidget(mConfigureButton);
 	lHLayout1->addStretch();
