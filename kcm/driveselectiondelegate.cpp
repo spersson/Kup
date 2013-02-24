@@ -48,7 +48,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	KIO::filesize_t lTotalSize = pIndex.data(DriveSelection::TotalSpace).value<KIO::filesize_t>();
 	KIO::filesize_t lUsedSize = pIndex.data(DriveSelection::UsedSpace).value<KIO::filesize_t>();
 
-	bool lIsDisconnected = pIndex.data(DriveSelection::UDI).toString() == QLatin1String("DISCONNECTED_BACKUP_DEVICE");
+	bool lIsDisconnected = pIndex.data(DriveSelection::UDI).toString().isEmpty();
 
 	if(lTotalSize == 0 || lIsDisconnected) {
 		mCapacityBar->setValue(0);
@@ -56,8 +56,8 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 		mCapacityBar->setValue((lUsedSize * 100) / lTotalSize);
 	}
 	mCapacityBar->drawCapacityBar(pPainter, pOption.rect.adjusted(cMargin,
-	                                                           cMargin+QApplication::fontMetrics().height()+cMargin,
-	                                                           -cMargin, -cMargin));
+	                                                              cMargin+QApplication::fontMetrics().height()+cMargin,
+	                                                              -cMargin, -cMargin));
 
 	if (pOption.state & QStyle::State_Selected)
 		pPainter->setPen(pOption.palette.color(QPalette::HighlightedText));
@@ -71,9 +71,9 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	} else {
 		lDisconnectedLabel = QString("");
 		QString lFreeSpace = i18nc("@label %1 is amount of free storage space of hard drive","%1 free",
-		                   lLocale->formatByteSize(lTotalSize - lUsedSize, 1));
+		                           lLocale->formatByteSize(lTotalSize - lUsedSize, 1));
 		pPainter->drawText(pOption.rect.topRight() + QPoint(-(cMargin+QApplication::fontMetrics().width(lFreeSpace)),
-		                                                  cMargin+QApplication::fontMetrics().height()), lFreeSpace);
+		                                                    cMargin+QApplication::fontMetrics().height()), lFreeSpace);
 	}
 
 	QString lDeviceDescription = pIndex.data(DriveSelection::DeviceDescription).toString();
@@ -96,7 +96,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 		lDisplayLabel = lPartitionLabel;
 	} else {
 		lDisplayLabel = i18nc("@item:inlistbox %1 is drive(partition) label, %2 is storage capacity",
-		               "%1: %2 total capacity", lPartitionLabel, lLocale->formatByteSize(lTotalSize, 1));
+		                      "%1: %2 total capacity", lPartitionLabel, lLocale->formatByteSize(lTotalSize, 1));
 	}
 	pPainter->drawText(pOption.rect.topLeft() + QPoint(cMargin, cMargin+QApplication::fontMetrics().height()), lDisplayLabel);
 
@@ -110,4 +110,3 @@ QSize DriveSelectionDelegate::sizeHint(const QStyleOptionViewItem& option, const
 	size.setWidth(cMargin*2 + QApplication::fontMetrics().width(index.data().toString()));
 	return size;
 }
-

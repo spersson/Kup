@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-23 17:41+0800\n"
-"PO-Revision-Date: 2013-02-23 17:45+0800\n"
+"POT-Creation-Date: 2013-02-24 23:23+0800\n"
+"PO-Revision-Date: 2013-02-24 23:44+0800\n"
 "Last-Translator: Simon Persson <simonpersson1@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -205,62 +205,128 @@ msgctxt "@info"
 msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
 msgstr "Fel uppstod när arkivet skulle monteras:</nl><message>%1</message>"
 
-#: kcm/backupplanwidget.cpp:123
+#: kcm/backupplanwidget.cpp:125
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "Välj Mapp"
+
+#: kcm/backupplanwidget.cpp:127
+msgctxt "@action:button"
+msgid "New Folder..."
+msgstr "Ny Mapp..."
+
+#: kcm/backupplanwidget.cpp:153
+msgctxt "default folder name when creating a new folder"
+msgid "New Folder"
+msgstr "Ny Mapp"
+
+#: kcm/backupplanwidget.cpp:158
+msgctxt "@title:window"
+msgid "New Folder"
+msgstr "Skapa Ny Mapp"
+
+#: kcm/backupplanwidget.cpp:159
+msgctxt "@label:textbox"
+msgid ""
+"Create new folder in:\n"
+"%1"
+msgstr "Skapa ny mapp i:\n%1"
+
+#: kcm/backupplanwidget.cpp:170
+msgid "A folder named %1 already exists."
+msgstr "En mapp med namnet %1 finns redan."
+
+#: kcm/backupplanwidget.cpp:175
+msgid "You do not have permission to create %1."
+msgstr "Du har inte rättighet att skapa %1."
+
+#: kcm/backupplanwidget.cpp:187
 msgctxt "@title"
 msgid "Sources"
 msgstr "Källor"
 
-#: kcm/backupplanwidget.cpp:124
+#: kcm/backupplanwidget.cpp:188
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr "Välj vilka mappar som ska inkluderas i säkerhetskopior"
 
-#: kcm/backupplanwidget.cpp:134
+#: kcm/backupplanwidget.cpp:202
 msgctxt "@option:radio"
-msgid "Local Filesystem"
-msgstr "Lokalt filsystem"
+msgid "Filesystem Path"
+msgstr "Fast plats i filsystemet"
 
-#: kcm/backupplanwidget.cpp:135
+#: kcm/backupplanwidget.cpp:203
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr "Externt lagringsmedium"
 
-#: kcm/backupplanwidget.cpp:152
-msgctxt "@label:textbox"
-msgid "Folder on Destination Drive:"
-msgstr "Mapp på destinationsenheten:"
+#: kcm/backupplanwidget.cpp:209
+msgctxt "@label"
+msgid ""
+"You can use this option for backing up to networked storage if you always "
+"mount it at the same path. The path specified here does not need to exist at "
+"all times, its existance will be monitored."
+msgstr ""
+"Du kan välja detta alternativet för att säkerhetskopiera till en nätverksdisk "
+"om du alltid monterar disken på samma plats i filsystemet. Vald mapp behöver "
+"inte finnas hela tiden, dess existens kommer att monitoreras."
 
-#: kcm/backupplanwidget.cpp:155 kcm/backupplanwidget.cpp:156
+#: kcm/backupplanwidget.cpp:213
+msgctxt "@label:textbox"
+msgid "Destination Path for Backup:"
+msgstr "Plats att lagra säkerhetskopiorna:"
+
+#: kcm/backupplanwidget.cpp:230
+msgctxt "@label"
+msgid ""
+"Use this option if you want to backup your files on an external storage that "
+"can be plugged in to this computer, such as a USB hard drive or memory stick."
+msgstr ""
+"Välj detta alternativet om du vill lagra säkerhetskopiorna på en extern "
+"lagringsenhet som kopplas in direkt i denna datorn, till exempel en "
+"USB-hårddisk eller minnepinne."
+
+#: kcm/backupplanwidget.cpp:238 kcm/backupplanwidget.cpp:241
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr "Den mapp som väljs kommer att skapas om den inte redan finns."
 
-#: kcm/backupplanwidget.cpp:191
+#: kcm/backupplanwidget.cpp:240
+msgctxt "@label:textbox"
+msgid "Folder on Destination Drive:"
+msgstr "Mapp på destinationsenheten:"
+
+#: kcm/backupplanwidget.cpp:247
+msgctxt "@info:tooltip"
+msgid "Open dialog to select a folder"
+msgstr "Öppna dialog för att välja en mapp"
+
+#: kcm/backupplanwidget.cpp:295
 msgctxt "@title"
 msgid "Destination"
 msgstr "Lagringsplats"
 
-#: kcm/backupplanwidget.cpp:192
+#: kcm/backupplanwidget.cpp:296
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr "Välj lagringsplats för säkerhetskopior"
 
-#: kcm/backupplanwidget.cpp:208
+#: kcm/backupplanwidget.cpp:312
 msgctxt "@option:radio"
 msgid "Manual Only"
 msgstr "Endast manuellt"
 
-#: kcm/backupplanwidget.cpp:209
+#: kcm/backupplanwidget.cpp:313
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr "Intervall"
 
-#: kcm/backupplanwidget.cpp:210
+#: kcm/backupplanwidget.cpp:314
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr "Aktiv användningstid"
 
-#: kcm/backupplanwidget.cpp:212
+#: kcm/backupplanwidget.cpp:316
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
@@ -269,7 +335,7 @@ msgstr ""
 "Säkerhetskopior tas endast när du ber om det. Detta kan göras från "
 "popupmenyn när du högerklickar på ikonen i systembrickan."
 
-#: kcm/backupplanwidget.cpp:225
+#: kcm/backupplanwidget.cpp:329
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -278,27 +344,27 @@ msgstr ""
 "En ny säkerhetskopia kommer tas när lagringsplatsen är tillgänglig och mer "
 "än konfigurerat intervall har gått sedan förra kopian togs."
 
-#: kcm/backupplanwidget.cpp:240
+#: kcm/backupplanwidget.cpp:344
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr "Minuter"
 
-#: kcm/backupplanwidget.cpp:241 kcm/backupplanwidget.cpp:265
+#: kcm/backupplanwidget.cpp:345 kcm/backupplanwidget.cpp:369
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr "Timmar"
 
-#: kcm/backupplanwidget.cpp:242
+#: kcm/backupplanwidget.cpp:346
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr "Dagar"
 
-#: kcm/backupplanwidget.cpp:243
+#: kcm/backupplanwidget.cpp:347
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr "Veckor"
 
-#: kcm/backupplanwidget.cpp:252
+#: kcm/backupplanwidget.cpp:356
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -309,37 +375,37 @@ msgstr ""
 "har använt datorn aktivt under mer än konfigurerad tidsgräns sedan förra "
 "kopian togs."
 
-#: kcm/backupplanwidget.cpp:270
+#: kcm/backupplanwidget.cpp:374
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr "Fråga innan ny säkerhetskopia tas"
 
-#: kcm/backupplanwidget.cpp:288
+#: kcm/backupplanwidget.cpp:392
 msgctxt "@title"
 msgid "Schedule"
 msgstr "Schema"
 
-#: kcm/backupplanwidget.cpp:289
+#: kcm/backupplanwidget.cpp:393
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "Specificera schema för säkerhetskopiering"
 
-#: kcm/backupplanwidget.cpp:298 kcm/backupplanwidget.cpp:302
+#: kcm/backupplanwidget.cpp:402 kcm/backupplanwidget.cpp:406
 msgctxt "@option:check"
 msgid "Yes"
 msgstr "Ja"
 
-#: kcm/backupplanwidget.cpp:300
+#: kcm/backupplanwidget.cpp:404
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
 msgstr "Visa dolda mappar i val av källor:"
 
-#: kcm/backupplanwidget.cpp:304
+#: kcm/backupplanwidget.cpp:408
 msgctxt "@label"
 msgid "Take backups as root:"
 msgstr "Kör säkerhetskopieringen som root:"
 
-#: kcm/backupplanwidget.cpp:309
+#: kcm/backupplanwidget.cpp:413
 msgctxt "@info:tooltip"
 msgid ""
 "Higher compression means less space is used by the backup archive but more "
@@ -348,30 +414,38 @@ msgstr ""
 "Högre kompression ger mindre storlek på säkerhetskopiorna men kräver mer "
 "processortid när säkerhetskopian tas."
 
-#: kcm/backupplanwidget.cpp:314
+#: kcm/backupplanwidget.cpp:418
 msgctxt "@label"
 msgid "Compression level:"
 msgstr "Kompressionsnivå:"
 
-#: kcm/backupplanwidget.cpp:320
+#: kcm/backupplanwidget.cpp:424
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: kcm/backupplanwidget.cpp:321
+#: kcm/backupplanwidget.cpp:425
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Extra inställningar för avancerade användare"
 
-#: kcm/backupplanwidget.cpp:335
+#: kcm/backupplanwidget.cpp:439
 msgctxt "@label"
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: kcm/backupplanwidget.cpp:337
+#: kcm/backupplanwidget.cpp:441
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr "Tillbaka till översikten"
+
+#: kcm/driveselection.cpp:259
+msgctxt "@label Only shown if no drives are detected"
+msgid ""
+"Plug in the external storage you wish to use, then select it in this list."
+msgstr ""
+"Koppla in den externa lagringsenhet du vill använda, välj den sen i denna "
+"listan."
 
 #: kcm/driveselectiondelegate.cpp:70
 msgctxt "@item:inlistbox this text is added if selected drive is disconnected"

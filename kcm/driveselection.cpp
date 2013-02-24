@@ -24,6 +24,7 @@
 
 #include <QItemSelectionModel>
 #include <QList>
+#include <QPainter>
 #include <QStandardItemModel>
 #include <QTimer>
 
@@ -41,14 +42,28 @@ bool deviceLessThan(const Solid::Device &a, const Solid::Device &b) {
 }
 
 DriveSelection::DriveSelection(BackupPlan *pBackupPlan, QWidget *parent)
-   : QListView(parent), mBackupPlan(pBackupPlan)
+   : QListView(parent), mBackupPlan(pBackupPlan), mSelectedAndAccessible(false)
 {
-	KConfigDialogManager::changedMap()->insert("DriveSelection", SIGNAL(driveSelectionChanged()));
+	KConfigDialogManager::changedMap()->insert("DriveSelection", SIGNAL(selectedDriveChanged(QString)));
 
 	mDrivesModel = new QStandardItemModel(this);
 	setModel(mDrivesModel);
 	setItemDelegate(new DriveSelectionDelegate(this));
 	setSelectionMode(QAbstractItemView::SingleSelection);
+
+	if(!mBackupPlan->mExternalUUID.isEmpty()) {
+		QStandardItem *lItem = new QStandardItem();
+		lItem->setEditable(false);
+		lItem->setData(QString(), DriveSelection::UDI);
+		lItem->setData(mBackupPlan->mExternalUUID, DriveSelection::UUID);
+		lItem->setData(0, DriveSelection::UsedSpace);
+		lItem->setData(mBackupPlan->mExternalPartitionNumber, DriveSelection::PartitionNumber);
+		lItem->setData(mBackupPlan->mExternalPartitionsOnDrive, DriveSelection::PartitionsOnDrive);
+		lItem->setData(mBackupPlan->mExternalDeviceDescription, DriveSelection::DeviceDescription);
+		lItem->setData(mBackupPlan->mExternalVolumeCapacity, DriveSelection::TotalSpace);
+		lItem->setData(mBackupPlan->mExternalVolumeLabel, DriveSelection::Label);
+		mDrivesModel->appendRow(lItem);
+	}
 
 	QList<Solid::Device> lDeviceList = Solid::Device::listFromType(Solid::DeviceInterface::StorageDrive);
 	foreach (const Solid::Device &lDevice, lDeviceList) {
@@ -60,6 +75,20 @@ DriveSelection::DriveSelection(BackupPlan *pBackupPlan, QWidget *parent)
 	        this, SLOT(updateSelection(QItemSelection,QItemSelection)));
 }
 
+QString DriveSelection::mountPathOfSelectedDrive() const {
+	if(mSelectedAndAccessible) {
+		QStandardItem *lItem;
+		findItem(DriveSelection::UUID, mSelectedUuid, &lItem);
+		if(lItem != NULL) {
+			Solid::Device lDevice(lItem->data(DriveSelection::UDI).toString());
+			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
+			if(lAccess) {
+				return lAccess->filePath();
+			}
+		}
+	}
+	return QString();
+}
 
 void DriveSelection::deviceAdded(const QString &pUdi) {
 	Solid::Device lDevice(pUdi);
@@ -104,24 +133,30 @@ void DriveSelection::delayedDeviceAdded() {
 	int lPartitionNumber = 1;
 	foreach(Solid::Device lVolumeDevice, lVolumeDeviceList) {
 		Solid::StorageVolume *lVolume = lVolumeDevice.as<Solid::StorageVolume>();
-		QStandardItem *lItem = new QStandardItem();
-		lItem->setEditable(false);
-		QString lUUID = lVolume->uuid();
-		if(lUUID.isEmpty()) { //seems to happen for vfat partitions
-			lUUID = lParentDevice.description() + "|" + lVolume->label();
+		QString lUuid = lVolume->uuid();
+		if(lUuid.isEmpty()) { //seems to happen for vfat partitions
+			lUuid = lParentDevice.description() + "|" + lVolume->label();
 		}
-		lItem->setData(lUUID, DriveSelection::UUID);
+		QStandardItem *lItem;
+		bool lNeedsToBeAdded = false;
+		findItem(DriveSelection::UUID, lUuid, &lItem);
+		if(lItem == NULL) {
+			lItem = new QStandardItem();
+			lItem->setEditable(false);
+			lItem->setData(lUuid, DriveSelection::UUID);
+			lItem->setData(0, DriveSelection::TotalSpace);
+			lItem->setData(0, DriveSelection::UsedSpace);
+			lNeedsToBeAdded = true;
+		}
 		lItem->setData(lParentDevice.description(), DriveSelection::DeviceDescription);
 		lItem->setData(lVolume->label(), DriveSelection::Label);
 		lItem->setData(lVolumeDevice.udi(), DriveSelection::UDI);
 		lItem->setData(lPartitionNumber, DriveSelection::PartitionNumber);
 		lItem->setData(lVolumeDeviceList.count(), DriveSelection::PartitionsOnDrive);
-		lItem->setData(0, DriveSelection::TotalSpace);
-		lItem->setData(0, DriveSelection::UsedSpace);
 
 		Solid::StorageAccess *lAccess = lVolumeDevice.as<Solid::StorageAccess>();
+		connect(lAccess, SIGNAL(accessibilityChanged(bool,QString)), SLOT(accessabilityChanged(bool,QString)));
 		if(!lAccess->isAccessible()) {
-			connect(lAccess, SIGNAL(accessibilityChanged(bool,QString)), SLOT(accessabilityChanged(bool,QString)));
 			lAccess->setup();
 		} else {
 			KDiskFreeSpaceInfo lInfo = KDiskFreeSpaceInfo::freeSpaceInfo(lAccess->filePath());
@@ -129,51 +164,57 @@ void DriveSelection::delayedDeviceAdded() {
 				lItem->setData(lInfo.size(), DriveSelection::TotalSpace);
 				lItem->setData(lInfo.used(), DriveSelection::UsedSpace);
 			}
+			if(lUuid == mSelectedUuid) {
+				// Selected volume was just added, could not have been accessible before.
+				mSelectedAndAccessible = true;
+				emit selectedDriveIsAccessibleChanged(true);
+			}
 		}
-		mDrivesModel->appendRow(lItem);
-
-		if(mSelectedUuid == lUUID) {
-			QModelIndex lIndex = mDrivesModel->indexFromItem(lItem);
-			setCurrentIndex(lIndex);
-			removeDisconnectedItem();
-			mSelectedUdi = lVolumeDevice.udi();
+		if(lNeedsToBeAdded) {
+			mDrivesModel->appendRow(lItem);
 		}
 		lPartitionNumber++;
 	}
 }
 
 void DriveSelection::deviceRemoved(const QString &pUdi) {
-	for(int lRow = 0; lRow < mDrivesModel->rowCount(); ++lRow) {
-		QStandardItem *lItem = mDrivesModel->item(lRow);
-		if(lItem->data(DriveSelection::UDI).toString() == pUdi) {
-			if(pUdi == mSelectedUdi) {
-				addDisconnectedItem();
-			}
+	QStandardItem *lItem;
+	int lRow = findItem(DriveSelection::UDI, pUdi, &lItem);
+	if(lRow >= 0) {
+		QString lUuid = lItem->data(DriveSelection::UUID).toString();
+		if(lUuid == mBackupPlan->mExternalUUID) {
+			// let the selected and saved item stay in the list
+			// just clear the UDI so that it will be shown as disconnected.
+			lItem->setData(QString(), DriveSelection::UDI);
+		} else {
 			mDrivesModel->removeRow(lRow);
-			break;
+		}
+		if(lUuid == mSelectedUuid && mSelectedAndAccessible) {
+			mSelectedAndAccessible = false;
+			emit selectedDriveIsAccessibleChanged(false);
 		}
 	}
 }
 
 void DriveSelection::accessabilityChanged(bool pAccessible, const QString &pUdi) {
-	if(!pAccessible) {
-		return;
-	}
-	Solid::Device lDevice(pUdi);
-	Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
-	if(!lAccess) {
-		return;
-	}
-	KDiskFreeSpaceInfo lInfo = KDiskFreeSpaceInfo::freeSpaceInfo(lAccess->filePath());
-	if(!lInfo.isValid()) {
-		return;
-	}
-	for(int lRow = 0; lRow < mDrivesModel->rowCount(); ++lRow) {
-		QStandardItem *lItem = mDrivesModel->item(lRow);
-		if(lItem->data(DriveSelection::UDI).toString() == pUdi) {
-			lItem->setData(lInfo.size(), DriveSelection::TotalSpace);
-			lItem->setData(lInfo.used(), DriveSelection::UsedSpace);
-			break;
+	QStandardItem *lItem;
+	findItem(DriveSelection::UDI, pUdi, &lItem);
+	if(lItem != NULL) {
+		if(pAccessible) {
+			Solid::Device lDevice(pUdi);
+			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
+			if(lAccess) {
+				KDiskFreeSpaceInfo lInfo = KDiskFreeSpaceInfo::freeSpaceInfo(lAccess->filePath());
+				if(lInfo.isValid()) {
+					lItem->setData(lInfo.size(), DriveSelection::TotalSpace);
+					lItem->setData(lInfo.used(), DriveSelection::UsedSpace);
+				}
+			}
+		}
+		bool lSelectedAndAccessible = (lItem->data(DriveSelection::UUID).toString() == mSelectedUuid && pAccessible);
+		if(lSelectedAndAccessible != mSelectedAndAccessible) {
+			mSelectedAndAccessible = lSelectedAndAccessible;
+			emit selectedDriveIsAccessibleChanged(lSelectedAndAccessible);
 		}
 	}
 }
@@ -181,73 +222,84 @@ void DriveSelection::accessabilityChanged(bool pAccessible, const QString &pUdi)
 void DriveSelection::updateSelection(const QItemSelection &pSelected, const QItemSelection &pDeselected) {
 	Q_UNUSED(pDeselected)
 	if(!pSelected.indexes().isEmpty()) {
-		mSelectedUuid = pSelected.indexes().first().data(DriveSelection::UUID).toString();
-		emit driveSelectionChanged();
+		QModelIndex lIndex = pSelected.indexes().first();
+		if(mSelectedUuid.isEmpty()) {
+			emit driveIsSelectedChanged(true);
+		}
+		mSelectedUuid = lIndex.data(DriveSelection::UUID).toString();
+		emit selectedDriveChanged(mSelectedUuid);
+		// check if the newly selected volume is accessible, compare to previous selection
+		bool lIsAccessible = false;
+		QString lUdiOfSelected = lIndex.data(DriveSelection::UDI).toString();
+		if(!lUdiOfSelected.isEmpty()) {
+			Solid::Device lDevice(lUdiOfSelected);
+			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
+			if(lAccess != NULL) {
+				lIsAccessible = lAccess->isAccessible();
+			}
+		}
+		if(mSelectedAndAccessible != lIsAccessible) {
+			mSelectedAndAccessible = lIsAccessible;
+			emit selectedDriveIsAccessibleChanged(mSelectedAndAccessible);
+		}
+	} else {
+		mSelectedUuid.clear();
+		emit selectedDriveChanged(mSelectedUuid);
+		emit driveIsSelectedChanged(false);
+		mSelectedAndAccessible = false;
+		emit selectedDriveIsAccessibleChanged(false);
+	}
+}
+
+void DriveSelection::paintEvent(QPaintEvent *pPaintEvent) {
+	QListView::paintEvent(pPaintEvent);
+	if(mDrivesModel->rowCount() == 0) {
+		QPainter lPainter(viewport());
+		style()->drawItemText(&lPainter, rect(), Qt::AlignCenter, palette(), false,
+		                      i18nc("@label Only shown if no drives are detected", "Plug in the external "
+		                            "storage you wish to use, then select it in this list."), QPalette::Text);
 	}
 }
 
 void DriveSelection::setSelectedDrive(const QString &pUuid) {
 	if(pUuid == mSelectedUuid) {
 		return;
-	}
-	mSelectedUuid = pUuid;
-
-	for(int lRow = 0; lRow < mDrivesModel->rowCount(); ++lRow) {
-		QStandardItem *lItem = mDrivesModel->item(lRow);
-		if(lItem->data(DriveSelection::UUID).toString() == mSelectedUuid) {
-			QModelIndex lIndex = mDrivesModel->indexFromItem(lItem);
-			setCurrentIndex(lIndex);
-			mSelectedUdi = lIndex.data(DriveSelection::UDI).toString();
-			return;
+	} else if(pUuid.isEmpty()) {
+		clearSelection();
+	} else {
+		QStandardItem *lItem;
+		findItem(DriveSelection::UUID, pUuid, &lItem);
+		if(lItem != NULL) {
+			setCurrentIndex(mDrivesModel->indexFromItem(lItem));
 		}
 	}
-	addDisconnectedItem();
 }
 
 void DriveSelection::saveExtraData() {
-	for(int lRow = 0; lRow < mDrivesModel->rowCount(); ++lRow) {
-		QStandardItem *lItem = mDrivesModel->item(lRow);
-		if(lItem->data(DriveSelection::UUID).toString() == mSelectedUuid) {
-			lItem->data(DriveSelection::TotalSpace);
-			mBackupPlan->mExternalDeviceDescription = lItem->data(DriveSelection::DeviceDescription).toString();
-			mBackupPlan->mExternalPartitionNumber = lItem->data(DriveSelection::PartitionNumber).toInt();
-			mBackupPlan->mExternalPartitionsOnDrive = lItem->data(DriveSelection::PartitionsOnDrive).toInt();
-			mBackupPlan->mExternalVolumeCapacity = lItem->data(DriveSelection::TotalSpace).toULongLong();
-			mBackupPlan->mExternalVolumeLabel = lItem->data(DriveSelection::Label).toString();
-			mSelectedUdi = lItem->data(DriveSelection::UDI).toString();
-			return;
-		}
+	QStandardItem *lItem;
+	findItem(DriveSelection::UUID, mSelectedUuid, &lItem);
+	if(lItem != NULL) {
+		mBackupPlan->mExternalDeviceDescription = lItem->data(DriveSelection::DeviceDescription).toString();
+		mBackupPlan->mExternalPartitionNumber = lItem->data(DriveSelection::PartitionNumber).toInt();
+		mBackupPlan->mExternalPartitionsOnDrive = lItem->data(DriveSelection::PartitionsOnDrive).toInt();
+		mBackupPlan->mExternalVolumeCapacity = lItem->data(DriveSelection::TotalSpace).toULongLong();
+		mBackupPlan->mExternalVolumeLabel = lItem->data(DriveSelection::Label).toString();
 	}
 }
 
-void DriveSelection::addDisconnectedItem() {
-	if(mSelectedUuid.isEmpty()) {
-		return;
-	}
-	QStandardItem *lItem = new QStandardItem();
-	lItem->setData(QLatin1String("DISCONNECTED_BACKUP_DEVICE"), DriveSelection::UDI);
-	lItem->setData(mSelectedUuid, DriveSelection::UUID);
-	lItem->setData(0, DriveSelection::UsedSpace);
-	lItem->setData(mBackupPlan->mExternalPartitionNumber, DriveSelection::PartitionNumber);
-	lItem->setData(mBackupPlan->mExternalPartitionsOnDrive, DriveSelection::PartitionsOnDrive);
-	lItem->setData(mBackupPlan->mExternalDeviceDescription, DriveSelection::DeviceDescription);
-	lItem->setData(mBackupPlan->mExternalVolumeCapacity, DriveSelection::TotalSpace);
-	lItem->setData(mBackupPlan->mExternalVolumeLabel, DriveSelection::Label);
-	lItem->setEditable(false);
-	mDrivesModel->appendRow(lItem);
-
-	QModelIndex lIndex = mDrivesModel->indexFromItem(lItem);
-	setCurrentIndex(lIndex);
-
-	mSelectedUdi.clear();
-}
-
-void DriveSelection::removeDisconnectedItem() {
+int DriveSelection::findItem(const DriveSelection::DataType pField, const QString &pSearchString,
+                             QStandardItem **pReturnedItem) const {
 	for(int lRow = 0; lRow < mDrivesModel->rowCount(); ++lRow) {
 		QStandardItem *lItem = mDrivesModel->item(lRow);
-		if(lItem->data(DriveSelection::UDI).toString() == QLatin1String("DISCONNECTED_BACKUP_DEVICE")) {
-			mDrivesModel->removeRow(lRow);
-			break;
+		if(lItem->data(pField).toString() == pSearchString) {
+			if(pReturnedItem != NULL) {
+				*pReturnedItem = lItem;
+			}
+			return lRow;
 		}
 	}
+	if(pReturnedItem != NULL) {
+		*pReturnedItem = NULL;
+	}
+	return -1;
 }

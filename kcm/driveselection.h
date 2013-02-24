@@ -24,6 +24,7 @@
 #include <QListView>
 #include <QStringList>
 
+class QStandardItem;
 class QStandardItemModel;
 
 class BackupPlan;
@@ -31,7 +32,9 @@ class BackupPlan;
 class DriveSelection : public QListView
 {
 	Q_OBJECT
-	Q_PROPERTY(QString selectedDrive READ selectedDrive WRITE setSelectedDrive NOTIFY driveSelectionChanged USER true)
+	Q_PROPERTY(QString selectedDrive READ selectedDrive WRITE setSelectedDrive NOTIFY selectedDriveChanged USER true)
+	Q_PROPERTY(bool driveIsSelected READ driveIsSelected NOTIFY driveIsSelectedChanged)
+	Q_PROPERTY(bool selectedDriveIsAccessible READ selectedDriveIsAccessible NOTIFY selectedDriveIsAccessibleChanged)
 public:
 	enum DataType {
 		UUID = Qt::UserRole + 1,
@@ -46,12 +49,19 @@ public:
 
 public:
 	DriveSelection(BackupPlan *pBackupPlan, QWidget *parent=0);
-	QString selectedDrive() {return mSelectedUuid;}
+	QString selectedDrive() const {return mSelectedUuid;}
+	bool driveIsSelected() const {return !mSelectedUuid.isEmpty();}
+	bool selectedDriveIsAccessible() const {return mSelectedAndAccessible;}
+	QString mountPathOfSelectedDrive() const;
+
+public slots:
 	void setSelectedDrive(const QString &pUuid);
 	void saveExtraData();
 
 signals:
-	void driveSelectionChanged();
+	void selectedDriveChanged(const QString &pSelectedDrive);
+	void driveIsSelectedChanged(bool pDriveIsSelected);
+	void selectedDriveIsAccessibleChanged(bool pDriveIsSelectedAndAccessible);
 
 protected slots:
 	void deviceAdded(const QString &pUdi);
@@ -60,15 +70,15 @@ protected slots:
 	void accessabilityChanged(bool pAccessible, const QString &pUdi);
 	void updateSelection(const QItemSelection &pSelected, const QItemSelection &pDeselected);
 
-private:
-	void addDisconnectedItem();
-	void removeDisconnectedItem();
+protected:
+	virtual void paintEvent(QPaintEvent *pPaintEvent);
+	int findItem(const DataType pField, const QString &pSearchString, QStandardItem **pReturnedItem = NULL) const;
 
 	QStandardItemModel *mDrivesModel;
 	QString mSelectedUuid;
-	QString mSelectedUdi; //remembered for noticing when a selected drive is disconnected.
 	BackupPlan *mBackupPlan;
 	QStringList mDrivesToAdd;
+	bool mSelectedAndAccessible;
 };
 
 #endif

@@ -23,10 +23,13 @@
 
 #include <QWidget>
 
+#include <KDialog>
+
 class BackupPlan;
 class DriveSelection;
 class FolderSelectionModel;
 
+class KFileTreeView;
 class KLineEdit;
 class KPageWidget;
 class KPageWidgetItem;
@@ -60,6 +63,20 @@ public:
 	QTreeView *mTreeView;
 };
 
+class DirDialog: public KDialog
+{
+	Q_OBJECT
+public:
+	explicit DirDialog(const KUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent = NULL);
+	KUrl url() const;
+
+public slots:
+	void createNewFolder();
+
+protected:
+	KFileTreeView *mTreeView;
+};
+
 class BackupPlanWidget : public QWidget
 {
 	Q_OBJECT
@@ -78,7 +95,11 @@ public:
 	KPageWidget *mConfigPages;
 	BackupPlan *mBackupPlan;
 	DriveSelection *mDriveSelection;
+	KLineEdit *mDriveDestEdit;
 	FolderSelectionModel *mSourceSelectionModel;
+
+protected slots:
+	void openDriveDestDialog();
 
 signals:
 	void requestOverviewReturn();

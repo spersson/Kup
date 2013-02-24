@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-23 17:41+0800\n"
+"POT-Creation-Date: 2013-02-24 23:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,96 +192,156 @@ msgctxt "@info"
 msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:123
+#: kcm/backupplanwidget.cpp:125
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:127
+msgctxt "@action:button"
+msgid "New Folder..."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:153
+msgctxt "default folder name when creating a new folder"
+msgid "New Folder"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:158
+msgctxt "@title:window"
+msgid "New Folder"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:159
+msgctxt "@label:textbox"
+msgid ""
+"Create new folder in:\n"
+"%1"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:170
+msgid "A folder named %1 already exists."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:175
+msgid "You do not have permission to create %1."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:187
 msgctxt "@title"
 msgid "Sources"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:124
+#: kcm/backupplanwidget.cpp:188
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:134
+#: kcm/backupplanwidget.cpp:202
 msgctxt "@option:radio"
-msgid "Local Filesystem"
+msgid "Filesystem Path"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:135
+#: kcm/backupplanwidget.cpp:203
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:152
-msgctxt "@label:textbox"
-msgid "Folder on Destination Drive:"
+#: kcm/backupplanwidget.cpp:209
+msgctxt "@label"
+msgid ""
+"You can use this option for backing up to networked storage if you always "
+"mount it at the same path. The path specified here does not need to exist at "
+"all times, its existance will be monitored."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:155 kcm/backupplanwidget.cpp:156
+#: kcm/backupplanwidget.cpp:213
+msgctxt "@label:textbox"
+msgid "Destination Path for Backup:"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:230
+msgctxt "@label"
+msgid ""
+"Use this option if you want to backup your files on an external storage that "
+"can be plugged in to this computer, such as a USB hard drive or memory stick."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:238 kcm/backupplanwidget.cpp:241
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:191
+#: kcm/backupplanwidget.cpp:240
+msgctxt "@label:textbox"
+msgid "Folder on Destination Drive:"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:247
+msgctxt "@info:tooltip"
+msgid "Open dialog to select a folder"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:295
 msgctxt "@title"
 msgid "Destination"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:192
+#: kcm/backupplanwidget.cpp:296
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:208
+#: kcm/backupplanwidget.cpp:312
 msgctxt "@option:radio"
 msgid "Manual Only"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:209
+#: kcm/backupplanwidget.cpp:313
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:210
+#: kcm/backupplanwidget.cpp:314
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:212
+#: kcm/backupplanwidget.cpp:316
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:225
+#: kcm/backupplanwidget.cpp:329
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
 "more than the configured interval has passed since the last backup was taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:240
+#: kcm/backupplanwidget.cpp:344
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:241 kcm/backupplanwidget.cpp:265
+#: kcm/backupplanwidget.cpp:345 kcm/backupplanwidget.cpp:369
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:242
+#: kcm/backupplanwidget.cpp:346
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:243
+#: kcm/backupplanwidget.cpp:347
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:252
+#: kcm/backupplanwidget.cpp:356
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -289,66 +349,72 @@ msgid ""
 "limit since the last backup was taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:270
+#: kcm/backupplanwidget.cpp:374
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:288
+#: kcm/backupplanwidget.cpp:392
 msgctxt "@title"
 msgid "Schedule"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:289
+#: kcm/backupplanwidget.cpp:393
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:298 kcm/backupplanwidget.cpp:302
+#: kcm/backupplanwidget.cpp:402 kcm/backupplanwidget.cpp:406
 msgctxt "@option:check"
 msgid "Yes"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:300
+#: kcm/backupplanwidget.cpp:404
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:304
+#: kcm/backupplanwidget.cpp:408
 msgctxt "@label"
 msgid "Take backups as root:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:309
+#: kcm/backupplanwidget.cpp:413
 msgctxt "@info:tooltip"
 msgid ""
 "Higher compression means less space is used by the backup archive but more "
 "cpu time is used when it is taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:314
+#: kcm/backupplanwidget.cpp:418
 msgctxt "@label"
 msgid "Compression level:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:320
+#: kcm/backupplanwidget.cpp:424
 msgctxt "@title"
 msgid "Advanced"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:321
+#: kcm/backupplanwidget.cpp:425
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:335
+#: kcm/backupplanwidget.cpp:439
 msgctxt "@label"
 msgid "Description:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:337
+#: kcm/backupplanwidget.cpp:441
 msgctxt "@action:button"
 msgid "Back to overview"
+msgstr ""
+
+#: kcm/driveselection.cpp:259
+msgctxt "@label Only shown if no drives are detected"
+msgid ""
+"Plug in the external storage you wish to use, then select it in this list."
 msgstr ""
 
 #: kcm/driveselectiondelegate.cpp:70

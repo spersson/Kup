@@ -27,12 +27,16 @@
 #include <KComboBox>
 #include <KConfigDialogManager>
 #include <KIcon>
+#include <KInputDialog>
+#include <KFileTreeView>
 #include <KLineEdit>
 #include <KLocale>
+#include <KMessageBox>
 #include <KNumInput>
 #include <KPushButton>
 #include <KPageWidget>
 #include <KUrlRequester>
+#include <KIO/RenameDialog>
 
 #include <QBoxLayout>
 #include <QCheckBox>
@@ -40,7 +44,6 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QRadioButton>
-#include <QTreeView>
 
 #include <cmath>
 
@@ -116,6 +119,67 @@ public:
 	FolderSelectionModel *mModel;
 };
 
+DirDialog::DirDialog(const KUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent)
+   : KDialog(pParent)
+{
+	setCaption(i18nc("@title:window","Select Folder"));
+	setButtons(Ok | Cancel | User1);
+	setButtonGuiItem(User1, KGuiItem(i18nc("@action:button","New Folder..."), QLatin1String("folder-new")));
+	connect(this, SIGNAL(user1Clicked()), this, SLOT(createNewFolder()));
+	setDefaultButton(Ok);
+	button(Ok)->setFocus();
+
+	mTreeView = new KFileTreeView(this);
+	mTreeView->setDirOnlyMode(true);
+	mTreeView->setContextMenuPolicy(Qt::CustomContextMenu);
+	for (int i = 1; i < mTreeView->model()->columnCount(); ++i) {
+		mTreeView->hideColumn(i);
+	}
+	mTreeView->setHeaderHidden(true);
+	setMainWidget(mTreeView);
+
+	mTreeView->setRootUrl(pRootDir);
+	KUrl lSubUrl(pRootDir);
+	lSubUrl.addPath(pStartSubDir);
+	mTreeView->setCurrentUrl(lSubUrl);
+}
+
+KUrl DirDialog::url() const {
+	return mTreeView->currentUrl();
+}
+
+void DirDialog::createNewFolder() {
+	bool lUserAccepted;
+	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
+	if(QFileInfo(url().path(KUrl::AddTrailingSlash) + lNameSuggestion).exists()) {
+		lNameSuggestion = KIO::RenameDialog::suggestName(url(), lNameSuggestion);
+	}
+
+	QString lSelectedName = KInputDialog::getText(i18nc("@title:window", "New Folder" ),
+	                                              i18nc("@label:textbox", "Create new folder in:\n%1", url().path()),
+	                                              lNameSuggestion, &lUserAccepted, this);
+	if (!lUserAccepted)
+		return;
+
+	KUrl lPartialUrl(url());
+	const QStringList lDirectories = lSelectedName.split('/', QString::SkipEmptyParts);
+	foreach(QString lSubDirectory, lDirectories) {
+		QDir lDir(lPartialUrl.path());
+		if(lDir.exists(lSubDirectory)) {
+			lPartialUrl.addPath(lSubDirectory);
+			KMessageBox::sorry(this, i18n("A folder named %1 already exists.", lPartialUrl.path()));
+			return;
+		}
+		if(!lDir.mkdir(lSubDirectory)) {
+			lPartialUrl.addPath(lSubDirectory);
+			KMessageBox::sorry(this, i18n("You do not have permission to create %1.", lPartialUrl.path()));
+			return;
+		}
+		lPartialUrl.addPath(lSubDirectory);
+	}
+	mTreeView->setCurrentUrl(lPartialUrl);
+}
+
 KPageWidgetItem *BackupPlanWidget::createSourcePage() {
 	mSourceSelectionModel = new FolderSelectionModel(mBackupPlan->mShowHiddenFolders, this);
 	FolderSelectionWidget *lSelectionWidget = new FolderSelectionWidget(mSourceSelectionModel, this);
@@ -130,35 +194,75 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	KButtonGroup *lButtonGroup = new KButtonGroup(this);
 	lButtonGroup->setObjectName("kcfg_Destination type");
 	lButtonGroup->setFlat(true);
+
+	int lIndentation = lButtonGroup->style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth) +
+	                   lButtonGroup->style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing);
+
 	QVBoxLayout *lVLayout = new QVBoxLayout;
-	QRadioButton *lFileSystemRadio = new QRadioButton(i18nc("@option:radio", "Local Filesystem"));
+	QRadioButton *lFileSystemRadio = new QRadioButton(i18nc("@option:radio", "Filesystem Path"));
 	QRadioButton *lDriveRadio = new QRadioButton(i18nc("@option:radio", "External Storage"));
 //	QRadioButton *lSshRadio = new QRadioButton(i18nc("@option:radio", "SSH Server"));
 
-	KUrlRequester *lUrlEdit = new KUrlRequester;
-	lUrlEdit->setVisible(false);
-	lUrlEdit->setMode(KFile::Directory | KFile::LocalOnly);
-	lUrlEdit->setObjectName("kcfg_Filesystem destination path");
-	QObject::connect(lFileSystemRadio, SIGNAL(toggled(bool)), lUrlEdit, SLOT(setVisible(bool)));
+	QWidget *lFileSystemWidget = new QWidget;
+	lFileSystemWidget->setVisible(false);
+	QObject::connect(lFileSystemRadio, SIGNAL(toggled(bool)), lFileSystemWidget, SLOT(setVisible(bool)));
+	QLabel *lFileSystemInfoLabel = new QLabel(i18nc("@label", "You can use this option for backing up to networked storage "
+	                                                "if you always mount it at the same path. The path specified here does "
+	                                                "not need to exist at all times, its existance will be monitored."));
+	lFileSystemInfoLabel->setWordWrap(true);
+	QLabel *lFileSystemLabel = new QLabel(i18nc("@label:textbox", "Destination Path for Backup:"));
+	KUrlRequester *lFileSystemUrlEdit = new KUrlRequester;
+	lFileSystemUrlEdit->setMode(KFile::Directory | KFile::LocalOnly);
+	lFileSystemUrlEdit->setObjectName("kcfg_Filesystem destination path");
+
+	QGridLayout *lFileSystemVLayout = new QGridLayout;
+	lFileSystemVLayout->setColumnMinimumWidth(0, lIndentation);
+	lFileSystemVLayout->addWidget(lFileSystemInfoLabel, 0, 1);
+	QHBoxLayout *lFileSystemHLayout = new QHBoxLayout;
+	lFileSystemHLayout->addWidget(lFileSystemLabel);
+	lFileSystemHLayout->addWidget(lFileSystemUrlEdit, 1);
+	lFileSystemVLayout->addLayout(lFileSystemHLayout, 1, 1);
+	lFileSystemWidget->setLayout(lFileSystemVLayout);
 
 	QWidget *lDriveWidget = new QWidget;
 	lDriveWidget->setVisible(false);
 	QObject::connect(lDriveRadio, SIGNAL(toggled(bool)), lDriveWidget, SLOT(setVisible(bool)));
-	QVBoxLayout *lDriveLayout = new QVBoxLayout;
+	QLabel *lDriveInfoLabel = new QLabel(i18nc("@label", "Use this option if you want to backup your files on an external "
+	                                           "storage that can be plugged in to this computer, such as a USB hard drive "
+	                                           "or memory stick."));
+	lDriveInfoLabel->setWordWrap(true);
 	mDriveSelection = new DriveSelection(mBackupPlan);
 	mDriveSelection->setObjectName("kcfg_External drive UUID");
-	lDriveLayout->addWidget(mDriveSelection);
-	QHBoxLayout *lDriveHoriLayout = new QHBoxLayout;
+	mDriveDestEdit = new KLineEdit;
+	mDriveDestEdit->setObjectName("kcfg_External drive destination path");
+	mDriveDestEdit->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
+	mDriveDestEdit->setClearButtonShown(true);
 	QLabel *lDriveDestLabel = new QLabel(i18nc("@label:textbox", "Folder on Destination Drive:"));
-	KLineEdit *lDriveDestination = new KLineEdit;
-	lDriveDestination->setObjectName("kcfg_External drive destination path");
-	lDriveDestination->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
 	lDriveDestLabel->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
-	lDriveDestLabel->setBuddy(lDriveDestination);
-	lDriveHoriLayout->addWidget(lDriveDestLabel);
-	lDriveHoriLayout->addWidget(lDriveDestination);
-	lDriveLayout->addLayout(lDriveHoriLayout);
-	lDriveWidget->setLayout(lDriveLayout);
+	lDriveDestLabel->setBuddy(mDriveDestEdit);
+	KPushButton *lDriveDestButton = new KPushButton;
+	lDriveDestButton->setIcon(KIcon(QLatin1String("document-open")));
+	int lButtonSize = lDriveDestButton->sizeHint().expandedTo(mDriveDestEdit->sizeHint()).height();
+	lDriveDestButton->setFixedSize(lButtonSize, lButtonSize);
+	lDriveDestButton->setToolTip(i18nc("@info:tooltip", "Open dialog to select a folder"));
+	lDriveDestButton->setEnabled(false);
+	connect(mDriveSelection, SIGNAL(selectedDriveIsAccessibleChanged(bool)), lDriveDestButton, SLOT(setEnabled(bool)));
+	connect(lDriveDestButton, SIGNAL(clicked()), SLOT(openDriveDestDialog()));
+	QWidget *lDriveDestWidget = new QWidget;
+	lDriveDestWidget->setVisible(false);
+	connect(mDriveSelection, SIGNAL(driveIsSelectedChanged(bool)), lDriveDestWidget, SLOT(setVisible(bool)));
+
+	QGridLayout *lDriveVLayout = new QGridLayout;
+	lDriveVLayout->setColumnMinimumWidth(0, lIndentation);
+	lDriveVLayout->addWidget(lDriveInfoLabel, 0, 1);
+	lDriveVLayout->addWidget(mDriveSelection, 1, 1);
+	QHBoxLayout *lDriveHLayout = new QHBoxLayout;
+	lDriveHLayout->addWidget(lDriveDestLabel);
+	lDriveHLayout->addWidget(mDriveDestEdit, 1);
+	lDriveHLayout->addWidget(lDriveDestButton);
+	lDriveDestWidget->setLayout(lDriveHLayout);
+	lDriveVLayout->addWidget(lDriveDestWidget, 2, 1);
+	lDriveWidget->setLayout(lDriveVLayout);
 
 	//	QWidget *lSshWidget = new QWidget;
 	//	lSshWidget->setVisible(false);
@@ -179,7 +283,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	//	lSshWidget->setLayout(lFLayout);
 
 	lVLayout->addWidget(lFileSystemRadio);
-	lVLayout->addWidget(lUrlEdit);
+	lVLayout->addWidget(lFileSystemWidget);
 	lVLayout->addWidget(lDriveRadio);
 	lVLayout->addWidget(lDriveWidget);
 	//	lVLayout->addWidget(lSshRadio);
@@ -202,7 +306,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lButtonGroup->setFlat(true);
 
 	int lIndentation = lButtonGroup->style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth) +
-	      lButtonGroup->style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing);
+	                   lButtonGroup->style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing);
 
 	QVBoxLayout *lVLayout = new QVBoxLayout;
 	QRadioButton *lManualRadio = new QRadioButton(i18nc("@option:radio", "Manual Only"));
@@ -356,5 +460,19 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupV
 
 void BackupPlanWidget::saveExtraData() {
 	mDriveSelection->saveExtraData();
+}
+
+void BackupPlanWidget::openDriveDestDialog() {
+	QString lMountPoint = mDriveSelection->mountPathOfSelectedDrive();
+	QString lSelectedPath;
+	DirDialog lDirDialog(lMountPoint, mDriveDestEdit->text(), this);
+	if(lDirDialog.exec() == QDialog::Accepted) {
+		lSelectedPath = lDirDialog.url().path();
+		lSelectedPath.remove(0, lMountPoint.length());
+		while(lSelectedPath.startsWith('/')) {
+			lSelectedPath.remove(0, 1);
+		}
+		mDriveDestEdit->setText(lSelectedPath);
+	}
 }
 
