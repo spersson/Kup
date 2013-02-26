@@ -127,7 +127,6 @@ DirDialog::DirDialog(const KUrl &pRootDir, const QString &pStartSubDir, QWidget 
 	setButtonGuiItem(User1, KGuiItem(i18nc("@action:button","New Folder..."), QLatin1String("folder-new")));
 	connect(this, SIGNAL(user1Clicked()), this, SLOT(createNewFolder()));
 	setDefaultButton(Ok);
-	button(Ok)->setFocus();
 
 	mTreeView = new KFileTreeView(this);
 	mTreeView->setDirOnlyMode(true);
@@ -142,6 +141,7 @@ DirDialog::DirDialog(const KUrl &pRootDir, const QString &pStartSubDir, QWidget 
 	KUrl lSubUrl(pRootDir);
 	lSubUrl.addPath(pStartSubDir);
 	mTreeView->setCurrentUrl(lSubUrl);
+	mTreeView->setFocus();
 }
 
 KUrl DirDialog::url() const {
