@@ -112,6 +112,7 @@ public:
 		lIncludeDummy->setObjectName("kcfg_Paths included");
 		ConfigExcludeDummy *lExcludeDummy = new ConfigExcludeDummy(mModel, this);
 		lExcludeDummy->setObjectName("kcfg_Paths excluded");
+		setHeaderHidden(true);
 	}
 	FolderSelectionModel *mModel;
 };
