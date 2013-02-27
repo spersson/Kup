@@ -74,6 +74,7 @@ private:
 	QCheckBox *mEnableCheckBox;
 	KPushButton *mAddPlanButton;
 	QString mBupVersion;
+	QString mRsyncVersion;
 };
 
 #endif // KUPKCM_H

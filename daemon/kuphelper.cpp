@@ -18,8 +18,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "buphelper.h"
+#include "kuphelper.h"
 #include "bupjob.h"
+#include "rsyncjob.h"
+
+#include <KLocale>
 
 #include <QDir>
 
@@ -47,24 +50,32 @@ static void ensureOwner(const QString &pPath, uid_t pUid, gid_t pGid) {
 	}
 }
 
-BupHelper::BupHelper(QObject *parent) :
+KupHelper::KupHelper(QObject *parent) :
    QObject(parent)
 {
 }
 
-ActionReply BupHelper::takebackup(const QVariantMap &pArguments) {
+ActionReply KupHelper::takebackup(const QVariantMap &pArguments) {
 	// PATH is not set initially, we need to set it to allow
-	// this process to find system-installed "bup" command, but nothing else.
+	// this process to find system-installed "bup" or "rsync" command, but nothing else.
 	setenv("PATH", "/usr/local/bin:/usr/bin:/bin", 1);
 
 	QString lDestinationPath = pArguments[QLatin1String("destinationPath")].toString();
-	QString lBupPath = pArguments[QLatin1String("bupPath")].toString();
+	QStringList lPathsIncluded = pArguments[QLatin1String("pathsIncluded")].toStringList();
+	QStringList lPathsExcluded = pArguments[QLatin1String("pathsExcluded")].toStringList();
 
-	BupJob *lJob = new BupJob(pArguments[QLatin1String("pathsIncluded")].toStringList(),
-	                          pArguments[QLatin1String("pathsExcluded")].toStringList(),
-	                          lDestinationPath,
-	                          pArguments[QLatin1String("compressionLevel")].toInt(), false, this);
-	lJob->setBupPath(lBupPath);
+	BackupJob *lJob;
+	int lBackupType = pArguments[QLatin1String("type")].toInt();
+	if(lBackupType == BackupPlan::BupType) {
+		lJob = new BupJob(lPathsIncluded, lPathsExcluded, lDestinationPath,
+		                  pArguments[QLatin1String("compressionLevel")].toInt(), false,
+		                  pArguments[QLatin1String("bupPath")].toString());
+	} else if(lBackupType == BackupPlan::RsyncType) {
+		lJob = new RsyncJob(lPathsIncluded, lPathsExcluded, lDestinationPath, false);
+	} else {
+		return ActionReply::HelperErrorReply;
+	}
+
 	if(!lJob->exec()) {
 		ActionReply lReply(ActionReply::HelperErrorReply);
 		lReply.setErrorCode(1);
@@ -74,13 +85,16 @@ ActionReply BupHelper::takebackup(const QVariantMap &pArguments) {
 
 	uid_t lUid = pArguments[QLatin1String("uid")].toUInt();
 	gid_t lGid = pArguments[QLatin1String("gid")].toUInt();
-
 	ensureOwner(lDestinationPath, lUid, lGid);
-	if(lBupPath != lDestinationPath) {
-		ensureOwner(lBupPath, lUid, lGid);
+
+	if(lBackupType == BackupPlan::BupType) {
+		QString lBupPath = pArguments[QLatin1String("bupPath")].toString();
+		if(lBupPath != lDestinationPath) {
+			ensureOwner(lBupPath, lUid, lGid);
+		}
 	}
 
 	return ActionReply::SuccessReply;
 }
 
-KDE4_AUTH_HELPER_MAIN("org.kde.kup.runner", BupHelper)
+KDE4_AUTH_HELPER_MAIN("org.kde.kup.runner", KupHelper)

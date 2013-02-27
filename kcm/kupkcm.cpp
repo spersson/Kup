@@ -57,25 +57,37 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 
 	KProcess lBupProcess;
 	lBupProcess << QLatin1String("bup") << QLatin1String("version");
-	lBupProcess.setOutputChannelMode(KProcess::SeparateChannels);
+	lBupProcess.setOutputChannelMode(KProcess::MergedChannels);
 	int lExitCode = lBupProcess.execute();
 	if(lExitCode >= 0) {
 		mBupVersion = lBupProcess.readAllStandardOutput();
 	}
 
-	if(mBupVersion.isEmpty()) {
+	KProcess lRsyncProcess;
+	lRsyncProcess << QLatin1String("rsync") << QLatin1String("--version");
+	lRsyncProcess.setOutputChannelMode(KProcess::MergedChannels);
+	lExitCode = lRsyncProcess.execute();
+	if(lExitCode >= 0) {
+		mRsyncVersion = QString(lRsyncProcess.readLine()).split(" ", QString::SkipEmptyParts).at(2);
+	}
+
+
+	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
 		QLabel *lSorryIcon = new QLabel;
 		lSorryIcon->setPixmap(KIconLoader::global()->loadIcon(QLatin1String("dialog-error"),
 		                                                      KIconLoader::Dialog, KIconLoader::SizeHuge));
-		QLabel *lSorryText = new QLabel(i18nc("@info:label", "You need to install the program "
-		                                      "called \"bup\" before you can activate any backup plans."));
+		QString lInstallMessage = i18nc("@info", "<h2>Backup programs are missing</h2><p>Before you can activate "
+		                                "any backup plan you need to install either of</p><ul>"
+		                                "<li>bup, for versioned backups</li>"
+		                                "<li>rsync, for synchronized backups</li></ul>");
+		QLabel *lSorryText = new QLabel(lInstallMessage);
+		lSorryText->setWordWrap(true);
 		QHBoxLayout *lHLayout = new QHBoxLayout;
 		lHLayout->addWidget(lSorryIcon);
-		lHLayout->addWidget(lSorryText);
-		lHLayout->addStretch();
+		lHLayout->addWidget(lSorryText, 1);
 		setLayout(lHLayout);
 	} else {
-		mConfig = KSharedConfig::openConfig("kuprc");
+		mConfig = KSharedConfig::openConfig(QLatin1String("kuprc"));
 		mSettings = new KupSettings(mConfig, this);
 		for(int i = 0; i < mSettings->mNumberOfPlans; ++i) {
 			mPlans.append(new BackupPlan(i+1, mConfig, this));
@@ -93,7 +105,7 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 
 
 void KupKcm::load() {
-	if(mBupVersion.isEmpty()) {
+	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
 		return;
 	}
 	// status will be set correctly after construction, set to checked here to
@@ -217,7 +229,7 @@ void KupKcm::createSettingsFrontPage() {
 	lScrollArea->setWidgetResizable(true);
 	lScrollArea->setFrameStyle(QFrame::NoFrame);
 
-	mAddPlanButton = new KPushButton(KIcon("list-add"), i18nc("@action:button", "Add New Plan"));
+	mAddPlanButton = new KPushButton(KIcon(QLatin1String("list-add")), i18nc("@action:button", "Add New Plan"));
 	connect(mAddPlanButton, SIGNAL(clicked()), this, SLOT(addPlan()));
 
 	mEnableCheckBox = new QCheckBox(i18nc("@option:check", "Backups Enabled"));
@@ -236,7 +248,7 @@ void KupKcm::createSettingsFrontPage() {
 }
 
 void KupKcm::createPlanWidgets(int pIndex) {
-	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion);
+	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion, mRsyncVersion);
 	connect(lPlanWidget, SIGNAL(requestOverviewReturn()), this, SLOT(showFrontPage()));
 	KConfigDialogManager *lConfigManager = new KConfigDialogManager(lPlanWidget, mPlans.at(pIndex));
 	lConfigManager->setObjectName(objectName());

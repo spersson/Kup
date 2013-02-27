@@ -20,7 +20,6 @@
 
 #include "edexecutor.h"
 #include "backupplan.h"
-#include "bupjob.h"
 
 #include <kio/directorysizejob.h>
 #include <KDiskFreeSpaceInfo>
@@ -107,8 +106,13 @@ void EDExecutor::startBackup() {
 			}
 			QFileInfo lInfo(mDestinationPath);
 			if(lInfo.isWritable()) {
-				BupJob *lJob = new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath,
-				                          mPlan->mCompressionLevel, mPlan->mRunAsRoot, this);
+				BackupJob *lJob = createBackupJob();
+				if(lJob == NULL) {
+					KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
+					                     i18nc("@info", "Invalid type of backup in configuration."));
+					exitBackupRunningState(false);
+					return;
+				}
 				connect(lJob, SIGNAL(result(KJob*)), SLOT(slotBackupDone(KJob*)));
 				lJob->start();
 				mWantsToRunBackup = false; //reset, only used to retrigger this state-entering if drive wasn't already mounted

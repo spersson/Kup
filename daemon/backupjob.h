@@ -18,36 +18,36 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef BUPJOB_H
-#define BUPJOB_H
+#ifndef BACKUPJOB_H
+#define BACKUPJOB_H
 
-#include "backupjob.h"
+#include <kauth.h>
+using namespace KAuth;
+#include <KJob>
 
-#include <KProcess>
+#include <QStringList>
 
-class BupJob : public BackupJob
+#include "backupplan.h"
+
+class BackupJob : public KJob
 {
 	Q_OBJECT
 
-public:
-	BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	       const QString &pDestinationPath, int pCompressionLevel, bool pRunAsRoot,
-	       const QString &pBupPath = QString());
-	virtual void start();
-
 protected slots:
-	void startIndexing();
-	void slotIndexingStarted();
-	void slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
-	void slotSavingStarted();
-	void slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
+	void startRootHelper(QVariantMap pArguments, int pBackupType);
+	void slotHelperDone(ActionReply pReply);
 
 protected:
-	KProcess mIndexProcess;
-	KProcess mSaveProcess;
-	QString mBupPath;
-	QString mBupVersion;
-	int mCompressionLevel;
+	BackupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
+	                   const QString &pDestinationPath, bool pRunAsRoot);
+	bool checkForError(ActionReply pReply);
+	static void makeNice(int pPid);
+	QStringList mPathsIncluded;
+	QStringList mPathsExcluded;
+	QString mDestinationPath;
+	bool mRunAsRoot;
 };
 
-#endif /*BUPJOB_H*/
+
+
+#endif // BACKUPJOB_H

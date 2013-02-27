@@ -27,11 +27,11 @@ using namespace KAuth;
 #include <QObject>
 #include <QVariantMap>
 
-class BupHelper: public QObject
+class KupHelper: public QObject
 {
 	Q_OBJECT
 public:
-	explicit BupHelper(QObject *parent = 0);
+	explicit KupHelper(QObject *parent = 0);
 
 public slots:
 	ActionReply takebackup(const QVariantMap &pArguments);

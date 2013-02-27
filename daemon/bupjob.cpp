@@ -19,33 +19,17 @@
  ***************************************************************************/
 
 #include "bupjob.h"
-#include "backupplan.h"
 
 #include <KLocale>
 
 #include <QDir>
 #include <QTimer>
 
-#include <unistd.h>
-#include <sys/resource.h>
-#ifdef Q_OS_LINUX
-#include <sys/syscall.h>
-#endif
-
-static void makeNice(int pPid) {
-#ifdef Q_OS_LINUX
-	// See linux documentation Documentation/block/ioprio.txt for details of the syscall
-	syscall(SYS_ioprio_set, 1, pPid, 3 << 13 | 7);
-#endif
-	setpriority(PRIO_PROCESS, pPid, 19);
-}
-
 BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
                const QString &pDestinationPath, int pCompressionLevel, bool pRunAsRoot,
-               QObject *pParent)
-   :KJob(pParent), mPathsIncluded(pPathsIncluded), mPathsExcluded(pPathsExcluded),
-     mDestinationPath(pDestinationPath), mCompressionLevel(pCompressionLevel),
-     mRunAsRoot(pRunAsRoot)
+               const QString &pBupPath)
+   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pRunAsRoot),
+     mBupPath(pBupPath), mCompressionLevel(pCompressionLevel)
 {
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -53,22 +37,10 @@ BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExclu
 
 void BupJob::start() {
 	if(mRunAsRoot) {
-		Action lAction(QLatin1String("org.kde.kup.runner.takebackup"));
-		lAction.setHelperID(QLatin1String("org.kde.kup.runner"));
-		connect(lAction.watcher(), SIGNAL(actionPerformed(ActionReply)), SLOT(slotHelperDone(ActionReply)));
 		QVariantMap lArguments;
-		lArguments[QLatin1String("pathsIncluded")] = mPathsIncluded;
-		lArguments[QLatin1String("pathsExcluded")] = mPathsExcluded;
-		lArguments[QLatin1String("destinationPath")] = mDestinationPath;
 		lArguments[QLatin1String("compressionLevel")] = mCompressionLevel;
 		lArguments[QLatin1String("bupPath")] = QDir::homePath() + QDir::separator() + QLatin1String(".bup");
-		lArguments[QLatin1String("uid")] = (uint)geteuid();
-		lArguments[QLatin1String("gid")] = (uint)getegid();
-		lAction.setArguments(lArguments);
-		ActionReply lReply = lAction.execute();
-		if(checkForError(lReply)) {
-			emitResult();
-		}
+		startRootHelper(lArguments, BackupPlan::BupType);
 	} else {
 		QTimer::singleShot(0, this, SLOT(startIndexing()));
 	}
@@ -160,25 +132,5 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		                   "<message>%1</message>", QString(mSaveProcess.readAllStandardError())));
 	}
 	emitResult();
-}
-
-void BupJob::slotHelperDone(ActionReply pReply) {
-	checkForError(pReply);
-	emitResult();
-}
-
-bool BupJob::checkForError(ActionReply pReply) {
-	if(pReply.failed()) {
-		setError(1);
-		if(pReply.type() == ActionReply::KAuthError) {
-			if(pReply.errorCode() != ActionReply::UserCancelled) {
-				setErrorText(i18nc("@info", "Failed to take backup as root: %1", pReply.errorDescription()));
-			}
-		} else {
-			setErrorText(pReply.errorDescription());
-		}
-		return true;
-	}
-	return false;
 }
 

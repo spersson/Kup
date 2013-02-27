@@ -181,6 +181,115 @@ void DirDialog::createNewFolder() {
 	mTreeView->setCurrentUrl(lPartialUrl);
 }
 
+BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion, const QString &pRsyncVersion)
+   : QWidget(), mBackupPlan(pBackupPlan)
+{
+	mDescriptionEdit = new KLineEdit;
+	mDescriptionEdit->setObjectName("kcfg_Description");
+	mDescriptionEdit->setClearButtonShown(true);
+	QLabel *lDescriptionLabel = new QLabel(i18nc("@label", "Description:"));
+	lDescriptionLabel->setBuddy(mDescriptionEdit);
+	mConfigureButton = new KPushButton(KIcon("go-previous-view"), i18nc("@action:button", "Back to overview"));
+	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(requestOverviewReturn()));
+
+	mConfigPages = new KPageWidget;
+	mConfigPages->addPage(createTypePage(pBupVersion, pRsyncVersion));
+	mConfigPages->addPage(createSourcePage());
+	mConfigPages->addPage(createDestinationPage());
+	mConfigPages->addPage(createSchedulePage());
+	mConfigPages->addPage(createAdvancedPage(pBupVersion));
+
+	QHBoxLayout *lHLayout1 = new QHBoxLayout;
+	lHLayout1->addWidget(mConfigureButton);
+	lHLayout1->addStretch();
+	lHLayout1->addWidget(lDescriptionLabel);
+	lHLayout1->addWidget(mDescriptionEdit);
+
+	QVBoxLayout *lVLayout1 = new QVBoxLayout;
+	lVLayout1->addLayout(lHLayout1);
+	lVLayout1->addWidget(mConfigPages);
+	lVLayout1->setSpacing(0);
+	setLayout(lVLayout1);
+}
+
+void BackupPlanWidget::saveExtraData() {
+	mDriveSelection->saveExtraData();
+}
+
+KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, const QString &pRsyncVersion) {
+	mVersionedRadio = new QRadioButton;
+	QString lVersionedInfo = i18nc("@label", "This type of backup is an <em>archive</em>. It contains both "
+	                               "the latest version of your files and earlier backed up versions. "
+	                               "Using this type of backup allows you to recover older versions of your "
+	                               "files, or files which were deleted on your computer at a later time. "
+	                               "The storage space needed is minimized by looking for common parts of "
+	                               "your files between versions and only storing those parts once. "
+	                               "Nevertheless, the backup archive will keep growing in size as time goes by.<br>"
+	                               "Also important to know is that the files in the archive can not be accessed "
+	                               "directly with a general file manager, a special program is needed.");
+	QLabel *lVersionedInfoLabel = new QLabel(lVersionedInfo);
+	lVersionedInfoLabel->setWordWrap(true);
+	QWidget *lVersionedWidget = new QWidget;
+	lVersionedWidget->setVisible(false);
+	QObject::connect(mVersionedRadio, SIGNAL(toggled(bool)), lVersionedWidget, SLOT(setVisible(bool)));
+	if(pBupVersion.isEmpty()) {
+		mVersionedRadio->setText(i18nc("@option:radio", "Versioned Backup (not available because \"bup\" is not installed)"));
+		mVersionedRadio->setEnabled(false);
+		lVersionedWidget->setEnabled(false);
+	} else {
+		mVersionedRadio->setText(i18nc("@option:radio", "Versioned Backup (recommended)"));
+	}
+
+	mSyncedRadio = new QRadioButton;
+	QString lSyncedInfo = i18nc("@label", "This type of backup is a folder which is synchronized with your "
+	                            "selected source folders. Taking a backup simply means making the backup destination "
+	                            "contain an exact copy of your source folders as they are now and nothing else. "
+	                            "If a file has been deleted in a source folder it will get deleted from the "
+	                            "backup folder.<br>This type of backup can protect you against data loss due to a "
+	                            "broken hard drive but it does not help you to recover from your own mistakes.");
+	QLabel *lSyncedInfoLabel = new QLabel(lSyncedInfo);
+	lSyncedInfoLabel->setWordWrap(true);
+	QWidget *lSyncedWidget = new QWidget;
+	lSyncedWidget->setVisible(false);
+	QObject::connect(mSyncedRadio, SIGNAL(toggled(bool)), lSyncedWidget, SLOT(setVisible(bool)));
+	if(pRsyncVersion.isEmpty()) {
+		mSyncedRadio->setText(i18nc("@option:radio", "Synchronized Backup (not available because \"rsync\" is not installed)"));
+		mSyncedRadio->setEnabled(false);
+		lSyncedWidget->setEnabled(false);
+	} else {
+		mSyncedRadio->setText(i18nc("@option:radio", "Synchronized Backup"));
+	}
+
+	KButtonGroup *lButtonGroup = new KButtonGroup;
+	lButtonGroup->setObjectName("kcfg_Backup type");
+	lButtonGroup->setFlat(true);
+	int lIndentation = lButtonGroup->style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth) +
+	                   lButtonGroup->style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing);
+
+	QGridLayout *lVersionedVLayout = new QGridLayout;
+	lVersionedVLayout->setColumnMinimumWidth(0, lIndentation);
+	lVersionedVLayout->addWidget(lVersionedInfoLabel, 0, 1);
+	lVersionedWidget->setLayout(lVersionedVLayout);
+
+	QGridLayout *lSyncedVLayout = new QGridLayout;
+	lSyncedVLayout->setColumnMinimumWidth(0, lIndentation);
+	lSyncedVLayout->addWidget(lSyncedInfoLabel, 0, 1);
+	lSyncedWidget->setLayout(lSyncedVLayout);
+
+	QVBoxLayout *lVLayout = new QVBoxLayout;
+	lVLayout->addWidget(mVersionedRadio);
+	lVLayout->addWidget(lVersionedWidget);
+	lVLayout->addWidget(mSyncedRadio);
+	lVLayout->addWidget(lSyncedWidget);
+	lVLayout->addStretch();
+	lButtonGroup->setLayout(lVLayout);
+	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
+	lPage->setName(i18nc("@title", "Backup Type"));
+	lPage->setHeader(i18nc("@label", "Select what type of backup you want"));
+	lPage->setIcon(KIcon(QLatin1String("chronometer")));
+	return lPage;
+}
+
 KPageWidgetItem *BackupPlanWidget::createSourcePage() {
 	mSourceSelectionModel = new FolderSelectionModel(mBackupPlan->mShowHiddenFolders, this);
 	FolderSelectionWidget *lSelectionWidget = new FolderSelectionWidget(mSourceSelectionModel, this);
@@ -310,7 +419,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	                   lButtonGroup->style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing);
 
 	QVBoxLayout *lVLayout = new QVBoxLayout;
-	QRadioButton *lManualRadio = new QRadioButton(i18nc("@option:radio", "Manual Only"));
+	QRadioButton *lManualRadio = new QRadioButton(i18nc("@option:radio", "Manual Activation"));
 	QRadioButton *lIntervalRadio = new QRadioButton(i18nc("@option:radio", "Interval"));
 	QRadioButton *lUsageRadio = new QRadioButton(i18nc("@option:radio", "Active Usage Time"));
 
@@ -319,14 +428,14 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	                                       "the backup system tray icon."));
 	lManualLabel->setVisible(false);
 	lManualLabel->setWordWrap(true);
-	QObject::connect(lManualRadio, SIGNAL(toggled(bool)), lManualLabel, SLOT(setVisible(bool)));
+	connect(lManualRadio, SIGNAL(toggled(bool)), lManualLabel, SLOT(setVisible(bool)));
 	QGridLayout *lManualLayout = new QGridLayout;
 	lManualLayout->setColumnMinimumWidth(0, lIndentation);
 	lManualLayout->addWidget(lManualLabel, 0, 1);
 
 	QWidget *lIntervalWidget = new QWidget;
 	lIntervalWidget->setVisible(false);
-	QObject::connect(lIntervalRadio, SIGNAL(toggled(bool)), lIntervalWidget, SLOT(setVisible(bool)));
+	connect(lIntervalRadio, SIGNAL(toggled(bool)), lIntervalWidget, SLOT(setVisible(bool)));
 	QLabel *lIntervalLabel = new QLabel(i18nc("@info", "New backup will be triggered when backup "
 	                                         "destination becomes available and more than "
 	                                         "the configured interval has passed since the "
@@ -353,7 +462,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 
 	QWidget *lUsageWidget = new QWidget;
 	lUsageWidget->setVisible(false);
-	QObject::connect(lUsageRadio, SIGNAL(toggled(bool)), lUsageWidget, SLOT(setVisible(bool)));
+	connect(lUsageRadio, SIGNAL(toggled(bool)), lUsageWidget, SLOT(setVisible(bool)));
 	QLabel *lUsageLabel = new QLabel(i18nc("@info", "New backup will be triggered when backup destination "
 	                                      "becomes available and you have been using your "
 	                                      "computer actively for more than the configured "
@@ -374,6 +483,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 
 	QCheckBox *lAskFirstCheckBox = new QCheckBox(i18nc("@option:check", "Ask for confirmation before taking backup"));
 	lAskFirstCheckBox->setObjectName("kcfg_Ask first");
+	connect(lManualRadio, SIGNAL(toggled(bool)), lAskFirstCheckBox, SLOT(setHidden(bool)));
 
 	lVLayout->addWidget(lManualRadio);
 	lVLayout->addLayout(lManualLayout);
@@ -417,6 +527,10 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(const QString &pBupVersion
 			lCompressionLevel->addItem(QString("%1 %").arg(lrint(i*100/9)));
 		}
 		lAdvancedLayout->addRow(i18nc("@label", "Compression level:"), lCompressionLevel);
+		lCompressionLevel->setVisible(false);
+		lAdvancedLayout->labelForField(lCompressionLevel)->setVisible(false);
+		connect(mVersionedRadio, SIGNAL(toggled(bool)), lCompressionLevel, SLOT(setVisible(bool)));
+		connect(mVersionedRadio, SIGNAL(toggled(bool)), lAdvancedLayout->labelForField(lCompressionLevel), SLOT(setVisible(bool)));
 	}
 
 	lAdvancedWidget->setLayout(lAdvancedLayout);
@@ -426,41 +540,6 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(const QString &pBupVersion
 	lPage->setHeader(i18nc("@label", "Extra options for advanced users"));
 	lPage->setIcon(KIcon("preferences-other"));
 	return lPage;
-}
-
-BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion, QWidget *pParent)
-   : QWidget(pParent), mBackupPlan(pBackupPlan)
-{
-	QVBoxLayout *lVLayout1 = new QVBoxLayout;
-	QHBoxLayout *lHLayout1 = new QHBoxLayout;
-
-	mDescriptionEdit = new KLineEdit;
-	mDescriptionEdit->setObjectName("kcfg_Description");
-	mDescriptionEdit->setClearButtonShown(true);
-	QLabel *lDescriptionLabel = new QLabel(i18nc("@label", "Description:"));
-	lDescriptionLabel->setBuddy(mDescriptionEdit);
-	mConfigureButton = new KPushButton(KIcon("go-previous-view"), i18nc("@action:button", "Back to overview"));
-	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(requestOverviewReturn()));
-
-	mConfigPages = new KPageWidget;
-	mConfigPages->addPage(createSourcePage());
-	mConfigPages->addPage(createDestinationPage());
-	mConfigPages->addPage(createSchedulePage());
-	mConfigPages->addPage(createAdvancedPage(pBupVersion));
-
-	lHLayout1->addWidget(mConfigureButton);
-	lHLayout1->addStretch();
-	lHLayout1->addWidget(lDescriptionLabel);
-	lHLayout1->addWidget(mDescriptionEdit);
-	lVLayout1->addLayout(lHLayout1);
-	lVLayout1->addWidget(mConfigPages);
-	lVLayout1->setSpacing(0);
-
-	setLayout(lVLayout1);
-}
-
-void BackupPlanWidget::saveExtraData() {
-	mDriveSelection->saveExtraData();
 }
 
 void BackupPlanWidget::openDriveDestDialog() {

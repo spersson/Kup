@@ -35,6 +35,7 @@ class KPageWidget;
 class KPageWidgetItem;
 class KPushButton;
 
+class QRadioButton;
 class QTreeView;
 
 class ConfigIncludeDummy : public QWidget {
@@ -81,10 +82,11 @@ class BackupPlanWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion, QWidget *pParent = 0);
+	BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion, const QString &pRsyncVersion);
 
 	void saveExtraData();
 
+	KPageWidgetItem *createTypePage(const QString &pBupVersion, const QString &pRsyncVersion);
 	KPageWidgetItem *createSourcePage();
 	KPageWidgetItem *createDestinationPage();
 	KPageWidgetItem *createSchedulePage();
@@ -96,6 +98,8 @@ public:
 	BackupPlan *mBackupPlan;
 	DriveSelection *mDriveSelection;
 	KLineEdit *mDriveDestEdit;
+	QRadioButton *mVersionedRadio;
+	QRadioButton *mSyncedRadio;
 	FolderSelectionModel *mSourceSelectionModel;
 
 protected slots:

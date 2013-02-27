@@ -22,6 +22,7 @@
 #define PLANEXECUTOR_H
 
 #include "backupplan.h"
+#include "backupjob.h"
 
 #include <KProcess>
 
@@ -98,6 +99,7 @@ protected:
 	enum ExecutorState {NOT_AVAILABLE, WAITING_FOR_FIRST_BACKUP,
 		                 WAITING_FOR_BACKUP_AGAIN, RUNNING, WAITING_FOR_MANUAL_BACKUP};
 	ExecutorState mState;
+	BackupJob *createBackupJob();
 
 	QString mDestinationPath;
 	BackupPlan *mPlan;

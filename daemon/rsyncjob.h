@@ -18,36 +18,32 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef BUPJOB_H
-#define BUPJOB_H
+#ifndef RSYNCJOB_H
+#define RSYNCJOB_H
 
 #include "backupjob.h"
 
 #include <KProcess>
 
-class BupJob : public BackupJob
+class RsyncJob : public BackupJob
 {
 	Q_OBJECT
 
 public:
-	BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	       const QString &pDestinationPath, int pCompressionLevel, bool pRunAsRoot,
-	       const QString &pBupPath = QString());
+	RsyncJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
+	         const QString &pDestinationPath, bool pRunAsRoot);
+
 	virtual void start();
 
+public slots:
+	void startRsync();
+
 protected slots:
-	void startIndexing();
-	void slotIndexingStarted();
-	void slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
-	void slotSavingStarted();
-	void slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
+	void slotRsyncStarted();
+	void slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus);
 
 protected:
-	KProcess mIndexProcess;
-	KProcess mSaveProcess;
-	QString mBupPath;
-	QString mBupVersion;
-	int mCompressionLevel;
+	KProcess mRsyncProcess;
 };
 
-#endif /*BUPJOB_H*/
+#endif // RSYNCJOB_H

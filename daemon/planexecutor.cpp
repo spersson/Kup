@@ -19,6 +19,8 @@
  ***************************************************************************/
 
 #include "planexecutor.h"
+#include "bupjob.h"
+#include "rsyncjob.h"
 
 #include <KLocale>
 #include <KNotification>
@@ -263,4 +265,16 @@ void PlanExecutor::showMountedBackup() {
 		KRun::runUrl(KUrl(mTempDir + QLatin1String("kup")), QLatin1String("inode/directory"), 0);
 		mShowFilesAction->setChecked(true);
 	}
+}
+
+BackupJob *PlanExecutor::createBackupJob() {
+	if(mPlan->mBackupType == BackupPlan::BupType) {
+		return new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath,
+		                  mPlan->mCompressionLevel, mPlan->mRunAsRoot);
+	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
+		return new RsyncJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath,
+		                    mPlan->mRunAsRoot);
+	}
+	qWarning("Invalid backup type in configuration!");
+	return NULL;
 }
