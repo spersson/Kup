@@ -1,13 +1,21 @@
  - SSH as backup destination. Would be easy to add but I have not been motivated yet.
    - could use ssh to test destination availablility:
      ssh -q -o "BatchMode=yes" user@host "echo 2>&1" && echo "OK" || echo "NOK"
- - KIO slave to see a bup archive in a file manager, could be based on libgit2 instead of fuse-mount. 
-   Also could be nice to have a view here where each file is represented as a directory and under 
-   that is the different timestamps of that file, would make it much easier to find earlier versions of 
-   the file you are looking for.
+ - KIO slave to see a bup archive in a file manager, could be based on libgit2 instead of fuse-mount.
+   Would be nicer than having to unmount after being done.
+ - Add a bup repo browser program, using the kioslave. And perhaps doing some direct 
+   access to the repo, maybe share some code with kioslave for that.
+   Would show history for selected file or folder in a separate view next to the 
+   main file/folder view. Or something like that. Would allow for opening a file at a specific time stamp.
+   Or dragging-dropping it to another app. Would give a bup:// kioslave url as source for opening or for drag action.
  - Continous backups: monitoring the local filesystem for changes and imediately backing up 
    the changed file if destination is available.
  - Make bup give out percentage complete and use this to present completion in systray tooltip.
     - Patch done and posted to mailing list, probably no one noticed...
- - Figure out a file format for backup exclude config files, maybe system-wide under something like /etc/backup-exclude.d/10-firefox-cache.exclude
-   and user specific could be under ~/.config/fd.o/backup-exclude.d/
+ - Warn user when using rsync to backup to a ntfs or fat backup, will lose permissions. Maybe other filesystems too? Maybe more info lost?
+ - If user has more than one plan, make daemon tooltip specify status for individual plans, not just the worst: "new backup suggested".. 
+ - Fix the "show files" action in popup menu for rsync-type backup, just open a file manager instead of bup fuse mount.
+
+Known issues
+ - bup doesn't seem to handle including a folder under an excluded one. Need to investigate. Thought I had tested this to work 
+before... hmm..
