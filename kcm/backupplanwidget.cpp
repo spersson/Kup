@@ -518,21 +518,6 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(const QString &pBupVersion
 	lRunAsRootCheckBox->setObjectName(QLatin1String("kcfg_Run as root"));
 	lAdvancedLayout->addRow(i18nc("@label", "Take backups as root:"), lRunAsRootCheckBox);
 
-	if(pBupVersion >= QLatin1String("0.25")) {
-		KComboBox *lCompressionLevel = new KComboBox;
-		lCompressionLevel->setObjectName(QLatin1String("kcfg_Compression level"));
-		lCompressionLevel->setToolTip(i18nc("@info:tooltip", "Higher compression means less space is used by "
-		                                    "the backup archive but more cpu time is used when it is taken."));
-		for(int i=0; i<10; ++i) {
-			lCompressionLevel->addItem(QString("%1 %").arg(lrint(i*100/9)));
-		}
-		lAdvancedLayout->addRow(i18nc("@label", "Compression level:"), lCompressionLevel);
-		lCompressionLevel->setVisible(false);
-		lAdvancedLayout->labelForField(lCompressionLevel)->setVisible(false);
-		connect(mVersionedRadio, SIGNAL(toggled(bool)), lCompressionLevel, SLOT(setVisible(bool)));
-		connect(mVersionedRadio, SIGNAL(toggled(bool)), lAdvancedLayout->labelForField(lCompressionLevel), SLOT(setVisible(bool)));
-	}
-
 	lAdvancedWidget->setLayout(lAdvancedLayout);
 	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
 	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-27 17:36+0800\n"
+"POT-Creation-Date: 2013-03-02 20:28+0800\n"
 "PO-Revision-Date: 2013-02-27 18:20+0800\n"
 "Last-Translator: Simon Persson <simonpersson1@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -24,7 +24,7 @@ msgctxt "@info"
 msgid "Failed to take backup as root: %1"
 msgstr "Misslyckades att köra säkerhetskopieringen som root: %1"
 
-#: daemon/bupjob.cpp:55
+#: daemon/bupjob.cpp:53
 msgctxt "@info"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
@@ -33,7 +33,7 @@ msgstr ""
 "Programmet \"bup\" behövs men kunde inte hittas, det kanske inte är "
 "installerat?"
 
-#: daemon/bupjob.cpp:69
+#: daemon/bupjob.cpp:67
 msgctxt "@info"
 msgid ""
 "Backup destination could not be initialised by bup:</nl><message>%1</message>"
@@ -41,13 +41,13 @@ msgstr ""
 "Destinationen för säkerhetskopior kunde inte initieras av bup:</nl><message>"
 "%1</message>"
 
-#: daemon/bupjob.cpp:90
+#: daemon/bupjob.cpp:88
 msgctxt "@info:progress"
 msgid "Checking what has changed since last backup..."
 msgstr ""
 "Kontrollerar vad som har ändrats efter att senaste säkerhetskopian togs..."
 
-#: daemon/bupjob.cpp:100
+#: daemon/bupjob.cpp:98
 msgctxt "@info"
 msgid ""
 "Indexing of file system did not complete successfully:</nl><message>%1</"
@@ -55,12 +55,12 @@ msgid ""
 msgstr ""
 "Indexering av filsystemet gick inte helt bra:</nl><message>%1</message>"
 
-#: daemon/bupjob.cpp:121
+#: daemon/bupjob.cpp:116
 msgctxt "@info:progress"
 msgid "Saving changes to backup destination..."
 msgstr "Kopierar förändringar till säkerhetskopia..."
 
-#: daemon/bupjob.cpp:131 daemon/rsyncjob.cpp:75
+#: daemon/bupjob.cpp:126 daemon/rsyncjob.cpp:75
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr "Säkerhetskopieringen gick inte helt bra:</nl><message>%1</message>"
@@ -280,8 +280,8 @@ msgid ""
 "in the archive can not be accessed directly with a general file manager, a "
 "special program is needed."
 msgstr ""
-"Lägger dina säkerhetskopior i ett <em>arkiv</em>. Detta kommer innehålla både "
-"den senast sparade versionen och alla tidigare versioner av dina filer, "
+"Lägger dina säkerhetskopior i ett <em>arkiv</em>. Detta kommer innehålla "
+"både den senast sparade versionen och alla tidigare versioner av dina filer, "
 "inklusive filer som senare har tagits bort. Använt lagringsutrymme minimeras "
 "genom att leta efter gemensamma delar mellan de olika versionerna av dina "
 "filer och bara lagra dessa delarna en gång. Trots det så kommer arkivet att "
@@ -310,14 +310,14 @@ msgid ""
 "due to a broken hard drive but it does not help you to recover from your own "
 "mistakes."
 msgstr ""
-"Denna typen av säkerhetskopiering håller destinationsmappen synkroniserad med "
-"dina valda källor. När du tar en ny säkerhetskopia kommer helt enkelt den "
-"mappen ändras till att innehålla en exakt kopia av dina källor som de är nu "
-"och ingenting annat. Om en fil har tagits bort i en källmapp så kommer den "
-"också tas bort från destinationsmappen.<br>Denna kopieringstypen hjälper dig "
-"att återställa filer om en hårddisk skulle gå sönder eller liknande men den "
-"hjälper inte mycket om du kommer på att du har gjort ett misstag och vill ha "
-"tillbaka en gammal fil."
+"Denna typen av säkerhetskopiering håller destinationsmappen synkroniserad "
+"med dina valda källor. När du tar en ny säkerhetskopia kommer helt enkelt "
+"den mappen ändras till att innehålla en exakt kopia av dina källor som de är "
+"nu och ingenting annat. Om en fil har tagits bort i en källmapp så kommer "
+"den också tas bort från destinationsmappen.<br>Denna kopieringstypen hjälper "
+"dig att återställa filer om en hårddisk skulle gå sönder eller liknande men "
+"den hjälper inte mycket om du kommer på att du har gjort ett misstag och "
+"vill ha tillbaka en gammal fil."
 
 #: kcm/backupplanwidget.cpp:256
 msgctxt "@option:radio"
@@ -507,25 +507,11 @@ msgid "Take backups as root:"
 msgstr "Kör säkerhetskopieringen som root:"
 
 #: kcm/backupplanwidget.cpp:524
-msgctxt "@info:tooltip"
-msgid ""
-"Higher compression means less space is used by the backup archive but more "
-"cpu time is used when it is taken."
-msgstr ""
-"Högre kompression ger mindre storlek på säkerhetskopiorna men kräver mer "
-"processortid när säkerhetskopian tas."
-
-#: kcm/backupplanwidget.cpp:529
-msgctxt "@label"
-msgid "Compression level:"
-msgstr "Kompressionsnivå:"
-
-#: kcm/backupplanwidget.cpp:539
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: kcm/backupplanwidget.cpp:540
+#: kcm/backupplanwidget.cpp:525
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Extra inställningar för avancerade användare"

@@ -67,8 +67,7 @@ ActionReply KupHelper::takebackup(const QVariantMap &pArguments) {
 	BackupJob *lJob;
 	int lBackupType = pArguments[QLatin1String("type")].toInt();
 	if(lBackupType == BackupPlan::BupType) {
-		lJob = new BupJob(lPathsIncluded, lPathsExcluded, lDestinationPath,
-		                  pArguments[QLatin1String("compressionLevel")].toInt(), false,
+		lJob = new BupJob(lPathsIncluded, lPathsExcluded, lDestinationPath, false,
 		                  pArguments[QLatin1String("bupPath")].toString());
 	} else if(lBackupType == BackupPlan::RsyncType) {
 		lJob = new RsyncJob(lPathsIncluded, lPathsExcluded, lDestinationPath, false);

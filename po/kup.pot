@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-27 17:36+0800\n"
+"POT-Creation-Date: 2013-03-02 20:28+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,37 +23,37 @@ msgctxt "@info"
 msgid "Failed to take backup as root: %1"
 msgstr ""
 
-#: daemon/bupjob.cpp:55
+#: daemon/bupjob.cpp:53
 msgctxt "@info"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
 
-#: daemon/bupjob.cpp:69
+#: daemon/bupjob.cpp:67
 msgctxt "@info"
 msgid ""
 "Backup destination could not be initialised by bup:</nl><message>%1</message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:90
+#: daemon/bupjob.cpp:88
 msgctxt "@info:progress"
 msgid "Checking what has changed since last backup..."
 msgstr ""
 
-#: daemon/bupjob.cpp:100
+#: daemon/bupjob.cpp:98
 msgctxt "@info"
 msgid ""
 "Indexing of file system did not complete successfully:</nl><message>%1</"
 "message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:121
+#: daemon/bupjob.cpp:116
 msgctxt "@info:progress"
 msgid "Saving changes to backup destination..."
 msgstr ""
 
-#: daemon/bupjob.cpp:131 daemon/rsyncjob.cpp:75
+#: daemon/bupjob.cpp:126 daemon/rsyncjob.cpp:75
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr ""
@@ -459,23 +459,11 @@ msgid "Take backups as root:"
 msgstr ""
 
 #: kcm/backupplanwidget.cpp:524
-msgctxt "@info:tooltip"
-msgid ""
-"Higher compression means less space is used by the backup archive but more "
-"cpu time is used when it is taken."
-msgstr ""
-
-#: kcm/backupplanwidget.cpp:529
-msgctxt "@label"
-msgid "Compression level:"
-msgstr ""
-
-#: kcm/backupplanwidget.cpp:539
 msgctxt "@title"
 msgid "Advanced"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:540
+#: kcm/backupplanwidget.cpp:525
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr ""

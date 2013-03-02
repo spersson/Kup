@@ -26,10 +26,9 @@
 #include <QTimer>
 
 BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-               const QString &pDestinationPath, int pCompressionLevel, bool pRunAsRoot,
-               const QString &pBupPath)
+               const QString &pDestinationPath, bool pRunAsRoot, const QString &pBupPath)
    :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pRunAsRoot),
-     mBupPath(pBupPath), mCompressionLevel(pCompressionLevel)
+     mBupPath(pBupPath)
 {
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -38,7 +37,6 @@ BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExclu
 void BupJob::start() {
 	if(mRunAsRoot) {
 		QVariantMap lArguments;
-		lArguments[QLatin1String("compressionLevel")] = mCompressionLevel;
 		lArguments[QLatin1String("bupPath")] = QDir::homePath() + QDir::separator() + QLatin1String(".bup");
 		startRootHelper(lArguments, BackupPlan::BupType);
 	} else {
@@ -110,9 +108,6 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mSaveProcess << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
 	mSaveProcess << QLatin1String("-r") << mDestinationPath;
-	if(mBupVersion >= QLatin1String("0.25")) {
-		mSaveProcess << QString("-%1").arg(mCompressionLevel);
-	}
 	mSaveProcess << mPathsIncluded;
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
