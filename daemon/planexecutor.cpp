@@ -36,7 +36,9 @@ PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
    :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mBupFuseProcess(NULL), mQuestion(NULL), mOkToShowBackup(false)
 {
 	mShowFilesAction = new QAction(i18nc("@action:inmenu", "Show Files"), this);
-	mShowFilesAction->setCheckable(true);
+	if(mPlan->mBackupType == BackupPlan::BupType) {
+		mShowFilesAction->setCheckable(true);
+	}
 	mShowFilesAction->setEnabled(false);
 	connect(mShowFilesAction, SIGNAL(triggered()), SLOT(showFilesClicked()));
 
@@ -207,10 +209,14 @@ void PlanExecutor::updateAccumulatedUsageTime() {
 void PlanExecutor::showFilesClicked() {
 	if(mState == NOT_AVAILABLE)
 		return;
-	if(mBupFuseProcess) {
-		unmountBupFuse();
-	} else {
-		mountBupFuse();
+	if(mPlan->mBackupType == BackupPlan::BupType) {
+		if(mBupFuseProcess) {
+			unmountBupFuse();
+		} else {
+			mountBupFuse();
+		}
+	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
+		KRun::runUrl(mDestinationPath, QLatin1String("inode/directory"), NULL);
 	}
 }
 
@@ -262,7 +268,7 @@ void PlanExecutor::bupFuseFinished(int pExitCode, QProcess::ExitStatus pExitStat
 
 void PlanExecutor::showMountedBackup() {
 	if(mOkToShowBackup) {
-		KRun::runUrl(KUrl(mTempDir + QLatin1String("kup")), QLatin1String("inode/directory"), 0);
+		KRun::runUrl(mTempDir + QLatin1String("kup"), QLatin1String("inode/directory"), 0);
 		mShowFilesAction->setChecked(true);
 	}
 }

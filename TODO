@@ -14,7 +14,6 @@
     - Patch done and posted to mailing list, probably no one noticed...
  - Warn user when using rsync to backup to a ntfs or fat backup, will lose permissions. Maybe other filesystems too? Maybe more info lost?
  - If user has more than one plan, make daemon tooltip specify status for individual plans, not just the worst: "new backup suggested".. 
- - Fix the "show files" action in popup menu for rsync-type backup, just open a file manager instead of bup fuse mount.
 
 Known issues
  - bup doesn't seem to handle including a folder under an excluded one. Need to investigate. Thought I had tested this to work 
