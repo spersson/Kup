@@ -52,10 +52,6 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	}
 
 	addItemStringList("Paths excluded", mPathsExcluded, lDefaultExcludeList);
-	addItemStringList("Patterns excluded", mPatternsExcluded);
-	addItemBool("Use system exclude list", mUseSystemExcludeList, true);
-	addItemBool("Use user exclude list", mUseUserExcludeList, true);
-	addItemBool("Run as root", mRunAsRoot);
 	addItemInt("Backup type", mBackupType);
 
 	addItemInt("Schedule type", mScheduleType, 2);
@@ -77,21 +73,14 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	addItemInt("External partition number", mExternalPartitionNumber);
 	addItemInt("External partitions count", mExternalPartitionsOnDrive);
 
-//	addItemString("SSH server name", mSshServerName);
-//	addItemString("SSH login name", mSshLoginName);
-//	addItemPassword("SSH login password", mSshLoginPassword);
-//	addItemPath("SSH destination path", mSshDestinationPath);
-
 	addItemBool("Show hidden folders", mShowHiddenFolders);
+	addItemBool("Run as root", mRunAsRoot);
 
 	addItemDateTime("Last complete backup", mLastCompleteBackup);
 	addItemDouble("Last backup size", mLastBackupSize);
 	addItemDouble("Last available space", mLastAvailableSpace);
 	addItemUInt("Accumulated usage time", mAccumulatedUsageTime);
 	readConfig();
-}
-
-BackupPlan::~BackupPlan() {
 }
 
 void BackupPlan::setPlanNumber(int pPlanNumber) {

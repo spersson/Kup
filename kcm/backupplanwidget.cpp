@@ -197,7 +197,7 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupV
 	mConfigPages->addPage(createSourcePage());
 	mConfigPages->addPage(createDestinationPage());
 	mConfigPages->addPage(createSchedulePage());
-	mConfigPages->addPage(createAdvancedPage(pBupVersion));
+	mConfigPages->addPage(createAdvancedPage());
 
 	QHBoxLayout *lHLayout1 = new QHBoxLayout;
 	lHLayout1->addWidget(mConfigureButton);
@@ -311,7 +311,6 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QVBoxLayout *lVLayout = new QVBoxLayout;
 	QRadioButton *lFileSystemRadio = new QRadioButton(i18nc("@option:radio", "Filesystem Path"));
 	QRadioButton *lDriveRadio = new QRadioButton(i18nc("@option:radio", "External Storage"));
-//	QRadioButton *lSshRadio = new QRadioButton(i18nc("@option:radio", "SSH Server"));
 
 	QWidget *lFileSystemWidget = new QWidget;
 	lFileSystemWidget->setVisible(false);
@@ -374,30 +373,10 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	lDriveVLayout->addWidget(lDriveDestWidget, 2, 1);
 	lDriveWidget->setLayout(lDriveVLayout);
 
-	//	QWidget *lSshWidget = new QWidget;
-	//	lSshWidget->setVisible(false);
-	//	QObject::connect(lSshRadio, SIGNAL(toggled(bool)), lSshWidget, SLOT(setVisible(bool)));
-	//	QFormLayout *lFLayout = new QFormLayout;
-	//	KLineEdit *lServerNameEdit = new KLineEdit;
-	//	lServerNameEdit->setObjectName("kcfg_SSH server name");
-	//	lFLayout->addRow(i18n("Server Name:"), lServerNameEdit);
-	//	KLineEdit *lLoginNameEdit= new KLineEdit;
-	//	lLoginNameEdit->setObjectName("kcfg_SSH login name");
-	//	lFLayout->addRow(i18n("Login Name:"), lLoginNameEdit);
-	//	KLineEdit *lPasswordEdit = new KLineEdit;
-	//	lPasswordEdit->setObjectName("kcfg_SSH login password");
-	//	lFLayout->addRow(i18n("Password:"), lPasswordEdit);
-	//	KLineEdit *lSshDestinationEdit = new KLineEdit;
-	//	lSshDestinationEdit->setObjectName("kcfg_SSH destination path");
-	//	lFLayout->addRow(i18n("Destination Path on Server:"), lSshDestinationEdit);
-	//	lSshWidget->setLayout(lFLayout);
-
 	lVLayout->addWidget(lFileSystemRadio);
 	lVLayout->addWidget(lFileSystemWidget);
 	lVLayout->addWidget(lDriveRadio);
 	lVLayout->addWidget(lDriveWidget);
-	//	lVLayout->addWidget(lSshRadio);
-	//	lVLayout->addWidget(lSshWidget);
 	lVLayout->addStretch();
 	lButtonGroup->setLayout(lVLayout);
 
@@ -506,7 +485,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	return lPage;
 }
 
-KPageWidgetItem *BackupPlanWidget::createAdvancedPage(const QString &pBupVersion) {
+KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	QWidget *lAdvancedWidget = new QWidget(this);
 	QFormLayout *lAdvancedLayout = new QFormLayout;
 

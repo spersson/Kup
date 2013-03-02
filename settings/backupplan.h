@@ -30,9 +30,6 @@ class BackupPlan : public KConfigSkeleton
 {
 public:
 	BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent = 0);
-
-	virtual ~BackupPlan();
-
 	int planNumber() const {return mPlanNumber;}
 	virtual void setPlanNumber(int pPlanNumber);
 
@@ -41,12 +38,6 @@ public:
 	QString mDescription;
 	QStringList mPathsIncluded;
 	QStringList mPathsExcluded;
-	QStringList mPatternsExcluded;
-	// True if files from the system exclude list shall be excluded.
-	bool mUseSystemExcludeList;
-	// True if files from the user-specific exclude list shall be excluded.
-	bool mUseUserExcludeList;
-	bool mRunAsRoot;
 	enum BackupType {BupType = 0, RsyncType};
 	qint32 mBackupType;
 
@@ -66,12 +57,9 @@ public:
 	int mExternalPartitionNumber;
 	int mExternalPartitionsOnDrive;
 	qulonglong mExternalVolumeCapacity;
-//	QString mSshServerName;
-//	QString mSshLoginName;
-//	QString mSshLoginPassword; //TODO: move to kwallet
-//	QString mSshDestinationPath;
 
 	bool mShowHiddenFolders;
+	bool mRunAsRoot;
 
 	QDateTime mLastCompleteBackup;
 	// Size of the last backup in bytes.

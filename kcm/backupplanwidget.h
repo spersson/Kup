@@ -90,7 +90,7 @@ public:
 	KPageWidgetItem *createSourcePage();
 	KPageWidgetItem *createDestinationPage();
 	KPageWidgetItem *createSchedulePage();
-	KPageWidgetItem *createAdvancedPage(const QString &pBupVersion);
+	KPageWidgetItem *createAdvancedPage();
 
 	KLineEdit *mDescriptionEdit;
 	KPushButton *mConfigureButton;
