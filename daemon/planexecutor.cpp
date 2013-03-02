@@ -243,8 +243,7 @@ void PlanExecutor::unmountBupFuse() {
 	lUnmount << QLatin1String("fusermount") << QLatin1String("-u") <<mTempDir;
 	if(lUnmount.execute()) {
 		KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
-		                     i18nc("@info", "Error when trying to unmount backup archive:</nl>"
-		                           "<message>%1</message>",
+		                     i18nc("notification", "Error when trying to unmount backup archive:\n%1",
 		                           QString::fromLocal8Bit(lUnmount.readAllStandardError())));
 		mShowFilesAction->setChecked(true);
 	}
@@ -253,8 +252,7 @@ void PlanExecutor::unmountBupFuse() {
 void PlanExecutor::bupFuseFinished(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
-		                     i18nc("@info", "Error when trying to mount backup archive:</nl>"
-		                           "<message>%1</message>",
+		                     i18nc("notification", "Error when trying to mount backup archive:\n%1",
 		                           QString::fromLocal8Bit(mBupFuseProcess->readAllStandardError())));
 	}
 

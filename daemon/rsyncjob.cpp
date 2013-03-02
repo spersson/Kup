@@ -46,7 +46,7 @@ void RsyncJob::startRsync() {
 	lVersionProcess << QLatin1String("rsync") << QLatin1String("--version");
 	if(lVersionProcess.execute() < 0) {
 		setError(1);
-		setErrorText(i18nc("@info", "The \"rsync\" program is needed but could not be found, "
+		setErrorText(i18nc("notification", "The \"rsync\" program is needed but could not be found, "
 		                   "maybe it is not installed?"));
 		emitResult();
 		return;
@@ -72,8 +72,8 @@ void RsyncJob::slotRsyncStarted() {
 void RsyncJob::slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		setError(1);
-		setErrorText(i18nc("@info", "Backup did not complete successfully:</nl>"
-		                   "<message>%1</message>", QString(mRsyncProcess.readAllStandardError())));
+		setErrorText(i18nc("notification", "Backup did not complete successfully:\n%1",
+		                   QString(mRsyncProcess.readAllStandardError())));
 	}
 	emitResult();
 }

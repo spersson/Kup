@@ -101,7 +101,7 @@ void FSExecutor::startBackup() {
 	BackupJob *lJob = createBackupJob();
 	if(lJob == NULL) {
 		KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
-		                     i18nc("@info", "Invalid type of backup in configuration."));
+		                     i18nc("notification", "Invalid type of backup in configuration."));
 		exitBackupRunningState(false);
 		return;
 	}

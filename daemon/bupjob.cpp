@@ -50,7 +50,7 @@ void BupJob::startIndexing() {
 	lVersionProcess << QLatin1String("bup") << QLatin1String("version");
 	if(lVersionProcess.execute() < 0) {
 		setError(1);
-		setErrorText(i18nc("@info", "The \"bup\" program is needed but could not be found, "
+		setErrorText(i18nc("notification", "The \"bup\" program is needed but could not be found, "
 		                   "maybe it is not installed?"));
 		emitResult();
 		return;
@@ -64,8 +64,8 @@ void BupJob::startIndexing() {
 	lInitProcess << QLatin1String("init");
 	if(lInitProcess.execute() != 0) {
 		setError(1);
-		setErrorText(i18nc("@info", "Backup destination could not be initialised by bup:</nl>"
-		                   "<message>%1</message>", QString(lInitProcess.readAllStandardError())));
+		setErrorText(i18nc("notification", "Backup destination could not be initialised by bup:\n%1",
+		                   QString(lInitProcess.readAllStandardError())));
 		emitResult();
 		return;
 	}
@@ -85,7 +85,6 @@ void BupJob::startIndexing() {
 	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
 	connect(&mIndexProcess, SIGNAL(started()), SLOT(slotIndexingStarted()));
 	mIndexProcess.start();
-	emit description(this, i18nc("@info:progress", "Checking what has changed since last backup..."));
 }
 
 void BupJob::slotIndexingStarted() {
@@ -95,8 +94,8 @@ void BupJob::slotIndexingStarted() {
 void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		setError(1);
-		setErrorText(i18nc("@info", "Indexing of file system did not complete successfully:</nl>"
-		                   "<message>%1</message>", QString(mIndexProcess.readAllStandardError())));
+		setErrorText(i18nc("notification", "Indexing of file system did not complete successfully:\n%1",
+		                   QString(mIndexProcess.readAllStandardError())));
 		emitResult();
 		return;
 	}
@@ -113,7 +112,6 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
 	connect(&mSaveProcess, SIGNAL(started()), SLOT(slotSavingStarted()));
 	mSaveProcess.start();
-	emit description(this, i18nc("@info:progress", "Saving changes to backup destination..."));
 }
 
 void BupJob::slotSavingStarted() {
@@ -123,8 +121,8 @@ void BupJob::slotSavingStarted() {
 void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		setError(1);
-		setErrorText(i18nc("@info", "Backup did not complete successfully:</nl>"
-		                   "<message>%1</message>", QString(mSaveProcess.readAllStandardError())));
+		setErrorText(i18nc("notification", "Backup did not complete successfully:\n%1",
+		                   QString(mSaveProcess.readAllStandardError())));
 	}
 	emitResult();
 }

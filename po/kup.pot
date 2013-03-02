@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-03-02 20:28+0800\n"
+"POT-Creation-Date: 2013-03-02 22:49+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,50 +24,43 @@ msgid "Failed to take backup as root: %1"
 msgstr ""
 
 #: daemon/bupjob.cpp:53
-msgctxt "@info"
+msgctxt "notification"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
 
 #: daemon/bupjob.cpp:67
-msgctxt "@info"
+msgctxt "notification"
 msgid ""
-"Backup destination could not be initialised by bup:</nl><message>%1</message>"
+"Backup destination could not be initialised by bup:\n"
+"%1"
 msgstr ""
 
-#: daemon/bupjob.cpp:88
-msgctxt "@info:progress"
-msgid "Checking what has changed since last backup..."
-msgstr ""
-
-#: daemon/bupjob.cpp:98
-msgctxt "@info"
+#: daemon/bupjob.cpp:97
+msgctxt "notification"
 msgid ""
-"Indexing of file system did not complete successfully:</nl><message>%1</"
-"message>"
+"Indexing of file system did not complete successfully:\n"
+"%1"
 msgstr ""
 
-#: daemon/bupjob.cpp:116
-msgctxt "@info:progress"
-msgid "Saving changes to backup destination..."
-msgstr ""
-
-#: daemon/bupjob.cpp:126 daemon/rsyncjob.cpp:75
-msgctxt "@info"
-msgid "Backup did not complete successfully:</nl><message>%1</message>"
+#: daemon/bupjob.cpp:124 daemon/rsyncjob.cpp:75
+msgctxt "notification"
+msgid ""
+"Backup did not complete successfully:\n"
+"%1"
 msgstr ""
 
 #: daemon/edexecutor.cpp:111 daemon/edexecutor.cpp:130
 #: daemon/edexecutor.cpp:148 daemon/fsexecutor.cpp:103
 #: daemon/fsexecutor.cpp:114 daemon/fsexecutor.cpp:132
-#: daemon/planexecutor.cpp:239 daemon/planexecutor.cpp:249
+#: daemon/planexecutor.cpp:245 daemon/planexecutor.cpp:254
 msgctxt "@title"
 msgid "Problem"
 msgstr ""
 
 #: daemon/edexecutor.cpp:112 daemon/fsexecutor.cpp:104
-msgctxt "@info"
+msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr ""
 
@@ -149,57 +142,61 @@ msgctxt "@action:inmenu"
 msgid "Show Files"
 msgstr ""
 
-#: daemon/planexecutor.cpp:43
+#: daemon/planexecutor.cpp:45
 msgctxt "@action:inmenu"
 msgid "Take Backup Now"
 msgstr ""
 
-#: daemon/planexecutor.cpp:84 daemon/planexecutor.cpp:99
+#: daemon/planexecutor.cpp:86 daemon/planexecutor.cpp:101
 msgctxt "@info"
 msgid "Do you want to take a first backup now?"
 msgstr ""
 
-#: daemon/planexecutor.cpp:87
+#: daemon/planexecutor.cpp:89
 msgctxt "@info"
 msgid ""
 "It's been %1 since the last backup was taken, do you want to take a backup "
 "now?"
 msgstr ""
 
-#: daemon/planexecutor.cpp:103
+#: daemon/planexecutor.cpp:105
 msgctxt "@info"
 msgid ""
 "You've been active with this computer for %1 since the last backup was "
 "taken, do you want to take a backup now?"
 msgstr ""
 
-#: daemon/planexecutor.cpp:133
+#: daemon/planexecutor.cpp:135
 msgctxt "@title:window"
 msgid "Backup Device Available - %1"
 msgstr ""
 
-#: daemon/planexecutor.cpp:136
+#: daemon/planexecutor.cpp:138
 msgctxt "@action:button"
 msgid "Yes"
 msgstr ""
 
-#: daemon/planexecutor.cpp:136
+#: daemon/planexecutor.cpp:138
 msgctxt "@action:button"
 msgid "No"
 msgstr ""
 
-#: daemon/planexecutor.cpp:240
-msgctxt "@info"
-msgid "Error when trying to unmount backup archive:</nl><message>%1</message>"
+#: daemon/planexecutor.cpp:246
+msgctxt "notification"
+msgid ""
+"Error when trying to unmount backup archive:\n"
+"%1"
 msgstr ""
 
-#: daemon/planexecutor.cpp:250
-msgctxt "@info"
-msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
+#: daemon/planexecutor.cpp:255
+msgctxt "notification"
+msgid ""
+"Error when trying to mount backup archive:\n"
+"%1"
 msgstr ""
 
 #: daemon/rsyncjob.cpp:49
-msgctxt "@info"
+msgctxt "notification"
 msgid ""
 "The \"rsync\" program is needed but could not be found, maybe it is not "
 "installed?"
@@ -326,7 +323,7 @@ msgctxt "@option:radio"
 msgid "External Storage"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:319
+#: kcm/backupplanwidget.cpp:318
 msgctxt "@label"
 msgid ""
 "You can use this option for backing up to networked storage if you always "
@@ -334,93 +331,93 @@ msgid ""
 "all times, its existance will be monitored."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:323
+#: kcm/backupplanwidget.cpp:322
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:340
+#: kcm/backupplanwidget.cpp:339
 msgctxt "@label"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
 "can be plugged in to this computer, such as a USB hard drive or memory stick."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:348 kcm/backupplanwidget.cpp:351
+#: kcm/backupplanwidget.cpp:347 kcm/backupplanwidget.cpp:350
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:350
+#: kcm/backupplanwidget.cpp:349
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:357
+#: kcm/backupplanwidget.cpp:356
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:405
+#: kcm/backupplanwidget.cpp:384
 msgctxt "@title"
 msgid "Destination"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:406
+#: kcm/backupplanwidget.cpp:385
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:422
+#: kcm/backupplanwidget.cpp:401
 msgctxt "@option:radio"
 msgid "Manual Activation"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:423
+#: kcm/backupplanwidget.cpp:402
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:424
+#: kcm/backupplanwidget.cpp:403
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:426
+#: kcm/backupplanwidget.cpp:405
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:439
+#: kcm/backupplanwidget.cpp:418
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
 "more than the configured interval has passed since the last backup was taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:454
+#: kcm/backupplanwidget.cpp:433
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:455 kcm/backupplanwidget.cpp:479
+#: kcm/backupplanwidget.cpp:434 kcm/backupplanwidget.cpp:458
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:456
+#: kcm/backupplanwidget.cpp:435
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:457
+#: kcm/backupplanwidget.cpp:436
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:466
+#: kcm/backupplanwidget.cpp:445
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -428,42 +425,42 @@ msgid ""
 "limit since the last backup was taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:484
+#: kcm/backupplanwidget.cpp:463
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:503
+#: kcm/backupplanwidget.cpp:482
 msgctxt "@title"
 msgid "Schedule"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:504
+#: kcm/backupplanwidget.cpp:483
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:513 kcm/backupplanwidget.cpp:517
+#: kcm/backupplanwidget.cpp:492 kcm/backupplanwidget.cpp:496
 msgctxt "@option:check"
 msgid "Yes"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:515
+#: kcm/backupplanwidget.cpp:494
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:519
+#: kcm/backupplanwidget.cpp:498
 msgctxt "@label"
 msgid "Take backups as root:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:524
+#: kcm/backupplanwidget.cpp:503
 msgctxt "@title"
 msgid "Advanced"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:525
+#: kcm/backupplanwidget.cpp:504
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr ""
@@ -608,7 +605,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: po/rc.cpp:3 settings/backupplan.cpp:73 rc.cpp:3
+#: po/rc.cpp:3 settings/backupplan.cpp:69 rc.cpp:3
 msgid "Backups"
 msgstr ""
 

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-03-02 20:28+0800\n"
-"PO-Revision-Date: 2013-02-27 18:20+0800\n"
+"POT-Creation-Date: 2013-03-02 22:49+0800\n"
+"PO-Revision-Date: 2013-03-02 22:52+0800\n"
 "Last-Translator: Simon Persson <simonpersson1@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -25,7 +25,7 @@ msgid "Failed to take backup as root: %1"
 msgstr "Misslyckades att köra säkerhetskopieringen som root: %1"
 
 #: daemon/bupjob.cpp:53
-msgctxt "@info"
+msgctxt "notification"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
 "installed?"
@@ -34,47 +34,36 @@ msgstr ""
 "installerat?"
 
 #: daemon/bupjob.cpp:67
-msgctxt "@info"
+msgctxt "notification"
 msgid ""
-"Backup destination could not be initialised by bup:</nl><message>%1</message>"
-msgstr ""
-"Destinationen för säkerhetskopior kunde inte initieras av bup:</nl><message>"
-"%1</message>"
+"Backup destination could not be initialised by bup:\n"
+"%1"
+msgstr "Destinationen för säkerhetskopior kunde inte initieras av bup:\n%1"
 
-#: daemon/bupjob.cpp:88
-msgctxt "@info:progress"
-msgid "Checking what has changed since last backup..."
-msgstr ""
-"Kontrollerar vad som har ändrats efter att senaste säkerhetskopian togs..."
-
-#: daemon/bupjob.cpp:98
-msgctxt "@info"
+#: daemon/bupjob.cpp:97
+msgctxt "notification"
 msgid ""
-"Indexing of file system did not complete successfully:</nl><message>%1</"
-"message>"
-msgstr ""
-"Indexering av filsystemet gick inte helt bra:</nl><message>%1</message>"
+"Indexing of file system did not complete successfully:\n"
+"%1"
+msgstr "Indexering av filsystemet gick inte helt bra:\n%1"
 
-#: daemon/bupjob.cpp:116
-msgctxt "@info:progress"
-msgid "Saving changes to backup destination..."
-msgstr "Kopierar förändringar till säkerhetskopia..."
-
-#: daemon/bupjob.cpp:126 daemon/rsyncjob.cpp:75
-msgctxt "@info"
-msgid "Backup did not complete successfully:</nl><message>%1</message>"
-msgstr "Säkerhetskopieringen gick inte helt bra:</nl><message>%1</message>"
+#: daemon/bupjob.cpp:124 daemon/rsyncjob.cpp:75
+msgctxt "notification"
+msgid ""
+"Backup did not complete successfully:\n"
+"%1"
+msgstr "Säkerhetskopieringen gick inte helt bra:\n%1"
 
 #: daemon/edexecutor.cpp:111 daemon/edexecutor.cpp:130
 #: daemon/edexecutor.cpp:148 daemon/fsexecutor.cpp:103
 #: daemon/fsexecutor.cpp:114 daemon/fsexecutor.cpp:132
-#: daemon/planexecutor.cpp:239 daemon/planexecutor.cpp:249
+#: daemon/planexecutor.cpp:245 daemon/planexecutor.cpp:254
 msgctxt "@title"
 msgid "Problem"
 msgstr "Problem"
 
 #: daemon/edexecutor.cpp:112 daemon/fsexecutor.cpp:104
-msgctxt "@info"
+msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Ogiltig kopieringstyp i dina inställningar."
 
@@ -160,24 +149,24 @@ msgctxt "@action:inmenu"
 msgid "Show Files"
 msgstr "Visa Filer"
 
-#: daemon/planexecutor.cpp:43
+#: daemon/planexecutor.cpp:45
 msgctxt "@action:inmenu"
 msgid "Take Backup Now"
 msgstr "Ta Ny Säkerhetskopia"
 
-#: daemon/planexecutor.cpp:84 daemon/planexecutor.cpp:99
+#: daemon/planexecutor.cpp:86 daemon/planexecutor.cpp:101
 msgctxt "@info"
 msgid "Do you want to take a first backup now?"
 msgstr "Vill du ta den första säkerhetskopian nu?"
 
-#: daemon/planexecutor.cpp:87
+#: daemon/planexecutor.cpp:89
 msgctxt "@info"
 msgid ""
 "It's been %1 since the last backup was taken, do you want to take a backup "
 "now?"
 msgstr "Det har gått %1 sedan förra säkerhetskopian togs, vill du ta en ny nu?"
 
-#: daemon/planexecutor.cpp:103
+#: daemon/planexecutor.cpp:105
 msgctxt "@info"
 msgid ""
 "You've been active with this computer for %1 since the last backup was "
@@ -186,33 +175,37 @@ msgstr ""
 "Du har varit aktiv med denna datorn i %1 sedan förra säkerhetskopieringen, "
 "vill du ta en ny nu?"
 
-#: daemon/planexecutor.cpp:133
+#: daemon/planexecutor.cpp:135
 msgctxt "@title:window"
 msgid "Backup Device Available - %1"
 msgstr "Destination för säkerhetskopior tillgänglig - %1"
 
-#: daemon/planexecutor.cpp:136
+#: daemon/planexecutor.cpp:138
 msgctxt "@action:button"
 msgid "Yes"
 msgstr "Ja"
 
-#: daemon/planexecutor.cpp:136
+#: daemon/planexecutor.cpp:138
 msgctxt "@action:button"
 msgid "No"
 msgstr "Nej"
 
-#: daemon/planexecutor.cpp:240
-msgctxt "@info"
-msgid "Error when trying to unmount backup archive:</nl><message>%1</message>"
-msgstr "Fel uppstod när arkivet skulle avmonteras:</nl><message>%1</message>"
+#: daemon/planexecutor.cpp:246
+msgctxt "notification"
+msgid ""
+"Error when trying to unmount backup archive:\n"
+"%1"
+msgstr "Fel uppstod när arkivet skulle avmonteras:\n%1"
 
-#: daemon/planexecutor.cpp:250
-msgctxt "@info"
-msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
-msgstr "Fel uppstod när arkivet skulle monteras:</nl><message>%1</message>"
+#: daemon/planexecutor.cpp:255
+msgctxt "notification"
+msgid ""
+"Error when trying to mount backup archive:\n"
+"%1"
+msgstr "Fel uppstod när arkivet skulle monteras:\n%1"
 
 #: daemon/rsyncjob.cpp:49
-msgctxt "@info"
+msgctxt "notification"
 msgid ""
 "The \"rsync\" program is needed but could not be found, maybe it is not "
 "installed?"
@@ -361,7 +354,7 @@ msgctxt "@option:radio"
 msgid "External Storage"
 msgstr "Externt lagringsmedium"
 
-#: kcm/backupplanwidget.cpp:319
+#: kcm/backupplanwidget.cpp:318
 msgctxt "@label"
 msgid ""
 "You can use this option for backing up to networked storage if you always "
@@ -372,12 +365,12 @@ msgstr ""
 "nätverksdisk om du alltid monterar disken på samma plats i filsystemet. Vald "
 "mapp behöver inte finnas hela tiden, dess existens kommer att monitoreras."
 
-#: kcm/backupplanwidget.cpp:323
+#: kcm/backupplanwidget.cpp:322
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
 msgstr "Plats att lagra säkerhetskopiorna:"
 
-#: kcm/backupplanwidget.cpp:340
+#: kcm/backupplanwidget.cpp:339
 msgctxt "@label"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -387,47 +380,47 @@ msgstr ""
 "lagringsenhet som kopplas in direkt i denna datorn, till exempel en USB-"
 "hårddisk eller minnepinne."
 
-#: kcm/backupplanwidget.cpp:348 kcm/backupplanwidget.cpp:351
+#: kcm/backupplanwidget.cpp:347 kcm/backupplanwidget.cpp:350
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr "Den mapp som väljs kommer att skapas om den inte redan finns."
 
-#: kcm/backupplanwidget.cpp:350
+#: kcm/backupplanwidget.cpp:349
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr "Mapp på destinationsenheten:"
 
-#: kcm/backupplanwidget.cpp:357
+#: kcm/backupplanwidget.cpp:356
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
 msgstr "Öppna dialog för att välja en mapp"
 
-#: kcm/backupplanwidget.cpp:405
+#: kcm/backupplanwidget.cpp:384
 msgctxt "@title"
 msgid "Destination"
 msgstr "Lagringsplats"
 
-#: kcm/backupplanwidget.cpp:406
+#: kcm/backupplanwidget.cpp:385
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr "Välj lagringsplats för säkerhetskopior"
 
-#: kcm/backupplanwidget.cpp:422
+#: kcm/backupplanwidget.cpp:401
 msgctxt "@option:radio"
 msgid "Manual Activation"
 msgstr "Manuell aktivering"
 
-#: kcm/backupplanwidget.cpp:423
+#: kcm/backupplanwidget.cpp:402
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr "Intervall"
 
-#: kcm/backupplanwidget.cpp:424
+#: kcm/backupplanwidget.cpp:403
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr "Aktiv användningstid"
 
-#: kcm/backupplanwidget.cpp:426
+#: kcm/backupplanwidget.cpp:405
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
@@ -436,7 +429,7 @@ msgstr ""
 "Säkerhetskopior tas endast när du ber om det. Detta kan göras från "
 "popupmenyn när du högerklickar på ikonen i systembrickan."
 
-#: kcm/backupplanwidget.cpp:439
+#: kcm/backupplanwidget.cpp:418
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -445,27 +438,27 @@ msgstr ""
 "En ny säkerhetskopia kommer tas när lagringsplatsen är tillgänglig och mer "
 "än konfigurerat intervall har gått sedan förra kopian togs."
 
-#: kcm/backupplanwidget.cpp:454
+#: kcm/backupplanwidget.cpp:433
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr "Minuter"
 
-#: kcm/backupplanwidget.cpp:455 kcm/backupplanwidget.cpp:479
+#: kcm/backupplanwidget.cpp:434 kcm/backupplanwidget.cpp:458
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr "Timmar"
 
-#: kcm/backupplanwidget.cpp:456
+#: kcm/backupplanwidget.cpp:435
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr "Dagar"
 
-#: kcm/backupplanwidget.cpp:457
+#: kcm/backupplanwidget.cpp:436
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr "Veckor"
 
-#: kcm/backupplanwidget.cpp:466
+#: kcm/backupplanwidget.cpp:445
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -476,42 +469,42 @@ msgstr ""
 "har använt datorn aktivt under mer än konfigurerad tidsgräns sedan förra "
 "kopian togs."
 
-#: kcm/backupplanwidget.cpp:484
+#: kcm/backupplanwidget.cpp:463
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr "Fråga innan ny säkerhetskopia tas"
 
-#: kcm/backupplanwidget.cpp:503
+#: kcm/backupplanwidget.cpp:482
 msgctxt "@title"
 msgid "Schedule"
 msgstr "Schema"
 
-#: kcm/backupplanwidget.cpp:504
+#: kcm/backupplanwidget.cpp:483
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "Specificera schema för säkerhetskopiering"
 
-#: kcm/backupplanwidget.cpp:513 kcm/backupplanwidget.cpp:517
+#: kcm/backupplanwidget.cpp:492 kcm/backupplanwidget.cpp:496
 msgctxt "@option:check"
 msgid "Yes"
 msgstr "Ja"
 
-#: kcm/backupplanwidget.cpp:515
+#: kcm/backupplanwidget.cpp:494
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
 msgstr "Visa dolda mappar i val av källor:"
 
-#: kcm/backupplanwidget.cpp:519
+#: kcm/backupplanwidget.cpp:498
 msgctxt "@label"
 msgid "Take backups as root:"
 msgstr "Kör säkerhetskopieringen som root:"
 
-#: kcm/backupplanwidget.cpp:524
+#: kcm/backupplanwidget.cpp:503
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: kcm/backupplanwidget.cpp:525
+#: kcm/backupplanwidget.cpp:504
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Extra inställningar för avancerade användare"
@@ -662,7 +655,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "simonpersson1@gmail.com"
 
-#: po/rc.cpp:3 settings/backupplan.cpp:73 rc.cpp:3
+#: po/rc.cpp:3 settings/backupplan.cpp:69 rc.cpp:3
 msgid "Backups"
 msgstr "Säkerhetskopior"
 
@@ -680,4 +673,3 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Säkerhetskopia %1"
-
