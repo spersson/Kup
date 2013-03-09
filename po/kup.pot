@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-02-23 17:41+0800\n"
+"POT-Creation-Date: 2013-03-09 18:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,42 +18,42 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: daemon/bupjob.cpp:83
+#: daemon/bupjob.cpp:80
 msgctxt "@info"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
 
-#: daemon/bupjob.cpp:97
+#: daemon/bupjob.cpp:94
 msgctxt "@info"
 msgid ""
 "Backup destination could not be initialised by bup:</nl><message>%1</message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:118
+#: daemon/bupjob.cpp:115
 msgctxt "@info:progress"
 msgid "Checking what has changed since last backup..."
 msgstr ""
 
-#: daemon/bupjob.cpp:128
+#: daemon/bupjob.cpp:125
 msgctxt "@info"
 msgid ""
 "Indexing of file system did not complete successfully:</nl><message>%1</"
 "message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:149
+#: daemon/bupjob.cpp:143
 msgctxt "@info:progress"
 msgid "Saving changes to backup destination..."
 msgstr ""
 
-#: daemon/bupjob.cpp:159
+#: daemon/bupjob.cpp:153
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr ""
 
-#: daemon/bupjob.cpp:175
+#: daemon/bupjob.cpp:169
 msgctxt "@info"
 msgid "Failed to take backup as root: %1"
 msgstr ""
@@ -192,96 +192,96 @@ msgctxt "@info"
 msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:123
+#: kcm/backupplanwidget.cpp:124
 msgctxt "@title"
 msgid "Sources"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:124
+#: kcm/backupplanwidget.cpp:125
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:134
+#: kcm/backupplanwidget.cpp:135
 msgctxt "@option:radio"
 msgid "Local Filesystem"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:135
+#: kcm/backupplanwidget.cpp:136
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:152
+#: kcm/backupplanwidget.cpp:153
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:155 kcm/backupplanwidget.cpp:156
+#: kcm/backupplanwidget.cpp:156 kcm/backupplanwidget.cpp:157
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:191
+#: kcm/backupplanwidget.cpp:192
 msgctxt "@title"
 msgid "Destination"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:192
+#: kcm/backupplanwidget.cpp:193
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:208
+#: kcm/backupplanwidget.cpp:209
 msgctxt "@option:radio"
 msgid "Manual Only"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:209
+#: kcm/backupplanwidget.cpp:210
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:210
+#: kcm/backupplanwidget.cpp:211
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:212
+#: kcm/backupplanwidget.cpp:213
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:225
+#: kcm/backupplanwidget.cpp:226
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
 "more than the configured interval has passed since the last backup was taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:240
+#: kcm/backupplanwidget.cpp:241
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:241 kcm/backupplanwidget.cpp:265
+#: kcm/backupplanwidget.cpp:242 kcm/backupplanwidget.cpp:266
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:242
+#: kcm/backupplanwidget.cpp:243
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:243
+#: kcm/backupplanwidget.cpp:244
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:252
+#: kcm/backupplanwidget.cpp:253
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -289,64 +289,52 @@ msgid ""
 "limit since the last backup was taken."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:270
+#: kcm/backupplanwidget.cpp:271
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:288
+#: kcm/backupplanwidget.cpp:289
 msgctxt "@title"
 msgid "Schedule"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:289
+#: kcm/backupplanwidget.cpp:290
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:298 kcm/backupplanwidget.cpp:302
+#: kcm/backupplanwidget.cpp:300 kcm/backupplanwidget.cpp:304
 msgctxt "@option:check"
 msgid "Yes"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:300
+#: kcm/backupplanwidget.cpp:302
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:304
+#: kcm/backupplanwidget.cpp:306
 msgctxt "@label"
 msgid "Take backups as root:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:309
-msgctxt "@info:tooltip"
-msgid ""
-"Higher compression means less space is used by the backup archive but more "
-"cpu time is used when it is taken."
-msgstr ""
-
-#: kcm/backupplanwidget.cpp:314
-msgctxt "@label"
-msgid "Compression level:"
-msgstr ""
-
-#: kcm/backupplanwidget.cpp:320
+#: kcm/backupplanwidget.cpp:311
 msgctxt "@title"
 msgid "Advanced"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:321
+#: kcm/backupplanwidget.cpp:312
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:335
+#: kcm/backupplanwidget.cpp:326
 msgctxt "@label"
 msgid "Description:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:337
+#: kcm/backupplanwidget.cpp:328
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr ""

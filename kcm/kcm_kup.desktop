@@ -8,8 +8,11 @@ X-KDE-ParentApp=kcontrol
 X-KDE-System-Settings-Parent-Category=system-administration
 
 Name=Backups
+Name[es]=Copias de seguridad
 Name[sv]=Säkerhetskopior
 Comment=Configure backup plans
+Comment[es]=Configurar planes de copias de seguridad
 Comment[sv]=Konfigurera planer för säkerhetskopiering
 X-KDE-Keywords=backup,recovery,safety
+X-KDE-Keywords[es]=copia de seguridad, recuperación, seguridad
 X-KDE-Keywords[sv]=säkerhetskopior,återställning,backup
