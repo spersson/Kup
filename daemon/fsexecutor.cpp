@@ -100,7 +100,7 @@ void FSExecutor::checkStatus() {
 
 void FSExecutor::startBackup() {
 	BupJob *lJob = new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath,
-	                          mPlan->mCompressionLevel, mPlan->mRunAsRoot, this);
+	                          mPlan->mRunAsRoot, this);
 	connect(lJob, SIGNAL(result(KJob*)), SLOT(slotBackupDone(KJob*)));
 	lJob->start();
 }

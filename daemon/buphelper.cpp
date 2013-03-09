@@ -62,8 +62,7 @@ ActionReply BupHelper::takebackup(const QVariantMap &pArguments) {
 
 	BupJob *lJob = new BupJob(pArguments[QLatin1String("pathsIncluded")].toStringList(),
 	                          pArguments[QLatin1String("pathsExcluded")].toStringList(),
-	                          lDestinationPath,
-	                          pArguments[QLatin1String("compressionLevel")].toInt(), false, this);
+	                          lDestinationPath, false, this);
 	lJob->setBupPath(lBupPath);
 	if(!lJob->exec()) {
 		ActionReply lReply(ActionReply::HelperErrorReply);

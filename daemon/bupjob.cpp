@@ -41,11 +41,9 @@ static void makeNice(int pPid) {
 }
 
 BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-               const QString &pDestinationPath, int pCompressionLevel, bool pRunAsRoot,
-               QObject *pParent)
+               const QString &pDestinationPath, bool pRunAsRoot, QObject *pParent)
    :KJob(pParent), mPathsIncluded(pPathsIncluded), mPathsExcluded(pPathsExcluded),
-     mDestinationPath(pDestinationPath), mCompressionLevel(pCompressionLevel),
-     mRunAsRoot(pRunAsRoot)
+     mDestinationPath(pDestinationPath), mRunAsRoot(pRunAsRoot)
 {
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -60,7 +58,6 @@ void BupJob::start() {
 		lArguments[QLatin1String("pathsIncluded")] = mPathsIncluded;
 		lArguments[QLatin1String("pathsExcluded")] = mPathsExcluded;
 		lArguments[QLatin1String("destinationPath")] = mDestinationPath;
-		lArguments[QLatin1String("compressionLevel")] = mCompressionLevel;
 		lArguments[QLatin1String("bupPath")] = QDir::homePath() + QDir::separator() + QLatin1String(".bup");
 		lArguments[QLatin1String("uid")] = (uint)geteuid();
 		lArguments[QLatin1String("gid")] = (uint)getegid();
@@ -138,9 +135,6 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mSaveProcess << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
 	mSaveProcess << QLatin1String("-r") << mDestinationPath;
-	if(mBupVersion >= QLatin1String("0.25")) {
-		mSaveProcess << QString("-%1").arg(mCompressionLevel);
-	}
 	mSaveProcess << mPathsIncluded;
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));

@@ -34,7 +34,7 @@ class BupJob : public KJob
 
 public:
 	BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	       const QString &pDestinationPath, int pCompressionLevel, bool pRunAsRoot,
+	       const QString &pDestinationPath, bool pRunAsRoot,
 	       QObject *pParent = 0);
 	void setBupPath(const QString &pBupPath) {mBupPath = pBupPath;}
 	virtual void start();
@@ -56,7 +56,6 @@ private:
 	QString mDestinationPath;
 	QString mBupPath;
 	QString mBupVersion;
-	int mCompressionLevel;
 	bool mRunAsRoot;
 };
 

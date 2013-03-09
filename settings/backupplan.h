@@ -70,7 +70,6 @@ public:
 //	QString mSshDestinationPath;
 
 	bool mShowHiddenFolders;
-	int mCompressionLevel;
 
 	QDateTime mLastCompleteBackup;
 	// Size of the last backup in bytes.
