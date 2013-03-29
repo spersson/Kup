@@ -11,11 +11,12 @@ fsexecutor.cpp
 backupjob.cpp
 bupjob.cpp
 rsyncjob.cpp
+../settings/backupplan.cpp
+../settings/kupsettings.cpp
 )
 
 kde4_add_executable(kupdaemon ${kupdaemon_SRCS})
 target_link_libraries(kupdaemon
-kupsettings
 ${KDE4_KDEUI_LIBS}
 ${KDE4_KFILE_LIBS}
 ${KDE4_SOLID_LIBS}
