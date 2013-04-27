@@ -28,6 +28,7 @@
 #include <QCheckBox>
 #include <QDBusInterface>
 #include <QLabel>
+#include <QMessageBox>
 #include <QScrollArea>
 #include <QStackedLayout>
 
@@ -143,6 +144,12 @@ void KupKcm::save() {
 			mPlanWidgets.at(i)->saveExtraData();
 			lManager->updateSettings();
 			mStatusWidgets.at(i)->updateIcon();
+			if(lPlan->mDestinationType == 1 && lPlan->mExternalUUID.isEmpty()) {
+				QMessageBox::warning(this, i18nc("@title:dialog", "Warning"),
+				                     i18nc("@info %1 is the name of the backup plan",
+				                           "%1 does not have a destination!<br>"
+				                           "No backups will be saved by this plan.", lPlan->mDescription));
+			}
 		}
 		else {
 			lPlan->removePlanFromConfig();
