@@ -58,7 +58,8 @@ ConfigIncludeDummy::ConfigIncludeDummy(FolderSelectionModel *pModel, QTreeView *
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)
 {
 	connect(mModel, SIGNAL(includedPathsChanged()), this, SIGNAL(includeListChanged()));
-	KConfigDialogManager::changedMap()->insert("ConfigIncludeDummy", SIGNAL(includeListChanged()));
+	KConfigDialogManager::changedMap()->insert(QLatin1String("ConfigIncludeDummy"),
+	                                           SIGNAL(includeListChanged()));
 }
 
 QStringList ConfigIncludeDummy::includeList() {
@@ -82,7 +83,8 @@ ConfigExcludeDummy::ConfigExcludeDummy(FolderSelectionModel *pModel, QTreeView *
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)
 {
 	connect(mModel, SIGNAL(excludedPathsChanged()), this, SIGNAL(excludeListChanged()));
-	KConfigDialogManager::changedMap()->insert("ConfigExcludeDummy", SIGNAL(excludeListChanged()));
+	KConfigDialogManager::changedMap()->insert(QLatin1String("ConfigExcludeDummy"),
+	                                           SIGNAL(excludeListChanged()));
 }
 
 QStringList ConfigExcludeDummy::excludeList() {
@@ -108,13 +110,13 @@ public:
 	FolderSelectionWidget(FolderSelectionModel *pModel, QWidget *pParent = 0)
 	   : QTreeView(pParent), mModel(pModel)
 	{
-		mModel->setRootPath("/");
+		mModel->setRootPath(QLatin1String("/"));
 		setAnimated(true);
 		setModel(mModel);
 		ConfigIncludeDummy *lIncludeDummy = new ConfigIncludeDummy(mModel, this);
-		lIncludeDummy->setObjectName("kcfg_Paths included");
+		lIncludeDummy->setObjectName(QLatin1String("kcfg_Paths included"));
 		ConfigExcludeDummy *lExcludeDummy = new ConfigExcludeDummy(mModel, this);
-		lExcludeDummy->setObjectName("kcfg_Paths excluded");
+		lExcludeDummy->setObjectName(QLatin1String("kcfg_Paths excluded"));
 		setHeaderHidden(true);
 	}
 	FolderSelectionModel *mModel;
@@ -163,7 +165,7 @@ void DirDialog::createNewFolder() {
 		return;
 
 	KUrl lPartialUrl(url());
-	const QStringList lDirectories = lSelectedName.split('/', QString::SkipEmptyParts);
+	const QStringList lDirectories = lSelectedName.split(QLatin1Char('/'), QString::SkipEmptyParts);
 	foreach(QString lSubDirectory, lDirectories) {
 		QDir lDir(lPartialUrl.path());
 		if(lDir.exists(lSubDirectory)) {
@@ -185,11 +187,12 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupV
    : QWidget(), mBackupPlan(pBackupPlan)
 {
 	mDescriptionEdit = new KLineEdit;
-	mDescriptionEdit->setObjectName("kcfg_Description");
+	mDescriptionEdit->setObjectName(QLatin1String("kcfg_Description"));
 	mDescriptionEdit->setClearButtonShown(true);
 	QLabel *lDescriptionLabel = new QLabel(i18nc("@label", "Description:"));
 	lDescriptionLabel->setBuddy(mDescriptionEdit);
-	mConfigureButton = new KPushButton(KIcon("go-previous-view"), i18nc("@action:button", "Back to overview"));
+	mConfigureButton = new KPushButton(KIcon(QLatin1String("go-previous-view")),
+	                                   i18nc("@action:button", "Back to overview"));
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(requestOverviewReturn()));
 
 	mConfigPages = new KPageWidget;
@@ -261,7 +264,7 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	}
 
 	KButtonGroup *lButtonGroup = new KButtonGroup;
-	lButtonGroup->setObjectName("kcfg_Backup type");
+	lButtonGroup->setObjectName(QLatin1String("kcfg_Backup type"));
 	lButtonGroup->setFlat(true);
 	int lIndentation = lButtonGroup->style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth) +
 	                   lButtonGroup->style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing);
@@ -296,13 +299,13 @@ KPageWidgetItem *BackupPlanWidget::createSourcePage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lSelectionWidget);
 	lPage->setName(i18nc("@title", "Sources"));
 	lPage->setHeader(i18nc("@label", "Select which folders to include in backup"));
-	lPage->setIcon(KIcon("folder-important"));
+	lPage->setIcon(KIcon(QLatin1String("folder-important")));
 	return lPage;
 }
 
 KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	KButtonGroup *lButtonGroup = new KButtonGroup(this);
-	lButtonGroup->setObjectName("kcfg_Destination type");
+	lButtonGroup->setObjectName(QLatin1String("kcfg_Destination type"));
 	lButtonGroup->setFlat(true);
 
 	int lIndentation = lButtonGroup->style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth) +
@@ -322,7 +325,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QLabel *lFileSystemLabel = new QLabel(i18nc("@label:textbox", "Destination Path for Backup:"));
 	KUrlRequester *lFileSystemUrlEdit = new KUrlRequester;
 	lFileSystemUrlEdit->setMode(KFile::Directory | KFile::LocalOnly);
-	lFileSystemUrlEdit->setObjectName("kcfg_Filesystem destination path");
+	lFileSystemUrlEdit->setObjectName(QLatin1String("kcfg_Filesystem destination path"));
 
 	QGridLayout *lFileSystemVLayout = new QGridLayout;
 	lFileSystemVLayout->setColumnMinimumWidth(0, lIndentation);
@@ -341,9 +344,9 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	                                           "or memory stick."));
 	lDriveInfoLabel->setWordWrap(true);
 	mDriveSelection = new DriveSelection(mBackupPlan);
-	mDriveSelection->setObjectName("kcfg_External drive UUID");
+	mDriveSelection->setObjectName(QLatin1String("kcfg_External drive UUID"));
 	mDriveDestEdit = new KLineEdit;
-	mDriveDestEdit->setObjectName("kcfg_External drive destination path");
+	mDriveDestEdit->setObjectName(QLatin1String("kcfg_External drive destination path"));
 	mDriveDestEdit->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
 	mDriveDestEdit->setClearButtonShown(true);
 	QLabel *lDriveDestLabel = new QLabel(i18nc("@label:textbox", "Folder on Destination Drive:"));
@@ -383,7 +386,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
 	lPage->setName(i18nc("@title", "Destination"));
 	lPage->setHeader(i18nc("@label", "Select the backup destination"));
-	lPage->setIcon(KIcon("folder-downloads"));
+	lPage->setIcon(KIcon(QLatin1String("folder-downloads")));
 	return lPage;
 }
 
@@ -391,7 +394,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	QWidget *lTopWidget = new QWidget(this);
 	QVBoxLayout *lTopLayout = new QVBoxLayout;
 	KButtonGroup *lButtonGroup = new KButtonGroup;
-	lButtonGroup->setObjectName("kcfg_Schedule type");
+	lButtonGroup->setObjectName(QLatin1String("kcfg_Schedule type"));
 	lButtonGroup->setFlat(true);
 
 	int lIndentation = lButtonGroup->style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth) +
@@ -425,11 +428,11 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lIntervalVertLayout->addWidget(lIntervalLabel, 0, 1);
 	QHBoxLayout *lIntervalLayout = new QHBoxLayout;
 	KIntSpinBox *lIntervalSpinBox = new KIntSpinBox;
-	lIntervalSpinBox->setObjectName("kcfg_Schedule interval");
+	lIntervalSpinBox->setObjectName(QLatin1String("kcfg_Schedule interval"));
 	lIntervalSpinBox->setMinimum(1);
 	lIntervalLayout->addWidget(lIntervalSpinBox);
 	KComboBox *lIntervalUnit = new KComboBox;
-	lIntervalUnit->setObjectName("kcfg_Schedule interval unit");
+	lIntervalUnit->setObjectName(QLatin1String("kcfg_Schedule interval unit"));
 	lIntervalUnit->addItem(i18nc("@item:inlistbox", "Minutes"));
 	lIntervalUnit->addItem(i18nc("@item:inlistbox", "Hours"));
 	lIntervalUnit->addItem(i18nc("@item:inlistbox", "Days"));
@@ -452,7 +455,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lUsageVertLayout->addWidget(lUsageLabel, 0, 1);
 	QHBoxLayout *lUsageLayout = new QHBoxLayout;
 	KIntSpinBox *lUsageSpinBox = new KIntSpinBox;
-	lUsageSpinBox->setObjectName("kcfg_Usage limit");
+	lUsageSpinBox->setObjectName(QLatin1String("kcfg_Usage limit"));
 	lUsageSpinBox->setMinimum(1);
 	lUsageLayout->addWidget(lUsageSpinBox);
 	lUsageLayout->addWidget(new QLabel(i18nc("@item:inlistbox", "Hours")));
@@ -461,7 +464,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lUsageWidget->setLayout(lUsageVertLayout);
 
 	QCheckBox *lAskFirstCheckBox = new QCheckBox(i18nc("@option:check", "Ask for confirmation before taking backup"));
-	lAskFirstCheckBox->setObjectName("kcfg_Ask first");
+	lAskFirstCheckBox->setObjectName(QLatin1String("kcfg_Ask first"));
 	connect(lManualRadio, SIGNAL(toggled(bool)), lAskFirstCheckBox, SLOT(setHidden(bool)));
 
 	lVLayout->addWidget(lManualRadio);
@@ -481,7 +484,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lTopWidget);
 	lPage->setName(i18nc("@title", "Schedule"));
 	lPage->setHeader(i18nc("@label", "Specify the backup schedule"));
-	lPage->setIcon(KIcon("view-time-schedule"));
+	lPage->setIcon(KIcon(QLatin1String("view-time-schedule")));
 	return lPage;
 }
 
@@ -502,7 +505,7 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);
 	lPage->setName(i18nc("@title", "Advanced"));
 	lPage->setHeader(i18nc("@label", "Extra options for advanced users"));
-	lPage->setIcon(KIcon("preferences-other"));
+	lPage->setIcon(KIcon(QLatin1String("preferences-other")));
 	return lPage;
 }
 
@@ -513,7 +516,7 @@ void BackupPlanWidget::openDriveDestDialog() {
 	if(lDirDialog.exec() == QDialog::Accepted) {
 		lSelectedPath = lDirDialog.url().path();
 		lSelectedPath.remove(0, lMountPoint.length());
-		while(lSelectedPath.startsWith('/')) {
+		while(lSelectedPath.startsWith(QLatin1Char('/'))) {
 			lSelectedPath.remove(0, 1);
 		}
 		mDriveDestEdit->setText(lSelectedPath);

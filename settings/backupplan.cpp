@@ -30,14 +30,14 @@
 BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent)
    :KConfigSkeleton(pConfig, pParent), mPlanNumber(pPlanNumber)
 {
-	setCurrentGroup(QString("Plan/%1").arg(mPlanNumber));
+	setCurrentGroup(QString::fromLatin1("Plan/%1").arg(mPlanNumber));
 
-	addItemString("Description", mDescription,
+	addItemString(QLatin1String("Description"), mDescription,
 	              i18nc("@label Default name for a new backup plan, %1 is the number of the plan in order",
 	                    "Backup plan %1", pPlanNumber));
 	QStringList lDefaultIncludeList;
 	lDefaultIncludeList << QDir::homePath();
-	addItemStringList("Paths included", mPathsIncluded, lDefaultIncludeList);
+	addItemStringList(QLatin1String("Paths included"), mPathsIncluded, lDefaultIncludeList);
 	QStringList lDefaultExcludeList;
 	lDefaultExcludeList << KGlobalSettings::musicPath();
 	lDefaultExcludeList << KGlobalSettings::videosPath();
@@ -47,52 +47,52 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	QMutableListIterator<QString> i(lDefaultExcludeList);
 	while(i.hasNext()) {
 		QString &lPath = i.next();
-		if(lPath.endsWith('/'))
+		if(lPath.endsWith(QLatin1Char('/')))
 			lPath.chop(1);
 	}
 
-	addItemStringList("Paths excluded", mPathsExcluded, lDefaultExcludeList);
-	addItemInt("Backup type", mBackupType);
+	addItemStringList(QLatin1String("Paths excluded"), mPathsExcluded, lDefaultExcludeList);
+	addItemInt(QLatin1String("Backup type"), mBackupType);
 
-	addItemInt("Schedule type", mScheduleType, 2);
-	addItemInt("Schedule interval", mScheduleInterval, 1);
-	addItemInt("Schedule interval unit", mScheduleIntervalUnit, 3);
-	addItemInt("Usage limit", mUsageLimit, 25);
-	addItemBool("Ask first", mAskBeforeTakingBackup, true);
+	addItemInt(QLatin1String("Schedule type"), mScheduleType, 2);
+	addItemInt(QLatin1String("Schedule interval"), mScheduleInterval, 1);
+	addItemInt(QLatin1String("Schedule interval unit"), mScheduleIntervalUnit, 3);
+	addItemInt(QLatin1String("Usage limit"), mUsageLimit, 25);
+	addItemBool(QLatin1String("Ask first"), mAskBeforeTakingBackup, true);
 
-	addItemInt("Destination type", mDestinationType, 1);
+	addItemInt(QLatin1String("Destination type"), mDestinationType, 1);
 	addItem(new KCoreConfigSkeleton::ItemUrl(currentGroup(),
-	                                         "Filesystem destination path",
+	                                         QLatin1String("Filesystem destination path"),
 	                                         mFilesystemDestinationPath,
-	                                         QDir::homePath() + QDir::separator() + ".bup"));
-	addItemString("External drive UUID", mExternalUUID);
-	addItemPath("External drive destination path", mExternalDestinationPath, i18n("Backups"));
-	addItemString("External volume label", mExternalVolumeLabel);
-	addItemULongLong("External volume capacity", mExternalVolumeCapacity);
-	addItemString("External device description", mExternalDeviceDescription);
-	addItemInt("External partition number", mExternalPartitionNumber);
-	addItemInt("External partitions count", mExternalPartitionsOnDrive);
+	                                         QDir::homePath() + QLatin1String("/.bup")));
+	addItemString(QLatin1String("External drive UUID"), mExternalUUID);
+	addItemPath(QLatin1String("External drive destination path"), mExternalDestinationPath, i18n("Backups"));
+	addItemString(QLatin1String("External volume label"), mExternalVolumeLabel);
+	addItemULongLong(QLatin1String("External volume capacity"), mExternalVolumeCapacity);
+	addItemString(QLatin1String("External device description"), mExternalDeviceDescription);
+	addItemInt(QLatin1String("External partition number"), mExternalPartitionNumber);
+	addItemInt(QLatin1String("External partitions count"), mExternalPartitionsOnDrive);
 
-	addItemBool("Show hidden folders", mShowHiddenFolders);
-	addItemBool("Run as root", mRunAsRoot);
+	addItemBool(QLatin1String("Show hidden folders"), mShowHiddenFolders);
+	addItemBool(QLatin1String("Run as root"), mRunAsRoot);
 
-	addItemDateTime("Last complete backup", mLastCompleteBackup);
-	addItemDouble("Last backup size", mLastBackupSize);
-	addItemDouble("Last available space", mLastAvailableSpace);
-	addItemUInt("Accumulated usage time", mAccumulatedUsageTime);
+	addItemDateTime(QLatin1String("Last complete backup"), mLastCompleteBackup);
+	addItemDouble(QLatin1String("Last backup size"), mLastBackupSize);
+	addItemDouble(QLatin1String("Last available space"), mLastAvailableSpace);
+	addItemUInt(QLatin1String("Accumulated usage time"), mAccumulatedUsageTime);
 	readConfig();
 }
 
 void BackupPlan::setPlanNumber(int pPlanNumber) {
 	mPlanNumber = pPlanNumber;
-	QString lGroupName = QString("Plan/%1").arg(mPlanNumber);
+	QString lGroupName = QString::fromLatin1("Plan/%1").arg(mPlanNumber);
 	foreach(KConfigSkeletonItem *lItem, items()) {
 		lItem->setGroup(lGroupName);
 	}
 }
 
 void BackupPlan::removePlanFromConfig() {
-	config()->deleteGroup(QString("Plan/%1").arg(mPlanNumber));
+	config()->deleteGroup(QString::fromLatin1("Plan/%1").arg(mPlanNumber));
 }
 
 QDateTime BackupPlan::nextScheduledTime() {

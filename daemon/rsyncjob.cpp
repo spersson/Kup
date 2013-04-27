@@ -55,7 +55,7 @@ void RsyncJob::startRsync() {
 	mRsyncProcess << QLatin1String("rsync") << QLatin1String("-aR");
 	mRsyncProcess << QLatin1String("--delete") << QLatin1String("--delete-excluded");
 	foreach(QString lExclude, mPathsExcluded) {
-		mRsyncProcess << QString("--exclude=%1").arg(lExclude);
+		mRsyncProcess << QString::fromLatin1("--exclude=%1").arg(lExclude);
 	}
 	mRsyncProcess << mPathsIncluded;
 	mRsyncProcess << mDestinationPath;
@@ -73,7 +73,7 @@ void RsyncJob::slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		setError(1);
 		setErrorText(i18nc("notification", "Backup did not complete successfully:\n%1",
-		                   QString(mRsyncProcess.readAllStandardError())));
+		                   QString::fromLocal8Bit(mRsyncProcess.readAllStandardError())));
 	}
 	emitResult();
 }

@@ -10,6 +10,8 @@ else()
   add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif()
 
+add_definitions(-DQT_NO_CAST_FROM_ASCII)
+
 add_subdirectory(kcm)
 add_subdirectory(daemon)
 add_subdirectory(icons)

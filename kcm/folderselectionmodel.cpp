@@ -174,7 +174,7 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 		}
 		else if ( role == Qt::DecorationRole ) {
 			if ( filePath( index ) == QDir::homePath() ) {
-				return KIcon( "user-home" );
+				return KIcon(QLatin1String("user-home"));
 			}
 		}
 	}

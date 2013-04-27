@@ -43,9 +43,9 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	mDescriptionLabel->setFont(lDescriptionFont);
 	mStatusIconLabel = new QLabel();
 	mStatusTextLabel = new QLabel(statusText()); //TODO: add dbus interface to be notified from daemon when this is updated.
-	mConfigureButton = new KPushButton(KIcon("configure"), i18nc("@action:button", "Configure"));
+	mConfigureButton = new KPushButton(KIcon(QLatin1String("configure")), i18nc("@action:button", "Configure"));
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(configureMe()));
-	mRemoveButton = new KPushButton(KIcon("list-remove"), i18nc("@action:button", "Remove"));
+	mRemoveButton = new KPushButton(KIcon(QLatin1String("list-remove")), i18nc("@action:button", "Remove"));
 	connect(mRemoveButton, SIGNAL(clicked()), this, SIGNAL(removeMe()));
 
 	lVLayout1->addWidget(mDescriptionLabel);

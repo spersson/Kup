@@ -44,7 +44,8 @@ bool deviceLessThan(const Solid::Device &a, const Solid::Device &b) {
 DriveSelection::DriveSelection(BackupPlan *pBackupPlan, QWidget *parent)
    : QListView(parent), mBackupPlan(pBackupPlan), mSelectedAndAccessible(false)
 {
-	KConfigDialogManager::changedMap()->insert("DriveSelection", SIGNAL(selectedDriveChanged(QString)));
+	KConfigDialogManager::changedMap()->insert(QLatin1String("DriveSelection"),
+	                                           SIGNAL(selectedDriveChanged(QString)));
 
 	mDrivesModel = new QStandardItemModel(this);
 	setModel(mDrivesModel);
@@ -135,7 +136,9 @@ void DriveSelection::delayedDeviceAdded() {
 		Solid::StorageVolume *lVolume = lVolumeDevice.as<Solid::StorageVolume>();
 		QString lUuid = lVolume->uuid();
 		if(lUuid.isEmpty()) { //seems to happen for vfat partitions
-			lUuid = lParentDevice.description() + "|" + lVolume->label();
+			lUuid += lParentDevice.description();
+			lUuid += QLatin1String("|");
+			lUuid += lVolume->label();
 		}
 		QStandardItem *lItem;
 		bool lNeedsToBeAdded = false;

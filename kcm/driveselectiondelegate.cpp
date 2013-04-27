@@ -69,7 +69,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	if(lIsDisconnected) {
 		lDisconnectedLabel = i18nc("@item:inlistbox this text is added if selected drive is disconnected", " (disconnected)");
 	} else {
-		lDisconnectedLabel = QString("");
+		lDisconnectedLabel = QString();
 		QString lFreeSpace = i18nc("@label %1 is amount of free storage space of hard drive","%1 free",
 		                           lLocale->formatByteSize(lTotalSize - lUsedSize, 1));
 		pPainter->drawText(pOption.rect.topRight() + QPoint(-(cMargin+QApplication::fontMetrics().width(lFreeSpace)),

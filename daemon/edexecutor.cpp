@@ -66,7 +66,9 @@ void EDExecutor::deviceAdded(const QString &pUdi) {
 		} else {
 			lDriveDevice = lDevice.parent();
 		}
-		lUUID = lDriveDevice.description() + "|" + lVolume->label();
+		lUUID += lDriveDevice.description();
+		lUUID += QLatin1String("|");
+		lUUID += lVolume->label();
 	}
 	if(mPlan->mExternalUUID == lUUID) {
 		mCurrentUdi = pUdi;
@@ -99,7 +101,9 @@ void EDExecutor::startBackup() {
 	}
 	if(mStorageAccess->isAccessible()) {
 		if(!mStorageAccess->filePath().isEmpty()) {
-			mDestinationPath = QDir::cleanPath(mStorageAccess->filePath() + '/' + mPlan->mExternalDestinationPath);
+			mDestinationPath = mStorageAccess->filePath();
+			mDestinationPath += QLatin1String("/");
+			mDestinationPath += mPlan->mExternalDestinationPath;
 			QDir lDir(mDestinationPath);
 			if(!lDir.exists()) {
 				lDir.mkdir(mDestinationPath);
@@ -161,7 +165,9 @@ void EDExecutor::showFilesClicked() {
 
 	if(mStorageAccess->isAccessible()) {
 		if(!mStorageAccess->filePath().isEmpty()) {
-			mDestinationPath = QDir::cleanPath(mStorageAccess->filePath() + '/' + mPlan->mExternalDestinationPath);
+			mDestinationPath = mStorageAccess->filePath();
+			mDestinationPath += QLatin1String("/");
+			mDestinationPath += mPlan->mExternalDestinationPath;
 			QDir lDir(mDestinationPath);
 			if(lDir.exists()) {
 				mWantsToShowFiles = false; //reset, only used to retrigger this state-entering if drive wasn't already mounted

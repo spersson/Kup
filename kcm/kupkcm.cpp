@@ -52,7 +52,7 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 	                                        KAboutData::License_GPL, ki18n("Copyright 2011 Simon Persson"));
 	lAboutData->addAuthor(ki18n("Simon Persson"), ki18n("Maintainer"), "simonpersson1@gmail.com");
 	setAboutData(lAboutData);
-	setObjectName("kcm_kup"); //needed for the kconfigdialogmanager magic
+	setObjectName(QLatin1String("kcm_kup")); //needed for the kconfigdialogmanager magic
 	setButtons((Apply | buttons()) & ~Default);
 
 	KProcess lBupProcess;
@@ -60,7 +60,7 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 	lBupProcess.setOutputChannelMode(KProcess::MergedChannels);
 	int lExitCode = lBupProcess.execute();
 	if(lExitCode >= 0) {
-		mBupVersion = lBupProcess.readAllStandardOutput();
+		mBupVersion = QString::fromUtf8(lBupProcess.readAllStandardOutput());
 	}
 
 	KProcess lRsyncProcess;
@@ -68,7 +68,7 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 	lRsyncProcess.setOutputChannelMode(KProcess::MergedChannels);
 	lExitCode = lRsyncProcess.execute();
 	if(lExitCode >= 0) {
-		mRsyncVersion = QString(lRsyncProcess.readLine()).split(" ", QString::SkipEmptyParts).at(2);
+		mRsyncVersion = QString::fromLocal8Bit(lRsyncProcess.readLine()).split(QLatin1Char(' '), QString::SkipEmptyParts).at(2);
 	}
 
 
@@ -233,7 +233,7 @@ void KupKcm::createSettingsFrontPage() {
 	connect(mAddPlanButton, SIGNAL(clicked()), this, SLOT(addPlan()));
 
 	mEnableCheckBox = new QCheckBox(i18nc("@option:check", "Backups Enabled"));
-	mEnableCheckBox->setObjectName("kcfg_Backups enabled");
+	mEnableCheckBox->setObjectName(QLatin1String("kcfg_Backups enabled"));
 	connect(mEnableCheckBox, SIGNAL(toggled(bool)), mAddPlanButton, SLOT(setEnabled(bool)));
 
 	lHLayout->addWidget(mEnableCheckBox);

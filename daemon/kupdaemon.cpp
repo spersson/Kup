@@ -38,7 +38,7 @@
 
 KupDaemon::KupDaemon() {
 	mWaitingToReloadConfig = false;
-	mConfig = KSharedConfig::openConfig("kuprc");
+	mConfig = KSharedConfig::openConfig(QLatin1String("kuprc"));
 	mSettings = new KupSettings(mConfig, this);
 }
 
@@ -99,7 +99,7 @@ void KupDaemon::reloadConfig() {
 }
 
 void KupDaemon::showConfig() {
-	KService::List lServices = KServiceTypeTrader::self()->query("KCModule", "Library == 'kcm_kup'");
+	KService::List lServices = KServiceTypeTrader::self()->query(QLatin1String("KCModule"), QLatin1String("Library == 'kcm_kup'"));
 	if (!lServices.isEmpty()) {
 		KService::Ptr lService = lServices.first();
 		KRun::run(*lService, KUrl::List(), 0);

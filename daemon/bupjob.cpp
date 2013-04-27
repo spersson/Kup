@@ -55,7 +55,7 @@ void BupJob::startIndexing() {
 		emitResult();
 		return;
 	}
-	mBupVersion = lVersionProcess.readAllStandardOutput();
+	mBupVersion = QString::fromUtf8(lVersionProcess.readAllStandardOutput());
 
 	KProcess lInitProcess;
 	lInitProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -65,7 +65,7 @@ void BupJob::startIndexing() {
 	if(lInitProcess.execute() != 0) {
 		setError(1);
 		setErrorText(i18nc("notification", "Backup destination could not be initialised by bup:\n%1",
-		                   QString(lInitProcess.readAllStandardError())));
+		                   QString::fromUtf8(lInitProcess.readAllStandardError())));
 		emitResult();
 		return;
 	}
@@ -95,7 +95,7 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		setError(1);
 		setErrorText(i18nc("notification", "Indexing of file system did not complete successfully:\n%1",
-		                   QString(mIndexProcess.readAllStandardError())));
+		                   QString::fromUtf8(mIndexProcess.readAllStandardError())));
 		emitResult();
 		return;
 	}
@@ -122,7 +122,7 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		setError(1);
 		setErrorText(i18nc("notification", "Backup did not complete successfully:\n%1",
-		                   QString(mSaveProcess.readAllStandardError())));
+		                   QString::fromUtf8(mSaveProcess.readAllStandardError())));
 	}
 	emitResult();
 }

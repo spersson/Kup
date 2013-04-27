@@ -221,7 +221,7 @@ void PlanExecutor::showFilesClicked() {
 }
 
 void PlanExecutor::mountBupFuse() {
-	mTempDir = KStandardDirs::locateLocal("tmp", mPlan->mDescription + "/");
+	mTempDir = KStandardDirs::locateLocal("tmp", mPlan->mDescription + QLatin1String("/"));
 	mBupFuseProcess = new KProcess(this);
 	mBupFuseProcess->setOutputChannelMode(KProcess::OnlyStderrChannel);
 
