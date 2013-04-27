@@ -17,9 +17,18 @@ planstatuswidget.cpp
 kde4_add_plugin(kcm_kup ${kcm_kup_SRCS})
 
 target_link_libraries(kcm_kup
-${KDE4_KDEUI_LIBS}
-${KDE4_KFILE_LIBS}
-${KDE4_SOLID_LIBS}
+QtCore
+QtDBus
+QtGui
+kdecore
+kdeui
+kfile
+kio
+solid
+# save some unnecessary library linking by stating the used libs directly instead of these:
+#${KDE4_KDEUI_LIBS}
+#${KDE4_KFILE_LIBS}
+#${KDE4_SOLID_LIBS}
 )
 
 ########### install files ###############

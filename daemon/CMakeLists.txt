@@ -17,10 +17,20 @@ rsyncjob.cpp
 
 kde4_add_executable(kupdaemon ${kupdaemon_SRCS})
 target_link_libraries(kupdaemon
-${KDE4_KDEUI_LIBS}
-${KDE4_KFILE_LIBS}
-${KDE4_SOLID_LIBS}
-${KDE4_KIDLETIME_LIBS}
+QtCore
+QtDBus
+QtGui
+kdecore
+kdeui
+kio
+kfile
+kidletime
+solid
+# save some unnecessary library linking by stating the used libs directly instead of these:
+#${KDE4_KDEUI_LIBS}
+#${KDE4_KFILE_LIBS}
+#${KDE4_SOLID_LIBS}
+#${KDE4_KIDLETIME_LIBS}
 )
 
 kde4_add_executable(kuphelper kuphelper.cpp backupjob.cpp bupjob.cpp rsyncjob.cpp)
