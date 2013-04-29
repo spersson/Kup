@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 	KUniqueApplication lApp;
 
 	// Use for debugging...
-	//		KApplication lApp;
+	//KApplication lApp;
 
 	lApp.setQuitOnLastWindowClosed(false);
 	lApp.disableSessionManagement();

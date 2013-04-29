@@ -168,14 +168,10 @@ void EDExecutor::showFilesClicked() {
 			mDestinationPath = mStorageAccess->filePath();
 			mDestinationPath += QLatin1String("/");
 			mDestinationPath += mPlan->mExternalDestinationPath;
-			QDir lDir(mDestinationPath);
-			if(lDir.exists()) {
+			QFileInfo lDestinationInfo(mDestinationPath);
+			if(lDestinationInfo.exists() && lDestinationInfo.isDir()) {
 				mWantsToShowFiles = false; //reset, only used to retrigger this state-entering if drive wasn't already mounted
-				if(mBupFuseProcess) {
-					unmountBupFuse();
-				} else {
-					mountBupFuse();
-				}
+				PlanExecutor::showFilesClicked();
 			}
 		}
 	} else { //not mounted yet. trigger mount and come back to this startBackup again later

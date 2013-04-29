@@ -33,12 +33,9 @@
 #include <QMenu>
 
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
-   :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mBupFuseProcess(NULL), mQuestion(NULL), mOkToShowBackup(false)
+   :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL)
 {
 	mShowFilesAction = new QAction(i18nc("@action:inmenu", "Show Files"), this);
-	if(mPlan->mBackupType == BackupPlan::BupType) {
-		mShowFilesAction->setCheckable(true);
-	}
 	mShowFilesAction->setEnabled(false);
 	connect(mShowFilesAction, SIGNAL(triggered()), SLOT(showFilesClicked()));
 
@@ -210,64 +207,14 @@ void PlanExecutor::showFilesClicked() {
 	if(mState == NOT_AVAILABLE)
 		return;
 	if(mPlan->mBackupType == BackupPlan::BupType) {
-		if(mBupFuseProcess) {
-			unmountBupFuse();
-		} else {
-			mountBupFuse();
-		}
+		QString lCommandLine = QString::fromLatin1("kup_filedigger --title \"");
+		lCommandLine.append(mPlan->mDescription);
+		lCommandLine.append(QLatin1String("\" \""));
+		lCommandLine.append(mDestinationPath);
+		lCommandLine.append(QLatin1String("\""));
+		KRun::runCommand(lCommandLine, NULL);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
 		KRun::runUrl(mDestinationPath, QLatin1String("inode/directory"), NULL);
-	}
-}
-
-void PlanExecutor::mountBupFuse() {
-	mTempDir = KStandardDirs::locateLocal("tmp", mPlan->mDescription + QLatin1String("/"));
-	mBupFuseProcess = new KProcess(this);
-	mBupFuseProcess->setOutputChannelMode(KProcess::OnlyStderrChannel);
-
-	*mBupFuseProcess << QLatin1String("bup");
-	*mBupFuseProcess << QLatin1String("-d") << mDestinationPath;
-	*mBupFuseProcess << QLatin1String("fuse") << QLatin1String("-f");
-	*mBupFuseProcess << mTempDir;
-
-	connect(mBupFuseProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(bupFuseFinished(int,QProcess::ExitStatus)));
-	mBupFuseProcess->start();
-
-	mOkToShowBackup = true;
-	QTimer::singleShot(1000, this, SLOT(showMountedBackup()));
-}
-
-void PlanExecutor::unmountBupFuse() {
-	KProcess lUnmount;
-	lUnmount.setOutputChannelMode(KProcess::OnlyStderrChannel);
-	lUnmount << QLatin1String("fusermount") << QLatin1String("-u") <<mTempDir;
-	if(lUnmount.execute()) {
-		KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
-		                     i18nc("notification", "Error when trying to unmount backup archive:\n%1",
-		                           QString::fromLocal8Bit(lUnmount.readAllStandardError())));
-		mShowFilesAction->setChecked(true);
-	}
-}
-
-void PlanExecutor::bupFuseFinished(int pExitCode, QProcess::ExitStatus pExitStatus) {
-	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
-		                     i18nc("notification", "Error when trying to mount backup archive:\n%1",
-		                           QString::fromLocal8Bit(mBupFuseProcess->readAllStandardError())));
-	}
-
-	mShowFilesAction->setChecked(false);
-	mBupFuseProcess->deleteLater();
-	mBupFuseProcess = NULL;
-	QDir lDir;
-	lDir.rmpath(mTempDir);
-	mOkToShowBackup = false;
-}
-
-void PlanExecutor::showMountedBackup() {
-	if(mOkToShowBackup) {
-		KRun::runUrl(mTempDir + QLatin1String("kup"), QLatin1String("inode/directory"), 0);
-		mShowFilesAction->setChecked(true);
 	}
 }
 

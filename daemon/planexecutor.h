@@ -90,11 +90,6 @@ protected slots:
 	void askUser(const QString &pQuestion);
 	void discardUserQuestion();
 
-	void mountBupFuse();
-	void unmountBupFuse();
-	void bupFuseFinished(int pExitCode, QProcess::ExitStatus pExitStatus);
-	void showMountedBackup();
-
 protected:
 	enum ExecutorState {NOT_AVAILABLE, WAITING_FOR_FIRST_BACKUP,
 		                 WAITING_FOR_BACKUP_AGAIN, RUNNING, WAITING_FOR_MANUAL_BACKUP};
@@ -106,12 +101,8 @@ protected:
 	QMenu *mActionMenu;
 	QAction *mShowFilesAction;
 	QAction *mRunBackupAction;
-	KProcess *mBupFuseProcess;
-	QString mTempDir;
 	KNotification *mQuestion;
 	QTimer *mSchedulingTimer;
-
-	bool mOkToShowBackup;
 };
 
 #endif // PLANEXECUTOR_H

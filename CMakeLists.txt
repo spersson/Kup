@@ -12,9 +12,10 @@ endif()
 
 add_definitions(-DQT_NO_CAST_FROM_ASCII)
 
-add_subdirectory(kcm)
+
 add_subdirectory(daemon)
 add_subdirectory(icons)
+add_subdirectory(filedigger)
+add_subdirectory(kcm)
+add_subdirectory(kioslave)
 add_subdirectory(po)
-#add_subdirectory(kioslave)
-

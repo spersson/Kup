@@ -18,3 +18,5 @@
 Known issues
  - bup doesn't seem to handle including a folder under an excluded one. Need to investigate. Thought I had tested this to work 
 before... hmm..
+ - Downloading a symlink should, I assums, not download the target file. But "kioclient download" does not create a symlink, it's marked a a regular 
+file. And on the other hand, opening a symlink from dolphin should open the target file, but it doesn't.
