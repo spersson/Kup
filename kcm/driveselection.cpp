@@ -138,6 +138,10 @@ void DriveSelection::delayedDeviceAdded() {
 			removeDisconnectedItem();
 			mSelectedUdi = lVolumeDevice.udi();
 		}
+		if(mDrivesModel->rowCount() == 1) {
+			selectionModel()->select(mDrivesModel->index(0, 0), QItemSelectionModel::ClearAndSelect);
+		}
+
 		lPartitionNumber++;
 	}
 }
