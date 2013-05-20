@@ -1,22 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# German translations for kup package.
+# Copyright (C) 2013 THE kup'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the kup package.
+# Georg Lassnig <g.lassnig@e67-its.de>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: kup 0.3.1\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
 "POT-Creation-Date: 2013-05-20 11:31+0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2013-03-26 22:13+0200\n"
+"Last-Translator: Georg Lassnig <g.lassnig@e67-its.de>\n"
+"Language-Team: E67-ITS\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #: daemon/bupjob.cpp:80
 msgctxt "@info"
@@ -24,17 +24,21 @@ msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
+"Das \"bup\" Programm wird benötigt, konnte aber nicht gefunden werden. Bitte "
+"bup installieren."
 
 #: daemon/bupjob.cpp:94
 msgctxt "@info"
 msgid ""
 "Backup destination could not be initialised by bup:</nl><message>%1</message>"
 msgstr ""
+"Das Zeil der Datensicherung konnte durch bup nicht inizialisiert weden:</"
+"nl><message>%1</message>"
 
 #: daemon/bupjob.cpp:115
 msgctxt "@info:progress"
 msgid "Checking what has changed since last backup..."
-msgstr ""
+msgstr "Änderungen seit der letzten Datensicherung anzeigen..."
 
 #: daemon/bupjob.cpp:125
 msgctxt "@info"
@@ -42,73 +46,76 @@ msgid ""
 "Indexing of file system did not complete successfully:</nl><message>%1</"
 "message>"
 msgstr ""
+"Die Indizierung des Dateisystems war nur zum Teil erfolgreich:</nl><message>"
+"%1</message>"
 
 #: daemon/bupjob.cpp:143
 msgctxt "@info:progress"
 msgid "Saving changes to backup destination..."
-msgstr ""
+msgstr "Änderungen werden in das Ziel der Datensicherung gespeichert..."
 
 #: daemon/bupjob.cpp:153
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr ""
+"Die Datensicherung war nur Zum Teil erfolgreich:</nl><message>%1</message>"
 
 #: daemon/bupjob.cpp:169
 msgctxt "@info"
 msgid "Failed to take backup as root: %1"
-msgstr ""
+msgstr "Datensicherung als Benutzer root fehlgeschlagen: %1"
 
 #: daemon/edexecutor.cpp:126 daemon/edexecutor.cpp:144
 #: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:128
 #: daemon/planexecutor.cpp:237 daemon/planexecutor.cpp:247
 msgctxt "@title"
 msgid "Problem"
-msgstr ""
+msgstr "Problem"
 
 #: daemon/kupdaemon.cpp:112
 msgctxt "@info:tooltip"
 msgid "Backup destination unavailable"
-msgstr ""
+msgstr "Das Datensicherungsziel ist nicht verfügbar"
 
 #: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
 msgid "Backup status OK"
-msgstr ""
+msgstr "Datensicherungsstatus OK"
 
 #: daemon/kupdaemon.cpp:119
 msgctxt "@info:tooltip"
 msgid "Backup destination available"
-msgstr ""
+msgstr "Datensicherungsziel verfügbar"
 
 #: daemon/kupdaemon.cpp:126
 msgctxt "@info:tooltip"
 msgid "New backup suggested"
-msgstr ""
+msgstr "Neue Datensicherung empfohlen"
 
 #: daemon/kupdaemon.cpp:137
 msgctxt "@info:tooltip"
 msgid "New backup neeeded"
-msgstr ""
+msgstr "Neue Datensicherung erforderlich"
 
 #: daemon/kupdaemon.cpp:144
 msgctxt "@info:tooltip"
 msgid "Taking new backup"
-msgstr ""
+msgstr "Neue Datensicherung erstellen"
 
 #: daemon/kupdaemon.cpp:187
 msgctxt "@title:window"
 msgid "Backups"
-msgstr ""
+msgstr "Datensicherungen"
 
 #: daemon/kupdaemon.cpp:192
 msgctxt "@title:menu"
 msgid "Backups"
-msgstr ""
+msgstr "Datensicherungen"
 
 #: daemon/kupdaemon.cpp:193
 msgctxt "@action:inmenu"
 msgid "Configure Backups"
-msgstr ""
+msgstr "Datensicherungen konfigurieren"
 
 #: daemon/main.cpp:31
 msgid ""
@@ -116,42 +123,48 @@ msgid ""
 "This allows it to quickly perform incremental backups, only saving the parts "
 "of files that has actually changed since last backup was taken."
 msgstr ""
+"Kup ist eine flexible Lösung für Datensicherungen, das auf das "
+"Datensichrungssystem 'bup' aufsetzt. Dies ermöglicht schnelle, inkrementelle "
+"Datensicherungen, dabei werden nur die Dateien erneut gesichert, die seit "
+"der letzten Datensicherung geändert wurden."
 
 #: daemon/main.cpp:40
 msgid "Kup is not enabled, enable it from the system settings module."
 msgstr ""
+"Kup ist nicht aktiviert, aktivieren Sie es über das Modul in den "
+"Systemeinstellungen."
 
 #: daemon/main.cpp:43
 msgctxt "@title"
 msgid "Kup Daemon"
-msgstr ""
+msgstr "Kup Dämon"
 
 #: daemon/main.cpp:44
 msgid "Copyright (C) 2011 Simon Persson"
-msgstr ""
+msgstr "Copyright (C) 2011 Simon Persson"
 
 #: daemon/main.cpp:46 kcm/kupkcm.cpp:54
 msgid "Simon Persson"
-msgstr ""
+msgstr "Simon Persson"
 
 #: daemon/main.cpp:51
 msgid "Kup is already running!"
-msgstr ""
+msgstr "Kup läuft bereits"
 
 #: daemon/planexecutor.cpp:36
 msgctxt "@action:inmenu"
 msgid "Show Files"
-msgstr ""
+msgstr "Dateien anzeigen"
 
 #: daemon/planexecutor.cpp:41
 msgctxt "@action:inmenu"
 msgid "Take Backup Now"
-msgstr ""
+msgstr "Datensicherung ausführen"
 
 #: daemon/planexecutor.cpp:82 daemon/planexecutor.cpp:97
 msgctxt "@info"
 msgid "Do you want to take a first backup now?"
-msgstr ""
+msgstr "Möchten Sie nun eine erste Datensicherung ausführen?"
 
 #: daemon/planexecutor.cpp:85
 msgctxt "@info"
@@ -159,6 +172,8 @@ msgid ""
 "It's been %1 since the last backup was taken, do you want to take a backup "
 "now?"
 msgstr ""
+"Es sind seit der letzten Sicherung %1 vergangen. Möchten Sie jetzt eine "
+"Datensicherung ausführen?"
 
 #: daemon/planexecutor.cpp:101
 msgctxt "@info"
@@ -166,86 +181,93 @@ msgid ""
 "You've been active with this computer for %1 since the last backup was "
 "taken, do you want to take a backup now?"
 msgstr ""
+"Der Computer ist seit der letzten Datensicherung %1 in Betrieb Möchten Sie "
+"jetzt eine Datensicherung ausführen?"
 
 #: daemon/planexecutor.cpp:131
 msgctxt "@title:window"
 msgid "Backup Device Available - %1"
-msgstr ""
+msgstr "Das Laufwerk für die Datensicherung ist verfügbar - %1"
 
 #: daemon/planexecutor.cpp:134
 msgctxt "@action:button"
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: daemon/planexecutor.cpp:134
 msgctxt "@action:button"
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: daemon/planexecutor.cpp:238
 msgctxt "@info"
 msgid "Error when trying to unmount backup archive:</nl><message>%1</message>"
 msgstr ""
+"Es ist ein Fehler beim aushängen des Datensicherungsziel aufgetreten:</"
+"nl><message>%1</message>"
 
 #: daemon/planexecutor.cpp:248
 msgctxt "@info"
 msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
 msgstr ""
+"Es ist ein Fehler beim einhängen des Datensicherungsziel aufgetreten:</"
+"nl><message>%1</message>"
 
 #: kcm/backupplanwidget.cpp:124
 msgctxt "@title"
 msgid "Sources"
-msgstr ""
+msgstr "Quellen"
 
 #: kcm/backupplanwidget.cpp:125
 msgctxt "@label"
 msgid "Select which folders to include in backup"
-msgstr ""
+msgstr "Verzeichnisse zum sichern auswählen"
 
 #: kcm/backupplanwidget.cpp:135
 msgctxt "@option:radio"
 msgid "Local Filesystem"
-msgstr ""
+msgstr "Lokales Dateisystem"
 
 #: kcm/backupplanwidget.cpp:136
 msgctxt "@option:radio"
 msgid "External Storage"
-msgstr ""
+msgstr "Externe Datenquelle"
 
 #: kcm/backupplanwidget.cpp:153
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
-msgstr ""
+msgstr "Verzeichnis auf dem Ziellaufwerk:"
 
 #: kcm/backupplanwidget.cpp:156 kcm/backupplanwidget.cpp:157
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr ""
+"Das angegebene Verzeichnis wird erstellt, wenn es noch nicht existiert."
 
 #: kcm/backupplanwidget.cpp:192
 msgctxt "@title"
 msgid "Destination"
-msgstr ""
+msgstr "Zielordner"
 
 #: kcm/backupplanwidget.cpp:193
 msgctxt "@label"
 msgid "Select the backup destination"
-msgstr ""
+msgstr "Das Satensicherungsziel auswählen"
 
 #: kcm/backupplanwidget.cpp:209
 msgctxt "@option:radio"
 msgid "Manual Only"
-msgstr ""
+msgstr "Manuell"
 
 #: kcm/backupplanwidget.cpp:210
 msgctxt "@option:radio"
 msgid "Interval"
-msgstr ""
+msgstr "Zeitraum"
 
 #: kcm/backupplanwidget.cpp:211
 msgctxt "@option:radio"
 msgid "Active Usage Time"
-msgstr ""
+msgstr "Verbrauchte Zeit"
 
 #: kcm/backupplanwidget.cpp:213
 msgctxt "@info"
@@ -253,6 +275,8 @@ msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
 msgstr ""
+"Datensicherungen werden nur manuell ausgeführt. Dies kann durch das Popup-"
+"Menü aus dem Backup-Symbol in der Taskleiste durchgeführt werden."
 
 #: kcm/backupplanwidget.cpp:226
 msgctxt "@info"
@@ -260,26 +284,29 @@ msgid ""
 "New backup will be triggered when backup destination becomes available and "
 "more than the configured interval has passed since the last backup was taken."
 msgstr ""
+"Ein neues Backup wird ausgelöst, wenn das Backup-Ziel zur Verfügung steht "
+"und der konfigurierte Zeit-Intervall seit der letzten Sicherung vergangen "
+"ist."
 
 #: kcm/backupplanwidget.cpp:241
 msgctxt "@item:inlistbox"
 msgid "Minutes"
-msgstr ""
+msgstr "Minuten"
 
 #: kcm/backupplanwidget.cpp:242 kcm/backupplanwidget.cpp:266
 msgctxt "@item:inlistbox"
 msgid "Hours"
-msgstr ""
+msgstr "Stunden"
 
 #: kcm/backupplanwidget.cpp:243
 msgctxt "@item:inlistbox"
 msgid "Days"
-msgstr ""
+msgstr "Tage"
 
 #: kcm/backupplanwidget.cpp:244
 msgctxt "@item:inlistbox"
 msgid "Weeks"
-msgstr ""
+msgstr "Wochen"
 
 #: kcm/backupplanwidget.cpp:253
 msgctxt "@info"
@@ -288,66 +315,68 @@ msgid ""
 "you have been using your computer actively for more than the configured time "
 "limit since the last backup was taken."
 msgstr ""
+"Ein neues Backup wird ausgelöst, wenn das Backup-Ziel zur Verfügung steht "
+"und der Computer länger als der konfigurierte Zeit-Intervall aktiv ist."
 
 #: kcm/backupplanwidget.cpp:271
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
-msgstr ""
+msgstr "Nachfragen, bevor eine Datensicherung ausgeführt wird"
 
 #: kcm/backupplanwidget.cpp:289
 msgctxt "@title"
 msgid "Schedule"
-msgstr ""
+msgstr "Zeitplanung"
 
 #: kcm/backupplanwidget.cpp:290
 msgctxt "@label"
 msgid "Specify the backup schedule"
-msgstr ""
+msgstr "Geben Sie den Sicherungszeitplan an"
 
 #: kcm/backupplanwidget.cpp:300 kcm/backupplanwidget.cpp:304
 msgctxt "@option:check"
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: kcm/backupplanwidget.cpp:302
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
-msgstr ""
+msgstr "Versteckte Verzeichnisse in der Auswahl anzeigen:"
 
 #: kcm/backupplanwidget.cpp:306
 msgctxt "@label"
 msgid "Take backups as root:"
-msgstr ""
+msgstr "Datensicherungs als root ausführen:"
 
 #: kcm/backupplanwidget.cpp:311
 msgctxt "@title"
 msgid "Advanced"
-msgstr ""
+msgstr "Erweitert"
 
 #: kcm/backupplanwidget.cpp:312
 msgctxt "@label"
 msgid "Extra options for advanced users"
-msgstr ""
+msgstr "Einstellungen für erfahrene Benutzer"
 
 #: kcm/backupplanwidget.cpp:326
 msgctxt "@label"
 msgid "Description:"
-msgstr ""
+msgstr "Beschreibung:"
 
 #: kcm/backupplanwidget.cpp:328
 msgctxt "@action:button"
 msgid "Back to overview"
-msgstr ""
+msgstr "Zurück zur Übersicht"
 
 #: kcm/driveselectiondelegate.cpp:70
 msgctxt "@item:inlistbox this text is added if selected drive is disconnected"
 msgid " (disconnected)"
-msgstr ""
+msgstr " (nicht verbunden)"
 
 #: kcm/driveselectiondelegate.cpp:73
 msgctxt "@label %1 is amount of free storage space of hard drive"
 msgid "%1 free"
-msgstr ""
+msgstr "%1 frei"
 
 #: kcm/driveselectiondelegate.cpp:85
 msgctxt ""
@@ -355,31 +384,31 @@ msgctxt ""
 "device. %1 is partition number, %2 is device description, %3 is either empty "
 "or the \" (disconnected)\" text"
 msgid "Partition %1 on %2%3"
-msgstr ""
+msgstr "Partition %1 auf %2%3"
 
 #: kcm/driveselectiondelegate.cpp:88
 msgctxt ""
 "@item:inlistbox used when there is only one unnamed filesystem on device. %1 "
 "is device description, %2 is either empty or the \" (disconnected)\" text"
 msgid "%1%2"
-msgstr ""
+msgstr "%1%2"
 
 #: kcm/driveselectiondelegate.cpp:92
 msgctxt ""
 "@item:inlistbox %1 is filesystem label, %2 is the device description, %3 is "
 "either empty or the \" (disconnected)\" text"
 msgid "%1 on %2%3"
-msgstr ""
+msgstr "%1 auf %2%3"
 
 #: kcm/driveselectiondelegate.cpp:99
 msgctxt "@item:inlistbox %1 is drive(partition) label, %2 is storage capacity"
 msgid "%1: %2 total capacity"
-msgstr ""
+msgstr "%1: %2 Gesamtgröße"
 
 #: kcm/folderselectionmodel.cpp:168
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>(will be included in the backup)"
-msgstr ""
+msgstr "<filename>%1</filename><nl/>(wird der Datensicherung hinzugefügt)"
 
 #: kcm/folderselectionmodel.cpp:172
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
@@ -387,22 +416,24 @@ msgid ""
 "<filename>%1</filename><nl/> (will <emphasis>not</emphasis> be included in "
 "the backup)"
 msgstr ""
+"<filename>%1</filename><nl/> (wird <emphasis>nicht</emphasis> zur "
+"Datensicherung hinzugefügt))"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
-msgstr ""
+msgstr "Kup-Konfigurationsmodul"
 
 #: kcm/kupkcm.cpp:52
 msgid "Configuration of backup plans for the Kup backup system"
-msgstr ""
+msgstr "Zeitpläne für Datensicherungen mit dem Kup Backup System konfigurieren"
 
 #: kcm/kupkcm.cpp:53
 msgid "Copyright 2011 Simon Persson"
-msgstr ""
+msgstr "Copyright (C) 2011 Simon Persson"
 
 #: kcm/kupkcm.cpp:54
 msgid "Maintainer"
-msgstr ""
+msgstr "Hauptentwickler"
 
 #: kcm/kupkcm.cpp:71
 msgctxt "@info:label"
@@ -410,6 +441,8 @@ msgid ""
 "You need to install the program called \"bup\" before you can activate any "
 "backup plans."
 msgstr ""
+"Sie müssen \"bup\" installieren, bevor Sie Zeitpläne für die "
+"Datensicherungen erstellen können."
 
 #: kcm/kupkcm.cpp:136
 msgctxt "@title:dialog"
@@ -425,42 +458,42 @@ msgstr ""
 #: kcm/kupkcm.cpp:227
 msgctxt "@action:button"
 msgid "Add New Plan"
-msgstr ""
+msgstr "Neuer Datensicherungsplan"
 
 #: kcm/kupkcm.cpp:230
 msgctxt "@option:check"
 msgid "Backups Enabled"
-msgstr ""
+msgstr "Datensicherungen aktiviert"
 
 #: kcm/planstatuswidget.cpp:46
 msgctxt "@action:button"
 msgid "Configure"
-msgstr ""
+msgstr "Konfigurieren"
 
 #: kcm/planstatuswidget.cpp:48
 msgctxt "@action:button"
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: kcm/planstatuswidget.cpp:71
 msgctxt "@label %1 is fancy formatted date, %2 is time of day"
 msgid "Last backup was taken %1 at %2.\n"
-msgstr ""
+msgstr "Die letzte Datensicherung war %1 am %2.\n"
 
 #: kcm/planstatuswidget.cpp:76
 msgctxt "@label %1 is storage size of archive"
 msgid "The size of the backup archive was %1.\n"
-msgstr ""
+msgstr "Die Größe des Archiv ist %1.\n"
 
 #: kcm/planstatuswidget.cpp:80
 msgctxt "@label %1 is free storage space"
 msgid "The destination still had %1 available.\n"
-msgstr ""
+msgstr "Das Sicherungsziel hat noch %2 zur Verfügung.\n"
 
 #: kcm/planstatuswidget.cpp:83
 msgctxt "@label"
 msgid "This backup plan has never been run."
-msgstr ""
+msgstr "Dieser Sicherungsplan wurde nie ausgeführt."
 
 #: kioslave/bupslave.cpp:130 kioslave/bupslave.cpp:146
 #: kioslave/bupslave.cpp:161
@@ -468,36 +501,38 @@ msgid ""
 "No bup repository found.\n"
 "%1"
 msgstr ""
+"Kein bup Repositorium gefunden.\n"
+"%1"
 
 #: kioslave/bupslave.cpp:242
 msgid "No media in device for %1"
-msgstr ""
+msgstr "Kein Medium im Gerät für %1"
 
 #: po/rc.cpp:1 rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Georg Lassnig"
 
 #: po/rc.cpp:2 rc.cpp:2
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "g.assnig@e67-its.de"
 
 #: po/rc.cpp:3 settings/backupplan.cpp:72 rc.cpp:3
 msgid "Backups"
-msgstr ""
+msgstr "Datensicherungen"
 
 #: po/rc.cpp:4 rc.cpp:4
 msgid "Configure backup plans"
-msgstr ""
+msgstr "Datensicherungen konfigurieren"
 
 #: po/rc.cpp:5 rc.cpp:5
 msgid "backup,recovery,safety"
-msgstr ""
+msgstr "Datensicherung, Wiederherstellung, Sicherheit"
 
 #: settings/backupplan.cpp:37
 msgctxt ""
 "@label Default name for a new backup plan, %1 is the number of the plan in "
 "order"
 msgid "Backup plan %1"
-msgstr ""
+msgstr "Datensicherungsplan %1"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-03-09 18:53+0800\n"
-"PO-Revision-Date: 2013-02-23 17:45+0800\n"
+"POT-Creation-Date: 2013-05-20 11:31+0700\n"
+"PO-Revision-Date: 2013-05-20 11:36+0700\n"
 "Last-Translator: Simon Persson <simonpersson1@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -141,7 +141,7 @@ msgstr "Kupdemon"
 msgid "Copyright (C) 2011 Simon Persson"
 msgstr "Kopieringskydd 2011 Simon Persson"
 
-#: daemon/main.cpp:46 kcm/kupkcm.cpp:53
+#: daemon/main.cpp:46 kcm/kupkcm.cpp:54
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
@@ -409,23 +409,23 @@ msgid ""
 msgstr ""
 "<filename>%1</filename><nl/> (kommer <emphasis>inte</emphasis> inkluderas)"
 
-#: kcm/kupkcm.cpp:50
+#: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
 msgstr "Kup Konfigurationsmodul"
 
-#: kcm/kupkcm.cpp:51
+#: kcm/kupkcm.cpp:52
 msgid "Configuration of backup plans for the Kup backup system"
 msgstr "Konfiguration av säkerhetskopior för Kup"
 
-#: kcm/kupkcm.cpp:52
+#: kcm/kupkcm.cpp:53
 msgid "Copyright 2011 Simon Persson"
 msgstr "Kopieringskydd 2011 Simon Persson"
 
-#: kcm/kupkcm.cpp:53
+#: kcm/kupkcm.cpp:54
 msgid "Maintainer"
 msgstr "Underhållsansvarig"
 
-#: kcm/kupkcm.cpp:70
+#: kcm/kupkcm.cpp:71
 msgctxt "@info:label"
 msgid ""
 "You need to install the program called \"bup\" before you can activate any "
@@ -434,12 +434,24 @@ msgstr ""
 "Du behöver installera programmet \"bup\" innan du kan aktivera "
 "säkerhetskopiering."
 
-#: kcm/kupkcm.cpp:220
+#: kcm/kupkcm.cpp:136
+msgctxt "@title:dialog"
+msgid "Warning"
+msgstr "Varning"
+
+#: kcm/kupkcm.cpp:138
+msgctxt "@info %1 is the name of the backup plan"
+msgid ""
+"%1 does not have a destination!<br>No backups will be saved by this plan."
+msgstr ""
+"%1 har ingen destination!<br>Ingen säkerhetskopiering kommer kunna utföras."
+
+#: kcm/kupkcm.cpp:227
 msgctxt "@action:button"
 msgid "Add New Plan"
 msgstr "Lägg till säkerhetskopia"
 
-#: kcm/kupkcm.cpp:223
+#: kcm/kupkcm.cpp:230
 msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr "Säkerhetskopiering aktivt"

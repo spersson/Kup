@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-03-09 18:53+0800\n"
+"POT-Creation-Date: 2013-05-20 11:31+0700\n"
 "PO-Revision-Date: 2013-03-09 18:54+0800\n"
 "Last-Translator: Francisco García Cisneros <fgarciacis@koali.es>\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -143,7 +143,7 @@ msgstr "Demonio Kup"
 msgid "Copyright (C) 2011 Simon Persson"
 msgstr "Copyright (C) 2011 Simon Persson"
 
-#: daemon/main.cpp:46 kcm/kupkcm.cpp:53
+#: daemon/main.cpp:46 kcm/kupkcm.cpp:54
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
@@ -420,35 +420,46 @@ msgstr ""
 "<filename>%1</filename><nl/> (<emphasis>no</emphasis> será incluido en la "
 "copia de seguridad)"
 
-#: kcm/kupkcm.cpp:50
+#: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
 msgstr "Módulo de configuración de Kup"
 
-#: kcm/kupkcm.cpp:51
+#: kcm/kupkcm.cpp:52
 msgid "Configuration of backup plans for the Kup backup system"
 msgstr "Planes de configuración para el sistema de copias de seguridad Kup"
 
-#: kcm/kupkcm.cpp:52
+#: kcm/kupkcm.cpp:53
 msgid "Copyright 2011 Simon Persson"
 msgstr "Copyright 2011 Simon Persson"
 
-#: kcm/kupkcm.cpp:53
+#: kcm/kupkcm.cpp:54
 msgid "Maintainer"
 msgstr "Mantenedor"
 
-#: kcm/kupkcm.cpp:70
+#: kcm/kupkcm.cpp:71
 msgctxt "@info:label"
 msgid ""
 "You need to install the program called \"bup\" before you can activate any "
 "backup plans."
 msgstr ""
 
-#: kcm/kupkcm.cpp:220
+#: kcm/kupkcm.cpp:136
+msgctxt "@title:dialog"
+msgid "Warning"
+msgstr ""
+
+#: kcm/kupkcm.cpp:138
+msgctxt "@info %1 is the name of the backup plan"
+msgid ""
+"%1 does not have a destination!<br>No backups will be saved by this plan."
+msgstr ""
+
+#: kcm/kupkcm.cpp:227
 msgctxt "@action:button"
 msgid "Add New Plan"
 msgstr "Añadir nuevo plan"
 
-#: kcm/kupkcm.cpp:223
+#: kcm/kupkcm.cpp:230
 msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr "Copias de seguridad Activadas"
