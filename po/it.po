@@ -32,8 +32,7 @@ msgctxt "@info"
 msgid ""
 "Backup destination could not be initialised by bup:</nl><message>%1</message>"
 msgstr ""
-"Bup non può inizializzare la destinazione di backup:</nl><message>%1</"
-"message>"
+"Bup non può inizializzare la destinazione di backup:</nl><message>%1</message>"
 
 #: daemon/bupjob.cpp:115
 msgctxt "@info:progress"
@@ -46,8 +45,8 @@ msgid ""
 "Indexing of file system did not complete successfully:</nl><message>%1</"
 "message>"
 msgstr ""
-"L'indicizzazione del file system non è stata completata con successo:/"
-"nl><message>%1</message>"
+"L'indicizzazione del file system non è stata completata con successo:</nl><"
+"message>%1</message>"
 
 #: daemon/bupjob.cpp:143
 msgctxt "@info:progress"
@@ -58,7 +57,7 @@ msgstr "Salvo i cambiamenti nella destinazione del backup..."
 msgctxt "@info"
 msgid "Backup did not complete successfully:</nl><message>%1</message>"
 msgstr ""
-"Il backup non è stato completato con successo:/nl><message>%1</message>"
+"Il backup non è stato completato con successo:</nl><message>%1</message>"
 
 #: daemon/bupjob.cpp:169
 msgctxt "@info"
@@ -201,15 +200,15 @@ msgstr "No"
 msgctxt "@info"
 msgid "Error when trying to unmount backup archive:</nl><message>%1</message>"
 msgstr ""
-"Errore nel tentativo di smontare l'archivio di backup:</nl><message>%1</"
-"message>"
+"Errore nel tentativo di smontare l'archivio di backup:</nl><message>%1<"
+"/message>"
 
 #: daemon/planexecutor.cpp:248
 msgctxt "@info"
 msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
 msgstr ""
-"Errore nel tentativo di montare l'archivio di backup:</nl><message>%1</"
-"message>"
+"Errore nel tentativo di montare l'archivio di backup:</nl><message>%1<"
+"/message>"
 
 #: kcm/backupplanwidget.cpp:124
 msgctxt "@title"
@@ -339,7 +338,8 @@ msgstr "Sì"
 #: kcm/backupplanwidget.cpp:302
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
-msgstr "Mostra le cartelle nascoste nella sorgente selezionata:"
+msgstr ""
+"Mostra le cartelle nascoste nella schermata di selezione delle sorgenti:"
 
 #: kcm/backupplanwidget.cpp:306
 msgctxt "@label"
