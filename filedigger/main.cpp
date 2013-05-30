@@ -25,9 +25,12 @@ int main(int pArgCount, char **pArgArray) {
 	KApplication lApp;
 	KCmdLineArgs *lParsedArguments = KCmdLineArgs::parsedArgs();
 	if(lParsedArguments->count() != 1) {
-		return -1;
+		KCmdLineArgs::usageError(ki18nc("Error message at startup",
+		                                "You must supply the path to a bup or git repository that "
+		                                "you wish to open for viewing.").toString());
 	}
-	FileDigger *lFileDigger = new FileDigger(lParsedArguments->arg(0), lParsedArguments->getOption("branch"));
+	FileDigger *lFileDigger = new FileDigger(lParsedArguments->arg(0),
+	                                         lParsedArguments->getOption("branch"));
 	lFileDigger->show();
 	return lApp.exec();
 }
