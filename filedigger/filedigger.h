@@ -3,6 +3,7 @@
 
 #include <QSplitter>
 class MergedVfsModel;
+class MergedRepository;
 class VersionListModel;
 class QTreeView;
 class QListView;
@@ -12,15 +13,15 @@ class FileDigger : public QSplitter
 {
 	Q_OBJECT
 public:
-	explicit FileDigger(const QString &pRepositoryPath, const QString &pBranchName, QWidget *parent = 0);
+	explicit FileDigger(MergedRepository *pRepository, QWidget *pParent = 0);
 
 protected slots:
 	void updateVersionModel(const QModelIndex &pCurrent, const QModelIndex &pPrevious);
 	void open(const QModelIndex &pIndex);
 
 protected:
-	MergedVfsModel *mTreeModel;
-	QTreeView *mTreeView;
+	MergedVfsModel *mMergedVfsModel;
+	QTreeView *mMergedVfsView;
 
 	VersionListModel *mVersionModel;
 	QListView *mListView;

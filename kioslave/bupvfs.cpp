@@ -234,7 +234,7 @@ int ChunkFile::seek(quint64 pOffset) {
 		// the remainder of the offset will be a local offset into the blob or into the subtree.
 		lLocalOffset -= lLowerOffset;
 
-		if(S_ISDIR(git_tree_entry_attributes(lLowerEntry))) {
+		if(S_ISDIR(git_tree_entry_filemode(lLowerEntry))) {
 			git_tree *lTree;
 			if(0 != git_tree_lookup(&lTree, mRepository, git_tree_entry_id(lLowerEntry))) {
 				return KIO::ERR_COULD_NOT_SEEK;
@@ -293,7 +293,7 @@ int ChunkFile::read(QByteArray &pChunk, int pReadSize) {
 		while(true) {
 			if(lCurrentPos->mIndex < git_tree_entrycount(lCurrentPos->mTree)) {
 				const git_tree_entry *lTreeEntry = git_tree_entry_byindex(lCurrentPos->mTree, lCurrentPos->mIndex);
-				if(S_ISDIR(git_tree_entry_attributes(lTreeEntry))) {
+				if(S_ISDIR(git_tree_entry_filemode(lTreeEntry))) {
 					git_tree *lTree;
 					if(0 != git_tree_lookup(&lTree, mRepository, git_tree_entry_id(lTreeEntry))) {
 						return KIO::ERR_COULD_NOT_READ;
@@ -423,7 +423,7 @@ void Branch::generateSubNodes() {
 		}
 		QString lCommitTimeLocal = vfsTimeToString(git_commit_time(lCommit));
 		if(!mSubNodes->contains(lCommitTimeLocal)) {
-			Directory * lDirectory = new ArchivedDirectory(this, git_commit_tree_oid(lCommit),
+			Directory * lDirectory = new ArchivedDirectory(this, git_commit_tree_id(lCommit),
 			                                               lCommitTimeLocal, DEFAULT_MODE_DIRECTORY);
 			lDirectory->mMtime = git_commit_time(lCommit);
 			mSubNodes->insert(lCommitTimeLocal, lDirectory);
@@ -444,17 +444,20 @@ Repository::Repository(QObject *pParent, const QString &pRepositoryPath)
 		return;
 	}
 	git_strarray lBranchNames;
-	git_branch_list(&lBranchNames, mRepository, GIT_BRANCH_LOCAL);
+	git_reference_list(&lBranchNames, mRepository, GIT_REF_LISTALL);
 	for(uint i = 0; i < lBranchNames.count; ++i) {
-		QString lPath = objectName();
-		lPath.append(QString::fromLocal8Bit(lBranchNames.strings[i]));
-		struct stat lStat;
-		stat(lPath.toLocal8Bit(), &lStat);
-		if(lStat.st_atime > mAtime) {
-			mAtime = lStat.st_atime;
-		}
-		if(lStat.st_mtime > mMtime) {
-			mMtime = lStat.st_mtime;
+		QString lRefName = QString::fromLocal8Bit(lBranchNames.strings[i]);
+		if(lRefName.startsWith(QLatin1String("refs/heads/"))) {
+			QString lPath = objectName();
+			lPath.append(lRefName);
+			struct stat lStat;
+			stat(lPath.toLocal8Bit(), &lStat);
+			if(lStat.st_atime > mAtime) {
+				mAtime = lStat.st_atime;
+			}
+			if(lStat.st_mtime > mMtime) {
+				mMtime = lStat.st_mtime;
+			}
 		}
 	}
 	git_strarray_free(&lBranchNames);
@@ -477,10 +480,13 @@ Repository::~Repository() {
 
 void Repository::generateSubNodes() {
 	git_strarray lBranchNames;
-	git_branch_list(&lBranchNames, mRepository, GIT_BRANCH_LOCAL);
+	git_reference_list(&lBranchNames, mRepository, GIT_REF_LISTALL);
 	for(uint i = 0; i < lBranchNames.count; ++i) {
-		Branch *lBranch = new Branch(this, lBranchNames.strings[i]);
-		mSubNodes->insert(lBranch->objectName(), lBranch);
+		QString lRefName = QString::fromLocal8Bit(lBranchNames.strings[i]);
+		if(lRefName.startsWith(QLatin1String("refs/heads/"))) {
+			Branch *lBranch = new Branch(this, lBranchNames.strings[i]);
+			mSubNodes->insert(lBranch->objectName(), lBranch);
+		}
 	}
 	git_strarray_free(&lBranchNames);
 }

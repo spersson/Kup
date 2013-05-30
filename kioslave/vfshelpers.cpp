@@ -151,7 +151,7 @@ quint64 calculateChunkFileSize(const git_oid *pOid, git_repository *pRepository)
 		}
 		lLastChunkOffset += lEntryOffset;
 		pOid = git_tree_entry_id(lEntry);
-		lMode = git_tree_entry_attributes(lEntry);
+		lMode = git_tree_entry_filemode(lEntry);
 		git_tree_free(lTree);
 	} while(S_ISDIR(lMode));
 
@@ -172,7 +172,7 @@ bool offsetFromName(const git_tree_entry *pEntry, quint64 &pUint) {
 
 
 void getEntryAttributes(const git_tree_entry *pTreeEntry, uint &pMode, bool &pChunked, const git_oid *&pOid, QString &pName) {
-	pMode = git_tree_entry_attributes(pTreeEntry);
+	pMode = git_tree_entry_filemode(pTreeEntry);
 	pOid = git_tree_entry_id(pTreeEntry);
 	pName = QString::fromUtf8(git_tree_entry_name(pTreeEntry));
 	pChunked = false;

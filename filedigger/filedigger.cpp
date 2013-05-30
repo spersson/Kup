@@ -5,24 +5,18 @@
 #include <QListView>
 #include <QTreeView>
 #include <KLocale>
-#include <KMessageBox>
 #include <KRun>
 
-FileDigger::FileDigger(const QString &pRepositoryPath, const QString &pBranchName, QWidget *parent) :
-   QSplitter(parent)
+FileDigger::FileDigger(MergedRepository *pRepository, QWidget *pParent)
+   : QSplitter(pParent)
 {
-	mTreeView = new QTreeView();
-	mTreeView->setHeaderHidden(true);
-	mTreeView->setSelectionMode(QAbstractItemView::SingleSelection);
-	MergedRepository *lRepository = new MergedRepository(this, pRepositoryPath, pBranchName);
-	if(!lRepository->openedSuccessfully()) {
-		KMessageBox::sorry(this, i18nc("@info:label messagebox", "The specified bup repository could not be opened."));
-		return;
-	}
-	mTreeModel = new MergedVfsModel(lRepository, this);
-	mTreeView->setModel(mTreeModel);
-	addWidget(mTreeView);
-	connect(mTreeView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+	mMergedVfsModel = new MergedVfsModel(pRepository, this);
+	mMergedVfsView = new QTreeView();
+	mMergedVfsView->setHeaderHidden(true);
+	mMergedVfsView->setSelectionMode(QAbstractItemView::SingleSelection);
+	mMergedVfsView->setModel(mMergedVfsModel);
+	addWidget(mMergedVfsView);
+	connect(mMergedVfsView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
 	        this, SLOT(updateVersionModel(QModelIndex,QModelIndex)));
 
 	mListView = new QListView();
@@ -32,12 +26,12 @@ FileDigger::FileDigger(const QString &pRepositoryPath, const QString &pBranchNam
 	addWidget(mListView);
 	connect(mListView, SIGNAL(activated(QModelIndex)), SLOT(open(QModelIndex)));
 
-	mTreeView->setFocus();
+	mMergedVfsView->setFocus();
 }
 
 void FileDigger::updateVersionModel(const QModelIndex &pCurrent, const QModelIndex &pPrevious) {
 	Q_UNUSED(pPrevious)
-	mVersionModel->setNode(mTreeModel->node(pCurrent));
+	mVersionModel->setNode(mMergedVfsModel->node(pCurrent));
 }
 
 void FileDigger::open(const QModelIndex &pIndex) {

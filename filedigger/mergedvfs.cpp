@@ -176,7 +176,7 @@ MergedRepository::MergedRepository(QObject *pParent, const QString &pRepositoryP
 			continue;
 		}
 		git_time_t lTime = git_commit_time(lCommit);
-		mVersionMap.insert(*git_commit_tree_oid(lCommit), mVersions.count());
+		mVersionMap.insert(*git_commit_tree_id(lCommit), mVersions.count());
 		mVersions.append(new VersionData(lTime, lTime, 0));
 		git_commit_free(lCommit);
 	}
