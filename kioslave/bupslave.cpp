@@ -68,7 +68,11 @@ void BupSlave::get(const KUrl& pUrl) {
 		return;
 	}
 
-	Node *lNode = mRepository->resolve(lPathInRepo);
+	// Assume that a symlink should be followed.
+	// Kio will never call get() on a symlink if it actually wants to copy a
+	// symlink, it would just create a symlink on the destination kioslave using the
+	// target it already got from calling stat() on this one.
+	Node *lNode = mRepository->resolve(lPathInRepo, true);
 	if(lNode == NULL) {
 		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QLatin1String("/")));
 		return;
@@ -120,7 +124,7 @@ void BupSlave::listDir(const KUrl& pUrl) {
 		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.prettyUrl()));
 		return;
 	}
-	Node *lNode = mRepository->resolve(lPathInRepo);
+	Node *lNode = mRepository->resolve(lPathInRepo, true);
 	if(lNode == NULL) {
 		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QLatin1String("/")));
 		return;
@@ -160,7 +164,7 @@ void BupSlave::open(const KUrl &pUrl, QIODevice::OpenMode pMode) {
 		return;
 	}
 
-	Node *lNode = mRepository->resolve(lPathInRepo);
+	Node *lNode = mRepository->resolve(lPathInRepo, true);
 	if(lNode == NULL) {
 		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QLatin1String("/")));
 		return;
@@ -325,7 +329,7 @@ QString BupSlave::getGroupName(gid_t pGid) {
 
 void BupSlave::createUDSEntry(Node *pNode, UDSEntry &pUDSEntry, int pDetails) {
 	pUDSEntry.insert(KIO::UDSEntry::UDS_NAME, pNode->objectName());
-	if(pNode->inherits("Symlink")) {
+	if(!pNode->mSymlinkTarget.isEmpty()) {
 		pUDSEntry.insert(KIO::UDSEntry::UDS_LINK_DEST, pNode->mSymlinkTarget);
 		if(pDetails > 1) {
 			Node *lNode = qobject_cast<Node *>(pNode->parent())->resolve(pNode->mSymlinkTarget, true);

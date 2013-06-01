@@ -50,7 +50,7 @@ Node *Node::resolve(const QStringList &pPathList, bool pFollowLinks) {
 			return NULL;
 		}
 	}
-	if(pFollowLinks && lNode->inherits("Symlink")) {
+	if(pFollowLinks && !lNode->mSymlinkTarget.isEmpty()) {
 		return qobject_cast<Node *>(lNode->parent())->resolve(lNode->mSymlinkTarget, true);
 	}
 	return lNode;
