@@ -46,12 +46,14 @@ BupSlave::BupSlave(const QByteArray &pPoolSocket, const QByteArray &pAppSocket)
 {
 	mRepository = NULL;
 	mOpenFile = NULL;
+	git_threads_init();
 }
 
 BupSlave::~BupSlave() {
 	if(mRepository != NULL) {
 		delete mRepository;
 	}
+	git_threads_shutdown();
 }
 
 void BupSlave::close() {
@@ -349,7 +351,7 @@ void BupSlave::createUDSEntry(Node *pNode, UDSEntry &pUDSEntry, int pDetails) {
 	}
 }
 
-int KDE_EXPORT kdemain(int pArgc, char **pArgv ) {
+extern "C" int KDE_EXPORT kdemain(int pArgc, char **pArgv) {
 	QCoreApplication app(pArgc, pArgv);
 	KComponentData lComponentData("kio_bup");
 	(void) KGlobal::locale();
