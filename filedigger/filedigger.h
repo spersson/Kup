@@ -17,14 +17,15 @@ public:
 
 protected slots:
 	void updateVersionModel(const QModelIndex &pCurrent, const QModelIndex &pPrevious);
-	void open(const QModelIndex &pIndex);
+	void open(int pRow);
+	void restore(int pRow);
 
 protected:
 	MergedVfsModel *mMergedVfsModel;
 	QTreeView *mMergedVfsView;
 
 	VersionListModel *mVersionModel;
-	QListView *mListView;
+	QListView *mVersionView;
 };
 
 #endif // FILEDIGGER_H

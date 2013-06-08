@@ -5,6 +5,7 @@ filedigger.cpp
 main.cpp
 mergedvfs.cpp
 mergedvfsmodel.cpp
+versionlistdelegate.cpp
 versionlistmodel.cpp
 ../kioslave/vfshelpers.cpp
 )

@@ -1,11 +1,12 @@
 #include "filedigger.h"
 #include "mergedvfsmodel.h"
 #include "versionlistmodel.h"
+#include "versionlistdelegate.h"
 
-#include <QListView>
-#include <QTreeView>
 #include <KLocale>
 #include <KRun>
+#include <QListView>
+#include <QTreeView>
 
 FileDigger::FileDigger(MergedRepository *pRepository, QWidget *pParent)
    : QSplitter(pParent)
@@ -19,13 +20,17 @@ FileDigger::FileDigger(MergedRepository *pRepository, QWidget *pParent)
 	connect(mMergedVfsView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
 	        this, SLOT(updateVersionModel(QModelIndex,QModelIndex)));
 
-	mListView = new QListView();
-	mListView->setSelectionMode(QAbstractItemView::SingleSelection);
+	mVersionView = new QListView();
+	mVersionView->setSelectionMode(QAbstractItemView::SingleSelection);
 	mVersionModel = new VersionListModel(this);
-	mListView->setModel(mVersionModel);
-	addWidget(mListView);
-	connect(mListView, SIGNAL(activated(QModelIndex)), SLOT(open(QModelIndex)));
-
+	mVersionView->setModel(mVersionModel);
+	VersionListDelegate *lVersionDelegate = new VersionListDelegate(mVersionView,this);
+	mVersionView->setItemDelegate(lVersionDelegate);
+	addWidget(mVersionView);
+	connect(lVersionDelegate, SIGNAL(updateRequested(QModelIndex)),
+	        mVersionView, SLOT(update(QModelIndex)));
+	connect(lVersionDelegate, SIGNAL(openRequested(int)), SLOT(open(int)));
+	connect(lVersionDelegate, SIGNAL(restoreRequested(int)), SLOT(restore(int)));
 	mMergedVfsView->setFocus();
 }
 
@@ -34,6 +39,13 @@ void FileDigger::updateVersionModel(const QModelIndex &pCurrent, const QModelInd
 	mVersionModel->setNode(mMergedVfsModel->node(pCurrent));
 }
 
-void FileDigger::open(const QModelIndex &pIndex) {
-	KRun::runUrl(pIndex.data(VersionBupUrlRole).value<KUrl>(), pIndex.data(VersionMimeTypeRole).toString(), this);
+void FileDigger::open(int pRow) {
+	QModelIndex lIndex = mVersionModel->index(pRow, 0);
+	KRun::runUrl(lIndex.data(VersionBupUrlRole).value<KUrl>(),
+	             lIndex.data(VersionMimeTypeRole).toString(), this);
+
 }
+
+void FileDigger::restore(int pRow) {
+}
+
