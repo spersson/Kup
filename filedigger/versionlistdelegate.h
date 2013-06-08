@@ -21,44 +21,50 @@
 #ifndef VERSIONDELEGATE_H
 #define VERSIONDELEGATE_H
 
-#include <KWidgetItemDelegate>
+#include <QAbstractItemDelegate>
 #include <QParallelAnimationGroup>
 #include <QSignalMapper>
 
+
+struct Button {
+	Button(){}
+	Button(QString pText, QWidget *pParent);
+	bool mPushed;
+	QStyleOptionButton mStyleOption;
+	QWidget *mParent;
+
+	void setPosition(const QPoint &pTopRight);
+	void paint(QPainter *pPainter, float pOpacity);
+	bool event(QEvent *pEvent);
+};
 
 class VersionItemAnimation : public QParallelAnimationGroup
 {
 	Q_OBJECT
 	Q_PROPERTY(float extraHeight READ extraHeight WRITE setExtraHeight)
+	Q_PROPERTY(float opacity READ opacity WRITE setOpacity)
 
 public:
-	VersionItemAnimation(QList<QWidget *> &pWidgets, const QModelIndex pIndex, QObject *pParent = 0);
-	int row() {return mIndex.row();}
-	QPersistentModelIndex &index() {return mIndex;}
-	float extraHeight() {return mCurrentHeight;}
+	VersionItemAnimation(QWidget *pParent);
+	float extraHeight() {return mExtraHeight;}
+	float opacity() {return mOpacity;}
 
 signals:
 	void sizeChanged(const QModelIndex &pIndex);
 
 public slots:
-	void setIndex(const QModelIndex &pIndex) {mIndex = pIndex;}
 	void setExtraHeight(float pExtraHeight);
+	void setOpacity(float pOpacity) {mOpacity = pOpacity;}
 
 public:
 	QPersistentModelIndex mIndex;
-	float mCurrentHeight;
-	QList<QWidget *> mWidgets;
+	float mExtraHeight;
+	float mOpacity;
+	Button mOpenButton;
+	Button mRestoreButton;
 };
 
-
-// that virtual method createWidgets() is const. Work around:
-struct VersionListDelegateData {
-	QHash<QPersistentModelIndex, VersionItemAnimation *> mAnimations;
-	QSignalMapper mOpenMapper;
-	QSignalMapper mRestoreMapper;
-};
-
-class VersionListDelegate : public KWidgetItemDelegate
+class VersionListDelegate : public QAbstractItemDelegate
 {
 	Q_OBJECT
 public:
@@ -66,25 +72,24 @@ public:
 	~VersionListDelegate();
 	virtual void paint(QPainter *pPainter, const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const;
 	virtual QSize sizeHint(const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const;
+	virtual bool eventFilter(QObject *pObject, QEvent *pEvent);
 
 signals:
 	void updateRequested(const QModelIndex &pIndex);
-	void openRequested(int pRow);
-	void restoreRequested(int pRow);
+	void openRequested(const QModelIndex &pIndex);
+	void restoreRequested(const QModelIndex &pIndex);
 
 public slots:
 	void updateCurrent(const QModelIndex &pCurrent, const QModelIndex &pPrevious);
-	void updateHeight(const QModelIndex &pIndex);
 	void reset();
-
+	void reclaimAnimation();
 
 protected:
-	virtual QList<QWidget *> createItemWidgets() const;
-	virtual void updateItemWidgets(const QList<QWidget *> pWidgets, const QStyleOptionViewItem &pOption,
-	                               const QPersistentModelIndex &pIndex) const;
+	void initialize();
 	QAbstractItemView *mView;
 	QAbstractItemModel *mModel;
-	VersionListDelegateData *mData;
+	QHash<QPersistentModelIndex, VersionItemAnimation *> mActiveAnimations;
+	QList<VersionItemAnimation *> mInactiveAnimations;
 };
 
 #endif // VERSIONDELEGATE_H

@@ -37,8 +37,8 @@ public:
 
 protected slots:
 	void updateVersionModel(const QModelIndex &pCurrent, const QModelIndex &pPrevious);
-	void open(int pRow);
-	void restore(int pRow);
+	void open(const QModelIndex &pIndex);
+	void restore(const QModelIndex &pIndex);
 
 protected:
 	MergedVfsModel *mMergedVfsModel;

@@ -24,8 +24,9 @@
 #include <KLocale>
 #include <QAbstractItemView>
 #include <QAbstractItemModel>
-#include <QParallelAnimationGroup>
 #include <QApplication>
+#include <QMouseEvent>
+#include <QParallelAnimationGroup>
 #include <QPainter>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
@@ -33,152 +34,215 @@
 
 #define cMargin 4
 
-VersionItemAnimation::VersionItemAnimation(QList<QWidget *> &pWidgets, const QModelIndex pIndex, QObject *pParent)
-   : QParallelAnimationGroup(pParent), mIndex(pIndex), mWidgets(pWidgets)
-{
-	QPropertyAnimation *lHeight = new QPropertyAnimation(this, "extraHeight", this);
-	lHeight->setStartValue(0.0);
-	lHeight->setEndValue(1.0);
-	lHeight->setDuration(1000);
-	addAnimation(lHeight);
+Button::Button(QString pText, QWidget *pParent) {
+	mStyleOption.initFrom(pParent);
+	mStyleOption.features = QStyleOptionButton::None;
+	mStyleOption.state = QStyle::State_Enabled;
+	mStyleOption.text = pText;
 
-	QParallelAnimationGroup *lOpacityAnimations = new QParallelAnimationGroup(this);
-	addAnimation(lOpacityAnimations);
-	foreach(QWidget *lWidget, pWidgets) {
-		QGraphicsOpacityEffect *lEffect = new QGraphicsOpacityEffect(lWidget);
-		lEffect->setOpacity(0.0);
-		lWidget->setGraphicsEffect(lEffect);
-		QPropertyAnimation *lWidgetOpacityAnimation = new QPropertyAnimation(lEffect, "opacity", this);
-		lWidgetOpacityAnimation->setStartValue(0.0);
-		lWidgetOpacityAnimation->setEndValue(1.0);
-		lWidgetOpacityAnimation->setDuration(1000);
-		lOpacityAnimations->addAnimation(lWidgetOpacityAnimation);
+	const QSize lContentsSize = mStyleOption.fontMetrics.size(Qt::TextSingleLine, mStyleOption.text);
+	mStyleOption.rect = QRect(QPoint(0, 0),
+	                          QApplication::style()->sizeFromContents(QStyle::CT_PushButton,
+	                                                                  &mStyleOption, lContentsSize));
+	mPushed = false;
+	mParent = pParent;
+}
+
+void Button::setPosition(const QPoint &pTopRight) {
+	mStyleOption.rect.moveTopRight(pTopRight);
+}
+
+void Button::paint(QPainter *pPainter, float pOpacity) {
+	pPainter->setOpacity(pOpacity);
+	QApplication::style()->drawControl(QStyle::CE_PushButton, &mStyleOption, pPainter);
+}
+
+bool Button::event(QEvent *pEvent) {
+	QMouseEvent *lMouseEvent = static_cast<QMouseEvent *>(pEvent);
+	bool lActivated = false;
+	switch(lMouseEvent->type()) {
+		case QEvent::MouseMove:
+			if(mStyleOption.rect.contains(lMouseEvent->pos())) {
+				if(!(mStyleOption.state & QStyle::State_MouseOver)) {
+					mStyleOption.state |= QStyle::State_MouseOver;
+					if(mPushed) {
+						mStyleOption.state |= QStyle::State_Sunken;
+						mStyleOption.state &= ~QStyle::State_Raised;
+					}
+					mParent->update(mStyleOption.rect);
+				}
+			} else {
+				if(mStyleOption.state & QStyle::State_MouseOver) {
+					mStyleOption.state &= ~QStyle::State_MouseOver;
+					if(mPushed) {
+						mStyleOption.state &= ~QStyle::State_Sunken;
+						mStyleOption.state |= QStyle::State_Raised;
+					}
+					mParent->update(mStyleOption.rect);
+				}
+			}
+		break;
+	case QEvent::MouseButtonPress:
+		if(lMouseEvent->button() == Qt::LeftButton && !mPushed &&
+		      (mStyleOption.state & QStyle::State_MouseOver)) {
+			mPushed = true;
+			mStyleOption.state |= QStyle::State_Sunken;
+			mStyleOption.state &= ~QStyle::State_Raised;
+			mParent->update(mStyleOption.rect);
+		}
+		break;
+	case QEvent::MouseButtonRelease:
+		if(lMouseEvent->button() == Qt::LeftButton) {
+			if(mPushed && (mStyleOption.state & QStyle::State_MouseOver)) {
+				lActivated = true;
+			}
+			mPushed = false;
+			mStyleOption.state &= ~QStyle::State_Sunken;
+			mStyleOption.state |= QStyle::State_Raised;
+			mParent->update(mStyleOption.rect);
+		}
+		break;
+	default:
+		break;
 	}
+	return lActivated;
+}
+
+
+VersionItemAnimation::VersionItemAnimation(QWidget *pParent)
+   : QParallelAnimationGroup(pParent)
+{
+	mExtraHeight = 0;
+	mOpacity = 0;
+	mOpenButton = Button(i18nc("@action:button", "Open"), pParent);
+	mRestoreButton = Button(i18nc("@action:button", "Restore"), pParent);
+	QPropertyAnimation *lHeightAnimation = new QPropertyAnimation(this, "extraHeight", this);
+	lHeightAnimation->setStartValue(0.0);
+	lHeightAnimation->setEndValue(1.0);
+	lHeightAnimation->setDuration(300);
+	lHeightAnimation->setEasingCurve(QEasingCurve::InOutBack);
+	addAnimation(lHeightAnimation);
+
+	QPropertyAnimation *lWidgetOpacityAnimation = new QPropertyAnimation(this, "opacity", this);
+	lWidgetOpacityAnimation->setStartValue(0.0);
+	lWidgetOpacityAnimation->setEndValue(1.0);
+	lWidgetOpacityAnimation->setDuration(300);
+	addAnimation(lWidgetOpacityAnimation);
 }
 
 void VersionItemAnimation::setExtraHeight(float pExtraHeight) {
-	mCurrentHeight = pExtraHeight;
+	mExtraHeight = pExtraHeight;
 	emit sizeChanged(mIndex);
 }
 
 VersionListDelegate::VersionListDelegate(QAbstractItemView *pItemView, QObject *pParent) :
-   KWidgetItemDelegate(pItemView, pParent)
+   QAbstractItemDelegate(pParent)
 {
-	mData = new VersionListDelegateData;
 	mView = pItemView;
 	mModel = pItemView->model();
 	connect(pItemView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
 	        SLOT(updateCurrent(QModelIndex,QModelIndex)));
 	connect(pItemView->model(), SIGNAL(modelReset()), SLOT(reset()));
-	connect(&mData->mOpenMapper, SIGNAL(mapped(int)), SIGNAL(openRequested(int)));
-	connect(&mData->mRestoreMapper, SIGNAL(mapped(int)), SIGNAL(restoreRequested(int)));
+	pItemView->viewport()->installEventFilter(this);
+	pItemView->viewport()->setMouseTracking(true);
 }
 
 VersionListDelegate::~VersionListDelegate() {
-	delete mData;
 }
 
 void VersionListDelegate::paint(QPainter *pPainter, const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const {
+	QStyle * lStyle = QApplication::style();
+	lStyle->drawPrimitive(QStyle::PE_PanelItemViewItem, &pOption, pPainter);
 	pPainter->save();
-	QApplication::style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &pOption, pPainter);
 	pPainter->setPen(pOption.palette.color(pOption.state & QStyle::State_Selected
 	                                       ? QPalette::HighlightedText: QPalette::Text));
-	pPainter->drawText(pOption.rect.topLeft() + QPoint(cMargin, cMargin+QApplication::fontMetrics().height()),
-	                   pIndex.data().toString());
+	QString lDateText = pOption.fontMetrics.elidedText(pIndex.data().toString(), Qt::ElideRight, pOption.rect.width() /*- sizeKBRect.width */);
+	pPainter->drawText(pOption.rect.topLeft() + QPoint(cMargin, cMargin+pOption.fontMetrics.ascent()), lDateText);
 	pPainter->restore();
+
+	VersionItemAnimation *lAnimation = mActiveAnimations.value(pIndex);
+	if(lAnimation != NULL) {
+		pPainter->save();
+		pPainter->setClipRect(pOption.rect);
+
+		lAnimation->mRestoreButton.setPosition(pOption.rect.topRight() +
+		                                       QPoint(-cMargin,
+		                                              pOption.fontMetrics.height() + 2*cMargin));
+		lAnimation->mRestoreButton.paint(pPainter, lAnimation->opacity());
+
+		lAnimation->mOpenButton.setPosition(lAnimation->mRestoreButton.mStyleOption.rect.topLeft() +
+		                                    QPoint(-cMargin , 0));
+		lAnimation->mOpenButton.paint(pPainter, lAnimation->opacity());
+		pPainter->restore();
+	}
 }
 
 QSize VersionListDelegate::sizeHint(const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const {
-	if(!pIndex.isValid()) {
-		return QSize(0,0);
+	int lExtraHeight = 0;
+	int lExtraWidth = 0;
+	VersionItemAnimation *lAnimation = mActiveAnimations.value(pIndex);
+	if(lAnimation != NULL) {
+		int lButtonHeight = lAnimation->mOpenButton.mStyleOption.rect.height();
+		lExtraHeight = lAnimation->extraHeight() * (lButtonHeight + cMargin);
+		lExtraWidth = lAnimation->mOpenButton.mStyleOption.rect.width() +
+		              lAnimation->mRestoreButton.mStyleOption.rect.width();
 	}
-	VersionItemAnimation *lAnimation = mData->mAnimations.value(pIndex);
-	if(lAnimation == NULL) {
-		return QSize(0,0);
+	return QSize(lExtraWidth, cMargin*2 + pOption.fontMetrics.height() + lExtraHeight);
+}
+
+bool VersionListDelegate::eventFilter(QObject *pObject, QEvent *pEvent) {
+	foreach (VersionItemAnimation *lAnimation, mActiveAnimations) {
+		if(lAnimation->mOpenButton.event(pEvent)) {
+			emit openRequested(lAnimation->mIndex);
+		}
+		if(lAnimation->mRestoreButton.event(pEvent)) {
+			emit restoreRequested(lAnimation->mIndex);
+		}
 	}
-	int lWidth = 0;
-	foreach (QWidget *lWidget, lAnimation->mWidgets) {
-		lWidth += lWidget->width();
-	}
-	return QSize(cMargin*2 + lWidth, cMargin*2 + pOption.fontMetrics.height() +
-	             lAnimation->extraHeight()*(2*cMargin + lAnimation->mWidgets.at(0)->height()));
+	return QAbstractItemDelegate::eventFilter(pObject, pEvent);
 }
 
 
 void VersionListDelegate::updateCurrent(const QModelIndex &pCurrent, const QModelIndex &pPrevious) {
 	if(pPrevious.isValid()) {
-		VersionItemAnimation *lPrevAnim = mData->mAnimations.value(pPrevious);
+		VersionItemAnimation *lPrevAnim = mActiveAnimations.value(pPrevious);
 		if(lPrevAnim != NULL) {
 			lPrevAnim->setDirection(QAbstractAnimation::Backward);
 			lPrevAnim->start();
 		}
 	}
 	if(pCurrent.isValid()) {
-		VersionItemAnimation *lCurAnim = mData->mAnimations.value(pCurrent);
-		if(lCurAnim != NULL) {
-			lCurAnim->setDirection(QAbstractAnimation::Forward);
-			lCurAnim->start();
+		VersionItemAnimation *lCurAnim = mActiveAnimations.value(pCurrent);
+		if(lCurAnim == NULL) {
+			if(!mInactiveAnimations.isEmpty()) {
+				lCurAnim = mInactiveAnimations.takeFirst();
+			} else {
+				lCurAnim = new VersionItemAnimation(mView->viewport());
+				connect(lCurAnim, SIGNAL(sizeChanged(QModelIndex)), SIGNAL(sizeHintChanged(QModelIndex)));
+				connect(lCurAnim, SIGNAL(finished()), SLOT(reclaimAnimation()));
+			}
+			lCurAnim->mIndex = pCurrent;
+			mActiveAnimations.insert(pCurrent, lCurAnim);
 		}
+		lCurAnim->setDirection(QAbstractAnimation::Forward);
+		lCurAnim->start();
 	}
-}
-
-void VersionListDelegate::updateHeight(const QModelIndex &pIndex) {
-	QStyleOptionViewItemV4 lStyleOption;
-	lStyleOption.initFrom(mView->viewport());
-	lStyleOption.rect = mView->visualRect(pIndex);
-	updateItemWidgets(mData->mAnimations.value(pIndex)->mWidgets, lStyleOption, pIndex);
-	emit sizeHintChanged(pIndex);
 }
 
 void VersionListDelegate::reset() {
-	qDeleteAll(mData->mAnimations);
-	mData->mAnimations.clear();
+	mInactiveAnimations.append(mActiveAnimations.values());
+	mActiveAnimations.clear();
 }
 
-Q_DECLARE_METATYPE(QModelIndex)
-
-QList<QWidget *> VersionListDelegate::createItemWidgets() const {
-	QList<QWidget *> lWidgetList;
-	QModelIndex lIndex = property("goya:creatingWidgetForIndex").value<QModelIndex>();
-	QList<QEvent::Type> lBlockedEventList;
-	lBlockedEventList << QEvent::MouseButtonPress << QEvent::MouseButtonRelease
-	                  << QEvent::MouseButtonDblClick << QEvent::KeyPress << QEvent::KeyRelease;
-
-	QPushButton *lOpen = new QPushButton(i18nc("@action:button", "Open"));
-	lWidgetList.append(lOpen);
-	mData->mOpenMapper.setMapping(lOpen, lIndex.row());
-	connect(lOpen, SIGNAL(clicked()), &mData->mOpenMapper, SLOT(map()));
-	setBlockedEventTypes(lOpen, lBlockedEventList);
-
-	QPushButton *lRestore = new QPushButton(i18nc("@action:button", "Restore"));
-	lWidgetList.append(lRestore);
-	mData->mRestoreMapper.setMapping(lRestore, lIndex.row());
-	connect(lRestore, SIGNAL(clicked()), &mData->mRestoreMapper, SLOT(map()));
-	setBlockedEventTypes(lRestore, lBlockedEventList);
-
-	VersionItemAnimation *lAnimation = new VersionItemAnimation(lWidgetList, lIndex);
-	connect(lAnimation, SIGNAL(sizeChanged(QModelIndex)),
-	        this, SLOT(updateHeight(QModelIndex)));
-	mData->mAnimations.insert(lIndex, lAnimation);
-	return lWidgetList;
-}
-
-void VersionListDelegate::updateItemWidgets(const QList<QWidget *> pWidgets,
-                                            const QStyleOptionViewItem &pOption,
-                                            const QPersistentModelIndex &pIndex) const {
-	QPushButton *lOpen = static_cast<QPushButton *>(pWidgets.at(0));
-	QPushButton *lRestore = static_cast<QPushButton *>(pWidgets.at(1));
-
-	if(pIndex.isValid()) {
-		QSize lOpenSize = lOpen->sizeHint();
-		lOpen->resize(lOpenSize);
-		QSize lRestoreSize = lRestore->sizeHint();
-		lRestore->resize(lRestoreSize);
-
-		lRestore->move(pOption.rect.width() - cMargin - lRestoreSize.width(),
-		               pOption.rect.height() - cMargin - lRestoreSize.height());
-
-		lOpen->move(lRestore->x() - cMargin - lOpenSize.width(), lRestore->y());
+void VersionListDelegate::reclaimAnimation() {
+	VersionItemAnimation *lAnimation = static_cast<VersionItemAnimation *>(sender());
+	if(lAnimation->direction() == QAbstractAnimation::Backward) {
+		mInactiveAnimations.append(lAnimation);
+		foreach(VersionItemAnimation *lActiveAnimation, mActiveAnimations) {
+			if(lActiveAnimation == lAnimation) {
+				mActiveAnimations.remove(lAnimation->mIndex);
+				break;
+			}
+		}
 	}
 }
-

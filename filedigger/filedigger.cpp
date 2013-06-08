@@ -49,23 +49,24 @@ FileDigger::FileDigger(MergedRepository *pRepository, QWidget *pParent)
 	addWidget(mVersionView);
 	connect(lVersionDelegate, SIGNAL(updateRequested(QModelIndex)),
 	        mVersionView, SLOT(update(QModelIndex)));
-	connect(lVersionDelegate, SIGNAL(openRequested(int)), SLOT(open(int)));
-	connect(lVersionDelegate, SIGNAL(restoreRequested(int)), SLOT(restore(int)));
+	connect(lVersionDelegate, SIGNAL(openRequested(QModelIndex)), SLOT(open(QModelIndex)));
+	connect(lVersionDelegate, SIGNAL(restoreRequested(QModelIndex)), SLOT(restore(QModelIndex)));
 	mMergedVfsView->setFocus();
 }
 
 void FileDigger::updateVersionModel(const QModelIndex &pCurrent, const QModelIndex &pPrevious) {
 	Q_UNUSED(pPrevious)
 	mVersionModel->setNode(mMergedVfsModel->node(pCurrent));
+	mVersionView->selectionModel()->setCurrentIndex(mVersionModel->index(0,0),
+	                                                QItemSelectionModel::Select);
 }
 
-void FileDigger::open(int pRow) {
-	QModelIndex lIndex = mVersionModel->index(pRow, 0);
-	KRun::runUrl(lIndex.data(VersionBupUrlRole).value<KUrl>(),
-	             lIndex.data(VersionMimeTypeRole).toString(), this);
+void FileDigger::open(const QModelIndex &pIndex) {
+	KRun::runUrl(pIndex.data(VersionBupUrlRole).value<KUrl>(),
+	             pIndex.data(VersionMimeTypeRole).toString(), this);
 
 }
 
-void FileDigger::restore(int pRow) {
+void FileDigger::restore(const QModelIndex &pIndex) {
 }
 
