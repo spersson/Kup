@@ -3,7 +3,7 @@ project(kup)
 find_package(KDE4 REQUIRED)
 include (KDE4Defaults)
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+if(${CMAKE_BUILD_TYPE} STREQUAL "Debug" OR ${CMAKE_BUILD_TYPE} STREQUAL "DebugFull")
   message(WARNING "enabling debug output!")
   add_definitions(-DDEBUG)
 else()
