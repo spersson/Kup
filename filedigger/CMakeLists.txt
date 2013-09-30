@@ -5,6 +5,8 @@ filedigger.cpp
 main.cpp
 mergedvfs.cpp
 mergedvfsmodel.cpp
+restoredialog.cpp
+restorejob.cpp
 versionlistdelegate.cpp
 versionlistmodel.cpp
 ../kioslave/vfshelpers.cpp
@@ -12,12 +14,14 @@ versionlistmodel.cpp
 
 add_definitions(-fexceptions)
 
+kde4_add_ui_files(filedigger_SRCS restoredialog.ui)
 kde4_add_executable(kup-filedigger ${filedigger_SRCS})
 target_link_libraries(kup-filedigger
 QtCore
 QtGui
 kdecore
 kdeui
+kfile
 kio
 git2
 )

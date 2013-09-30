@@ -20,23 +20,34 @@
 
 #include "filedigger.h"
 #include "mergedvfsmodel.h"
+#include "restoredialog.h"
 #include "versionlistmodel.h"
 #include "versionlistdelegate.h"
 
+#include <KAction>
+#include <KFileDialog>
 #include <KLocale>
 #include <KRun>
+#include <KStandardAction>
+#include <KToolBar>
 #include <QListView>
+#include <QSplitter>
 #include <QTreeView>
 
+
 FileDigger::FileDigger(MergedRepository *pRepository, QWidget *pParent)
-   : QSplitter(pParent)
+   : KMainWindow(pParent)
 {
+	setWindowIcon(KIcon(QLatin1String("chronometer")));
+	KToolBar *lAppToolBar = toolBar();
+	lAppToolBar->addAction(KStandardAction::quit(this, SLOT(close()), this));
+	QSplitter *lSplitter = new QSplitter();
 	mMergedVfsModel = new MergedVfsModel(pRepository, this);
 	mMergedVfsView = new QTreeView();
 	mMergedVfsView->setHeaderHidden(true);
 	mMergedVfsView->setSelectionMode(QAbstractItemView::SingleSelection);
 	mMergedVfsView->setModel(mMergedVfsModel);
-	addWidget(mMergedVfsView);
+	lSplitter->addWidget(mMergedVfsView);
 	connect(mMergedVfsView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
 	        this, SLOT(updateVersionModel(QModelIndex,QModelIndex)));
 
@@ -46,12 +57,23 @@ FileDigger::FileDigger(MergedRepository *pRepository, QWidget *pParent)
 	mVersionView->setModel(mVersionModel);
 	VersionListDelegate *lVersionDelegate = new VersionListDelegate(mVersionView,this);
 	mVersionView->setItemDelegate(lVersionDelegate);
-	addWidget(mVersionView);
-	connect(lVersionDelegate, SIGNAL(updateRequested(QModelIndex)),
-	        mVersionView, SLOT(update(QModelIndex)));
+	lSplitter->addWidget(mVersionView);
 	connect(lVersionDelegate, SIGNAL(openRequested(QModelIndex)), SLOT(open(QModelIndex)));
 	connect(lVersionDelegate, SIGNAL(restoreRequested(QModelIndex)), SLOT(restore(QModelIndex)));
 	mMergedVfsView->setFocus();
+
+	//expand all levels from the top until the node has more than one child
+	QModelIndex lIndex;
+	forever {
+		mMergedVfsView->expand(lIndex);
+		if(mMergedVfsModel->rowCount(lIndex) == 1) {
+			lIndex = mMergedVfsModel->index(0, 0, lIndex);
+		} else {
+			break;
+		}
+	}
+	mMergedVfsView->selectionModel()->setCurrentIndex(lIndex.child(0,0), QItemSelectionModel::Select);
+	setCentralWidget(lSplitter);
 }
 
 void FileDigger::updateVersionModel(const QModelIndex &pCurrent, const QModelIndex &pPrevious) {
@@ -68,5 +90,7 @@ void FileDigger::open(const QModelIndex &pIndex) {
 }
 
 void FileDigger::restore(const QModelIndex &pIndex) {
+	RestoreDialog *lDialog = new RestoreDialog(pIndex.data(VersionSourceInfoRole).value<BupSourceInfo>(), this);
+	lDialog->setAttribute(Qt::WA_DeleteOnClose);
+	lDialog->show();
 }
-

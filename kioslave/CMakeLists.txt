@@ -21,15 +21,3 @@ install(FILES bup.protocol DESTINATION ${SERVICES_INSTALL_DIR})
 
 
 add_definitions(-fexceptions)
-
-#set(bupkio_SRCS
-#bupkio.cpp
-#bupvfs.cpp
-#vfshelpers.cpp
-#)
-
-#kde4_add_executable(bupkio ${bupkio_SRCS})
-#target_link_libraries(bupkio
-#${KDE4_KDECORE_LIBRARY}
-#git2
-#)

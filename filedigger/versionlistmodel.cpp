@@ -21,7 +21,9 @@
 #include "versionlistmodel.h"
 #include "../kioslave/vfshelpers.h"
 
+#include <KLocale>
 #include <KMimeType>
+#include <QDateTime>
 
 VersionListModel::VersionListModel(QObject *parent) :
    QAbstractListModel(parent)
@@ -52,11 +54,24 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 	VersionData *lData = mVersionList->at(pIndex.row());
 	switch (pRole) {
 	case Qt::DisplayRole:
-		return vfsTimeToString(lData->mModifiedDate);
-	case VersionBupUrlRole:
-		return mNode->getBupUrl(pIndex.row());
+		return KGlobal::locale()->formatDateTime(QDateTime::fromTime_t(lData->mModifiedDate), KLocale::FancyLongDate);
+	case VersionBupUrlRole: {
+		KUrl lUrl;
+		mNode->getBupUrl(pIndex.row(), &lUrl);
+		return lUrl;
+	}
 	case VersionMimeTypeRole:
 		return KMimeType::findByUrl(mNode->objectName(), mNode->mode())->name();
+	case VersionSizeRole:
+		return lData->mSize;
+	case VersionSourceInfoRole: {
+		BupSourceInfo lSourceInfo;
+		mNode->getBupUrl(pIndex.row(), &lSourceInfo.mBupKioPath, &lSourceInfo.mRepoPath, &lSourceInfo.mBranchName,
+		                 &lSourceInfo.mCommitTime, &lSourceInfo.mPathInRepo);
+		lSourceInfo.mIsDirectory = mNode->isDirectory();
+		lSourceInfo.mSize = lData->mSize;
+		return QVariant::fromValue<BupSourceInfo>(lSourceInfo);
+	}
 	default:
 		return QVariant();
 	}

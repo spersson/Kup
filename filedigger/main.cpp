@@ -35,7 +35,7 @@ static const char description[] = I18N_NOOP("Browser for bup archives.");
 
 int main(int pArgCount, char **pArgArray) {
 	KAboutData lAbout("filedigger", 0, ki18n("File Digger"), version, ki18n(description),
-	                  KAboutData::License_GPL, ki18n("(C) 2013 Simon Persson"),
+	                  KAboutData::License_GPL, ki18n("Copyright (C) 2013 Simon Persson"),
 	                  KLocalizedString(), 0, "simonpersson1@gmail.com");
 	lAbout.addAuthor( ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com" );
 	KCmdLineArgs::init(pArgCount, pArgArray, &lAbout);
@@ -65,7 +65,6 @@ int main(int pArgCount, char **pArgArray) {
 	FileDigger *lFileDigger = new FileDigger(lRepository);
 	lFileDigger->show();
 	int lRetVal = lApp.exec();
-	delete lFileDigger;
 	delete lRepository;
 	git_threads_shutdown();
 	return lRetVal;

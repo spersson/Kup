@@ -207,7 +207,7 @@ void PlanExecutor::showFilesClicked() {
 	if(mState == NOT_AVAILABLE)
 		return;
 	if(mPlan->mBackupType == BackupPlan::BupType) {
-		QString lCommandLine = QString::fromLatin1("kup_filedigger --title \"");
+		QString lCommandLine = QString::fromLatin1("kup-filedigger --title \"");
 		lCommandLine.append(mPlan->mDescription);
 		lCommandLine.append(QLatin1String("\" \""));
 		lCommandLine.append(mDestinationPath);

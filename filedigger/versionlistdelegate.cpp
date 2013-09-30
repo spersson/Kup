@@ -34,7 +34,9 @@
 
 #define cMargin 4
 
-Button::Button(QString pText, QWidget *pParent) {
+Button::Button(QString pText, QWidget *pParent)
+   : QObject() // don't make it owned by pParent
+{
 	mStyleOption.initFrom(pParent);
 	mStyleOption.features = QStyleOptionButton::None;
 	mStyleOption.state = QStyle::State_Enabled;
@@ -60,7 +62,7 @@ void Button::paint(QPainter *pPainter, float pOpacity) {
 bool Button::event(QEvent *pEvent) {
 	QMouseEvent *lMouseEvent = static_cast<QMouseEvent *>(pEvent);
 	bool lActivated = false;
-	switch(lMouseEvent->type()) {
+	switch(pEvent->type()) {
 		case QEvent::MouseMove:
 			if(mStyleOption.rect.contains(lMouseEvent->pos())) {
 				if(!(mStyleOption.state & QStyle::State_MouseOver)) {
@@ -102,6 +104,19 @@ bool Button::event(QEvent *pEvent) {
 			mParent->update(mStyleOption.rect);
 		}
 		break;
+	case QEvent::KeyPress: {
+		QKeyEvent *lKeyEvent = static_cast<QKeyEvent *>(pEvent);
+		if((mStyleOption.state & QStyle::State_HasFocus)) {
+			if(lKeyEvent->key() == Qt::Key_Left || lKeyEvent->key() == Qt::Key_Right) {
+				mStyleOption.state &= ~QStyle::State_HasFocus;
+				emit focusChangeRequested(lKeyEvent->key() == Qt::Key_Right);
+				mParent->update(mStyleOption.rect);
+			} else if(lKeyEvent->key() == Qt::Key_Space || lKeyEvent->key() == Qt::Key_Return
+			          || lKeyEvent->key() == Qt::Key_Enter) {
+				lActivated = true;
+			}
+		}
+	}
 	default:
 		break;
 	}
@@ -112,10 +127,13 @@ bool Button::event(QEvent *pEvent) {
 VersionItemAnimation::VersionItemAnimation(QWidget *pParent)
    : QParallelAnimationGroup(pParent)
 {
+	mParent = pParent;
 	mExtraHeight = 0;
 	mOpacity = 0;
-	mOpenButton = Button(i18nc("@action:button", "Open"), pParent);
-	mRestoreButton = Button(i18nc("@action:button", "Restore"), pParent);
+	mOpenButton = new Button(i18nc("@action:button", "Open"), pParent);
+	connect(mOpenButton, SIGNAL(focusChangeRequested(bool)), SLOT(changeFocus(bool)), Qt::QueuedConnection);
+	mRestoreButton = new Button(i18nc("@action:button", "Restore"), pParent);
+	connect(mRestoreButton, SIGNAL(focusChangeRequested(bool)), SLOT(changeFocus(bool)), Qt::QueuedConnection);
 	QPropertyAnimation *lHeightAnimation = new QPropertyAnimation(this, "extraHeight", this);
 	lHeightAnimation->setStartValue(0.0);
 	lHeightAnimation->setEndValue(1.0);
@@ -135,6 +153,29 @@ void VersionItemAnimation::setExtraHeight(float pExtraHeight) {
 	emit sizeChanged(mIndex);
 }
 
+void VersionItemAnimation::changeFocus(bool pForward) {
+	Q_UNUSED(pForward)
+	if(sender() == mOpenButton) {
+		mRestoreButton->mStyleOption.state |= QStyle::State_HasFocus;
+		mParent->update(mRestoreButton->mStyleOption.rect);
+	} else if(sender() == mRestoreButton) {
+		mOpenButton->mStyleOption.state |= QStyle::State_HasFocus;
+		mParent->update(mOpenButton->mStyleOption.rect);
+	}
+}
+
+void VersionItemAnimation::setFocus(bool pFocused) {
+	if(!pFocused) {
+		mOpenButton->mStyleOption.state &= ~QStyle::State_HasFocus;
+		mRestoreButton->mStyleOption.state &= ~QStyle::State_HasFocus;
+	} else {
+		mOpenButton->mStyleOption.state |= QStyle::State_HasFocus;
+		mRestoreButton->mStyleOption.state &= ~QStyle::State_HasFocus;
+	}
+	mParent->update(mOpenButton->mStyleOption.rect);
+	mParent->update(mRestoreButton->mStyleOption.rect);
+}
+
 VersionListDelegate::VersionListDelegate(QAbstractItemView *pItemView, QObject *pParent) :
    QAbstractItemDelegate(pParent)
 {
@@ -143,7 +184,8 @@ VersionListDelegate::VersionListDelegate(QAbstractItemView *pItemView, QObject *
 	connect(pItemView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
 	        SLOT(updateCurrent(QModelIndex,QModelIndex)));
 	connect(pItemView->model(), SIGNAL(modelReset()), SLOT(reset()));
-	pItemView->viewport()->installEventFilter(this);
+	pItemView->viewport()->installEventFilter(this); //mouse events
+	pItemView->installEventFilter(this); //keyboard events
 	pItemView->viewport()->setMouseTracking(true);
 }
 
@@ -165,14 +207,14 @@ void VersionListDelegate::paint(QPainter *pPainter, const QStyleOptionViewItem &
 		pPainter->save();
 		pPainter->setClipRect(pOption.rect);
 
-		lAnimation->mRestoreButton.setPosition(pOption.rect.topRight() +
+		lAnimation->mRestoreButton->setPosition(pOption.rect.topRight() +
 		                                       QPoint(-cMargin,
 		                                              pOption.fontMetrics.height() + 2*cMargin));
-		lAnimation->mRestoreButton.paint(pPainter, lAnimation->opacity());
+		lAnimation->mRestoreButton->paint(pPainter, lAnimation->opacity());
 
-		lAnimation->mOpenButton.setPosition(lAnimation->mRestoreButton.mStyleOption.rect.topLeft() +
+		lAnimation->mOpenButton->setPosition(lAnimation->mRestoreButton->mStyleOption.rect.topLeft() +
 		                                    QPoint(-cMargin , 0));
-		lAnimation->mOpenButton.paint(pPainter, lAnimation->opacity());
+		lAnimation->mOpenButton->paint(pPainter, lAnimation->opacity());
 		pPainter->restore();
 	}
 }
@@ -182,20 +224,20 @@ QSize VersionListDelegate::sizeHint(const QStyleOptionViewItem &pOption, const Q
 	int lExtraWidth = 0;
 	VersionItemAnimation *lAnimation = mActiveAnimations.value(pIndex);
 	if(lAnimation != NULL) {
-		int lButtonHeight = lAnimation->mOpenButton.mStyleOption.rect.height();
+		int lButtonHeight = lAnimation->mOpenButton->mStyleOption.rect.height();
 		lExtraHeight = lAnimation->extraHeight() * (lButtonHeight + cMargin);
-		lExtraWidth = lAnimation->mOpenButton.mStyleOption.rect.width() +
-		              lAnimation->mRestoreButton.mStyleOption.rect.width();
+		lExtraWidth = lAnimation->mOpenButton->mStyleOption.rect.width() +
+		              lAnimation->mRestoreButton->mStyleOption.rect.width();
 	}
 	return QSize(lExtraWidth, cMargin*2 + pOption.fontMetrics.height() + lExtraHeight);
 }
 
 bool VersionListDelegate::eventFilter(QObject *pObject, QEvent *pEvent) {
 	foreach (VersionItemAnimation *lAnimation, mActiveAnimations) {
-		if(lAnimation->mOpenButton.event(pEvent)) {
+		if(lAnimation->mOpenButton->event(pEvent)) {
 			emit openRequested(lAnimation->mIndex);
 		}
-		if(lAnimation->mRestoreButton.event(pEvent)) {
+		if(lAnimation->mRestoreButton->event(pEvent)) {
 			emit restoreRequested(lAnimation->mIndex);
 		}
 	}
@@ -209,6 +251,7 @@ void VersionListDelegate::updateCurrent(const QModelIndex &pCurrent, const QMode
 		if(lPrevAnim != NULL) {
 			lPrevAnim->setDirection(QAbstractAnimation::Backward);
 			lPrevAnim->start();
+			lPrevAnim->setFocus(false);
 		}
 	}
 	if(pCurrent.isValid()) {
@@ -226,6 +269,7 @@ void VersionListDelegate::updateCurrent(const QModelIndex &pCurrent, const QMode
 		}
 		lCurAnim->setDirection(QAbstractAnimation::Forward);
 		lCurAnim->start();
+		lCurAnim->setFocus(true);
 	}
 }
 

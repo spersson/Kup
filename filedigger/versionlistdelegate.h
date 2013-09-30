@@ -26,8 +26,10 @@
 #include <QSignalMapper>
 
 
-struct Button {
-	Button(){}
+class Button : public QObject {
+	Q_OBJECT
+
+public:
 	Button(QString pText, QWidget *pParent);
 	bool mPushed;
 	QStyleOptionButton mStyleOption;
@@ -36,6 +38,9 @@ struct Button {
 	void setPosition(const QPoint &pTopRight);
 	void paint(QPainter *pPainter, float pOpacity);
 	bool event(QEvent *pEvent);
+
+signals:
+	void focusChangeRequested(bool pForward);
 };
 
 class VersionItemAnimation : public QParallelAnimationGroup
@@ -55,13 +60,16 @@ signals:
 public slots:
 	void setExtraHeight(float pExtraHeight);
 	void setOpacity(float pOpacity) {mOpacity = pOpacity;}
+	void changeFocus(bool pForward);
+	void setFocus(bool pFocused);
 
 public:
 	QPersistentModelIndex mIndex;
 	float mExtraHeight;
 	float mOpacity;
-	Button mOpenButton;
-	Button mRestoreButton;
+	Button *mOpenButton;
+	Button *mRestoreButton;
+	QWidget *mParent;
 };
 
 class VersionListDelegate : public QAbstractItemDelegate
@@ -75,7 +83,6 @@ public:
 	virtual bool eventFilter(QObject *pObject, QEvent *pEvent);
 
 signals:
-	void updateRequested(const QModelIndex &pIndex);
 	void openRequested(const QModelIndex &pIndex);
 	void restoreRequested(const QModelIndex &pIndex);
 

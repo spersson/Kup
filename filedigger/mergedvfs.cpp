@@ -41,6 +41,10 @@ bool mergedNodeLessThan(const MergedNode *a, const MergedNode *b) {
 	return a->objectName() < b->objectName();
 }
 
+bool versionGreaterThan(const VersionData *a, const VersionData *b) {
+	return a->mModifiedDate > b->mModifiedDate;
+}
+
 
 MergedNode::MergedNode(QObject *pParent, const QString &pName, uint pMode)
    :QObject(pParent)
@@ -50,9 +54,8 @@ MergedNode::MergedNode(QObject *pParent, const QString &pName, uint pMode)
 	mMode = pMode;
 }
 
-KUrl MergedNode::getBupUrl(int pVersionIndex) const {
-	KUrl lBupUrl;
-	lBupUrl.setProtocol(QLatin1String("bup"));
+void MergedNode::getBupUrl(int pVersionIndex, KUrl *pComplete, QString *pRepoPath,
+                           QString *pBranchName, quint64 *pCommitTime, QString *pPathInRepo) const {
 	QList<const MergedNode *> lStack;
 	const MergedNode *lNode = this;
 	while(lNode != NULL) {
@@ -60,13 +63,34 @@ KUrl MergedNode::getBupUrl(int pVersionIndex) const {
 		lNode = qobject_cast<const MergedNode *>(lNode->parent());
 	}
 	const MergedRepository *lRepo = qobject_cast<const MergedRepository *>(lStack.takeLast());
-	lBupUrl.addPath(lRepo->objectName());
-	lBupUrl.addPath(lRepo->mBranchName);
-	lBupUrl.addPath(vfsTimeToString(mVersions.at(pVersionIndex)->mCommitTime));
-	while(!lStack.isEmpty()) {
-		lBupUrl.addPath(lStack.takeLast()->objectName());
+	if(pComplete) {
+		pComplete->setProtocol(QLatin1String("bup"));
+		pComplete->addPath(lRepo->objectName());
+		pComplete->addPath(lRepo->mBranchName);
+		pComplete->addPath(vfsTimeToString(mVersions.at(pVersionIndex)->mCommitTime));
 	}
-	return lBupUrl;
+	if(pRepoPath) {
+		*pRepoPath = lRepo->objectName();
+	}
+	if(pBranchName) {
+		*pBranchName = lRepo->mBranchName;
+	}
+	if(pCommitTime) {
+		*pCommitTime = mVersions.at(pVersionIndex)->mCommitTime;
+	}
+	if(pPathInRepo) {
+		pPathInRepo->clear();
+	}
+	while(!lStack.isEmpty()) {
+		QString lPathComponent = lStack.takeLast()->objectName();
+		if(pComplete) {
+			pComplete->addPath(lPathComponent);
+		}
+		if(pPathInRepo) {
+			pPathInRepo->append(QLatin1Char('/'));
+			pPathInRepo->append(lPathComponent);
+		}
+	}
 }
 
 MergedNodeList &MergedNode::subNodes() {
@@ -83,7 +107,7 @@ void MergedNode::generateSubNodes() {
 	NameMap lSubNodeMap;
 	VersionMapIterator lVersionIter(mVersionMap);
 	while(lVersionIter.hasNext()) {
-		VersionData *lCurrentVersion = mVersions.at(lVersionIter.next().value());
+		VersionData *lCurrentVersion = lVersionIter.next().value();
 		git_tree *lTree;
 		if(0 != git_tree_lookup(&lTree, mRepository, &lVersionIter.key())) {
 			continue;
@@ -116,11 +140,11 @@ void MergedNode::generateSubNodes() {
 				mSubNodes->append(lSubNode);
 			} else if((S_IFMT & lMode) != (S_IFMT & lSubNode->mMode)) {
 				if(S_ISDIR(lMode)) {
-					lName.append(i18n(" (dir)"));
+					lName.append(i18nc("added after folder name in some cases", " (folder)"));
 				} else if(S_ISLNK(lMode)) {
-					lName.append(i18n(" (symlink)"));
+					lName.append(i18nc("added after file name in some cases", " (symlink)"));
 				} else {
-					lName.append(i18n(" (file)"));
+					lName.append(i18nc("added after file name in some cases", " (file)"));
 				}
 				lSubNode = lSubNodeMap.value(lName, NULL);
 				if(lSubNode == NULL) {
@@ -154,8 +178,9 @@ void MergedNode::generateSubNodes() {
 						}
 					}
 				}
-				lSubNode->mVersionMap.insert(*lOid, lSubNode->mVersions.count());
-				lSubNode->mVersions.append(new VersionData(lCurrentVersion->mCommitTime, lModifiedDate, lSize));
+				VersionData *lVersionData = new VersionData(lCurrentVersion->mCommitTime, lModifiedDate, lSize);
+				lSubNode->mVersionMap.insert(*lOid, lVersionData);
+				lSubNode->mVersions.append(lVersionData);
 			}
 		}
 		if(lMetadataStream != NULL) {
@@ -165,6 +190,9 @@ void MergedNode::generateSubNodes() {
 		git_tree_free(lTree);
 	}
 	qSort(mSubNodes->begin(), mSubNodes->end(), mergedNodeLessThan);
+	foreach(MergedNode *lNode, *mSubNodes) {
+		qSort(lNode->mVersions.begin(), lNode->mVersions.end(), versionGreaterThan);
+	}
 }
 
 MergedRepository::MergedRepository(QObject *pParent, const QString &pRepositoryPath, const QString &pBranchName)
@@ -196,8 +224,9 @@ MergedRepository::MergedRepository(QObject *pParent, const QString &pRepositoryP
 			continue;
 		}
 		git_time_t lTime = git_commit_time(lCommit);
-		mVersionMap.insert(*git_commit_tree_id(lCommit), mVersions.count());
-		mVersions.append(new VersionData(lTime, lTime, 0));
+		VersionData *lVersionData = new VersionData(lTime, lTime, 0);
+		mVersionMap.insert(*git_commit_tree_id(lCommit), lVersionData);
+		mVersions.append(lVersionData);
 		git_commit_free(lCommit);
 	}
 }

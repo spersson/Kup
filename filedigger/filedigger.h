@@ -21,15 +21,16 @@
 #ifndef FILEDIGGER_H
 #define FILEDIGGER_H
 
-#include <QSplitter>
+#include <KMainWindow>
+
 class MergedVfsModel;
 class MergedRepository;
 class VersionListModel;
-class QTreeView;
 class QListView;
 class QModelIndex;
+class QTreeView;
 
-class FileDigger : public QSplitter
+class FileDigger : public KMainWindow
 {
 	Q_OBJECT
 public:

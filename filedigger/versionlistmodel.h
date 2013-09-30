@@ -24,6 +24,18 @@
 #include <QAbstractListModel>
 #include "mergedvfs.h"
 
+struct BupSourceInfo {
+	KUrl mBupKioPath;
+	QString mRepoPath;
+	QString mBranchName;
+	QString mPathInRepo;
+	quint64 mCommitTime;
+	quint64 mSize;
+	bool mIsDirectory;
+};
+
+Q_DECLARE_METATYPE(BupSourceInfo)
+
 class VersionListModel : public QAbstractListModel
 {
 	Q_OBJECT
@@ -39,8 +51,10 @@ protected:
 };
 
 enum VersionDataRole {
-	VersionBupUrlRole = Qt::UserRole + 1,
-	VersionMimeTypeRole
+	VersionBupUrlRole = Qt::UserRole + 1, //KUrl
+	VersionMimeTypeRole, //QString
+	VersionSizeRole, // quint64
+	VersionSourceInfoRole //PathInfo
 };
 
 #endif // VERSIONLISTMODEL_H

@@ -44,8 +44,8 @@ struct VersionData {
 class MergedNode;
 typedef QList<MergedNode*> MergedNodeList;
 typedef QListIterator<MergedNode*> MergedNodeListIterator;
-typedef QHash<git_oid, int> VersionMap;
-typedef QHashIterator<git_oid, int> VersionMapIterator;
+typedef QHash<git_oid, VersionData *> VersionMap;
+typedef QHashIterator<git_oid, VersionData *> VersionMapIterator;
 typedef QList<VersionData *> VersionList;
 typedef QListIterator<VersionData *> VersionListIterator;
 
@@ -60,7 +60,8 @@ public:
 		}
 	}
 	bool isDirectory() const { return S_ISDIR(mMode); }
-	KUrl getBupUrl(int pVersionIndex) const;
+	void getBupUrl(int pVersionIndex, KUrl *pComplete, QString *pRepoPath = NULL, QString *pBranchName = NULL,
+	               quint64 *pCommitTime = NULL, QString *pPathInRepo = NULL) const;
 	virtual MergedNodeList &subNodes();
 	const VersionList *versionList() const { return &mVersions; }
 	uint mode() const { return mMode; }
