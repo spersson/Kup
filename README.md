@@ -44,6 +44,7 @@ To compile you need:
   - libkdeui
   - libkfile
   - libsolid
+  - libgit2, version 0.19
 
 Run from the source directory:
 ```
