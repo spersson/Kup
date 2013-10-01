@@ -21,27 +21,19 @@
 #include "bupjob.h"
 
 #include <KLocale>
-
 #include <QDir>
 #include <QTimer>
 
 BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-               const QString &pDestinationPath, bool pRunAsRoot, const QString &pBupPath)
-   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pRunAsRoot),
-     mBupPath(pBupPath)
+               const QString &pDestinationPath, const QString &pBupPath)
+   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath), mBupPath(pBupPath)
 {
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
 }
 
 void BupJob::start() {
-	if(mRunAsRoot) {
-		QVariantMap lArguments;
-		lArguments[QLatin1String("bupPath")] = QDir::homePath() + QDir::separator() + QLatin1String(".bup");
-		startRootHelper(lArguments, BackupPlan::BupType);
-	} else {
-		QTimer::singleShot(0, this, SLOT(startIndexing()));
-	}
+	QTimer::singleShot(0, this, SLOT(startIndexing()));
 }
 
 void BupJob::startIndexing() {

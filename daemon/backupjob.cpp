@@ -22,8 +22,6 @@
 #include "bupjob.h"
 #include "rsyncjob.h"
 
-#include <KLocale>
-
 #include <unistd.h>
 #include <sys/resource.h>
 #ifdef Q_OS_LINUX
@@ -31,48 +29,10 @@
 #endif
 
 BackupJob::BackupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-                     const QString &pDestinationPath, bool pRunAsRoot)
+                     const QString &pDestinationPath)
    :KJob(), mPathsIncluded(pPathsIncluded), mPathsExcluded(pPathsExcluded),
-     mDestinationPath(pDestinationPath), mRunAsRoot(pRunAsRoot)
+     mDestinationPath(pDestinationPath)
 {
-}
-
-void BackupJob::startRootHelper(QVariantMap pArguments, int pBackupType) {
-	pArguments[QLatin1String("type")] = pBackupType;
-	pArguments[QLatin1String("pathsIncluded")] = mPathsIncluded;
-	pArguments[QLatin1String("pathsExcluded")] = mPathsExcluded;
-	pArguments[QLatin1String("destinationPath")] = mDestinationPath;
-	pArguments[QLatin1String("uid")] = (uint)geteuid();
-	pArguments[QLatin1String("gid")] = (uint)getegid();
-
-	Action lAction(QLatin1String("org.kde.kup.runner.takebackup"));
-	lAction.setHelperID(QLatin1String("org.kde.kup.runner"));
-	lAction.setArguments(pArguments);
-	connect(lAction.watcher(), SIGNAL(actionPerformed(ActionReply)), SLOT(slotHelperDone(ActionReply)));
-	ActionReply lReply = lAction.execute();
-	if(checkForError(lReply)) {
-		emitResult();
-	}
-}
-
-void BackupJob::slotHelperDone(ActionReply pReply) {
-	checkForError(pReply);
-	emitResult();
-}
-
-bool BackupJob::checkForError(ActionReply pReply) {
-	if(pReply.failed()) {
-		setError(1);
-		if(pReply.type() == ActionReply::KAuthError) {
-			if(pReply.errorCode() != ActionReply::UserCancelled) {
-				setErrorText(i18nc("@info", "Failed to take backup as root: %1", pReply.errorDescription()));
-			}
-		} else {
-			setErrorText(pReply.errorDescription());
-		}
-		return true;
-	}
-	return false;
 }
 
 void BackupJob::makeNice(int pPid) {

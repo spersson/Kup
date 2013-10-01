@@ -54,6 +54,3 @@ cmake ..
 make
 sudo make install
 ```
-
-Note that this will install a policykit file that allows any user to have kup run 'bup' as root without asking for password.
-

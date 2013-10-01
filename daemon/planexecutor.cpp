@@ -220,11 +220,9 @@ void PlanExecutor::showFilesClicked() {
 
 BackupJob *PlanExecutor::createBackupJob() {
 	if(mPlan->mBackupType == BackupPlan::BupType) {
-		return new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath,
-		                  mPlan->mRunAsRoot);
+		return new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
-		return new RsyncJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath,
-		                    mPlan->mRunAsRoot);
+		return new RsyncJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath);
 	}
 	qWarning("Invalid backup type in configuration!");
 	return NULL;

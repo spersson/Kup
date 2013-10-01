@@ -1,9 +1,0 @@
-[org.kde.kup.runner.takebackup]
-Name=Take Backup
-Description=Kup needs authorization to access system files for the purpose of taking a backup of them.
-Policy=yes
-Persistence=session
-
-[Domain]
-Name=Kup Backup System
-Icon=chronometer

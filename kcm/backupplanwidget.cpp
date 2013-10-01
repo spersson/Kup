@@ -493,15 +493,11 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	QFormLayout *lAdvancedLayout = new QFormLayout;
 
 	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check", "Yes"));
+	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
 	lShowHiddenCheckBox->setObjectName(QLatin1String("kcfg_Show hidden folders"));
 	lAdvancedLayout->addRow(i18nc("@label", "Show hidden folders in source selection:"), lShowHiddenCheckBox);
 
-	QCheckBox *lRunAsRootCheckBox = new QCheckBox(i18nc("@option:check", "Yes"));
-	lRunAsRootCheckBox->setObjectName(QLatin1String("kcfg_Run as root"));
-	lAdvancedLayout->addRow(i18nc("@label", "Take backups as root:"), lRunAsRootCheckBox);
-
 	lAdvancedWidget->setLayout(lAdvancedLayout);
-	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
 	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);
 	lPage->setName(i18nc("@title", "Advanced"));
 	lPage->setHeader(i18nc("@label", "Extra options for advanced users"));

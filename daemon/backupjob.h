@@ -21,10 +21,7 @@
 #ifndef BACKUPJOB_H
 #define BACKUPJOB_H
 
-#include <kauth.h>
-using namespace KAuth;
 #include <KJob>
-
 #include <QStringList>
 
 #include "backupplan.h"
@@ -33,21 +30,13 @@ class BackupJob : public KJob
 {
 	Q_OBJECT
 
-protected slots:
-	void startRootHelper(QVariantMap pArguments, int pBackupType);
-	void slotHelperDone(ActionReply pReply);
-
 protected:
 	BackupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	                   const QString &pDestinationPath, bool pRunAsRoot);
-	bool checkForError(ActionReply pReply);
+	          const QString &pDestinationPath);
 	static void makeNice(int pPid);
 	QStringList mPathsIncluded;
 	QStringList mPathsExcluded;
 	QString mDestinationPath;
-	bool mRunAsRoot;
 };
-
-
 
 #endif // BACKUPJOB_H

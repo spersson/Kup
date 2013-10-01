@@ -21,23 +21,17 @@
 #include "rsyncjob.h"
 
 #include <KLocale>
-
 #include <QTimer>
 
 RsyncJob::RsyncJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-                   const QString &pDestinationPath, bool pRunAsRoot)
-   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pRunAsRoot)
+                   const QString &pDestinationPath)
+   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath)
 {
 	mRsyncProcess.setOutputChannelMode(KProcess::SeparateChannels);
 }
 
 void RsyncJob::start() {
-	if(mRunAsRoot) {
-		QVariantMap lArguments;
-		startRootHelper(lArguments, BackupPlan::RsyncType);
-	} else {
-		QTimer::singleShot(0, this, SLOT(startRsync()));
-	}
+	QTimer::singleShot(0, this, SLOT(startRsync()));
 }
 
 void RsyncJob::startRsync() {

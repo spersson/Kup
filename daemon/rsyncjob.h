@@ -31,7 +31,7 @@ class RsyncJob : public BackupJob
 
 public:
 	RsyncJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	         const QString &pDestinationPath, bool pRunAsRoot);
+	         const QString &pDestinationPath);
 
 	virtual void start();
 

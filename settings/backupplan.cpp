@@ -74,7 +74,6 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	addItemInt(QLatin1String("External partitions count"), mExternalPartitionsOnDrive);
 
 	addItemBool(QLatin1String("Show hidden folders"), mShowHiddenFolders);
-	addItemBool(QLatin1String("Run as root"), mRunAsRoot);
 
 	addItemDateTime(QLatin1String("Last complete backup"), mLastCompleteBackup);
 	addItemDouble(QLatin1String("Last backup size"), mLastBackupSize);
