@@ -142,13 +142,12 @@ void BupSlave::listDir(const KUrl& pUrl) {
 	const int lDetails = sDetails.isEmpty() ? 2 : sDetails.toInt();
 
 	NodeMapIterator i(lDir->subNodes());
-	UDSEntryList lUDSEntryList;
+	UDSEntry lEntry;
 	while(i.hasNext()) {
-		Node *lSubNode = i.next().value();
-		lUDSEntryList.append(UDSEntry());
-		createUDSEntry(lSubNode, lUDSEntryList.last(), lDetails);
+		createUDSEntry(i.next().value(), lEntry, lDetails);
+		emit listEntry(lEntry, false);
 	}
-	emit listEntries(lUDSEntryList);
+	emit listEntry(lEntry, true);
 	emit finished();
 }
 
@@ -328,6 +327,7 @@ QString BupSlave::getGroupName(gid_t pGid) {
 }
 
 void BupSlave::createUDSEntry(Node *pNode, UDSEntry &pUDSEntry, int pDetails) {
+	pUDSEntry.clear();
 	pUDSEntry.insert(KIO::UDSEntry::UDS_NAME, pNode->objectName());
 	if(!pNode->mSymlinkTarget.isEmpty()) {
 		pUDSEntry.insert(KIO::UDSEntry::UDS_LINK_DEST, pNode->mSymlinkTarget);
