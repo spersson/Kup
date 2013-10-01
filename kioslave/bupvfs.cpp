@@ -444,7 +444,7 @@ Repository::Repository(QObject *pParent, const QString &pRepositoryPath)
 		return;
 	}
 	git_strarray lBranchNames;
-	git_reference_list(&lBranchNames, mRepository, GIT_REF_LISTALL);
+	git_reference_list(&lBranchNames, mRepository);
 	for(uint i = 0; i < lBranchNames.count; ++i) {
 		QString lRefName = QString::fromLocal8Bit(lBranchNames.strings[i]);
 		if(lRefName.startsWith(QLatin1String("refs/heads/"))) {
@@ -480,7 +480,7 @@ Repository::~Repository() {
 
 void Repository::generateSubNodes() {
 	git_strarray lBranchNames;
-	git_reference_list(&lBranchNames, mRepository, GIT_REF_LISTALL);
+	git_reference_list(&lBranchNames, mRepository);
 	for(uint i = 0; i < lBranchNames.count; ++i) {
 		QString lRefName = QString::fromLocal8Bit(lBranchNames.strings[i]);
 		if(lRefName.startsWith(QLatin1String("refs/heads/"))) {
