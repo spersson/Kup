@@ -15,8 +15,8 @@ rsyncjob.cpp
 ../settings/kupsettings.cpp
 )
 
-kde4_add_executable(kupdaemon ${kupdaemon_SRCS})
-target_link_libraries(kupdaemon
+kde4_add_kdeinit_executable(kup-daemon ${kupdaemon_SRCS})
+target_link_libraries(kdeinit_kup-daemon
 QtCore
 QtDBus
 QtGui
@@ -34,7 +34,8 @@ solid
 )
 
 ########### install files ###############
-install(TARGETS kupdaemon ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kup-daemon ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kdeinit_kup-daemon ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kupdaemon.desktop DESTINATION ${AUTOSTART_INSTALL_DIR})
 install(FILES kupdaemon.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kupdaemon)
 

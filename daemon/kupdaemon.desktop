@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Kup
 GenericName=Backup Monitor
-Exec=kupdaemon
+Exec=kup-daemon
 Icon=chronometer
 Type=Application
 Terminal=false
