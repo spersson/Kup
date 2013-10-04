@@ -36,6 +36,6 @@ solid
 ########### install files ###############
 install(TARGETS kup-daemon ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kup-daemon ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES kupdaemon.desktop DESTINATION ${AUTOSTART_INSTALL_DIR})
-install(FILES kupdaemon.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kupdaemon)
+install(FILES kup-daemon.desktop DESTINATION ${AUTOSTART_INSTALL_DIR})
+install(FILES kup-daemon.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kup-daemon)
 
