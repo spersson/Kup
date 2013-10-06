@@ -13,7 +13,7 @@ target_link_libraries(kio_bup
 QtCore
 kdecore
 kio
-git2
+git24kup
 )
 
 install(TARGETS kio_bup DESTINATION ${PLUGIN_INSTALL_DIR})

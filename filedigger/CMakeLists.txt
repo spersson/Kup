@@ -23,7 +23,7 @@ kdecore
 kdeui
 kfile
 kio
-git2
+git24kup
 )
 
 ########### install files ###############

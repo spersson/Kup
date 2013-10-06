@@ -1,3 +1,6 @@
+set(BUILD_SHARED_LIBS ON)
+add_subdirectory(libgit2-0.19.0)
+include_directories(${CMAKE_SOURCE_DIR}/libgit2-0.19.0/include)
 project(kup)
 
 find_package(KDE4 REQUIRED)
@@ -11,7 +14,6 @@ else()
 endif()
 
 add_definitions(-DQT_NO_CAST_FROM_ASCII)
-
 
 add_subdirectory(daemon)
 add_subdirectory(icons)
