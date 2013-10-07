@@ -63,13 +63,13 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 	case VersionMimeTypeRole:
 		return KMimeType::findByUrl(mNode->objectName(), mNode->mode())->name();
 	case VersionSizeRole:
-		return lData->mSize;
+		return lData->size();
 	case VersionSourceInfoRole: {
 		BupSourceInfo lSourceInfo;
 		mNode->getBupUrl(pIndex.row(), &lSourceInfo.mBupKioPath, &lSourceInfo.mRepoPath, &lSourceInfo.mBranchName,
 		                 &lSourceInfo.mCommitTime, &lSourceInfo.mPathInRepo);
 		lSourceInfo.mIsDirectory = mNode->isDirectory();
-		lSourceInfo.mSize = lData->mSize;
+		lSourceInfo.mSize = lData->size();
 		return QVariant::fromValue<BupSourceInfo>(lSourceInfo);
 	}
 	default:

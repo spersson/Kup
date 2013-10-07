@@ -67,7 +67,7 @@ void MergedNode::getBupUrl(int pVersionIndex, KUrl *pComplete, QString *pRepoPat
 		pComplete->setProtocol(QLatin1String("bup"));
 		pComplete->addPath(lRepo->objectName());
 		pComplete->addPath(lRepo->mBranchName);
-		pComplete->addPath(vfsTimeToString(mVersions.at(pVersionIndex)->mCommitTime));
+		pComplete->addPath(vfsTimeToString(mVersionList.at(pVersionIndex)->mCommitTime));
 	}
 	if(pRepoPath) {
 		*pRepoPath = lRepo->objectName();
@@ -76,7 +76,7 @@ void MergedNode::getBupUrl(int pVersionIndex, KUrl *pComplete, QString *pRepoPat
 		*pBranchName = lRepo->mBranchName;
 	}
 	if(pCommitTime) {
-		*pCommitTime = mVersions.at(pVersionIndex)->mCommitTime;
+		*pCommitTime = mVersionList.at(pVersionIndex)->mCommitTime;
 	}
 	if(pPathInRepo) {
 		pPathInRepo->clear();
@@ -105,11 +105,9 @@ MergedNodeList &MergedNode::subNodes() {
 
 void MergedNode::generateSubNodes() {
 	NameMap lSubNodeMap;
-	VersionMapIterator lVersionIter(mVersionMap);
-	while(lVersionIter.hasNext()) {
-		VersionData *lCurrentVersion = lVersionIter.next().value();
+	foreach(VersionData *lCurrentVersion, mVersionList) {
 		git_tree *lTree;
-		if(0 != git_tree_lookup(&lTree, mRepository, &lVersionIter.key())) {
+		if(0 != git_tree_lookup(&lTree, mRepository, &lCurrentVersion->mOid)) {
 			continue;
 		}
 		git_blob *lMetadataBlob = NULL;
@@ -153,34 +151,31 @@ void MergedNode::generateSubNodes() {
 					mSubNodes->append(lSubNode);
 				}
 			}
-			if(!lSubNode->mVersionMap.contains(*lOid)) {
-				quint64 lSize;
-				quint64 lModifiedDate;
-				if(S_ISDIR(lMode)) {
-					lSize = 0;
-					lModifiedDate = lCurrentVersion->mModifiedDate;
-				} else {
-					Metadata lMetadata;
-					if(lMetadataStream != NULL && 0 == readMetadata(*lMetadataStream, lMetadata)) {
-						lModifiedDate = lMetadata.mMtime;
-					} else {
-						lModifiedDate = lCurrentVersion->mModifiedDate;
-					}
-					if(lChunked) {
-						lSize = calculateChunkFileSize(lOid, mRepository);
-					} else {
-						git_blob *lBlob;
-						if(0 == git_blob_lookup(&lBlob, mRepository, lOid)) {
-							lSize = git_blob_rawsize(lBlob);
-							git_blob_free(lBlob);
-						} else {
-							lSize = 0;
-						}
-					}
+			bool lAlreadySeen = false;
+			foreach(VersionData *lVersion, lSubNode->mVersionList) {
+				if(lVersion->mOid == *lOid) {
+					lAlreadySeen = true;
+					break;
 				}
-				VersionData *lVersionData = new VersionData(lCurrentVersion->mCommitTime, lModifiedDate, lSize);
-				lSubNode->mVersionMap.insert(*lOid, lVersionData);
-				lSubNode->mVersions.append(lVersionData);
+			}
+			if(S_ISDIR(lMode)) {
+				if(!lAlreadySeen) {
+					lSubNode->mVersionList.append(new VersionData(lOid, lCurrentVersion->mCommitTime,
+					                                              lCurrentVersion->mModifiedDate, 0));
+				}
+			} else {
+				quint64 lModifiedDate;
+				Metadata lMetadata;
+				if(lMetadataStream != NULL && 0 == readMetadata(*lMetadataStream, lMetadata)) {
+					lModifiedDate = lMetadata.mMtime;
+				} else {
+					lModifiedDate = lCurrentVersion->mModifiedDate;
+				}
+				if(!lAlreadySeen) {
+					lSubNode->mVersionList.append(new VersionData(lChunked, lOid,
+					                                              lCurrentVersion->mCommitTime,
+					                                              lModifiedDate));
+				}
 			}
 		}
 		if(lMetadataStream != NULL) {
@@ -191,7 +186,7 @@ void MergedNode::generateSubNodes() {
 	}
 	qSort(mSubNodes->begin(), mSubNodes->end(), mergedNodeLessThan);
 	foreach(MergedNode *lNode, *mSubNodes) {
-		qSort(lNode->mVersions.begin(), lNode->mVersions.end(), versionGreaterThan);
+		qSort(lNode->mVersionList.begin(), lNode->mVersionList.end(), versionGreaterThan);
 	}
 }
 
@@ -224,9 +219,7 @@ MergedRepository::MergedRepository(QObject *pParent, const QString &pRepositoryP
 			continue;
 		}
 		git_time_t lTime = git_commit_time(lCommit);
-		VersionData *lVersionData = new VersionData(lTime, lTime, 0);
-		mVersionMap.insert(*git_commit_tree_id(lCommit), lVersionData);
-		mVersions.append(lVersionData);
+		mVersionList.append(new VersionData(git_commit_tree_id(lCommit), lTime, lTime, 0));
 		git_commit_free(lCommit);
 	}
 }
@@ -249,4 +242,24 @@ bool operator ==(const git_oid &pOidA, const git_oid &pOidB) {
 	QByteArray a = QByteArray::fromRawData((char *)pOidA.id, GIT_OID_RAWSZ);
 	QByteArray b = QByteArray::fromRawData((char *)pOidB.id, GIT_OID_RAWSZ);
 	return a == b;
+}
+
+
+quint64 VersionData::size() {
+	if(mSizeIsValid) {
+		return mSize;
+	}
+	if(mChunkedFile) {
+		mSize = calculateChunkFileSize(&mOid, MergedNode::mRepository);
+	} else {
+		git_blob *lBlob;
+		if(0 == git_blob_lookup(&lBlob, MergedNode::mRepository, &mOid)) {
+			mSize = git_blob_rawsize(lBlob);
+			git_blob_free(lBlob);
+		} else {
+			mSize = 0;
+		}
+	}
+	mSizeIsValid = true;
+	return mSize;
 }

@@ -32,26 +32,38 @@ bool operator ==(const git_oid &pOidA, const git_oid &pOidB);
 #include <sys/stat.h>
 
 struct VersionData {
-	VersionData(quint64 pCommitTime, quint64 pModifiedDate, quint64 pSize)
-	   : mCommitTime(pCommitTime), mModifiedDate(pModifiedDate), mSize(pSize)
-	{}
+	VersionData(bool pChunkedFile, const git_oid *pOid, quint64 pCommitTime, quint64 pModifiedDate)
+	   :mChunkedFile(pChunkedFile), mOid(*pOid), mCommitTime(pCommitTime), mModifiedDate(pModifiedDate)
+	{
+		mSizeIsValid = false;
+	}
 
+	VersionData(const git_oid *pOid, quint64 pCommitTime, quint64 pModifiedDate, quint64 pSize)
+	   :mOid(*pOid), mCommitTime(pCommitTime), mModifiedDate(pModifiedDate), mSize(pSize)
+	{
+		mSizeIsValid = true;
+	}
+
+	quint64 size();
+	bool mSizeIsValid;
+	bool mChunkedFile;
+	git_oid mOid;
 	quint64 mCommitTime;
 	quint64 mModifiedDate;
+
+protected:
 	quint64 mSize;
 };
 
 class MergedNode;
 typedef QList<MergedNode*> MergedNodeList;
 typedef QListIterator<MergedNode*> MergedNodeListIterator;
-typedef QHash<git_oid, VersionData *> VersionMap;
-typedef QHashIterator<git_oid, VersionData *> VersionMapIterator;
 typedef QList<VersionData *> VersionList;
 typedef QListIterator<VersionData *> VersionListIterator;
 
 class MergedNode: public QObject {
 	Q_OBJECT
-
+	friend class VersionData;
 public:
 	MergedNode(QObject *pParent, const QString &pName, uint pMode);
 	virtual ~MergedNode() {
@@ -63,7 +75,7 @@ public:
 	void getBupUrl(int pVersionIndex, KUrl *pComplete, QString *pRepoPath = NULL, QString *pBranchName = NULL,
 	               quint64 *pCommitTime = NULL, QString *pPathInRepo = NULL) const;
 	virtual MergedNodeList &subNodes();
-	const VersionList *versionList() const { return &mVersions; }
+	const VersionList *versionList() const { return &mVersionList; }
 	uint mode() const { return mMode; }
 
 protected:
@@ -72,8 +84,7 @@ protected:
 	static git_revwalk *mRevisionWalker;
 	static git_repository *mRepository;
 	uint mMode;
-	VersionMap mVersionMap;
-	VersionList mVersions;
+	VersionList mVersionList;
 	MergedNodeList *mSubNodes;
 };
 
