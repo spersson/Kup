@@ -21,6 +21,7 @@
 #include "versionlistdelegate.h"
 #include "versionlistmodel.h"
 
+#include <KGlobal>
 #include <KLocale>
 #include <QAbstractItemView>
 #include <QAbstractItemModel>
@@ -198,8 +199,16 @@ void VersionListDelegate::paint(QPainter *pPainter, const QStyleOptionViewItem &
 	pPainter->save();
 	pPainter->setPen(pOption.palette.color(pOption.state & QStyle::State_Selected
 	                                       ? QPalette::HighlightedText: QPalette::Text));
-	QString lDateText = pOption.fontMetrics.elidedText(pIndex.data().toString(), Qt::ElideRight, pOption.rect.width() /*- sizeKBRect.width */);
-	pPainter->drawText(pOption.rect.topLeft() + QPoint(cMargin, cMargin+pOption.fontMetrics.ascent()), lDateText);
+	QRect lMarginRect = pOption.rect.adjusted(cMargin, cMargin, -cMargin, -cMargin);
+
+	QRect lSizeDisplayBounds;
+	if(!pIndex.data(VersionIsDirectoryRole).toBool()) {
+		QString lSizeText = KGlobal::locale()->formatByteSize((double)pIndex.data(VersionSizeRole).toULongLong(), 1);
+		pPainter->drawText(lMarginRect, Qt::AlignRight | Qt::AlignTop, lSizeText, &lSizeDisplayBounds);
+	}
+	QString lDateText = pOption.fontMetrics.elidedText(pIndex.data().toString(), Qt::ElideRight,
+	                                                   lMarginRect.width() - lSizeDisplayBounds.width());
+	pPainter->drawText(lMarginRect, Qt::AlignLeft | Qt::AlignTop, lDateText);
 	pPainter->restore();
 
 	VersionItemAnimation *lAnimation = mActiveAnimations.value(pIndex);

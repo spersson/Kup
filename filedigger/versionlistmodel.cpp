@@ -72,6 +72,8 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 		lSourceInfo.mSize = lData->size();
 		return QVariant::fromValue<BupSourceInfo>(lSourceInfo);
 	}
+	case VersionIsDirectoryRole:
+		return mNode->isDirectory();
 	default:
 		return QVariant();
 	}

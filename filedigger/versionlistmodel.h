@@ -51,10 +51,11 @@ protected:
 };
 
 enum VersionDataRole {
-	VersionBupUrlRole = Qt::UserRole + 1, //KUrl
-	VersionMimeTypeRole, //QString
+	VersionBupUrlRole = Qt::UserRole + 1, // KUrl
+	VersionMimeTypeRole, // QString
 	VersionSizeRole, // quint64
-	VersionSourceInfoRole //PathInfo
+	VersionSourceInfoRole, // PathInfo
+	VersionIsDirectoryRole // bool
 };
 
 #endif // VERSIONLISTMODEL_H
