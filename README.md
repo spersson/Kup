@@ -8,7 +8,7 @@ In general Kup tries to not disturb you needlessly.
 There are two types of backup schemes supported, one which keeps the backup folder completely in sync with what you have on your computer, deleting from the backup any file that you have deleted on your computer etc. The other scheme also keeps older versions of your files in the backup folder. When using this, only the small parts of your files that has actually changed since last backup will be saved and therefore incremental backups are very cheap. This is especially useful if you are working on big files. At the same time it's as easy to access your files as if a complete backup was taken every time; every backup contains a complete version of your directories. Behind the scenes all the content that is actually the same is only stored once. To make this happen Kup runs the backup program "bup" in the background, look at https://github.com/bup/bup for more details.
 
 ## What the Kup backup system consists of ##
-- Configuration module, available in your system settings. Here you can configure backup plans, what to include, where to backup to and how often. You can also see the status for the backup plans here.
+- Configuration module, available in your system settings. Here you can configure backup plans, what to include, where to store the backup and how often. You can also see the status for the backup plans here.
 - A small program running in the background. It will monitor to see when your backup destination is available, schedule and run your backup plans. It has a system tray icon that shows up when a backup destination is available.
 - Kioslave for accessing bup archives. This allows you to open files and folders directly from an archive, with any KDE application.
 - A file browsing application for bup archives, allowing you to locate the file you want to restore more easily than with the kioslave. It also helps you restore files or folders.
@@ -38,7 +38,6 @@ To compile you need:
   - libkdeui
   - libkfile
   - libsolid
-  - libgit2, version 0.19
 
 Run from the source directory:
 ```
