@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kup 0.3.1\n"
-"Report-Msgid-Bugs-To: http://kde-"
-"apps.org/content/show.php/Kup+Backup+System?content=147465\n"
-"POT-Creation-Date: 2013-09-30 17:03+0700\n"
-"PO-Revision-Date: 2013-10-12 01:18+0200\n"
+"Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
+"content=147465\n"
+"POT-Creation-Date: 2013-11-22 21:54+0100\n"
+"PO-Revision-Date: 2013-11-22 21:48+0100\n"
 "Last-Translator: Georg Lassnig <g.lassnig@e67-its.de>\n"
 "Language-Team: E67-ITS\n"
 "Language: de\n"
@@ -16,14 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Lokalize 1.5\n"
 
-#: daemon/backupjob.cpp:68
-msgctxt "@info"
-msgid "Failed to take backup as root: %1"
-msgstr "Datensicherung als Benutzer root fehlgeschlagen: %1"
-
-#: daemon/bupjob.cpp:53
+#: daemon/bupjob.cpp:45
 msgctxt "notification"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
@@ -32,7 +27,7 @@ msgstr ""
 "Das \"bup\" Programm wird benötigt, konnte aber nicht gefunden werden. Bitte "
 "bup installieren."
 
-#: daemon/bupjob.cpp:67
+#: daemon/bupjob.cpp:59
 msgctxt "notification"
 msgid ""
 "Backup destination could not be initialised by bup:\n"
@@ -41,7 +36,7 @@ msgstr ""
 "Das Zeil der Datensicherung konnte durch bup nicht inizialisiert weden:\n"
 "%1"
 
-#: daemon/bupjob.cpp:97
+#: daemon/bupjob.cpp:89
 msgctxt "notification"
 msgid ""
 "Indexing of file system did not complete successfully:\n"
@@ -50,7 +45,7 @@ msgstr ""
 "Die Indizierung des Dateisystems war nur zum Teil erfolgreich:\n"
 "%1"
 
-#: daemon/bupjob.cpp:124 daemon/rsyncjob.cpp:75
+#: daemon/bupjob.cpp:116 daemon/rsyncjob.cpp:69
 msgctxt "notification"
 msgid ""
 "Backup did not complete successfully:\n"
@@ -116,7 +111,7 @@ msgctxt "@action:inmenu"
 msgid "Configure Backups"
 msgstr "Datensicherungen konfigurieren"
 
-#: daemon/main.cpp:31
+#: daemon/main.cpp:30
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
 "This allows it to quickly perform incremental backups, only saving the parts "
@@ -127,24 +122,34 @@ msgstr ""
 "Datensicherungen, dabei werden nur die Dateien erneut gesichert, die seit "
 "der letzten Datensicherung geändert wurden."
 
-#: daemon/main.cpp:40
+#: daemon/main.cpp:39
 msgid "Kup is not enabled, enable it from the system settings module."
 msgstr ""
 "Kup ist nicht aktiviert, aktivieren Sie es über das Modul in den "
 "Systemeinstellungen."
 
-#: daemon/main.cpp:43
+#: daemon/main.cpp:42
 msgctxt "@title"
 msgid "Kup Daemon"
 msgstr "Kup Dämon"
 
-#: daemon/main.cpp:44
+#: daemon/main.cpp:43
 msgid "Copyright (C) 2011 Simon Persson"
 msgstr "Copyright (C) 2011 Simon Persson"
 
-#: daemon/main.cpp:46 filedigger/main.cpp:40 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:45 filedigger/main.cpp:40 kcm/kupkcm.cpp:54
 msgid "Simon Persson"
 msgstr "Simon Persson"
+
+#: daemon/main.cpp:46 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Georg Lassnig"
+
+#: daemon/main.cpp:46 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "g.assnig@e67-its.de"
 
 #: daemon/main.cpp:51
 msgid "Kup is already running!"
@@ -198,71 +203,14 @@ msgctxt "@action:button"
 msgid "No"
 msgstr "Nein"
 
-#: daemon/rsyncjob.cpp:49
+#: daemon/rsyncjob.cpp:43
 msgctxt "notification"
 msgid ""
 "The \"rsync\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
-"Das \"rsync\" Programm wird benötigt, konnte aber nicht gefunden werden. Bitte "
-"rsync installieren."
-
-#: debug/filedigger/ui_restoredialog.h:420
-msgid "Restore Guide"
-msgstr "Wiederherstellungshandbuch"
-
-#: debug/filedigger/ui_restoredialog.h:421
-msgid "Restore to original location"
-msgstr "Am ursprünglichen Speicherort wiederherstellen"
-
-#: debug/filedigger/ui_restoredialog.h:422
-msgid "Choose where to restore"
-msgstr "Ein Ziel zum Wiederherstellen wählen"
-
-#: debug/filedigger/ui_restoredialog.h:423
-#: debug/filedigger/ui_restoredialog.h:429
-msgid "Back"
-msgstr "Zurück"
-
-#: debug/filedigger/ui_restoredialog.h:424
-msgid "Next"
-msgstr "Weiter"
-
-#: debug/filedigger/ui_restoredialog.h:426
-msgid "Restore the folder under a new name"
-msgstr "Wiederherstellen der Ordner unter einem neuen Namen"
-
-#: debug/filedigger/ui_restoredialog.h:427
-msgid "Merge folders"
-msgstr "Ordner zusammenführen"
-
-#: debug/filedigger/ui_restoredialog.h:428
-msgid ""
-"The following files would be overwritten, please confirm that you wish to "
-"continue."
-msgstr ""
-"Die folgenden Dateien werden überschrieben. Bitte bestätigen Sie, dass Sie "
-"fortfahren möchten."
-
-#: debug/filedigger/ui_restoredialog.h:430
-msgid "Confirm"
-msgstr "Bestätigen"
-
-#: debug/filedigger/ui_restoredialog.h:431
-msgid "An error occured while restoring:"
-msgstr "Während der Wiederherstellung ist ein Fehler aufgetreten:"
-
-#: debug/filedigger/ui_restoredialog.h:432
-msgid "Restoration completed sucessfully!"
-msgstr "Wiederherstellung erfolgreich abgeschlossen!"
-
-#: debug/filedigger/ui_restoredialog.h:433
-msgid "Open Destination"
-msgstr "Zielordner öffnen"
-
-#: debug/filedigger/ui_restoredialog.h:434
-msgid "Close"
-msgstr "Schließen"
+"Das \"rsync\" Programm wird benötigt, konnte aber nicht gefunden werden. "
+"Bitte rsync installieren."
 
 #: filedigger/main.cpp:34
 msgid "Browser for bup archives."
@@ -276,15 +224,15 @@ msgstr "Datei Digger"
 msgid "Copyright (C) 2013 Simon Persson"
 msgstr "Copyright (C) 2013 Simon Persson"
 
-#: filedigger/main.cpp:44
+#: filedigger/main.cpp:45
 msgid "Name of the branch to be opened."
 msgstr "Der Name des Zweigs, der geöffnet werden soll."
 
-#: filedigger/main.cpp:45
+#: filedigger/main.cpp:46
 msgid "Path to the bup repository to be opened."
 msgstr "Pfad zum bup Repositorium, das geöffnet werden soll."
 
-#: filedigger/main.cpp:52
+#: filedigger/main.cpp:53
 msgctxt "Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
@@ -293,22 +241,22 @@ msgstr ""
 "Sie müssen den Pfad zu einem bup oder git-Repositorium, das Sie zur Ansicht "
 "öffnen wollen, angeben."
 
-#: filedigger/main.cpp:61
+#: filedigger/main.cpp:62
 msgctxt "@info:label messagebox"
 msgid "The specified bup repository could not be opened."
 msgstr "Das angegebene bup Reüositorium konnte nicht geöffnet werden."
 
-#: filedigger/mergedvfs.cpp:143
+#: filedigger/mergedvfs.cpp:141
 msgctxt "added after folder name in some cases"
 msgid " (folder)"
 msgstr " (Ordner)"
 
-#: filedigger/mergedvfs.cpp:145
+#: filedigger/mergedvfs.cpp:143
 msgctxt "added after file name in some cases"
 msgid " (symlink)"
 msgstr " (Verknüpfung)"
 
-#: filedigger/mergedvfs.cpp:147
+#: filedigger/mergedvfs.cpp:145
 msgctxt "added after file name in some cases"
 msgid " (file)"
 msgstr " (Datei"
@@ -392,12 +340,12 @@ msgctxt "progress report, label"
 msgid "File:"
 msgstr "Datei:"
 
-#: filedigger/versionlistdelegate.cpp:133
+#: filedigger/versionlistdelegate.cpp:134
 msgctxt "@action:button"
 msgid "Open"
 msgstr "Öffnen"
 
-#: filedigger/versionlistdelegate.cpp:135
+#: filedigger/versionlistdelegate.cpp:136
 msgctxt "@action:button"
 msgid "Restore"
 msgstr "Wiederherstellen"
@@ -465,12 +413,12 @@ msgid ""
 "mistakes."
 msgstr ""
 "Diese Art der Sicherung ist ein Ordner, der mit dem ausgewählten Quell-"
-"Ordner synchronisiert wird. Diese Art eines Backup bedeutet, dass das "
-"Backup-Ziel eine exakte Kopie Ihrer Quell-Ordner enthält und sonst nichts. "
-"Wenn eine Datei in einem Quell-Ordner gelöscht wird, wird diese auch im "
-"Backup-Ordner gelöscht.<br>Diese Art der Sicherung kann Sie gegen "
-"Datenverlust durch einen defekte Festplatte zu schützen, aber es hilft "
-"nicht, um von Sie vor eigenen Fehlern zu schützen."
+"Ordner synchronisiert wird. Diese Art eines Backup bedeutet, dass das Backup-"
+"Ziel eine exakte Kopie Ihrer Quell-Ordner enthält und sonst nichts. Wenn "
+"eine Datei in einem Quell-Ordner gelöscht wird, wird diese auch im Backup-"
+"Ordner gelöscht.<br>Diese Art der Sicherung kann Sie gegen Datenverlust "
+"durch einen defekte Festplatte zu schützen, aber es hilft nicht, um von Sie "
+"vor eigenen Fehlern zu schützen."
 
 #: kcm/backupplanwidget.cpp:259
 msgctxt "@option:radio"
@@ -645,27 +593,22 @@ msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "Geben Sie den Sicherungszeitplan an"
 
-#: kcm/backupplanwidget.cpp:495 kcm/backupplanwidget.cpp:499
+#: kcm/backupplanwidget.cpp:495
 msgctxt "@option:check"
 msgid "Yes"
 msgstr "Ja"
 
-#: kcm/backupplanwidget.cpp:497
+#: kcm/backupplanwidget.cpp:498
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
 msgstr "Versteckte Verzeichnisse in der Auswahl anzeigen:"
 
-#: kcm/backupplanwidget.cpp:501
-msgctxt "@label"
-msgid "Take backups as root:"
-msgstr "Datensicherungs als root ausführen:"
-
-#: kcm/backupplanwidget.cpp:506
+#: kcm/backupplanwidget.cpp:502
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: kcm/backupplanwidget.cpp:507
+#: kcm/backupplanwidget.cpp:503
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Einstellungen für erfahrene Benutzer"
@@ -745,7 +688,7 @@ msgstr "Copyright (C) 2011 Simon Persson"
 msgid "Maintainer"
 msgstr "Hauptentwickler"
 
-#: kcm/kupkcm.cpp:80
+#: kcm/kupkcm.cpp:81
 msgctxt "@info"
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
@@ -754,26 +697,26 @@ msgid ""
 msgstr ""
 "<h2>Backupprogramme fehlen</h2><p>Bevor Sie ein Backup aktivieren können, "
 "installieren Sie eines der folgenden Programme</p><ul><li>bup, für "
-"Versionsverwaltete Backups</li><li>rsync, für synchronisierte "
-"Backups</li></ul>"
+"Versionsverwaltete Backups</li><li>rsync, für synchronisierte Backups</li></"
+"ul>"
 
-#: kcm/kupkcm.cpp:148
+#: kcm/kupkcm.cpp:149
 msgctxt "@title:dialog"
 msgid "Warning"
 msgstr "Warnung"
 
-#: kcm/kupkcm.cpp:150
+#: kcm/kupkcm.cpp:151
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<br>No backups will be saved by this plan."
 msgstr "%1 hat kein Ziel<br>Es werden keine Backups von diesem Plan erstellt."
 
-#: kcm/kupkcm.cpp:239
+#: kcm/kupkcm.cpp:240
 msgctxt "@action:button"
 msgid "Add New Plan"
 msgstr "Neuer Datensicherungsplan"
 
-#: kcm/kupkcm.cpp:242
+#: kcm/kupkcm.cpp:243
 msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr "Datensicherungen aktiviert"
@@ -809,8 +752,8 @@ msgid "This backup plan has never been run."
 msgstr "Dieser Sicherungsplan wurde nie ausgeführt."
 
 #: kioslave/bupslave.cpp:67 kioslave/bupslave.cpp:124
-#: kioslave/bupslave.cpp:163 kioslave/bupslave.cpp:226
-#: kioslave/bupslave.cpp:248
+#: kioslave/bupslave.cpp:162 kioslave/bupslave.cpp:225
+#: kioslave/bupslave.cpp:247
 msgid ""
 "No bup repository found.\n"
 "%1"
@@ -818,25 +761,116 @@ msgstr ""
 "Kein bup Repositorium gefunden.\n"
 "%1"
 
-#: po/rc.cpp:1 rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Georg Lassnig"
+#. i18n: file: filedigger/restoredialog.ui:14
+#. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
+#: po/rc.cpp:3 rc.cpp:3
+msgctxt "@title: window"
+msgid "Restore Guide"
+msgstr "Wiederherstellungshandbuch"
 
-#: po/rc.cpp:2 rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "g.assnig@e67-its.de"
+#. i18n: file: filedigger/restoredialog.ui:55
+#. i18n: ectx: property (text), widget (QPushButton, mRestoreOriginalButton)
+#: po/rc.cpp:6 rc.cpp:6
+msgctxt "@action:button"
+msgid "Restore to original location"
+msgstr "Am ursprünglichen Speicherort wiederherstellen"
 
-#: po/rc.cpp:3 settings/backupplan.cpp:69 rc.cpp:3
+#. i18n: file: filedigger/restoredialog.ui:78
+#. i18n: ectx: property (text), widget (QPushButton, mRestoreCustomButton)
+#: po/rc.cpp:9 rc.cpp:9
+msgctxt "@action:button"
+msgid "Choose where to restore"
+msgstr "Ein Ziel zum Wiederherstellen wählen"
+
+#. i18n: file: filedigger/restoredialog.ui:132
+#. i18n: ectx: property (text), widget (QPushButton, mDestBackButton)
+#: po/rc.cpp:12 rc.cpp:12
+msgctxt "@action:button"
+msgid "Back"
+msgstr "Zurück"
+
+#. i18n: file: filedigger/restoredialog.ui:144
+#. i18n: ectx: property (text), widget (QPushButton, mDestNextButton)
+#: po/rc.cpp:15 rc.cpp:15
+msgctxt "@action:button"
+msgid "Next"
+msgstr "Weiter"
+
+#. i18n: file: filedigger/restoredialog.ui:175
+#. i18n: ectx: property (text), widget (QRadioButton, mNewNameRadioButton)
+#: po/rc.cpp:18 rc.cpp:18
+msgctxt "@option:radio "
+msgid "Restore the folder under a new name"
+msgstr "Wiederherstellen der Ordner unter einem neuen Namen"
+
+#. i18n: file: filedigger/restoredialog.ui:208
+#. i18n: ectx: property (text), widget (QRadioButton, mOverwriteRadioButton)
+#: po/rc.cpp:21 rc.cpp:21
+msgctxt "@option:radio"
+msgid "Merge folders"
+msgstr "Ordner zusammenführen"
+
+#. i18n: file: filedigger/restoredialog.ui:238
+#. i18n: ectx: property (text), widget (QLabel, mConfirmOverwriteLabel)
+#: po/rc.cpp:24 rc.cpp:24
+msgctxt "@info Question to user, in dialog"
+msgid ""
+"The following files would be overwritten, please confirm that you wish to "
+"continue."
+msgstr ""
+"Die folgenden Dateien werden überschrieben. Bitte bestätigen Sie, dass Sie "
+"fortfahren möchten."
+
+#. i18n: file: filedigger/restoredialog.ui:274
+#. i18n: ectx: property (text), widget (QPushButton, mOverwriteBackButton)
+#: po/rc.cpp:27 rc.cpp:27
+msgctxt "@action:button go to previous page in dialog"
+msgid "Back"
+msgstr "Zurück"
+
+#. i18n: file: filedigger/restoredialog.ui:286
+#. i18n: ectx: property (text), widget (QPushButton, mConfirmButton)
+#: po/rc.cpp:30 rc.cpp:30
+msgctxt "@action:button User answers \"yes I confirm: overwrite files\""
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#. i18n: file: filedigger/restoredialog.ui:341
+#. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
+#: po/rc.cpp:33 rc.cpp:33
+msgctxt "@label above the detailed error messsage"
+msgid "An error occured while restoring:"
+msgstr "Während der Wiederherstellung ist ein Fehler aufgetreten:"
+
+#. i18n: file: filedigger/restoredialog.ui:372
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:36 rc.cpp:36
+msgctxt "@label"
+msgid "Restoration completed sucessfully!"
+msgstr "Wiederherstellung erfolgreich abgeschlossen!"
+
+#. i18n: file: filedigger/restoredialog.ui:413
+#. i18n: ectx: property (text), widget (KPushButton, mOpenDestinationButton)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "Open Destination"
+msgstr "Zielordner öffnen"
+
+#. i18n: file: filedigger/restoredialog.ui:472
+#. i18n: ectx: property (text), widget (QPushButton, mCloseButton)
+#: po/rc.cpp:42 rc.cpp:42
+msgctxt "@action:button"
+msgid "Close"
+msgstr "Schließen"
+
+#: po/rc.cpp:43 settings/backupplan.cpp:69 rc.cpp:43
 msgid "Backups"
 msgstr "Datensicherungen"
 
-#: po/rc.cpp:4 rc.cpp:4
+#: po/rc.cpp:44 rc.cpp:44
 msgid "Configure backup plans"
 msgstr "Datensicherungen konfigurieren"
 
-#: po/rc.cpp:5 rc.cpp:5
+#: po/rc.cpp:45 rc.cpp:45
 msgid "backup,recovery,safety"
 msgstr "Datensicherung, Wiederherstellung, Sicherheit"
 
@@ -847,42 +881,3 @@ msgctxt ""
 msgid "Backup plan %1"
 msgstr "Datensicherungsplan %1"
 
-#, fuzzy
-#~ msgid "(C) 2013 Simon Persson"
-#~ msgstr "Copyright (C) 2011 Simon Persson"
-
-#~ msgctxt "@info:progress"
-#~ msgid "Checking what has changed since last backup..."
-#~ msgstr "Änderungen seit der letzten Datensicherung anzeigen..."
-
-#~ msgctxt "@info:progress"
-#~ msgid "Saving changes to backup destination..."
-#~ msgstr "Änderungen werden in das Ziel der Datensicherung gespeichert..."
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "Error when trying to unmount backup archive:</nl><message>%1</message>"
-#~ msgstr ""
-#~ "Es ist ein Fehler beim aushängen des Datensicherungsziel aufgetreten:</"
-#~ "nl><message>%1</message>"
-
-#~ msgctxt "@info"
-#~ msgid "Error when trying to mount backup archive:</nl><message>%1</message>"
-#~ msgstr ""
-#~ "Es ist ein Fehler beim einhängen des Datensicherungsziel aufgetreten:</"
-#~ "nl><message>%1</message>"
-
-#~ msgctxt "@option:radio"
-#~ msgid "Manual Only"
-#~ msgstr "Manuell"
-
-#~ msgctxt "@info:label"
-#~ msgid ""
-#~ "You need to install the program called \"bup\" before you can activate "
-#~ "any backup plans."
-#~ msgstr ""
-#~ "Sie müssen \"bup\" installieren, bevor Sie Zeitpläne für die "
-#~ "Datensicherungen erstellen können."
-
-#~ msgid "No media in device for %1"
-#~ msgstr "Kein Medium im Gerät für %1"

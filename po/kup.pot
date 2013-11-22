@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2013-09-30 17:03+0700\n"
+"POT-Creation-Date: 2013-11-22 21:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,33 +18,28 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: daemon/backupjob.cpp:68
-msgctxt "@info"
-msgid "Failed to take backup as root: %1"
-msgstr ""
-
-#: daemon/bupjob.cpp:53
+#: daemon/bupjob.cpp:45
 msgctxt "notification"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
 
-#: daemon/bupjob.cpp:67
+#: daemon/bupjob.cpp:59
 msgctxt "notification"
 msgid ""
 "Backup destination could not be initialised by bup:\n"
 "%1"
 msgstr ""
 
-#: daemon/bupjob.cpp:97
+#: daemon/bupjob.cpp:89
 msgctxt "notification"
 msgid ""
 "Indexing of file system did not complete successfully:\n"
 "%1"
 msgstr ""
 
-#: daemon/bupjob.cpp:124 daemon/rsyncjob.cpp:75
+#: daemon/bupjob.cpp:116 daemon/rsyncjob.cpp:69
 msgctxt "notification"
 msgid ""
 "Backup did not complete successfully:\n"
@@ -108,28 +103,38 @@ msgctxt "@action:inmenu"
 msgid "Configure Backups"
 msgstr ""
 
-#: daemon/main.cpp:31
+#: daemon/main.cpp:30
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
 "This allows it to quickly perform incremental backups, only saving the parts "
 "of files that has actually changed since last backup was taken."
 msgstr ""
 
-#: daemon/main.cpp:40
+#: daemon/main.cpp:39
 msgid "Kup is not enabled, enable it from the system settings module."
 msgstr ""
 
-#: daemon/main.cpp:43
+#: daemon/main.cpp:42
 msgctxt "@title"
 msgid "Kup Daemon"
 msgstr ""
 
-#: daemon/main.cpp:44
+#: daemon/main.cpp:43
 msgid "Copyright (C) 2011 Simon Persson"
 msgstr ""
 
-#: daemon/main.cpp:46 filedigger/main.cpp:40 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:45 filedigger/main.cpp:40 kcm/kupkcm.cpp:54
 msgid "Simon Persson"
+msgstr ""
+
+#: daemon/main.cpp:46 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: daemon/main.cpp:46 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
 msgstr ""
 
 #: daemon/main.cpp:51
@@ -180,66 +185,11 @@ msgctxt "@action:button"
 msgid "No"
 msgstr ""
 
-#: daemon/rsyncjob.cpp:49
+#: daemon/rsyncjob.cpp:43
 msgctxt "notification"
 msgid ""
 "The \"rsync\" program is needed but could not be found, maybe it is not "
 "installed?"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:420
-msgid "Restore Guide"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:421
-msgid "Restore to original location"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:422
-msgid "Choose where to restore"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:423
-#: debug/filedigger/ui_restoredialog.h:429
-msgid "Back"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:424
-msgid "Next"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:426
-msgid "Restore the folder under a new name"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:427
-msgid "Merge folders"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:428
-msgid ""
-"The following files would be overwritten, please confirm that you wish to "
-"continue."
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:430
-msgid "Confirm"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:431
-msgid "An error occured while restoring:"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:432
-msgid "Restoration completed sucessfully!"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:433
-msgid "Open Destination"
-msgstr ""
-
-#: debug/filedigger/ui_restoredialog.h:434
-msgid "Close"
 msgstr ""
 
 #: filedigger/main.cpp:34
@@ -254,37 +204,37 @@ msgstr ""
 msgid "Copyright (C) 2013 Simon Persson"
 msgstr ""
 
-#: filedigger/main.cpp:44
+#: filedigger/main.cpp:45
 msgid "Name of the branch to be opened."
 msgstr ""
 
-#: filedigger/main.cpp:45
+#: filedigger/main.cpp:46
 msgid "Path to the bup repository to be opened."
 msgstr ""
 
-#: filedigger/main.cpp:52
+#: filedigger/main.cpp:53
 msgctxt "Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
 "for viewing."
 msgstr ""
 
-#: filedigger/main.cpp:61
+#: filedigger/main.cpp:62
 msgctxt "@info:label messagebox"
 msgid "The specified bup repository could not be opened."
 msgstr ""
 
-#: filedigger/mergedvfs.cpp:143
+#: filedigger/mergedvfs.cpp:141
 msgctxt "added after folder name in some cases"
 msgid " (folder)"
 msgstr ""
 
-#: filedigger/mergedvfs.cpp:145
+#: filedigger/mergedvfs.cpp:143
 msgctxt "added after file name in some cases"
 msgid " (symlink)"
 msgstr ""
 
-#: filedigger/mergedvfs.cpp:147
+#: filedigger/mergedvfs.cpp:145
 msgctxt "added after file name in some cases"
 msgid " (file)"
 msgstr ""
@@ -363,12 +313,12 @@ msgctxt "progress report, label"
 msgid "File:"
 msgstr ""
 
-#: filedigger/versionlistdelegate.cpp:133
+#: filedigger/versionlistdelegate.cpp:134
 msgctxt "@action:button"
 msgid "Open"
 msgstr ""
 
-#: filedigger/versionlistdelegate.cpp:135
+#: filedigger/versionlistdelegate.cpp:136
 msgctxt "@action:button"
 msgid "Restore"
 msgstr ""
@@ -581,27 +531,22 @@ msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:495 kcm/backupplanwidget.cpp:499
+#: kcm/backupplanwidget.cpp:495
 msgctxt "@option:check"
 msgid "Yes"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:497
+#: kcm/backupplanwidget.cpp:498
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:501
-msgctxt "@label"
-msgid "Take backups as root:"
-msgstr ""
-
-#: kcm/backupplanwidget.cpp:506
+#: kcm/backupplanwidget.cpp:502
 msgctxt "@title"
 msgid "Advanced"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:507
+#: kcm/backupplanwidget.cpp:503
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr ""
@@ -677,7 +622,7 @@ msgstr ""
 msgid "Maintainer"
 msgstr ""
 
-#: kcm/kupkcm.cpp:80
+#: kcm/kupkcm.cpp:81
 msgctxt "@info"
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
@@ -685,23 +630,23 @@ msgid ""
 "li><li>rsync, for synchronized backups</li></ul>"
 msgstr ""
 
-#: kcm/kupkcm.cpp:148
+#: kcm/kupkcm.cpp:149
 msgctxt "@title:dialog"
 msgid "Warning"
 msgstr ""
 
-#: kcm/kupkcm.cpp:150
+#: kcm/kupkcm.cpp:151
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<br>No backups will be saved by this plan."
 msgstr ""
 
-#: kcm/kupkcm.cpp:239
+#: kcm/kupkcm.cpp:240
 msgctxt "@action:button"
 msgid "Add New Plan"
 msgstr ""
 
-#: kcm/kupkcm.cpp:242
+#: kcm/kupkcm.cpp:243
 msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr ""
@@ -737,32 +682,121 @@ msgid "This backup plan has never been run."
 msgstr ""
 
 #: kioslave/bupslave.cpp:67 kioslave/bupslave.cpp:124
-#: kioslave/bupslave.cpp:163 kioslave/bupslave.cpp:226
-#: kioslave/bupslave.cpp:248
+#: kioslave/bupslave.cpp:162 kioslave/bupslave.cpp:225
+#: kioslave/bupslave.cpp:247
 msgid ""
 "No bup repository found.\n"
 "%1"
 msgstr ""
 
-#: po/rc.cpp:1 rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
+#. i18n: file: filedigger/restoredialog.ui:14
+#. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
+#: po/rc.cpp:3 rc.cpp:3
+msgctxt "@title: window"
+msgid "Restore Guide"
 msgstr ""
 
-#: po/rc.cpp:2 rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
+#. i18n: file: filedigger/restoredialog.ui:55
+#. i18n: ectx: property (text), widget (QPushButton, mRestoreOriginalButton)
+#: po/rc.cpp:6 rc.cpp:6
+msgctxt "@action:button"
+msgid "Restore to original location"
 msgstr ""
 
-#: po/rc.cpp:3 settings/backupplan.cpp:69 rc.cpp:3
+#. i18n: file: filedigger/restoredialog.ui:78
+#. i18n: ectx: property (text), widget (QPushButton, mRestoreCustomButton)
+#: po/rc.cpp:9 rc.cpp:9
+msgctxt "@action:button"
+msgid "Choose where to restore"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:132
+#. i18n: ectx: property (text), widget (QPushButton, mDestBackButton)
+#: po/rc.cpp:12 rc.cpp:12
+msgctxt "@action:button"
+msgid "Back"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:144
+#. i18n: ectx: property (text), widget (QPushButton, mDestNextButton)
+#: po/rc.cpp:15 rc.cpp:15
+msgctxt "@action:button"
+msgid "Next"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:175
+#. i18n: ectx: property (text), widget (QRadioButton, mNewNameRadioButton)
+#: po/rc.cpp:18 rc.cpp:18
+msgctxt "@option:radio "
+msgid "Restore the folder under a new name"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:208
+#. i18n: ectx: property (text), widget (QRadioButton, mOverwriteRadioButton)
+#: po/rc.cpp:21 rc.cpp:21
+msgctxt "@option:radio"
+msgid "Merge folders"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:238
+#. i18n: ectx: property (text), widget (QLabel, mConfirmOverwriteLabel)
+#: po/rc.cpp:24 rc.cpp:24
+msgctxt "@info Question to user, in dialog"
+msgid ""
+"The following files would be overwritten, please confirm that you wish to "
+"continue."
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:274
+#. i18n: ectx: property (text), widget (QPushButton, mOverwriteBackButton)
+#: po/rc.cpp:27 rc.cpp:27
+msgctxt "@action:button go to previous page in dialog"
+msgid "Back"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:286
+#. i18n: ectx: property (text), widget (QPushButton, mConfirmButton)
+#: po/rc.cpp:30 rc.cpp:30
+msgctxt "@action:button User answers \"yes I confirm: overwrite files\""
+msgid "Confirm"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:341
+#. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
+#: po/rc.cpp:33 rc.cpp:33
+msgctxt "@label above the detailed error messsage"
+msgid "An error occured while restoring:"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:372
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:36 rc.cpp:36
+msgctxt "@label"
+msgid "Restoration completed sucessfully!"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:413
+#. i18n: ectx: property (text), widget (KPushButton, mOpenDestinationButton)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "Open Destination"
+msgstr ""
+
+#. i18n: file: filedigger/restoredialog.ui:472
+#. i18n: ectx: property (text), widget (QPushButton, mCloseButton)
+#: po/rc.cpp:42 rc.cpp:42
+msgctxt "@action:button"
+msgid "Close"
+msgstr ""
+
+#: po/rc.cpp:43 settings/backupplan.cpp:69 rc.cpp:43
 msgid "Backups"
 msgstr ""
 
-#: po/rc.cpp:4 rc.cpp:4
+#: po/rc.cpp:44 rc.cpp:44
 msgid "Configure backup plans"
 msgstr ""
 
-#: po/rc.cpp:5 rc.cpp:5
+#: po/rc.cpp:45 rc.cpp:45
 msgid "backup,recovery,safety"
 msgstr ""
 

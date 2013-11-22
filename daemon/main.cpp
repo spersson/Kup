@@ -43,6 +43,7 @@ extern "C" int KDE_EXPORT kdemain(int argc, char **argv) {
 	                  KAboutData::License_GPL, ki18n("Copyright (C) 2011 Simon Persson"),
 	                  KLocalizedString(), 0, "simonpersson1@gmail.com");
 	lAbout.addAuthor(ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com");
+	lAbout.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	KCmdLineArgs::init(argc, argv, &lAbout);
 
 	KUniqueApplication::addCmdLineOptions();

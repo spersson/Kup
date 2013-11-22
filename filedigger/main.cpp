@@ -37,7 +37,8 @@ int main(int pArgCount, char **pArgArray) {
 	KAboutData lAbout("filedigger", 0, ki18n("File Digger"), version, ki18n(description),
 	                  KAboutData::License_GPL, ki18n("Copyright (C) 2013 Simon Persson"),
 	                  KLocalizedString(), 0, "simonpersson1@gmail.com");
-	lAbout.addAuthor( ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com" );
+	lAbout.addAuthor(ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com");
+	lAbout.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	KCmdLineArgs::init(pArgCount, pArgArray, &lAbout);
 
 	KCmdLineOptions lOptions;
