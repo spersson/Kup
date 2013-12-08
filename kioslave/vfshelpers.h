@@ -29,9 +29,9 @@ protected:
 struct Metadata {
 	Metadata() {}
 	Metadata(quint64 pMode);
-	quint64 mMode;
-	quint64 mUid;
-	quint64 mGid;
+	qint64 mMode;
+	qint64 mUid;
+	qint64 mGid;
 	qint64 mAtime;
 	qint64 mMtime;
 	QString mSymlinkTarget;

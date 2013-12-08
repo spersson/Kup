@@ -9,13 +9,14 @@
 
 #define RECORD_END 0
 #define RECORD_PATH 1
-#define RECORD_COMMON 2 // times, user, group, type, perms, etc.
+#define RECORD_COMMON 2 // times, user, group, type, perms, etc. (legacy version 1)
 #define RECORD_SYMLINK_TARGET 3
 #define RECORD_POSIX1E_ACL 4 // getfacl(1), setfacl(1), etc.
 #define RECORD_NFSV4_ACL 5 // intended to supplant posix1e acls?
 #define RECORD_LINUX_ATTR 6 // lsattr(1) chattr(1)
 #define RECORD_LINUX_XATTR 7 // getfattr(1) setfattr(1)
 #define RECORD_HARDLINK_TARGET 8 // hard link target
+#define RECORD_COMMON_V2 9 // times, user, group, type, perms, etc.
 
 
 VintStream::VintStream(const void *pData, int pSize, QObject *pParent)
@@ -103,12 +104,28 @@ int readMetadata(VintStream &pMetadataStream, Metadata &pMetadata) {
 			switch(lTag) {
 			case RECORD_COMMON: {
 				qint64 lNotUsedInt;
+				quint64 lNotUsedUint, lTempUint;
+				QString lNotUsedString;
+				pMetadataStream >> lNotUsedUint >> lTempUint;
+				pMetadata.mMode = lTempUint;
+				pMetadataStream >> lTempUint >> lNotUsedString; // user name
+				pMetadata.mUid = lTempUint;
+				pMetadataStream >> lTempUint >> lNotUsedString; // group name
+				pMetadata.mGid = lTempUint;
+				pMetadataStream >> lNotUsedUint; // device number
+				pMetadataStream >> pMetadata.mAtime >> lNotUsedUint; //nanoseconds
+				pMetadataStream >> pMetadata.mMtime >> lNotUsedUint; // nanoseconds
+				pMetadataStream >> lNotUsedInt >> lNotUsedUint; // status change time
+				break;
+			}
+			case RECORD_COMMON_V2: {
+				qint64 lNotUsedInt;
 				quint64 lNotUsedUint;
 				QString lNotUsedString;
 				pMetadataStream >> lNotUsedUint >> pMetadata.mMode;
 				pMetadataStream >> pMetadata.mUid >> lNotUsedString; // user name
 				pMetadataStream >> pMetadata.mGid >> lNotUsedString; // group name
-				pMetadataStream >> lNotUsedUint; // device number
+				pMetadataStream >> lNotUsedInt; // device number
 				pMetadataStream >> pMetadata.mAtime >> lNotUsedUint; //nanoseconds
 				pMetadataStream >> pMetadata.mMtime >> lNotUsedUint; // nanoseconds
 				pMetadataStream >> lNotUsedInt >> lNotUsedUint; // status change time
