@@ -9,9 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
 "POT-Creation-Date: 2013-11-22 21:54+0100\n"
-"PO-Revision-Date: 2013-11-22 22:09+0100\n"
-"Last-Translator: Wendy Pungtilan <faye_333@yahoo.com.sg>\n"
-"Language-Team: Tagalog <kde-i18n-tl@kde.org>\n"
+"PO-Revision-Date: 2013-11-28 18:30+0200\n"
 "Language: tl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -224,9 +222,8 @@ msgid "File Digger"
 msgstr ""
 
 #: filedigger/main.cpp:38
-#, fuzzy
 msgid "Copyright (C) 2013 Simon Persson"
-msgstr "Karapatang-ari (C) 2011 ni Simon Persson"
+msgstr "Karapatang-ari (C) 2013 ni Simon Persson"
 
 #: filedigger/main.cpp:45
 msgid "Name of the branch to be opened."
@@ -252,10 +249,9 @@ msgid "The specified bup repository could not be opened."
 msgstr ""
 
 #: filedigger/mergedvfs.cpp:141
-#, fuzzy
 msgctxt "added after folder name in some cases"
 msgid " (folder)"
-msgstr "Piliin ang polder"
+msgstr "(polder)"
 
 #: filedigger/mergedvfs.cpp:143
 msgctxt "added after file name in some cases"
@@ -275,7 +271,7 @@ msgstr "Bagong polder"
 #: filedigger/restoredialog.cpp:123 filedigger/restoredialog.cpp:142
 msgctxt "@info message bar appearing on top"
 msgid "No destination was selected, please select one."
-msgstr ""
+msgstr "Walang pang napiling destinasyon, kailangang pumili ng isa."
 
 #: filedigger/restoredialog.cpp:242
 msgctxt "@info message bar appearing on top"
@@ -796,17 +792,16 @@ msgstr ""
 #. i18n: file: filedigger/restoredialog.ui:132
 #. i18n: ectx: property (text), widget (QPushButton, mDestBackButton)
 #: po/rc.cpp:12 rc.cpp:12
-#, fuzzy
 msgctxt "@action:button"
 msgid "Back"
-msgstr "Mga seguridad na kopya"
+msgstr "Bumalik"
 
 #. i18n: file: filedigger/restoredialog.ui:144
 #. i18n: ectx: property (text), widget (QPushButton, mDestNextButton)
 #: po/rc.cpp:15 rc.cpp:15
 msgctxt "@action:button"
 msgid "Next"
-msgstr ""
+msgstr "Susunod"
 
 #. i18n: file: filedigger/restoredialog.ui:175
 #. i18n: ectx: property (text), widget (QRadioButton, mNewNameRadioButton)
@@ -843,10 +838,9 @@ msgstr "Mga seguridad na kopya"
 #. i18n: file: filedigger/restoredialog.ui:286
 #. i18n: ectx: property (text), widget (QPushButton, mConfirmButton)
 #: po/rc.cpp:30 rc.cpp:30
-#, fuzzy
 msgctxt "@action:button User answers \"yes I confirm: overwrite files\""
 msgid "Confirm"
-msgstr "Magkompigura"
+msgstr "Kompirmahin"
 
 #. i18n: file: filedigger/restoredialog.ui:341
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
@@ -898,3 +892,35 @@ msgctxt ""
 msgid "Backup plan %1"
 msgstr "Plano ng seguridad na kopya %1"
 
+#~ msgctxt "@info"
+#~ msgid "Failed to take backup as root: %1"
+#~ msgstr "Hindi nakakuha ng seguridad na kopya bilang ugat: %1"
+
+#~ msgctxt "@label"
+#~ msgid "Take backups as root:"
+#~ msgstr "Kunin ang mga seguridad na kopya bilang ugat:"
+
+#, fuzzy
+#~ msgid "(C) 2013 Simon Persson"
+#~ msgstr "Karapatang-ari (C) 2011 ni Simon Persson"
+
+#~ msgctxt "notification"
+#~ msgid ""
+#~ "Error when trying to unmount backup archive:\n"
+#~ "%1"
+#~ msgstr ""
+#~ "Nagkaroon ng problema habang sinusubukang tinatanggal ang imbakan ng "
+#~ "seguridad na kopya:\n"
+#~ "%1"
+
+#~ msgctxt "notification"
+#~ msgid ""
+#~ "Error when trying to mount backup archive:\n"
+#~ "%1"
+#~ msgstr ""
+#~ "Nagkaroon ng problema habang sinusubukang ilagay ang imbakan ng seguridad "
+#~ "na kopya:\n"
+#~ "%1"
+
+#~ msgid "No media in device for %1"
+#~ msgstr "Walang midya sa kagamitan para %1"
