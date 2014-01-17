@@ -20,7 +20,7 @@
 #include <KRun>
 #include <KUrlCompletion>
 #include <KUrlPixmapProvider>
-#include <KWidgetJobTracker>
+#include <kwidgetjobtracker.h>
 #include <QDir>
 #include <QSignalMapper>
 #include <QTimer>
