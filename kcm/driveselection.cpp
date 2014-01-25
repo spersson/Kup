@@ -123,7 +123,9 @@ void DriveSelection::delayedDeviceAdded() {
 	QList<Solid::Device> lVolumeDeviceList;
 	foreach(Solid::Device lVolumeDevice, lDeviceList) {
 		Solid::StorageVolume *lVolume = lVolumeDevice.as<Solid::StorageVolume>();
-		if (lVolume && lVolume->usage() == Solid::StorageVolume::FileSystem && !lVolume->isIgnored()) {
+		if(lVolume && !lVolume->isIgnored() && (
+		         lVolume->usage() == Solid::StorageVolume::FileSystem ||
+		         lVolume->usage() == Solid::StorageVolume::Encrypted)) {
 			lVolumeDeviceList.append(lVolumeDevice);
 		}
 	}
