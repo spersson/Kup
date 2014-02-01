@@ -1,22 +1,14 @@
-1. Adding a new language
-From a terminal, change directory into the "po" directory, then run
+For translators:
 
-msginit -l <language code>
+Please visit https://www.transifex.com/projects/p/kup/ and create an account 
+there, join an existing language team or request a new language. Then just 
+start translating directly in the web interface there or download the .po file 
+for offline translation in a locally installed translation editor, for example 
+virtaal, poedit or lokalize. Most texts should have a "context" attached to 
+them, informing you a little about how each text string is used.
 
-where <language code> is the code for the language you are adding. You will
-then get a new file called <language code>.po which you can edit with the
-very nice "lokalize" program. This file will contain some hopefully helpful
-context for each text so that you can understand where and how the text will
-be displayed. After translating all or most of the strings, email the new .po
-file to software maintainer for inclusion.
+For developers:
 
-2. Updating a translation
-If texts in the software has been changed, the .po files will have some entries
-marked as "needs review" or "untranslated" in Lokalize. Check if they still
-look good, change if needed or just approve them. Send updated .po file to software
-maintainer.
-
-3. Nice to know, for developers mostly.
 The script called "extract-messages.sh" is designed to be run from the "po"
 directory. It can be run at any time and should never cause any dataloss or
 other problems. It extracts text strings that needs translation from the source
