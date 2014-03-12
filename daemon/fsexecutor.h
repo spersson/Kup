@@ -23,12 +23,27 @@
 
 #include "planexecutor.h"
 
+#include <QThread>
+
 class BackupPlan;
 
 class KDirWatch;
 class KJob;
 
 class QTimer;
+
+// KDirWatch (well, inotify) does not detect when something gets mounted on a watched directory.
+// work around this problem by monitoring the mounts of the system in a separate thread.
+class MountWatcher: public QThread {
+	Q_OBJECT
+
+signals:
+	void mountsChanged();
+
+protected:
+	virtual void run();
+};
+
 
 // Plan executor that stores the backup to a path in the local
 // filesystem, uses KDirWatch to monitor for when the folder
@@ -49,10 +64,12 @@ protected slots:
 	virtual void startBackup();
 	void slotBackupDone(KJob *pJob);
 	void slotBackupSizeDone(KJob *pJob);
+	void checkMountPoints();
 
 protected:
 	QString mWatchedParentDir;
 	KDirWatch *mDirWatch;
+	MountWatcher mMountWatcher;
 };
 
 #endif // FSEXECUTOR_H

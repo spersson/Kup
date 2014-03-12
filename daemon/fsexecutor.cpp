@@ -31,6 +31,9 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QTimer>
+#include <QTextStream>
+
+#include <fcntl.h>
 
 FSExecutor::FSExecutor(BackupPlan *pPlan, QObject *pParent)
    :PlanExecutor(pPlan, pParent)
@@ -38,6 +41,7 @@ FSExecutor::FSExecutor(BackupPlan *pPlan, QObject *pParent)
 	mDestinationPath = QDir::cleanPath(mPlan->mFilesystemDestinationPath.toLocalFile());
 	mDirWatch = new KDirWatch(this);
 	connect(mDirWatch, SIGNAL(deleted(QString)), SLOT(checkStatus()));
+	mMountWatcher.start();
 }
 
 void FSExecutor::checkStatus() {
@@ -72,6 +76,7 @@ void FSExecutor::checkStatus() {
 				mDirWatch->removeDir(mWatchedParentDir);
 			} else { // start watching a parent
 				connect(mDirWatch, SIGNAL(dirty(QString)), SLOT(checkStatus()));
+				connect(&mMountWatcher, SIGNAL(mountsChanged()), SLOT(checkMountPoints()), Qt::QueuedConnection);
 			}
 			mWatchedParentDir = lExisting;
 			mDirWatch->addDir(mWatchedParentDir);
@@ -83,6 +88,7 @@ void FSExecutor::checkStatus() {
 		// Destination exists... only watch for delete
 		if(!mWatchedParentDir.isEmpty()) {
 			disconnect(mDirWatch, SIGNAL(dirty(QString)), this, SLOT(checkStatus()));
+			disconnect(&mMountWatcher, SIGNAL(mountsChanged()), this, SLOT(checkMountPoints()));
 			mDirWatch->removeDir(mWatchedParentDir);
 			mWatchedParentDir.clear();
 		}
@@ -137,4 +143,38 @@ void FSExecutor::slotBackupSizeDone(KJob *pJob) {
 	}
 	mPlan->writeConfig();
 	exitBackupRunningState(pJob->error() == 0);
+}
+
+void FSExecutor::checkMountPoints() {
+	QFile lMountsFile(QLatin1String("/proc/mounts"));
+	if(!lMountsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		return;
+	}
+	// don't use atEnd() to detect when finished reading file, size of
+	// this special file is 0 but still returns data when read.
+	forever {
+		QByteArray lLine = lMountsFile.readLine();
+		if(lLine.isEmpty()) {
+			break;
+		}
+		QTextStream lTextStream(lLine);
+		QString lDevice, lMountPoint;
+		lTextStream >> lDevice >> lMountPoint;
+		if(lMountPoint == mWatchedParentDir) {
+			checkStatus();
+		}
+	}
+}
+
+void MountWatcher::run() {
+	int lMountsFd = open("/proc/mounts", O_RDONLY);
+	fd_set lFdSet;
+
+	forever {
+		FD_ZERO(&lFdSet);
+		FD_SET(lMountsFd, &lFdSet);
+		if(select(lMountsFd+1, NULL, NULL, &lFdSet, NULL) > 0) {
+			emit mountsChanged();
+		}
+	}
 }
