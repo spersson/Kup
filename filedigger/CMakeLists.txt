@@ -17,12 +17,12 @@ add_definitions(-fexceptions)
 kde4_add_ui_files(filedigger_SRCS restoredialog.ui)
 kde4_add_executable(kup-filedigger ${filedigger_SRCS})
 target_link_libraries(kup-filedigger
-QtCore
-QtGui
-kdecore
-kdeui
-kfile
-kio
+${QT_QTCORE_LIBRARY}
+${QT_QTGUI_LIBRARY}
+${KDE4_KDECORE_LIBRARY}
+${KDE4_KDEUI_LIBRARY}
+${KDE4_KIO_LIBRARY}
+${KDE4_KFILE_LIBRARY}
 git24kup
 )
 

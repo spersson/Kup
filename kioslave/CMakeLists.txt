@@ -8,11 +8,9 @@ vfshelpers.cpp
 
 kde4_add_plugin(kio_bup ${bupslave_SRCS})
 target_link_libraries(kio_bup
-#${KDE4_KIO_LIBS}
-# save some unneeded linking by naming the needed libraries directly
-QtCore
-kdecore
-kio
+${QT_QTCORE_LIBRARY}
+${KDE4_KDECORE_LIBRARY}
+${KDE4_KIO_LIBRARY}
 git24kup
 )
 
