@@ -30,7 +30,7 @@
 #include <KCmdLineArgs>
 #include <KMessageBox>
 
-static const char version[] = "0.4";
+static const char version[] = "0.4.1";
 static const char description[] = I18N_NOOP("Browser for bup archives.");
 
 int main(int pArgCount, char **pArgArray) {

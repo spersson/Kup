@@ -31,7 +31,7 @@ static const char description[] = I18N_NOOP("Kup is a flexible backup solution u
                                             "This allows it to quickly perform incremental backups, only saving the "
                                             "parts of files that has actually changed since last backup was taken.");
 
-static const char version[] = "0.4";
+static const char version[] = "0.4.1";
 
 extern "C" int KDE_EXPORT kdemain(int argc, char **argv) {
 	KupDaemon *lDaemon = new KupDaemon();
