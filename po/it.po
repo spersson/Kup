@@ -1,60 +1,51 @@
-# Italian translations for kup package.
-# Copyright (C) 2013 THE kup'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the kup package.
-#
-# Francesco <franzmari@chakra-project.it>, 2013.
-# Francesco Marinucci <framarinucci@gmail.com>, 2013.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# FranzMari <franzmari@chakra-project.it>, 2013
+# Francesco Marinucci <framarinucci@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: kup 0.3\n"
-"Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
-"content=147465\n"
+"Project-Id-Version: kup\n"
+"Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?content=147465\n"
 "POT-Creation-Date: 2013-11-22 21:54+0100\n"
-"PO-Revision-Date: 2013-11-22 22:05+0100\n"
-"Last-Translator: Francesco Marinucci <framarinucci@gmail.com>\n"
-"Language-Team: Italian <kde-i18n-it@kde.org>\n"
-"Language: it\n"
+"PO-Revision-Date: 2014-02-01 04:48+0000\n"
+"Last-Translator: spersson <simonpersson1@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/kup/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
 
 #: daemon/bupjob.cpp:45
 msgctxt "notification"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
 "installed?"
-msgstr ""
-"Il programma \"bup\" è necessario ma non è stato trovato; forse non è "
-"installato?"
+msgstr "Il programma \"bup\" è necessario ma non è stato trovato; forse non è installato?"
 
 #: daemon/bupjob.cpp:59
 msgctxt "notification"
 msgid ""
 "Backup destination could not be initialised by bup:\n"
 "%1"
-msgstr ""
-"Bup non può inizializzare la destinazione di backup:\n"
-"%1"
+msgstr "Bup non può inizializzare la destinazione di backup:\n%1"
 
 #: daemon/bupjob.cpp:89
 msgctxt "notification"
 msgid ""
 "Indexing of file system did not complete successfully:\n"
 "%1"
-msgstr ""
-"L'indicizzazione del file system non è stata completata:\n"
-"%1"
+msgstr "L'indicizzazione del file system non è stata completata:\n%1"
 
 #: daemon/bupjob.cpp:116 daemon/rsyncjob.cpp:69
 msgctxt "notification"
 msgid ""
 "Backup did not complete successfully:\n"
 "%1"
-msgstr ""
-"Il backup non è stato completato:\n"
-"%1"
+msgstr "Il backup non è stato completato:\n%1"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:134
 #: daemon/edexecutor.cpp:152 daemon/fsexecutor.cpp:103
@@ -116,19 +107,13 @@ msgstr "Configura i backup"
 #: daemon/main.cpp:30
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
-"This allows it to quickly perform incremental backups, only saving the parts "
-"of files that has actually changed since last backup was taken."
-msgstr ""
-"Kup è una soluzione flessibile per i backup che utilizza il sistema di "
-"salvataggio dei backup 'bup'. Ciò gli consente di eseguire rapidamente "
-"backup incrementali, salvando solo le parti dei file che sono state "
-"realmente modificate da quando è stato eseguito l'ultimo backup. "
+"This allows it to quickly perform incremental backups, only saving the parts"
+" of files that has actually changed since last backup was taken."
+msgstr "Kup è una soluzione flessibile per i backup che utilizza il sistema di salvataggio dei backup 'bup'. Ciò gli consente di eseguire rapidamente backup incrementali, salvando solo le parti dei file che sono state realmente modificate da quando è stato eseguito l'ultimo backup. "
 
 #: daemon/main.cpp:39
 msgid "Kup is not enabled, enable it from the system settings module."
-msgstr ""
-"Kup non è abilitato, puoi abilitarlo dal modulo nelle impostazioni di "
-"sistema."
+msgstr "Kup non è abilitato, puoi abilitarlo dal modulo nelle impostazioni di sistema."
 
 #: daemon/main.cpp:42
 msgctxt "@title"
@@ -184,9 +169,7 @@ msgctxt "@info"
 msgid ""
 "You've been active with this computer for %1 since the last backup was "
 "taken, do you want to take a backup now?"
-msgstr ""
-"Hai utilizzato attivamente il computer per %1 da quando è stato eseguito "
-"l'ultimo backup, vuoi eseguirne uno adesso?"
+msgstr "Hai utilizzato attivamente il computer per %1 da quando è stato eseguito l'ultimo backup, vuoi eseguirne uno adesso?"
 
 #: daemon/planexecutor.cpp:132
 msgctxt "@title:window"
@@ -208,9 +191,7 @@ msgctxt "notification"
 msgid ""
 "The \"rsync\" program is needed but could not be found, maybe it is not "
 "installed?"
-msgstr ""
-"Il programma \"rsync\" è necessario ma non è stato trovato; forse non è "
-"installato?"
+msgstr "Il programma \"rsync\" è necessario ma non è stato trovato; forse non è installato?"
 
 #: filedigger/main.cpp:34
 msgid "Browser for bup archives."
@@ -237,9 +218,7 @@ msgctxt "Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
 "for viewing."
-msgstr ""
-"Devi indicare il percorso al repository bup o git  che vuoi aprire per "
-"visualizzarlo."
+msgstr "Devi indicare il percorso al repository bup o git  che vuoi aprire per visualizzarlo."
 
 #: filedigger/main.cpp:62
 msgctxt "@info:label messagebox"
@@ -276,9 +255,7 @@ msgctxt "@info message bar appearing on top"
 msgid ""
 "The destination does not have enough space available. Please choose a "
 "different destination or free some space."
-msgstr ""
-"La destinazione non ha abbastanza spazio disponibile. Seleziona una "
-"destinazione diversa o libera dello spazio."
+msgstr "La destinazione non ha abbastanza spazio disponibile. Seleziona una destinazione diversa o libera dello spazio."
 
 #: filedigger/restoredialog.cpp:252
 msgctxt ""
@@ -317,9 +294,7 @@ msgctxt "@label:textbox"
 msgid ""
 "Create new folder in:\n"
 "%1"
-msgstr ""
-"Crea la nuova cartella in:\n"
-"%1"
+msgstr "Crea la nuova cartella in:\n%1"
 
 #: filedigger/restoredialog.cpp:366 kcm/backupplanwidget.cpp:173
 msgid "A folder named %1 already exists."
@@ -373,20 +348,10 @@ msgid ""
 "were deleted on your computer at a later time. The storage space needed is "
 "minimized by looking for common parts of your files between versions and "
 "only storing those parts once. Nevertheless, the backup archive will keep "
-"growing in size as time goes by.<br>Also important to know is that the files "
-"in the archive can not be accessed directly with a general file manager, a "
+"growing in size as time goes by.<br>Also important to know is that the files"
+" in the archive can not be accessed directly with a general file manager, a "
 "special program is needed."
-msgstr ""
-"Questo tipo di backup consiste in un <em>archivio</em>. Contiene l'ultima "
-"versione dei tuoi file ed anche quelle archiviate in precedenza. Usando "
-"questo tipo di backup potrai ripristinare versioni più vecchie dei tuoi "
-"file, o file che erano stati cancellati dal computer in un secondo momento. "
-"Lo spazio di archiviazione richiesto è ridotto al minimo cercando le parti "
-"dei file in comune tra le differenti versioni e salvando tali parti solo una "
-"volta. Tuttavia, l'archivio di backup continuerà ad aumentare di dimensioni "
-"man mano che passa il tempo.<br>È importante sapere che i file nell'archivio "
-"non sono accessibili tramite un normale file manager, ma è necessario un "
-"programma apposito."
+msgstr "Questo tipo di backup consiste in un <em>archivio</em>. Contiene l'ultima versione dei tuoi file ed anche quelle archiviate in precedenza. Usando questo tipo di backup potrai ripristinare versioni più vecchie dei tuoi file, o file che erano stati cancellati dal computer in un secondo momento. Lo spazio di archiviazione richiesto è ridotto al minimo cercando le parti dei file in comune tra le differenti versioni e salvando tali parti solo una volta. Tuttavia, l'archivio di backup continuerà ad aumentare di dimensioni man mano che passa il tempo.<br>È importante sapere che i file nell'archivio non sono accessibili tramite un normale file manager, ma è necessario un programma apposito."
 
 #: kcm/backupplanwidget.cpp:239
 msgctxt "@option:radio"
@@ -404,25 +369,16 @@ msgid ""
 "This type of backup is a folder which is synchronized with your selected "
 "source folders. Taking a backup simply means making the backup destination "
 "contain an exact copy of your source folders as they are now and nothing "
-"else. If a file has been deleted in a source folder it will get deleted from "
-"the backup folder.<br>This type of backup can protect you against data loss "
-"due to a broken hard drive but it does not help you to recover from your own "
-"mistakes."
-msgstr ""
-"Questo tipo di backup consiste in una cartella che viene sincronizzata con "
-"le cartelle sorgente che hai selezionato. Eseguire un backup consiste "
-"semplicemente nel rendere la cartella di destinazione una copia esatta del "
-"contenuto delle cartelle sorgente allo stato attuale e null'altro. Se un "
-"file è stato cancellato dalla cartella sorgente, verrà cancellato anche "
-"dalla cartella di backup.<br>Questo tipo di backup può proteggerti dalla "
-"perdita di dati dovuta ad un disco rotto, ma non ti aiuta a rimediare ai "
-"tuoi stessi errori."
+"else. If a file has been deleted in a source folder it will get deleted from"
+" the backup folder.<br>This type of backup can protect you against data loss"
+" due to a broken hard drive but it does not help you to recover from your "
+"own mistakes."
+msgstr "Questo tipo di backup consiste in una cartella che viene sincronizzata con le cartelle sorgente che hai selezionato. Eseguire un backup consiste semplicemente nel rendere la cartella di destinazione una copia esatta del contenuto delle cartelle sorgente allo stato attuale e null'altro. Se un file è stato cancellato dalla cartella sorgente, verrà cancellato anche dalla cartella di backup.<br>Questo tipo di backup può proteggerti dalla perdita di dati dovuta ad un disco rotto, ma non ti aiuta a rimediare ai tuoi stessi errori."
 
 #: kcm/backupplanwidget.cpp:259
 msgctxt "@option:radio"
 msgid "Synchronized Backup (not available because \"rsync\" is not installed)"
-msgstr ""
-"Backup sincronizzato (non disponibile perché \"rsync\" non è installato)"
+msgstr "Backup sincronizzato (non disponibile perché \"rsync\" non è installato)"
 
 #: kcm/backupplanwidget.cpp:263
 msgctxt "@option:radio"
@@ -463,12 +419,9 @@ msgstr "Archivio esterno"
 msgctxt "@label"
 msgid ""
 "You can use this option for backing up to networked storage if you always "
-"mount it at the same path. The path specified here does not need to exist at "
-"all times, its existance will be monitored."
-msgstr ""
-"Puoi usare questa opzione per salvare il backup su un dispositivo di rete, "
-"se lo monti sempre nello stesso percorso. Il percorso indicato qui non deve "
-"necessariamente esistere sempre, la sua esistenza verrà monitorata."
+"mount it at the same path. The path specified here does not need to exist at"
+" all times, its existance will be monitored."
+msgstr "Puoi usare questa opzione per salvare il backup su un dispositivo di rete, se lo monti sempre nello stesso percorso. Il percorso indicato qui non deve necessariamente esistere sempre, la sua esistenza verrà monitorata."
 
 #: kcm/backupplanwidget.cpp:325
 msgctxt "@label:textbox"
@@ -478,12 +431,10 @@ msgstr "Percorso di destinazione del backup:"
 #: kcm/backupplanwidget.cpp:342
 msgctxt "@label"
 msgid ""
-"Use this option if you want to backup your files on an external storage that "
-"can be plugged in to this computer, such as a USB hard drive or memory stick."
-msgstr ""
-"Usa questa opzione se vuoi salvare il tuo backup su una periferica esterna "
-"che può essere collegata a questo computer, come un disco USB o una "
-"chiavetta."
+"Use this option if you want to backup your files on an external storage that"
+" can be plugged in to this computer, such as a USB hard drive or memory "
+"stick."
+msgstr "Usa questa opzione se vuoi salvare il tuo backup su una periferica esterna che può essere collegata a questo computer, come un disco USB o una chiavetta."
 
 #: kcm/backupplanwidget.cpp:350 kcm/backupplanwidget.cpp:353
 msgctxt "@info:tooltip"
@@ -530,19 +481,15 @@ msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
-msgstr ""
-"I backup vengono eseguiti solo quando richiesto manualmente. Ciò può essere "
-"fatto usando il menu a comparsa dell'icona di backup nel vassoio di sistema."
+msgstr "I backup vengono eseguiti solo quando richiesto manualmente. Ciò può essere fatto usando il menu a comparsa dell'icona di backup nel vassoio di sistema."
 
 #: kcm/backupplanwidget.cpp:421
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
-"more than the configured interval has passed since the last backup was taken."
-msgstr ""
-"Un nuovo backup verrà eseguito quando la destinazione di backup sarà "
-"disponibile e sarà trascorso un intervallo di tempo superiore a quello "
-"impostato dall'esecuzione dell'ultimo backup."
+"more than the configured interval has passed since the last backup was "
+"taken."
+msgstr "Un nuovo backup verrà eseguito quando la destinazione di backup sarà disponibile e sarà trascorso un intervallo di tempo superiore a quello impostato dall'esecuzione dell'ultimo backup."
 
 #: kcm/backupplanwidget.cpp:436
 msgctxt "@item:inlistbox"
@@ -568,12 +515,9 @@ msgstr "Settimane"
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
-"you have been using your computer actively for more than the configured time "
-"limit since the last backup was taken."
-msgstr ""
-"Un nuovo backup verrà eseguito quando la destinazione di backup sarà "
-"disponibile e avrai utilizzato attivamente il computer per un tempo "
-"superiore a quello impostato dall'esecuzione dell'ultimo backup."
+"you have been using your computer actively for more than the configured time"
+" limit since the last backup was taken."
+msgstr "Un nuovo backup verrà eseguito quando la destinazione di backup sarà disponibile e avrai utilizzato attivamente il computer per un tempo superiore a quello impostato dall'esecuzione dell'ultimo backup."
 
 #: kcm/backupplanwidget.cpp:466
 msgctxt "@option:check"
@@ -598,8 +542,7 @@ msgstr "Sì"
 #: kcm/backupplanwidget.cpp:498
 msgctxt "@label"
 msgid "Show hidden folders in source selection:"
-msgstr ""
-"Mostra le cartelle nascoste nella schermata di selezione delle sorgenti:"
+msgstr "Mostra le cartelle nascoste nella schermata di selezione delle sorgenti:"
 
 #: kcm/backupplanwidget.cpp:502
 msgctxt "@title"
@@ -615,9 +558,7 @@ msgstr "Opzioni aggiuntive per utenti esperti"
 msgctxt "@label Only shown if no drives are detected"
 msgid ""
 "Plug in the external storage you wish to use, then select it in this list."
-msgstr ""
-"Collega la periferica esterna che vuoi utilizzare , poi selezionala in "
-"questa lista."
+msgstr "Collega la periferica esterna che vuoi utilizzare , poi selezionala in questa lista."
 
 #: kcm/driveselectiondelegate.cpp:70
 msgctxt "@item:inlistbox this text is added if selected drive is disconnected"
@@ -632,15 +573,15 @@ msgstr "%1 libero"
 #: kcm/driveselectiondelegate.cpp:85
 msgctxt ""
 "@item:inlistbox used for unnamed filesystems, more than one filesystem on "
-"device. %1 is partition number, %2 is device description, %3 is either empty "
-"or the \" (disconnected)\" text"
+"device. %1 is partition number, %2 is device description, %3 is either empty"
+" or the \" (disconnected)\" text"
 msgid "Partition %1 on %2%3"
 msgstr "Partizione %1 su %2%3"
 
 #: kcm/driveselectiondelegate.cpp:88
 msgctxt ""
-"@item:inlistbox used when there is only one unnamed filesystem on device. %1 "
-"is device description, %2 is either empty or the \" (disconnected)\" text"
+"@item:inlistbox used when there is only one unnamed filesystem on device. %1"
+" is device description, %2 is either empty or the \" (disconnected)\" text"
 msgid "%1%2"
 msgstr "%1%2"
 
@@ -666,9 +607,7 @@ msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> (will <emphasis>not</emphasis> be included in "
 "the backup)"
-msgstr ""
-"<filename>%1</filename><nl/> (<emphasis>non</emphasis> sarà incluso nel "
-"backup)"
+msgstr "<filename>%1</filename><nl/> (<emphasis>non</emphasis> sarà incluso nel backup)"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
@@ -690,12 +629,9 @@ msgstr "Manutentore"
 msgctxt "@info"
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
-"plan you need to install either of</p><ul><li>bup, for versioned backups</"
-"li><li>rsync, for synchronized backups</li></ul>"
-msgstr ""
-"<h2>Mancano i programmi di backup</h2><p>Prima di poter attivare qualunque "
-"piano di backup devi installare</p><ul><li>bup, per i backup incrementali, "
-"oppure</li><li>rsync, per i backup sincronizzati</li></ul>"
+"plan you need to install either of</p><ul><li>bup, for versioned "
+"backups</li><li>rsync, for synchronized backups</li></ul>"
+msgstr "<h2>Mancano i programmi di backup</h2><p>Prima di poter attivare qualunque piano di backup devi installare</p><ul><li>bup, per i backup incrementali, oppure</li><li>rsync, per i backup sincronizzati</li></ul>"
 
 #: kcm/kupkcm.cpp:149
 msgctxt "@title:dialog"
@@ -706,8 +642,7 @@ msgstr "Attenzione"
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<br>No backups will be saved by this plan."
-msgstr ""
-"%1 non ha una destinazione!<br>Nessun backup verrà salvato da questo piano."
+msgstr "%1 non ha una destinazione!<br>Nessun backup verrà salvato da questo piano."
 
 #: kcm/kupkcm.cpp:240
 msgctxt "@action:button"
@@ -755,9 +690,7 @@ msgstr "Questo piano di backup non è mai stato eseguito."
 msgid ""
 "No bup repository found.\n"
 "%1"
-msgstr ""
-"Nessun repository bup trovato.\n"
-"%1"
+msgstr "Nessun repository bup trovato.\n%1"
 
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)

@@ -1,58 +1,52 @@
-# Tagalog translations for Kup package.
-# Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Wendy Pungtilan <faye_333@yahoo.com.sg>, 2013.
+# 
+# Translators:
+# spersson <simonpersson1@gmail.com>, 2014
+# faye_333, 2014
+# Wendy Pungtilan <faye_333@yahoo.com.sg>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
-"content=147465\n"
+"Project-Id-Version: kup\n"
+"Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?content=147465\n"
 "POT-Creation-Date: 2013-11-22 21:54+0100\n"
-"PO-Revision-Date: 2013-11-28 18:30+0200\n"
-"Language: tl\n"
+"PO-Revision-Date: 2014-03-13 18:28+0000\n"
+"Last-Translator: spersson <simonpersson1@gmail.com>\n"
+"Language-Team: Tagalog (http://www.transifex.com/projects/p/kup/language/tl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"Language: tl\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: daemon/bupjob.cpp:45
 msgctxt "notification"
 msgid ""
 "The \"bup\" program is needed but could not be found, maybe it is not "
 "installed?"
-msgstr ""
-"Ang programmang  \"bup\" ay kinakailangan ngunit ito ay hindi mahanap sa "
-"sistema."
+msgstr "Ang programmang  \"bup\" ay kinakailangan ngunit ito ay hindi mahanap sa sistema. Maaring hindi ito nakalagay sa sistema?"
 
 #: daemon/bupjob.cpp:59
 msgctxt "notification"
 msgid ""
 "Backup destination could not be initialised by bup:\n"
 "%1"
-msgstr ""
-"Ang destinasyon ng seguridad na kopya ay hindi masimulan ng bup:\n"
-"%1"
+msgstr "Ang destinasyon ng seguridad na kopya ay hindi masimulan ng bup:\n%1"
 
 #: daemon/bupjob.cpp:89
 msgctxt "notification"
 msgid ""
 "Indexing of file system did not complete successfully:\n"
 "%1"
-msgstr ""
-"Ang paglalagay ng talatuntunan sa mga talaksang pangsistema ay hindi "
-"nakumpleto:\n"
-"%1"
+msgstr "Ang paglalagay ng talatuntunan sa mga talaksang pangsistema ay hindi nakumpleto:\n%1"
 
 #: daemon/bupjob.cpp:116 daemon/rsyncjob.cpp:69
 msgctxt "notification"
 msgid ""
 "Backup did not complete successfully:\n"
 "%1"
-msgstr ""
-"Hindi nagtagumpay na gumawa ng seguridad na kopya:\n"
-"%1"
+msgstr "Hindi nagtagumpay na gumawa ng seguridad na kopya:\n%1"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:134
 #: daemon/edexecutor.cpp:152 daemon/fsexecutor.cpp:103
@@ -114,20 +108,13 @@ msgstr "Kompigurasyon para sa seguridad na kopya"
 #: daemon/main.cpp:30
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
-"This allows it to quickly perform incremental backups, only saving the parts "
-"of files that has actually changed since last backup was taken."
-msgstr ""
-"Ang Kup ay isang solusyon para sa seguridad na kopya na gamit ang sistemang "
-"imbakan ng seguridad na kopya ng 'bup'. Ito ay nagbibigay daan upang "
-"mapabilis ang pagkuha ng dumadaming seguridad na kopya sa pamamagitan ng pag-"
-"imbak lamang ng mga talaksan na may aktwal na pagbabago mula noong huling "
-"kinunan ang seguridad na kopya."
+"This allows it to quickly perform incremental backups, only saving the parts"
+" of files that has actually changed since last backup was taken."
+msgstr "Ang Kup ay isang solusyon para sa seguridad na kopya na gamit ang sistemang imbakan ng seguridad na kopya ng 'bup'. Ito ay nagbibigay daan upang mapabilis ang pagkuha ng dumadaming seguridad na kopya sa pamamagitan ng pag-imbak lamang ng mga talaksan na may aktwal na pagbabago mula noong huling kinunan ang seguridad na kopya."
 
 #: daemon/main.cpp:39
 msgid "Kup is not enabled, enable it from the system settings module."
-msgstr ""
-"Ang Kup ay hindi gumagana. Pwede itong paganahin mula sa tagapangasiwa ng "
-"nilalaman ng  sistema"
+msgstr "Ang Kup ay hindi gumagana. Pwede itong paganahin mula sa tagapangasiwa ng nilalaman ng  sistema"
 
 #: daemon/main.cpp:42
 msgctxt "@title"
@@ -176,18 +163,14 @@ msgctxt "@info"
 msgid ""
 "It's been %1 since the last backup was taken, do you want to take a backup "
 "now?"
-msgstr ""
-"%1 na ang nakaraan mula noong huling gumuwa ng seguridad na kopya. Gusto mo "
-"bang gumawa ng bagong seguridad na kopya?"
+msgstr "%1 na ang nakaraan mula noong huling gumuwa ng seguridad na kopya. Gusto mo bang gumawa ng bagong seguridad na kopya?"
 
 #: daemon/planexecutor.cpp:102
 msgctxt "@info"
 msgid ""
 "You've been active with this computer for %1 since the last backup was "
 "taken, do you want to take a backup now?"
-msgstr ""
-"%1 ka nang aktibo sa kompyuter na ito simula nung huling nakuha ang "
-"seguridad na kopya. Gusto mo na bang kumuha ng bagong seguridad na kopya?"
+msgstr "%1 ka nang aktibo sa kompyuter na ito simula nung huling nakuha ang seguridad na kopya. Gusto mo na bang kumuha ng bagong seguridad na kopya?"
 
 #: daemon/planexecutor.cpp:132
 msgctxt "@title:window"
@@ -209,17 +192,15 @@ msgctxt "notification"
 msgid ""
 "The \"rsync\" program is needed but could not be found, maybe it is not "
 "installed?"
-msgstr ""
-" Kinakailangan ang programang \"rsync\" ngunit hindi ito matagpuan, baka "
-"hindi pa nakalagay sa kompyuter na ito?"
+msgstr " Kinakailangan ang programang \"rsync\" ngunit hindi ito matagpuan, baka hindi pa nakalagay sa kompyuter na ito?"
 
 #: filedigger/main.cpp:34
 msgid "Browser for bup archives."
-msgstr ""
+msgstr "Browser para sa mga naunang talaksan ng bup."
 
 #: filedigger/main.cpp:37
 msgid "File Digger"
-msgstr ""
+msgstr "Tagahalungkat ng mga talaksan"
 
 #: filedigger/main.cpp:38
 msgid "Copyright (C) 2013 Simon Persson"
@@ -227,26 +208,23 @@ msgstr "Karapatang-ari (C) 2013 ni Simon Persson"
 
 #: filedigger/main.cpp:45
 msgid "Name of the branch to be opened."
-msgstr ""
+msgstr "Pangalan ng sangay na bubuksan."
 
 #: filedigger/main.cpp:46
-#, fuzzy
 msgid "Path to the bup repository to be opened."
-msgstr ""
-"Walang mahanap na repositoryo ng bup.\n"
-"%1"
+msgstr "Bakas na magbubukas sa repositoryo ng bup."
 
 #: filedigger/main.cpp:53
 msgctxt "Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
 "for viewing."
-msgstr ""
+msgstr "Kinakailangan mong ibigay ang bakas papunta sa repositoryo ng bup o git na nais mong buksan."
 
 #: filedigger/main.cpp:62
 msgctxt "@info:label messagebox"
 msgid "The specified bup repository could not be opened."
-msgstr ""
+msgstr "Ang tinutukoy na repositoryo ng bup ay hindi mabuksan."
 
 #: filedigger/mergedvfs.cpp:141
 msgctxt "added after folder name in some cases"
@@ -256,12 +234,12 @@ msgstr "(polder)"
 #: filedigger/mergedvfs.cpp:143
 msgctxt "added after file name in some cases"
 msgid " (symlink)"
-msgstr ""
+msgstr "(symlink)"
 
 #: filedigger/mergedvfs.cpp:145
 msgctxt "added after file name in some cases"
 msgid " (file)"
-msgstr ""
+msgstr "(talaksan)"
 
 #: filedigger/restoredialog.cpp:95 kcm/backupplanwidget.cpp:130
 msgctxt "@action:button"
@@ -278,30 +256,29 @@ msgctxt "@info message bar appearing on top"
 msgid ""
 "The destination does not have enough space available. Please choose a "
 "different destination or free some space."
-msgstr ""
+msgstr "Walang sapat na espasyo sa destinasyon na ito. Mangyaring pumili ng ibang destinasyon na may sapat na espasyo o magpalaya ng espasyo sa destinasyon na ito."
 
 #: filedigger/restoredialog.cpp:252
 msgctxt ""
 "added to the suggested filename when restoring, %1 is the time when backup "
 "was taken"
 msgid " - saved at %1"
-msgstr ""
+msgstr "- nakaimpok na ng %1"
 
 #: filedigger/restoredialog.cpp:253
 msgctxt "@info"
 msgid "Folder already exists, please choose a solution"
-msgstr ""
+msgstr "Ang polder na ito ay nakalagay na sa sistema, kailangan pumili ng solusyon."
 
 #: filedigger/restoredialog.cpp:259
-#, fuzzy
 msgctxt "@info"
 msgid "File already exists"
-msgstr "Ang %1 na pangalan ay nagamit na."
+msgstr "Ang talaksan na ito ay nakalagay na sa sistema"
 
 #: filedigger/restoredialog.cpp:272
 msgctxt "@info message bar appearing on top"
 msgid "The new name entered already exists, please enter a different one."
-msgstr ""
+msgstr "Ang bagong pangalan na ipinasok ay nakalagay na sa sistema, kailangang maglagay ng ibang pangalan."
 
 #: filedigger/restoredialog.cpp:349 kcm/backupplanwidget.cpp:156
 msgctxt "default folder name when creating a new folder"
@@ -318,9 +295,7 @@ msgctxt "@label:textbox"
 msgid ""
 "Create new folder in:\n"
 "%1"
-msgstr ""
-"Gumawa ng bagong polder sa:\n"
-"%1"
+msgstr "Gumawa ng bagong polder sa:\n%1"
 
 #: filedigger/restoredialog.cpp:366 kcm/backupplanwidget.cpp:173
 msgid "A folder named %1 already exists."
@@ -333,22 +308,22 @@ msgstr "Wala kang pahintulot na lumikha %1."
 #: filedigger/restorejob.cpp:80
 msgctxt "progress report, current operation"
 msgid "Restoring"
-msgstr ""
+msgstr "Nagpapanumbalik"
 
 #: filedigger/restorejob.cpp:81
 msgctxt "progress report, label"
 msgid "File:"
-msgstr ""
+msgstr "Talaksan:"
 
 #: filedigger/versionlistdelegate.cpp:134
 msgctxt "@action:button"
 msgid "Open"
-msgstr ""
+msgstr "Buksan"
 
 #: filedigger/versionlistdelegate.cpp:136
 msgctxt "@action:button"
 msgid "Restore"
-msgstr ""
+msgstr "Ibalik"
 
 #: kcm/backupplanwidget.cpp:128
 msgctxt "@title:window"
@@ -374,27 +349,15 @@ msgid ""
 "were deleted on your computer at a later time. The storage space needed is "
 "minimized by looking for common parts of your files between versions and "
 "only storing those parts once. Nevertheless, the backup archive will keep "
-"growing in size as time goes by.<br>Also important to know is that the files "
-"in the archive can not be accessed directly with a general file manager, a "
+"growing in size as time goes by.<br>Also important to know is that the files"
+" in the archive can not be accessed directly with a general file manager, a "
 "special program is needed."
-msgstr ""
-"Ang uri ng seguridad na kopya na ito na <em>nakaimbak</em>. Naglalaman ito "
-"ng pinakabagong salin at ang mga naunang salin ng iyong mga talaksan. Maaari "
-"mong kunin ang mga naunang salin ng iyong mga talaksan o kung ano man ang "
-"iyong tatanggalin balang araw ay maaari mo din ibalik sa pamamagitan nitong "
-"seguridad na kopya. Ang kabuuan ng imbakan na kinakailangan ay pinaliliit sa "
-"pamamagitan ng pagkuha lamang ng kung ano mang binago sa iyong mga talaksan. "
-"Pero habang panahon hindi maiiwasan ang pagdami ng mga pagbabagong ito na "
-"magdudulot ng paglaki ng imbakan na kinakailangan.<br>Importanteng iyong "
-"malaman na ang mga talaksan na nakaimbak ay maaari lamang buksan sa "
-"pamamagitan ng espesyal na programa."
+msgstr "Ang uri ng seguridad na kopya na ito na <em>nakaimbak</em>. Naglalaman ito ng pinakabagong salin at ang mga naunang salin ng iyong mga talaksan. Maaari mong kunin ang mga naunang salin ng iyong mga talaksan o kung ano man ang iyong tatanggalin balang araw ay maaari mo din ibalik sa pamamagitan nitong seguridad na kopya. Ang kabuuan ng imbakan na kinakailangan ay pinaliliit sa pamamagitan ng pagkuha lamang ng kung ano mang binago sa iyong mga talaksan. Pero habang panahon hindi maiiwasan ang pagdami ng mga pagbabagong ito na magdudulot ng paglaki ng imbakan na kinakailangan.<br>Importanteng iyong malaman na ang mga talaksan na nakaimbak ay maaari lamang buksan sa pamamagitan ng espesyal na programa."
 
 #: kcm/backupplanwidget.cpp:239
 msgctxt "@option:radio"
 msgid "Versioned Backup (not available because \"bup\" is not installed)"
-msgstr ""
-"May salin na seduridad na kopya (hindi magagamit dahil ang \"bup\" ay hindi "
-"pa nakalagay sa kompyuter na ito)"
+msgstr "May salin na seduridad na kopya (hindi magagamit dahil ang \"bup\" ay hindi pa nakalagay sa kompyuter na ito)"
 
 #: kcm/backupplanwidget.cpp:243
 msgctxt "@option:radio"
@@ -407,28 +370,16 @@ msgid ""
 "This type of backup is a folder which is synchronized with your selected "
 "source folders. Taking a backup simply means making the backup destination "
 "contain an exact copy of your source folders as they are now and nothing "
-"else. If a file has been deleted in a source folder it will get deleted from "
-"the backup folder.<br>This type of backup can protect you against data loss "
-"due to a broken hard drive but it does not help you to recover from your own "
-"mistakes."
-msgstr ""
-"Ang uri ng polder na ito na naglalaman ng seguridad na kopya ay ang "
-"nakapareha sa iyong napiling ugat ng polder o ang polder na naglalaman ng "
-"mga talaksan na gusto mong may seguridad na kopya. Ang ibig sabihin ng "
-"pagkuha ng seguridad na kopya ay pangu-ngopya ng eksaktong laman ng ugat "
-"polder na  iyong pinili para makunan ng seguridad na kopya. Kung ang isang "
-"talaksan ay sadyang tinanggal, inalis o binura sa ugat na polder, ito din ay "
-"mabubura sa polder ng seguridad na kopya.<br>Ang seguridad na kopya na ito "
-"ay maaring makaprotekta sa pagkawala ng mga talaksan dahilan nga pagkasira "
-"ng iyong hard drive pero hindi ito makakatulong sa pagkuha o pagbawi ng mga "
-"talaksang iyong nabura dahil sa pagkakamali."
+"else. If a file has been deleted in a source folder it will get deleted from"
+" the backup folder.<br>This type of backup can protect you against data loss"
+" due to a broken hard drive but it does not help you to recover from your "
+"own mistakes."
+msgstr "Ang uri ng polder na ito na naglalaman ng seguridad na kopya ay ang nakapareha sa iyong napiling ugat ng polder o ang polder na naglalaman ng mga talaksan na gusto mong may seguridad na kopya. Ang ibig sabihin ng pagkuha ng seguridad na kopya ay pangu-ngopya ng eksaktong laman ng ugat polder na  iyong pinili para makunan ng seguridad na kopya. Kung ang isang talaksan ay sadyang tinanggal, inalis o binura sa ugat na polder, ito din ay mabubura sa polder ng seguridad na kopya.<br>Ang seguridad na kopya na ito ay maaring makaprotekta sa pagkawala ng mga talaksan dahilan nga pagkasira ng iyong hard drive pero hindi ito makakatulong sa pagkuha o pagbawi ng mga talaksang iyong nabura dahil sa pagkakamali."
 
 #: kcm/backupplanwidget.cpp:259
 msgctxt "@option:radio"
 msgid "Synchronized Backup (not available because \"rsync\" is not installed)"
-msgstr ""
-"Magkapanabay na kopya (Hindi magagamit dahil ang \"rsync\" ay hindi pa "
-"nakalagay sa kompyuter na ito)"
+msgstr "Magkapanabay na kopya (Hindi magagamit dahil ang \"rsync\" ay hindi pa nakalagay sa kompyuter na ito)"
 
 #: kcm/backupplanwidget.cpp:263
 msgctxt "@option:radio"
@@ -469,13 +420,9 @@ msgstr "Panlabas na imbakan"
 msgctxt "@label"
 msgid ""
 "You can use this option for backing up to networked storage if you always "
-"mount it at the same path. The path specified here does not need to exist at "
-"all times, its existance will be monitored."
-msgstr ""
-"Pwede mo itong piliin para ilagay o gamiting imbakan ang network kung palagi "
-"mo itong kinakabit sa iisang lokasyon. Ang lokasyong ito ay hindi "
-"kinakailangang palaging nakakabit, pero makikita ito ng kompyuter kung ito "
-"man ay nakakabit."
+"mount it at the same path. The path specified here does not need to exist at"
+" all times, its existance will be monitored."
+msgstr "Pwede mo itong piliin para ilagay o gamiting imbakan ang network kung palagi mo itong kinakabit sa iisang lokasyon. Ang lokasyong ito ay hindi kinakailangang palaging nakakabit, pero makikita ito ng kompyuter kung ito man ay nakakabit."
 
 #: kcm/backupplanwidget.cpp:325
 msgctxt "@label:textbox"
@@ -485,18 +432,15 @@ msgstr "Destinasyon para sa seguridad na kopya:"
 #: kcm/backupplanwidget.cpp:342
 msgctxt "@label"
 msgid ""
-"Use this option if you want to backup your files on an external storage that "
-"can be plugged in to this computer, such as a USB hard drive or memory stick."
-msgstr ""
-"Gamitin ang alternatibong ito kung gusto mo ilagay ang iyong mga seguridad "
-"na kopya sa panlabasang imbakan na pwedeng isaksak sa kompyuter na ito "
-"kagaya ng USB hard drive o memory stick."
+"Use this option if you want to backup your files on an external storage that"
+" can be plugged in to this computer, such as a USB hard drive or memory "
+"stick."
+msgstr "Gamitin ang alternatibong ito kung gusto mo ilagay ang iyong mga seguridad na kopya sa panlabasang imbakan na pwedeng isaksak sa kompyuter na ito kagaya ng USB hard drive o memory stick."
 
 #: kcm/backupplanwidget.cpp:350 kcm/backupplanwidget.cpp:353
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
-msgstr ""
-"Ang tinutukoy na polder ay pwedeng ilikha kung ito ay hindi pa nalilikha."
+msgstr "Ang tinutukoy na polder ay pwedeng ilikha kung ito ay hindi pa nalilikha."
 
 #: kcm/backupplanwidget.cpp:352
 msgctxt "@label:textbox"
@@ -538,19 +482,15 @@ msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
-msgstr ""
-"Kinukuha lamang ang seguridad na kopya sang-ayon sa iyong kahilingan. Ito ay "
-"maaaring hilingin o piliin sa pamamagitan ng talaan sa may system tray icon. "
+msgstr "Kinukuha lamang ang seguridad na kopya sang-ayon sa iyong kahilingan. Ito ay maaaring hilingin o piliin sa pamamagitan ng talaan sa may system tray icon. "
 
 #: kcm/backupplanwidget.cpp:421
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
-"more than the configured interval has passed since the last backup was taken."
-msgstr ""
-"Ang pagkuha ng bagong seguridad na kopya ay magpapakita kung may magagamit "
-"na imbakan at kung lumagpas na ang panahon na nakalagay sa kompigurasyon ng "
-"pagkuha ng seguridad na kopya mula nung huli ito ay nakuha."
+"more than the configured interval has passed since the last backup was "
+"taken."
+msgstr "Ang pagkuha ng bagong seguridad na kopya ay magpapakita kung may magagamit na imbakan at kung lumagpas na ang panahon na nakalagay sa kompigurasyon ng pagkuha ng seguridad na kopya mula nung huli ito ay nakuha."
 
 #: kcm/backupplanwidget.cpp:436
 msgctxt "@item:inlistbox"
@@ -576,14 +516,9 @@ msgstr "Linggo"
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
-"you have been using your computer actively for more than the configured time "
-"limit since the last backup was taken."
-msgstr ""
-"Ang pagkuha ng bagong seguridad na kopya ay magpapakita kung may magagamit "
-"na imbakan at kung  ikaw ay aktibong gumagamit sa kompyuter na ito sa "
-"humigit na oras nakalagay sa kompigurasyon sa sistema ng pagkuha ng "
-"seguridad na kopya o kung lumagpas na ang panahon na nakalagay sa "
-"kompigurasyon ng pagkuha ng seguridad na kopya mula nung huli ito ay nakuha."
+"you have been using your computer actively for more than the configured time"
+" limit since the last backup was taken."
+msgstr "Ang pagkuha ng bagong seguridad na kopya ay magpapakita kung may magagamit na imbakan at kung  ikaw ay aktibong gumagamit sa kompyuter na ito sa humigit na oras nakalagay sa kompigurasyon sa sistema ng pagkuha ng seguridad na kopya o kung lumagpas na ang panahon na nakalagay sa kompigurasyon ng pagkuha ng seguridad na kopya mula nung huli ito ay nakuha."
 
 #: kcm/backupplanwidget.cpp:466
 msgctxt "@option:check"
@@ -624,9 +559,7 @@ msgstr "Dagdag na pamiliian para sa mga dalubhasang gumagamit nito"
 msgctxt "@label Only shown if no drives are detected"
 msgid ""
 "Plug in the external storage you wish to use, then select it in this list."
-msgstr ""
-"Isaksak ang imbakan na nais mong gamitin para sa seguridad na kopya at "
-"pagkatapos ay pillin ito sa listahan."
+msgstr "Isaksak ang imbakan na nais mong gamitin para sa seguridad na kopya at pagkatapos ay pillin ito sa listahan."
 
 #: kcm/driveselectiondelegate.cpp:70
 msgctxt "@item:inlistbox this text is added if selected drive is disconnected"
@@ -641,15 +574,15 @@ msgstr "May %1 na libre"
 #: kcm/driveselectiondelegate.cpp:85
 msgctxt ""
 "@item:inlistbox used for unnamed filesystems, more than one filesystem on "
-"device. %1 is partition number, %2 is device description, %3 is either empty "
-"or the \" (disconnected)\" text"
+"device. %1 is partition number, %2 is device description, %3 is either empty"
+" or the \" (disconnected)\" text"
 msgid "Partition %1 on %2%3"
 msgstr "Partisyon %1 sa %2%3"
 
 #: kcm/driveselectiondelegate.cpp:88
 msgctxt ""
-"@item:inlistbox used when there is only one unnamed filesystem on device. %1 "
-"is device description, %2 is either empty or the \" (disconnected)\" text"
+"@item:inlistbox used when there is only one unnamed filesystem on device. %1"
+" is device description, %2 is either empty or the \" (disconnected)\" text"
 msgid "%1%2"
 msgstr "%1%2"
 
@@ -675,9 +608,7 @@ msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> (will <emphasis>not</emphasis> be included in "
 "the backup)"
-msgstr ""
-"<filename>%1</filename><nl/> (ay <emphasis>hindi</emphasis> isasama sa "
-"seguridad na kopya)"
+msgstr "<filename>%1</filename><nl/> (ay <emphasis>hindi</emphasis> isasama sa seguridad na kopya)"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
@@ -699,24 +630,20 @@ msgstr "Taga-panatili"
 msgctxt "@info"
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
-"plan you need to install either of</p><ul><li>bup, for versioned backups</"
-"li><li>rsync, for synchronized backups</li></ul>"
-msgstr ""
-"<h2>Nawawalang programa para sa seguridad na kopya</h2><p>Bago mapagana ang "
-"anumang plano para sa seguridad na kopya, kailangang ilagay ang isa sa mga</"
-"p><ul><li>bup, para sa mga isasaling seguridad na kopya</li><li>rsync, para "
-"sa mga magkasabay na seguridad na kopya</li></ul>"
+"plan you need to install either of</p><ul><li>bup, for versioned "
+"backups</li><li>rsync, for synchronized backups</li></ul>"
+msgstr "<h2>Nawawalang programa para sa seguridad na kopya</h2><p>Bago mapagana ang anumang plano para sa seguridad na kopya, kailangang ilagay ang isa sa mga</p><ul><li>bup, para sa mga isasaling seguridad na kopya</li><li>rsync, para sa mga magkasabay na seguridad na kopya</li></ul>"
 
 #: kcm/kupkcm.cpp:149
 msgctxt "@title:dialog"
 msgid "Warning"
-msgstr ""
+msgstr "Babala"
 
 #: kcm/kupkcm.cpp:151
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<br>No backups will be saved by this plan."
-msgstr ""
+msgstr "Ang 1% ay walang destinasyon!<br>Walang seguridad na kopya ang magagawa sa planong ito."
 
 #: kcm/kupkcm.cpp:240
 msgctxt "@action:button"
@@ -764,30 +691,28 @@ msgstr "Ang plano na ito ay hindi kailanman nagamit."
 msgid ""
 "No bup repository found.\n"
 "%1"
-msgstr ""
-"Walang mahanap na repositoryo ng bup.\n"
-"%1"
+msgstr "Walang mahanap na repositoryo ng bup.\n%1"
 
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
 #: po/rc.cpp:3 rc.cpp:3
 msgctxt "@title: window"
 msgid "Restore Guide"
-msgstr ""
+msgstr "Gabay Para sa Pagpapanumbalik"
 
 #. i18n: file: filedigger/restoredialog.ui:55
 #. i18n: ectx: property (text), widget (QPushButton, mRestoreOriginalButton)
 #: po/rc.cpp:6 rc.cpp:6
 msgctxt "@action:button"
 msgid "Restore to original location"
-msgstr ""
+msgstr "Ibalik sa orihinal na lokasyon"
 
 #. i18n: file: filedigger/restoredialog.ui:78
 #. i18n: ectx: property (text), widget (QPushButton, mRestoreCustomButton)
 #: po/rc.cpp:9 rc.cpp:9
 msgctxt "@action:button"
 msgid "Choose where to restore"
-msgstr ""
+msgstr "Piliin kung saan mo gustong ibalik"
 
 #. i18n: file: filedigger/restoredialog.ui:132
 #. i18n: ectx: property (text), widget (QPushButton, mDestBackButton)
@@ -808,15 +733,14 @@ msgstr "Susunod"
 #: po/rc.cpp:18 rc.cpp:18
 msgctxt "@option:radio "
 msgid "Restore the folder under a new name"
-msgstr ""
+msgstr "Ipanumbalik ang polder sa bagong pangalan"
 
 #. i18n: file: filedigger/restoredialog.ui:208
 #. i18n: ectx: property (text), widget (QRadioButton, mOverwriteRadioButton)
 #: po/rc.cpp:21 rc.cpp:21
-#, fuzzy
 msgctxt "@option:radio"
 msgid "Merge folders"
-msgstr "Piliin ang polder"
+msgstr "Pagsamahin ang mga polder"
 
 #. i18n: file: filedigger/restoredialog.ui:238
 #. i18n: ectx: property (text), widget (QLabel, mConfirmOverwriteLabel)
@@ -825,15 +749,14 @@ msgctxt "@info Question to user, in dialog"
 msgid ""
 "The following files would be overwritten, please confirm that you wish to "
 "continue."
-msgstr ""
+msgstr "Ang mga sumusunod na talaksan ay mapapalitan, mangyaring kumpirmahin kung nais mong ipagpatuloy."
 
 #. i18n: file: filedigger/restoredialog.ui:274
 #. i18n: ectx: property (text), widget (QPushButton, mOverwriteBackButton)
 #: po/rc.cpp:27 rc.cpp:27
-#, fuzzy
 msgctxt "@action:button go to previous page in dialog"
 msgid "Back"
-msgstr "Mga seguridad na kopya"
+msgstr "Bumalik"
 
 #. i18n: file: filedigger/restoredialog.ui:286
 #. i18n: ectx: property (text), widget (QPushButton, mConfirmButton)
@@ -847,31 +770,27 @@ msgstr "Kompirmahin"
 #: po/rc.cpp:33 rc.cpp:33
 msgctxt "@label above the detailed error messsage"
 msgid "An error occured while restoring:"
-msgstr ""
+msgstr "May naganap na mali habang nagpapanumbalik ng:"
 
 #. i18n: file: filedigger/restoredialog.ui:372
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:36 rc.cpp:36
-#, fuzzy
 msgctxt "@label"
 msgid "Restoration completed sucessfully!"
-msgstr ""
-"Hindi nagtagumpay na gumawa ng seguridad na kopya:\n"
-"%1"
+msgstr "Ang pagpapanumbalik ay ganap na natapos ng maayos"
 
 #. i18n: file: filedigger/restoredialog.ui:413
 #. i18n: ectx: property (text), widget (KPushButton, mOpenDestinationButton)
 #: po/rc.cpp:39 rc.cpp:39
-#, fuzzy
 msgid "Open Destination"
-msgstr "Destinasyon"
+msgstr "Buksan ang destinasyon"
 
 #. i18n: file: filedigger/restoredialog.ui:472
 #. i18n: ectx: property (text), widget (QPushButton, mCloseButton)
 #: po/rc.cpp:42 rc.cpp:42
 msgctxt "@action:button"
 msgid "Close"
-msgstr ""
+msgstr "Isara"
 
 #: po/rc.cpp:43 settings/backupplan.cpp:69 rc.cpp:43
 msgid "Backups"
@@ -891,36 +810,3 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Plano ng seguridad na kopya %1"
-
-#~ msgctxt "@info"
-#~ msgid "Failed to take backup as root: %1"
-#~ msgstr "Hindi nakakuha ng seguridad na kopya bilang ugat: %1"
-
-#~ msgctxt "@label"
-#~ msgid "Take backups as root:"
-#~ msgstr "Kunin ang mga seguridad na kopya bilang ugat:"
-
-#, fuzzy
-#~ msgid "(C) 2013 Simon Persson"
-#~ msgstr "Karapatang-ari (C) 2011 ni Simon Persson"
-
-#~ msgctxt "notification"
-#~ msgid ""
-#~ "Error when trying to unmount backup archive:\n"
-#~ "%1"
-#~ msgstr ""
-#~ "Nagkaroon ng problema habang sinusubukang tinatanggal ang imbakan ng "
-#~ "seguridad na kopya:\n"
-#~ "%1"
-
-#~ msgctxt "notification"
-#~ msgid ""
-#~ "Error when trying to mount backup archive:\n"
-#~ "%1"
-#~ msgstr ""
-#~ "Nagkaroon ng problema habang sinusubukang ilagay ang imbakan ng seguridad "
-#~ "na kopya:\n"
-#~ "%1"
-
-#~ msgid "No media in device for %1"
-#~ msgstr "Walang midya sa kagamitan para %1"

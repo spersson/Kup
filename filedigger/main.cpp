@@ -34,7 +34,7 @@ static const char version[] = "0.4";
 static const char description[] = I18N_NOOP("Browser for bup archives.");
 
 int main(int pArgCount, char **pArgArray) {
-	KAboutData lAbout("filedigger", 0, ki18n("File Digger"), version, ki18n(description),
+	KAboutData lAbout("kup-filedigger", "kup", ki18n("File Digger"), version, ki18n(description),
 	                  KAboutData::License_GPL, ki18n("Copyright (C) 2013 Simon Persson"),
 	                  KLocalizedString(), 0, "simonpersson1@gmail.com");
 	lAbout.addAuthor(ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com");
