@@ -171,7 +171,7 @@ void KupKcm::save() {
 	if(lInterface.isValid()) {
 		lInterface.call(QLatin1String("reloadConfig"));
 	} else {
-		KProcess::execute(QLatin1String("kupdaemon")); // kuniqueapplication, should exit very quickly.
+		KProcess::execute(QLatin1String("kup-daemon")); // kuniqueapplication, should exit very quickly.
 	}
 }
 
