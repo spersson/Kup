@@ -67,12 +67,12 @@ bool isForbiddenPath( const QString& path )
 {
 	QString pathWithSlash = ensureTrailingSlash( path );
 	QFileInfo fi( pathWithSlash );
-	return( pathWithSlash.startsWith( QLatin1String( "/proc/" ) ) ||
-	        pathWithSlash.startsWith( QLatin1String( "/dev/" ) ) ||
-	        pathWithSlash.startsWith( QLatin1String( "/sys/" ) ) ||
-	        pathWithSlash.startsWith( QLatin1String( "/run/" ) ) ||
+	return (pathWithSlash.startsWith(QLatin1String("/proc/")) ||
+	        pathWithSlash.startsWith(QLatin1String("/dev/")) ||
+	        pathWithSlash.startsWith(QLatin1String("/sys/")) ||
 	        !fi.isReadable() ||
-	        !fi.isExecutable() );
+	        !fi.isExecutable()
+	        );
 }
 
 bool setContainsSubdir( QSet<QString> pSet, const QString &pParentDir)
