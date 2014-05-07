@@ -25,8 +25,8 @@
 #include <QTimer>
 
 BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-               const QString &pDestinationPath, const QString &pBupPath)
-   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath), mBupPath(pBupPath)
+               const QString &pDestinationPath)
+   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath)
 {
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -63,9 +63,7 @@ void BupJob::startIndexing() {
 	}
 
 	mIndexProcess << QLatin1String("bup");
-	if(!mBupPath.isEmpty()) {
-		mIndexProcess << QLatin1String("-d") << mBupPath;
-	}
+	mIndexProcess << QLatin1String("-d") << mDestinationPath;
 	mIndexProcess << QLatin1String("index") << QLatin1String("-u");
 
 	foreach(QString lExclude, mPathsExcluded) {
@@ -93,12 +91,9 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	}
 
 	mSaveProcess << QLatin1String("bup");
-	if(!mBupPath.isEmpty()) {
-		mSaveProcess << QLatin1String("-d") << mBupPath;
-	}
+	mSaveProcess << QLatin1String("-d") << mDestinationPath;
 	mSaveProcess << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
-	mSaveProcess << QLatin1String("-r") << mDestinationPath;
 	mSaveProcess << mPathsIncluded;
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));

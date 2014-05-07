@@ -31,7 +31,7 @@ class BupJob : public BackupJob
 
 public:
 	BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	       const QString &pDestinationPath, const QString &pBupPath = QString());
+	       const QString &pDestinationPath);
 	virtual void start();
 
 protected slots:
@@ -44,7 +44,6 @@ protected slots:
 protected:
 	KProcess mIndexProcess;
 	KProcess mSaveProcess;
-	QString mBupPath;
 	QString mBupVersion;
 };
 
