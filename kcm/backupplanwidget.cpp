@@ -318,9 +318,11 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QWidget *lFileSystemWidget = new QWidget;
 	lFileSystemWidget->setVisible(false);
 	QObject::connect(lFileSystemRadio, SIGNAL(toggled(bool)), lFileSystemWidget, SLOT(setVisible(bool)));
-	QLabel *lFileSystemInfoLabel = new QLabel(i18nc("@label", "You can use this option for backing up to networked storage "
-	                                                "if you always mount it at the same path. The path specified here does "
-	                                                "not need to exist at all times, its existance will be monitored."));
+	QLabel *lFileSystemInfoLabel = new QLabel(i18nc("@label", "You can use this option for backing up to a secondary internal "
+	                                                "harddrive, an external eSATA drive or networked storage. The requirement "
+	                                                "is just that you always mount it at the same path in the filesystem. "
+	                                                "The path specified here does not need to exist at all times, its "
+	                                                "existance will be monitored."));
 	lFileSystemInfoLabel->setWordWrap(true);
 	QLabel *lFileSystemLabel = new QLabel(i18nc("@label:textbox", "Destination Path for Backup:"));
 	KUrlRequester *lFileSystemUrlEdit = new KUrlRequester;
