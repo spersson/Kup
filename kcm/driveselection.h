@@ -44,7 +44,10 @@ public:
 		Label,
 		DeviceDescription,
 		PartitionNumber,
-		PartitionsOnDrive
+		PartitionsOnDrive,
+		FileSystem,
+		PermissionLossWarning,
+		SymlinkLossWarning
 	};
 
 public:
@@ -57,6 +60,7 @@ public:
 public slots:
 	void setSelectedDrive(const QString &pUuid);
 	void saveExtraData();
+	void updateSyncWarning(bool pSyncBackupSelected);
 
 signals:
 	void selectedDriveChanged(const QString &pSelectedDrive);
@@ -79,6 +83,7 @@ protected:
 	BackupPlan *mBackupPlan;
 	QStringList mDrivesToAdd;
 	bool mSelectedAndAccessible;
+	bool mSyncedBackupType;
 };
 
 #endif

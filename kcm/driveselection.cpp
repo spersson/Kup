@@ -42,7 +42,7 @@ bool deviceLessThan(const Solid::Device &a, const Solid::Device &b) {
 }
 
 DriveSelection::DriveSelection(BackupPlan *pBackupPlan, QWidget *parent)
-   : QListView(parent), mBackupPlan(pBackupPlan), mSelectedAndAccessible(false)
+   : QListView(parent), mBackupPlan(pBackupPlan), mSelectedAndAccessible(false), mSyncedBackupType(false)
 {
 	KConfigDialogManager::changedMap()->insert(QLatin1String("DriveSelection"),
 	                                           SIGNAL(selectedDriveChanged(QString)));
@@ -51,6 +51,7 @@ DriveSelection::DriveSelection(BackupPlan *pBackupPlan, QWidget *parent)
 	setModel(mDrivesModel);
 	setItemDelegate(new DriveSelectionDelegate(this));
 	setSelectionMode(QAbstractItemView::SingleSelection);
+	setWordWrap(true);
 
 	if(!mBackupPlan->mExternalUUID.isEmpty()) {
 		QStandardItem *lItem = new QStandardItem();
@@ -158,6 +159,12 @@ void DriveSelection::delayedDeviceAdded() {
 		lItem->setData(lVolumeDevice.udi(), DriveSelection::UDI);
 		lItem->setData(lPartitionNumber, DriveSelection::PartitionNumber);
 		lItem->setData(lVolumeDeviceList.count(), DriveSelection::PartitionsOnDrive);
+		lItem->setData(lVolume->fsType(), DriveSelection::FileSystem);
+		lItem->setData(mSyncedBackupType && (lVolume->fsType() == QLatin1String("vfat") ||
+		                                     lVolume->fsType() == QLatin1String("ntfs")),
+		               DriveSelection::PermissionLossWarning);
+		lItem->setData(mSyncedBackupType && lVolume->fsType() == QLatin1String("vfat"),
+		               DriveSelection::SymlinkLossWarning);
 
 		Solid::StorageAccess *lAccess = lVolumeDevice.as<Solid::StorageAccess>();
 		connect(lAccess, SIGNAL(accessibilityChanged(bool,QString)), SLOT(accessabilityChanged(bool,QString)));
@@ -292,6 +299,18 @@ void DriveSelection::saveExtraData() {
 		mBackupPlan->mExternalPartitionsOnDrive = lItem->data(DriveSelection::PartitionsOnDrive).toInt();
 		mBackupPlan->mExternalVolumeCapacity = lItem->data(DriveSelection::TotalSpace).toULongLong();
 		mBackupPlan->mExternalVolumeLabel = lItem->data(DriveSelection::Label).toString();
+	}
+}
+
+void DriveSelection::updateSyncWarning(bool pSyncBackupSelected) {
+	mSyncedBackupType = pSyncBackupSelected;
+	for(int i = 0; i < mDrivesModel->rowCount(); ++i) {
+		QString lFsType = mDrivesModel->item(i)->data(DriveSelection::FileSystem).toString();
+		mDrivesModel->item(i)->setData(mSyncedBackupType && (lFsType == QLatin1String("vfat") ||
+		                                                     lFsType == QLatin1String("ntfs")),
+		                               DriveSelection::PermissionLossWarning);
+		mDrivesModel->item(i)->setData(mSyncedBackupType && lFsType == QLatin1String("vfat"),
+		                               DriveSelection::SymlinkLossWarning);
 	}
 }
 

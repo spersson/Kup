@@ -365,6 +365,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QWidget *lDriveDestWidget = new QWidget;
 	lDriveDestWidget->setVisible(false);
 	connect(mDriveSelection, SIGNAL(driveIsSelectedChanged(bool)), lDriveDestWidget, SLOT(setVisible(bool)));
+	connect(mSyncedRadio, SIGNAL(toggled(bool)), mDriveSelection, SLOT(updateSyncWarning(bool)));
 
 	QGridLayout *lDriveVLayout = new QGridLayout;
 	lDriveVLayout->setColumnMinimumWidth(0, lIndentation);

@@ -23,16 +23,20 @@
 
 #include <QStyledItemDelegate>
 
+class QListView;
 class KCapacityBar;
 
 class DriveSelectionDelegate : public QStyledItemDelegate
 {
 public:
-	DriveSelectionDelegate(QObject *pParent = 0);
+	DriveSelectionDelegate(QListView *pParent);
 	virtual void paint(QPainter* pPainter, const QStyleOptionViewItem& pOption, const QModelIndex& pIndex) const;
-	virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+	virtual QSize sizeHint(const QStyleOptionViewItem& pOption, const QModelIndex& pIndex) const;
 private:
+	QRect warningRect(const QRect &pRect, const QModelIndex &pIndex) const;
+	QString warningText(const QModelIndex &pIndex) const;
 	KCapacityBar *mCapacityBar;
+	QListView *mListView;
 };
 
 #endif // DRIVESELECTIONDELEGATE_H
