@@ -379,7 +379,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	lVLayout->addWidget(lFileSystemRadio);
 	lVLayout->addWidget(lFileSystemWidget);
 	lVLayout->addWidget(lDriveRadio);
-	lVLayout->addWidget(lDriveWidget);
+	lVLayout->addWidget(lDriveWidget, 1);
 	lVLayout->addStretch();
 	lButtonGroup->setLayout(lVLayout);
 
