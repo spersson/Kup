@@ -43,7 +43,7 @@
 K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
 K_EXPORT_PLUGIN(KupKcmFactory("kcm_kup", "kup"))
 
-static const char version[] = "0.4.1";
+static const char version[] = "0.4.2";
 
 KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
    : KCModule(KupKcmFactory::componentData(), pParent, pArgs)
