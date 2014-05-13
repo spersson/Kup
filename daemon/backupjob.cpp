@@ -29,10 +29,13 @@
 #endif
 
 BackupJob::BackupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-                     const QString &pDestinationPath)
+                     const QString &pDestinationPath, const QString &pLogFilePath)
    :KJob(), mPathsIncluded(pPathsIncluded), mPathsExcluded(pPathsExcluded),
-     mDestinationPath(pDestinationPath)
+     mDestinationPath(pDestinationPath), mLogFilePath(pLogFilePath)
 {
+	mLogFile.setFileName(mLogFilePath);
+	mLogFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
+	mLogStream.setDevice(&mLogFile);
 }
 
 void BackupJob::makeNice(int pPid) {

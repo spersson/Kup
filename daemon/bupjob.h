@@ -31,7 +31,7 @@ class BupJob : public BackupJob
 
 public:
 	BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	       const QString &pDestinationPath);
+	       const QString &pDestinationPath, const QString &pLogFilePath);
 	virtual void start();
 
 protected slots:

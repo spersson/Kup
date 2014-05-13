@@ -117,7 +117,7 @@ void FSExecutor::startBackup() {
 
 void FSExecutor::slotBackupDone(KJob *pJob) {
 	if(pJob->error()) {
-		KNotification::event(KNotification::Error, i18nc("@title", "Problem"), pJob->errorText());
+		notifyBackupFailed(pJob);
 		exitBackupRunningState(false);
 	} else {
 		mPlan->mLastCompleteBackup = QDateTime::currentDateTime().toUTC();

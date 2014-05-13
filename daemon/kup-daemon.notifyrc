@@ -8,3 +8,7 @@ Name=Start taking backup
 Comment=A question if user wants to start taking a backup
 Action=Popup
 
+[Event/BackupFailed]
+Name=Backup failed
+Comment=Saving of backup failed, offer user to see log file
+Action=Popup

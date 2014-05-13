@@ -33,20 +33,41 @@
 #include <QMenu>
 
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
-   :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL)
+   :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL), mFailNotification(NULL)
 {
-	mShowFilesAction = new QAction(i18nc("@action:inmenu", "Show Files"), this);
-	mShowFilesAction->setEnabled(false);
-	connect(mShowFilesAction, SIGNAL(triggered()), SLOT(showFilesClicked()));
+	QString lCachePath = QString::fromLocal8Bit(qgetenv("XDG_CACHE_HOME").constData());
+	if(lCachePath.isEmpty()) {
+		lCachePath = QDir::homePath();
+		lCachePath.append(QLatin1String("/.cache"));
+	}
+	lCachePath.append(QLatin1String("/kup"));
+	QDir lCacheDir(lCachePath);
+	if(!lCacheDir.exists()) {
+		if(!lCacheDir.mkpath(lCachePath)) {
+			lCachePath = QLatin1String("/tmp");
+		}
+	}
+	mLogFilePath = lCachePath;
+	mLogFilePath.append(QLatin1String("/kup_plan"));
+	mLogFilePath.append(QString::number(mPlan->planNumber()));
+	mLogFilePath.append(QLatin1String(".log"));
 
 	mRunBackupAction = new QAction(i18nc("@action:inmenu", "Take Backup Now"), this);
 	mRunBackupAction->setEnabled(false);
 	connect(mRunBackupAction, SIGNAL(triggered()), SLOT(enterBackupRunningState()));
 
+	mShowFilesAction = new QAction(i18nc("@action:inmenu", "Show Files"), this);
+	mShowFilesAction->setEnabled(false);
+	connect(mShowFilesAction, SIGNAL(triggered()), SLOT(showFilesClicked()));
+
+	mShowLogFileAction = new QAction(i18nc("@action:inmenu", "Show Log File"), this);
+	mShowLogFileAction->setEnabled(QFileInfo(mLogFilePath).exists());
+	connect(mShowLogFileAction, SIGNAL(triggered()), SLOT(showLog()));
+
 	mActionMenu = new QMenu(mPlan->mDescription);
-	mActionMenu->setEnabled(false);
 	mActionMenu->addAction(mRunBackupAction);
 	mActionMenu->addAction(mShowFilesAction);
+	mActionMenu->addAction(mShowLogFileAction);
 
 	mSchedulingTimer = new QTimer(this);
 	mSchedulingTimer->setSingleShot(true);
@@ -61,7 +82,6 @@ void PlanExecutor::enterAvailableState() {
 	if(mState == NOT_AVAILABLE) {
 		mShowFilesAction->setEnabled(true);
 		mRunBackupAction->setEnabled(true);
-		mActionMenu->setEnabled(true);
 		mState = WAITING_FOR_FIRST_BACKUP; //initial child state of "Available" state
 		emit stateChanged();
 	}
@@ -122,12 +142,12 @@ void PlanExecutor::enterNotAvailableState() {
 	mSchedulingTimer->stop();
 	mShowFilesAction->setEnabled(false);
 	mRunBackupAction->setEnabled(false);
-	mActionMenu->setEnabled(false);
 	mState = NOT_AVAILABLE;
 	emit stateChanged();
 }
 
 void PlanExecutor::askUser(const QString &pQuestion) {
+	discardUserQuestion();
 	mQuestion = new KNotification(QLatin1String("StartBackup"), KNotification::Persistent);
 	mQuestion->setTitle(i18nc("@title:window", "Backup Device Available - %1", mPlan->mDescription));
 	mQuestion->setText(pQuestion);
@@ -151,6 +171,34 @@ void PlanExecutor::discardUserQuestion() {
 	}
 }
 
+void PlanExecutor::notifyBackupFailed(KJob *pFailedJob) {
+	discardFailNotification();
+	mFailNotification = new KNotification(QLatin1String("BackupFailed"), KNotification::Persistent);
+	mFailNotification->setTitle(i18nc("@title:window", "Saving of Backup Failed"));
+	mFailNotification->setText(pFailedJob->errorText());
+	if(pFailedJob->error() == BackupJob::ErrorWithLog) {
+		QStringList lAnswers;
+		lAnswers << i18nc("@action:button", "Show log file");
+		mFailNotification->setActions(lAnswers);
+	}
+	connect(mFailNotification, SIGNAL(action1Activated()), SLOT(showLog()));
+	connect(mFailNotification, SIGNAL(closed()), SLOT(discardFailNotification()));
+	connect(mFailNotification, SIGNAL(ignored()), SLOT(discardFailNotification()));
+	mFailNotification->sendEvent();
+}
+
+void PlanExecutor::discardFailNotification() {
+	if(mFailNotification) {
+		mFailNotification->deleteLater();
+		mFailNotification = NULL;
+	}
+}
+
+void PlanExecutor::showLog() {
+	discardFailNotification();
+	KRun::runUrl(mLogFilePath, QLatin1String("text/x-log"), NULL);
+}
+
 void PlanExecutor::enterBackupRunningState() {
 	discardUserQuestion();
 	mState = RUNNING;
@@ -161,6 +209,7 @@ void PlanExecutor::enterBackupRunningState() {
 
 void PlanExecutor::exitBackupRunningState(bool pWasSuccessful) {
 	mRunBackupAction->setEnabled(true);
+	mShowLogFileAction->setEnabled(QFileInfo(mLogFilePath).exists());
 	if(pWasSuccessful) {
 		if(mPlan->mScheduleType == BackupPlan::USAGE) {
 			//reset usage time after successful backup
@@ -220,9 +269,9 @@ void PlanExecutor::showFilesClicked() {
 
 BackupJob *PlanExecutor::createBackupJob() {
 	if(mPlan->mBackupType == BackupPlan::BupType) {
-		return new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath);
+		return new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath, mLogFilePath);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
-		return new RsyncJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath);
+		return new RsyncJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath, mLogFilePath);
 	}
 	qWarning("Invalid backup type in configuration!");
 	return NULL;

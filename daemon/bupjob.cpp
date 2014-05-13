@@ -20,13 +20,14 @@
 
 #include "bupjob.h"
 
+#include <KGlobal>
 #include <KLocale>
 #include <QDir>
 #include <QTimer>
 
 BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-               const QString &pDestinationPath)
-   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath)
+               const QString &pDestinationPath, const QString &pLogFilePath)
+   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pLogFilePath)
 {
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -41,7 +42,7 @@ void BupJob::startIndexing() {
 	lVersionProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	lVersionProcess << QLatin1String("bup") << QLatin1String("version");
 	if(lVersionProcess.execute() < 0) {
-		setError(1);
+		setError(ErrorWithoutLog);
 		setErrorText(i18nc("notification", "The \"bup\" program is needed but could not be found, "
 		                   "maybe it is not installed?"));
 		emitResult();
@@ -49,15 +50,23 @@ void BupJob::startIndexing() {
 	}
 	mBupVersion = QString::fromUtf8(lVersionProcess.readAllStandardOutput());
 
+	mLogStream << QLatin1String("Kup is starting bup backup job at ")
+	           << KGlobal::locale()->formatDateTime(QDateTime::currentDateTime(),
+	                                                KLocale::LongDate, true)
+	           << endl;
+
 	KProcess lInitProcess;
 	lInitProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	lInitProcess << QLatin1String("bup");
 	lInitProcess << QLatin1String("-d") << mDestinationPath;
 	lInitProcess << QLatin1String("init");
+	mLogStream << lInitProcess.program().join(QLatin1String(" ")) << endl;
 	if(lInitProcess.execute() != 0) {
-		setError(1);
-		setErrorText(i18nc("notification", "Backup destination could not be initialised by bup:\n%1",
-		                   QString::fromUtf8(lInitProcess.readAllStandardError())));
+		mLogStream << QString::fromUtf8(lInitProcess.readAllStandardError()) << endl;
+		mLogStream << QLatin1String("Kup is aborting the bup backup job.") << endl;
+		setError(ErrorWithLog);
+		setErrorText(i18nc("notification", "Backup destination could not be initialised. "
+		                   "See log file for more details."));
 		emitResult();
 		return;
 	}
@@ -74,6 +83,7 @@ void BupJob::startIndexing() {
 
 	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
 	connect(&mIndexProcess, SIGNAL(started()), SLOT(slotIndexingStarted()));
+	mLogStream << mIndexProcess.program().join(QLatin1String(" ")) << endl;
 	mIndexProcess.start();
 }
 
@@ -82,10 +92,12 @@ void BupJob::slotIndexingStarted() {
 }
 
 void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
+	mLogStream << QString::fromUtf8(mIndexProcess.readAllStandardError()) << endl;
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		setError(1);
-		setErrorText(i18nc("notification", "Indexing of file system did not complete successfully:\n%1",
-		                   QString::fromUtf8(mIndexProcess.readAllStandardError())));
+		mLogStream << QLatin1String("Kup is aborting the bup backup job.") << endl;
+		setError(ErrorWithLog);
+		setErrorText(i18nc("notification", "Indexing of file system did not complete successfully. "
+		                   "See log file for more details."));
 		emitResult();
 		return;
 	}
@@ -98,6 +110,7 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
 	connect(&mSaveProcess, SIGNAL(started()), SLOT(slotSavingStarted()));
+	mLogStream << mSaveProcess.program().join(QLatin1String(" ")) << endl;
 	mSaveProcess.start();
 }
 
@@ -106,11 +119,14 @@ void BupJob::slotSavingStarted() {
 }
 
 void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
+	mLogStream << QString::fromUtf8(mSaveProcess.readAllStandardError()) << endl;
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		setError(1);
-		setErrorText(i18nc("notification", "Backup did not complete successfully:\n%1",
-		                   QString::fromUtf8(mSaveProcess.readAllStandardError())));
+		mLogStream << QLatin1String("Kup did not successfully complete the bup backup job.") << endl;
+		setError(ErrorWithLog);
+		setErrorText(i18nc("notification", "Saving backup did not complete successfully. "
+		                   "See log file for more details."));
+	} else {
+		mLogStream << QLatin1String("Kup successfully completed the bup backup job.") << endl;
 	}
 	emitResult();
 }
-

@@ -20,12 +20,13 @@
 
 #include "rsyncjob.h"
 
+#include <KGlobal>
 #include <KLocale>
 #include <QTimer>
 
 RsyncJob::RsyncJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-                   const QString &pDestinationPath)
-   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath)
+                   const QString &pDestinationPath, const QString &pLogFilePath)
+   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pLogFilePath)
 {
 	mRsyncProcess.setOutputChannelMode(KProcess::SeparateChannels);
 }
@@ -39,12 +40,17 @@ void RsyncJob::startRsync() {
 	lVersionProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	lVersionProcess << QLatin1String("rsync") << QLatin1String("--version");
 	if(lVersionProcess.execute() < 0) {
-		setError(1);
+		setError(ErrorWithoutLog);
 		setErrorText(i18nc("notification", "The \"rsync\" program is needed but could not be found, "
 		                   "maybe it is not installed?"));
 		emitResult();
 		return;
 	}
+
+	mLogStream << QLatin1String("Kup is starting rsync backup job at ")
+	           << KGlobal::locale()->formatDateTime(QDateTime::currentDateTime(),
+	                                                KLocale::LongDate, true)
+	           << endl;
 
 	mRsyncProcess << QLatin1String("rsync") << QLatin1String("-aR");
 	mRsyncProcess << QLatin1String("--delete") << QLatin1String("--delete-excluded");
@@ -56,6 +62,7 @@ void RsyncJob::startRsync() {
 
 	connect(&mRsyncProcess, SIGNAL(started()), SLOT(slotRsyncStarted()));
 	connect(&mRsyncProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotRsyncFinished(int,QProcess::ExitStatus)));
+	mLogStream << mRsyncProcess.program().join(QLatin1String(" ")) << endl;
 	mRsyncProcess.start();
 }
 
@@ -64,10 +71,14 @@ void RsyncJob::slotRsyncStarted() {
 }
 
 void RsyncJob::slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus) {
+	mLogStream << QString::fromUtf8(mRsyncProcess.readAllStandardError()) << endl;
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		setError(1);
-		setErrorText(i18nc("notification", "Backup did not complete successfully:\n%1",
-		                   QString::fromLocal8Bit(mRsyncProcess.readAllStandardError())));
+		mLogStream << QLatin1String("Kup did not successfully complete the rsync backup job.") << endl;
+		setError(ErrorWithLog);
+		setErrorText(i18nc("notification", "Saving backup did not complete successfully. "
+		                   "See log file for more details."));
+	} else {
+		mLogStream << QLatin1String("Kup successfully completed the rsync backup job.") << endl;
 	}
 	emitResult();
 }

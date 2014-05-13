@@ -90,6 +90,11 @@ protected slots:
 	void askUser(const QString &pQuestion);
 	void discardUserQuestion();
 
+	void notifyBackupFailed(KJob *pFailedJob);
+	void discardFailNotification();
+
+	void showLog();
+
 protected:
 	enum ExecutorState {NOT_AVAILABLE, WAITING_FOR_FIRST_BACKUP,
 		                 WAITING_FOR_BACKUP_AGAIN, RUNNING, WAITING_FOR_MANUAL_BACKUP};
@@ -97,12 +102,15 @@ protected:
 	BackupJob *createBackupJob();
 
 	QString mDestinationPath;
+	QString mLogFilePath;
 	BackupPlan *mPlan;
 	QMenu *mActionMenu;
 	QAction *mShowFilesAction;
 	QAction *mRunBackupAction;
+	QAction *mShowLogFileAction;
 	KNotification *mQuestion;
 	QTimer *mSchedulingTimer;
+	KNotification *mFailNotification;
 };
 
 #endif // PLANEXECUTOR_H

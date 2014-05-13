@@ -22,21 +22,32 @@
 #define BACKUPJOB_H
 
 #include <KJob>
+
+#include <QFile>
 #include <QStringList>
+#include <QTextStream>
 
 #include "backupplan.h"
 
 class BackupJob : public KJob
 {
 	Q_OBJECT
+public:
+	enum ErrorCodes {
+		ErrorWithLog = UserDefinedError,
+		ErrorWithoutLog
+	};
 
 protected:
 	BackupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	          const QString &pDestinationPath);
+	          const QString &pDestinationPath, const QString &pLogFilePath);
 	static void makeNice(int pPid);
 	QStringList mPathsIncluded;
 	QStringList mPathsExcluded;
 	QString mDestinationPath;
+	QString mLogFilePath;
+	QFile mLogFile;
+	QTextStream mLogStream;
 };
 
 #endif // BACKUPJOB_H
