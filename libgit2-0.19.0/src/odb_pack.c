@@ -370,10 +370,24 @@ static int pack_backend__read(void **buffer_p, size_t *len_p, git_otype *type_p,
 	struct git_pack_entry e;
 	git_rawobj raw;
 	int error;
+	struct pack_backend *p_backend = (struct pack_backend *)backend;
+	size_t i;
 
-	if ((error = pack_entry_find(&e, (struct pack_backend *)backend, oid)) < 0 ||
+	if ((error = pack_entry_find(&e, p_backend, oid)) < 0 ||
 		(error = git_packfile_unpack(&raw, e.p, &e.offset)) < 0)
 		return error;
+
+	// Hackish workaround added by Simon Persson, to make it work with repos
+	// that have more than 1000 packfiles, usually runs into linux max open
+	// file descriptors (ulimit -n). Close all FDs when done with them.
+	for (i = 0; i < p_backend->packs.length; ++i) {
+		struct git_pack_file *p = git_vector_get(&p_backend->packs, i);
+		git_mwindow_free_all(&p->mwf);
+		if (p->mwf.fd != -1) {
+			p_close(p->mwf.fd);
+			p->mwf.fd = -1;
+		}
+	}
 
 	*buffer_p = raw.data;
 	*len_p = raw.len;
