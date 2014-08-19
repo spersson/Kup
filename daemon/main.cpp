@@ -36,7 +36,8 @@ static const char version[] = "0.4.1";
 extern "C" int KDE_EXPORT kdemain(int argc, char **argv) {
 	KupDaemon *lDaemon = new KupDaemon();
 	if(!lDaemon->shouldStart()) {
-		qWarning() <<ki18n("Kup is not enabled, enable it from the system settings module.").toString();
+		qWarning() <<ki18n("Kup is not enabled, enable it from the system settings module. "
+		                   "You can do that by running 'kcmshell4 kup'").toString();
 		return 0;
 	}
 	KAboutData lAbout("kup-daemon", "kup", ki18nc("@title", "Kup Daemon"), version, ki18n(description),
