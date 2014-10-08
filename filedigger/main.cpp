@@ -58,8 +58,16 @@ int main(int pArgCount, char **pArgArray) {
 	git_threads_init();
 	MergedRepository *lRepository = new MergedRepository(NULL, lParsedArguments->arg(0),
 	                                                     lParsedArguments->getOption("branch"));
-	if(!lRepository->openedSuccessfully()) {
-		KMessageBox::sorry(NULL, i18nc("@info:label messagebox", "The specified bup repository could not be opened."));
+	if(!lRepository->open()) {
+		KMessageBox::sorry(NULL, i18nc("@info:label messagebox, %1 is a folder path",
+		                               "The bup repository \"%1\" could not be opened. Check if the backups really are located there.",
+		                               lParsedArguments->arg(0)));
+		return -1;
+	}
+	if(!lRepository->readBranch()) {
+		KMessageBox::sorry(NULL, i18nc("@info:label messagebox, %1 is the name of a repository branch",
+		                               "The branch \"%1\" could not be read. Either it does not exist or you do not have permission to read it.",
+		                               lParsedArguments->getOption("branch")));
 		return -1;
 	}
 

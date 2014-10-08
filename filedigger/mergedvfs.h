@@ -81,7 +81,6 @@ public:
 protected:
 	virtual void generateSubNodes();
 
-	static git_revwalk *mRevisionWalker;
 	static git_repository *mRepository;
 	uint mMode;
 	VersionList mVersionList;
@@ -93,8 +92,11 @@ class MergedRepository: public MergedNode {
 public:
 	MergedRepository(QObject *pParent, const QString &pRepositoryPath, const QString &pBranchName);
 	virtual ~MergedRepository();
+
+	bool open();
+	bool readBranch();
+
 	QString mBranchName;
-	bool openedSuccessfully() {return mRepository != NULL; }
 };
 
 #endif // MERGEDVFS_H

@@ -30,8 +30,6 @@
 typedef QMap<QString, MergedNode *> NameMap;
 typedef QMapIterator<QString, MergedNode *> NameMapIterator;
 
-
-git_revwalk *MergedNode::mRevisionWalker = NULL;
 git_repository *MergedNode::mRepository = NULL;
 
 bool mergedNodeLessThan(const MergedNode *a, const MergedNode *b) {
@@ -196,41 +194,54 @@ MergedRepository::MergedRepository(QObject *pParent, const QString &pRepositoryP
 	if(!objectName().endsWith(QLatin1Char('/'))) {
 		setObjectName(objectName() + QLatin1Char('/'));
 	}
-	if(0 != git_repository_open(&mRepository, pRepositoryPath.toLocal8Bit())) {
-		qWarning() << "could not open repository " << pRepositoryPath;
-		mRepository = NULL;
-		return;
-	}
-	if(0 != git_revwalk_new(&mRevisionWalker, mRepository)) {
-		qWarning() << "could not create a revision walker in repository " << pRepositoryPath;
-		mRevisionWalker = NULL;
-		return;
-	}
-
-	QString lCompleteBranchName = QString::fromLatin1("refs/heads/");
-	lCompleteBranchName.append(mBranchName);
-	if(0 != git_revwalk_push_ref(mRevisionWalker, lCompleteBranchName.toLocal8Bit())) {
-		return;
-	}
-	git_oid lOid;
-	while(0 == git_revwalk_next(&lOid, mRevisionWalker)) {
-		git_commit *lCommit;
-		if(0 != git_commit_lookup(&lCommit, mRepository, &lOid)) {
-			continue;
-		}
-		git_time_t lTime = git_commit_time(lCommit);
-		mVersionList.append(new VersionData(git_commit_tree_id(lCommit), lTime, lTime, 0));
-		git_commit_free(lCommit);
-	}
 }
 
 MergedRepository::~MergedRepository() {
 	if(mRepository != NULL) {
 		git_repository_free(mRepository);
 	}
-	if(mRevisionWalker != NULL) {
-		git_revwalk_free(mRevisionWalker);
+}
+
+bool MergedRepository::open() {
+	if(0 != git_repository_open(&mRepository, objectName().toLocal8Bit())) {
+		qWarning() << "could not open repository " << objectName();
+		mRepository = NULL;
+		return false;
 	}
+	return true;
+}
+
+bool MergedRepository::readBranch() {
+	if(mRepository == NULL) {
+		return false;
+	}
+	git_revwalk *lRevisionWalker;
+	if(0 != git_revwalk_new(&lRevisionWalker, mRepository)) {
+		qWarning() << "could not create a revision walker in repository " << objectName();
+		return false;
+	}
+
+	QString lCompleteBranchName = QString::fromLatin1("refs/heads/");
+	lCompleteBranchName.append(mBranchName);
+	if(0 != git_revwalk_push_ref(lRevisionWalker, lCompleteBranchName.toLocal8Bit())) {
+		qWarning() << "Unable to read branch \"" << mBranchName << "\" in repository " << objectName();
+		git_revwalk_free(lRevisionWalker);
+		return false;
+	}
+	bool lEmptyList = true;
+	git_oid lOid;
+	while(0 == git_revwalk_next(&lOid, lRevisionWalker)) {
+		git_commit *lCommit;
+		if(0 != git_commit_lookup(&lCommit, mRepository, &lOid)) {
+			continue;
+		}
+		git_time_t lTime = git_commit_time(lCommit);
+		mVersionList.append(new VersionData(git_commit_tree_id(lCommit), lTime, lTime, 0));
+		lEmptyList = false;
+		git_commit_free(lCommit);
+	}
+	git_revwalk_free(lRevisionWalker);
+	return !lEmptyList;
 }
 
 uint qHash(git_oid pOid) {
