@@ -271,11 +271,13 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 
 	QGridLayout *lVersionedVLayout = new QGridLayout;
 	lVersionedVLayout->setColumnMinimumWidth(0, lIndentation);
+	lVersionedVLayout->setContentsMargins(0, 0, 0, 0);
 	lVersionedVLayout->addWidget(lVersionedInfoLabel, 0, 1);
 	lVersionedWidget->setLayout(lVersionedVLayout);
 
 	QGridLayout *lSyncedVLayout = new QGridLayout;
 	lSyncedVLayout->setColumnMinimumWidth(0, lIndentation);
+	lSyncedVLayout->setContentsMargins(0, 0, 0, 0);
 	lSyncedVLayout->addWidget(lSyncedInfoLabel, 0, 1);
 	lSyncedWidget->setLayout(lSyncedVLayout);
 
@@ -331,6 +333,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 
 	QGridLayout *lFileSystemVLayout = new QGridLayout;
 	lFileSystemVLayout->setColumnMinimumWidth(0, lIndentation);
+	lFileSystemVLayout->setContentsMargins(0, 0, 0, 0);
 	lFileSystemVLayout->addWidget(lFileSystemInfoLabel, 0, 1);
 	QHBoxLayout *lFileSystemHLayout = new QHBoxLayout;
 	lFileSystemHLayout->addWidget(lFileSystemLabel);
@@ -369,6 +372,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 
 	QGridLayout *lDriveVLayout = new QGridLayout;
 	lDriveVLayout->setColumnMinimumWidth(0, lIndentation);
+	lDriveVLayout->setContentsMargins(0, 0, 0, 0);
 	lDriveVLayout->addWidget(lDriveInfoLabel, 0, 1);
 	lDriveVLayout->addWidget(mDriveSelection, 1, 1);
 	QHBoxLayout *lDriveHLayout = new QHBoxLayout;
@@ -404,6 +408,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	                   lButtonGroup->style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing);
 
 	QVBoxLayout *lVLayout = new QVBoxLayout;
+	lVLayout->setContentsMargins(0, 0, 0, 0);
 	QRadioButton *lManualRadio = new QRadioButton(i18nc("@option:radio", "Manual Activation"));
 	QRadioButton *lIntervalRadio = new QRadioButton(i18nc("@option:radio", "Interval"));
 	QRadioButton *lUsageRadio = new QRadioButton(i18nc("@option:radio", "Active Usage Time"));
@@ -416,6 +421,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	connect(lManualRadio, SIGNAL(toggled(bool)), lManualLabel, SLOT(setVisible(bool)));
 	QGridLayout *lManualLayout = new QGridLayout;
 	lManualLayout->setColumnMinimumWidth(0, lIndentation);
+	lManualLayout->setContentsMargins(0, 0, 0, 0);
 	lManualLayout->addWidget(lManualLabel, 0, 1);
 
 	QWidget *lIntervalWidget = new QWidget;
@@ -428,8 +434,10 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lIntervalLabel->setWordWrap(true);
 	QGridLayout *lIntervalVertLayout = new QGridLayout;
 	lIntervalVertLayout->setColumnMinimumWidth(0, lIndentation);
+	lIntervalVertLayout->setContentsMargins(0, 0, 0, 0);
 	lIntervalVertLayout->addWidget(lIntervalLabel, 0, 1);
 	QHBoxLayout *lIntervalLayout = new QHBoxLayout;
+	lIntervalLayout->setContentsMargins(0, 0, 0, 0);
 	KIntSpinBox *lIntervalSpinBox = new KIntSpinBox;
 	lIntervalSpinBox->setObjectName(QLatin1String("kcfg_Schedule interval"));
 	lIntervalSpinBox->setMinimum(1);
@@ -455,8 +463,10 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lUsageLabel->setWordWrap(true);
 	QGridLayout *lUsageVertLayout = new QGridLayout;
 	lUsageVertLayout->setColumnMinimumWidth(0, lIndentation);
+	lUsageVertLayout->setContentsMargins(0, 0, 0, 0);
 	lUsageVertLayout->addWidget(lUsageLabel, 0, 1);
 	QHBoxLayout *lUsageLayout = new QHBoxLayout;
+	lUsageLayout->setContentsMargins(0, 0, 0, 0);
 	KIntSpinBox *lUsageSpinBox = new KIntSpinBox;
 	lUsageSpinBox->setObjectName(QLatin1String("kcfg_Usage limit"));
 	lUsageSpinBox->setMinimum(1);
@@ -493,13 +503,28 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 
 KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	QWidget *lAdvancedWidget = new QWidget(this);
-	QFormLayout *lAdvancedLayout = new QFormLayout;
+	QVBoxLayout *lAdvancedLayout = new QVBoxLayout;
 
-	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check", "Yes"));
-	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
+	int lIndentation = lAdvancedWidget->style()->pixelMetric(QStyle::PM_IndicatorWidth) +
+	                   lAdvancedWidget->style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing);
+
+	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check", "Show hidden folders in source selection"));
 	lShowHiddenCheckBox->setObjectName(QLatin1String("kcfg_Show hidden folders"));
-	lAdvancedLayout->addRow(i18nc("@label", "Show hidden folders in source selection:"), lShowHiddenCheckBox);
+	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
 
+	QLabel *lShowHiddenLabel = new QLabel(i18nc("@info", "This makes it possible to explicitly include or exlude hidden "
+	                                            "files and folders in the backup source selection. Hidden files and "
+	                                            "folders have a name that starts with a dot. They are typically located "
+	                                            "in your home folder and are used to store settings and temporary files "
+	                                            "for your applications."));
+	lShowHiddenLabel->setWordWrap(true);
+	QGridLayout *lShowHiddenLayout = new QGridLayout;
+	lShowHiddenLayout->setContentsMargins(0, 0, 0, 0);
+	lShowHiddenLayout->setColumnMinimumWidth(0, lIndentation);
+	lShowHiddenLayout->addWidget(lShowHiddenLabel, 0, 1);
+	lAdvancedLayout->addWidget(lShowHiddenCheckBox);
+	lAdvancedLayout->addLayout(lShowHiddenLayout);
+	lAdvancedLayout->addStretch();
 	lAdvancedWidget->setLayout(lAdvancedLayout);
 	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);
 	lPage->setName(i18nc("@title", "Advanced"));
