@@ -31,7 +31,7 @@ class BupJob : public BackupJob
 
 public:
 	BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	       const QString &pDestinationPath, const QString &pLogFilePath);
+	       const QString &pDestinationPath, const QString &pLogFilePath, bool pGenerateRecoveryInfo);
 	virtual void start();
 
 protected slots:
@@ -40,11 +40,15 @@ protected slots:
 	void slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 	void slotSavingStarted();
 	void slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
+	void slotRecoveryInfoStarted();
+	void slotRecoveryInfoDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 
 protected:
 	KProcess mIndexProcess;
 	KProcess mSaveProcess;
+	KProcess mFsckProcess;
 	QString mBupVersion;
+	bool mGenerateRecoveryInfo;
 };
 
 #endif /*BUPJOB_H*/

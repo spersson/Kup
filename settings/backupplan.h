@@ -59,6 +59,7 @@ public:
 	qulonglong mExternalVolumeCapacity;
 
 	bool mShowHiddenFolders;
+	bool mGenerateRecoveryInfo;
 
 	QDateTime mLastCompleteBackup;
 	// Size of the last backup in bytes.

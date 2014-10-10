@@ -522,8 +522,28 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	lShowHiddenLayout->setContentsMargins(0, 0, 0, 0);
 	lShowHiddenLayout->setColumnMinimumWidth(0, lIndentation);
 	lShowHiddenLayout->addWidget(lShowHiddenLabel, 0, 1);
+
+	QWidget *lRecoveryWidget = new QWidget;
+	QCheckBox *lRecoveryCheckBox = new QCheckBox(i18nc("@option:check", "Generate recovery information"));
+	lRecoveryCheckBox->setObjectName(QLatin1String("kcfg_Generate recovery info"));
+
+	QLabel *lRecoveryLabel = new QLabel(i18nc("@info", "This will make your backups use around 10% more storage "
+	                                          "space and saving backups will take slightly longer time. In "
+	                                          "return it will be possible to recover from a partially corrupted "
+	                                          "backup."));
+	lRecoveryLabel->setWordWrap(true);
+	QGridLayout *lRecoveryLayout = new QGridLayout;
+	lRecoveryLayout->setContentsMargins(0, 0, 0, 0);
+	lRecoveryLayout->setSpacing(0);
+	lRecoveryLayout->setColumnMinimumWidth(0, lIndentation);
+	lRecoveryLayout->addWidget(lRecoveryCheckBox,0, 0, 1, 2);
+	lRecoveryLayout->addWidget(lRecoveryLabel, 1, 1);
+	lRecoveryWidget->setLayout(lRecoveryLayout);
+	connect(mVersionedRadio, SIGNAL(toggled(bool)), lRecoveryWidget, SLOT(setVisible(bool)));
+
 	lAdvancedLayout->addWidget(lShowHiddenCheckBox);
 	lAdvancedLayout->addLayout(lShowHiddenLayout);
+	lAdvancedLayout->addWidget(lRecoveryWidget);
 	lAdvancedLayout->addStretch();
 	lAdvancedWidget->setLayout(lAdvancedLayout);
 	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);

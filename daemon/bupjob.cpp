@@ -26,11 +26,13 @@
 #include <QTimer>
 
 BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-               const QString &pDestinationPath, const QString &pLogFilePath)
-   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pLogFilePath)
+               const QString &pDestinationPath, const QString &pLogFilePath, bool pGenerateRecoveryInfo)
+   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pLogFilePath),
+     mGenerateRecoveryInfo(pGenerateRecoveryInfo)
 {
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
+	mFsckProcess.setOutputChannelMode(KProcess::SeparateChannels);
 }
 
 void BupJob::start() {
@@ -94,9 +96,9 @@ void BupJob::slotIndexingStarted() {
 void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mLogStream << QString::fromUtf8(mIndexProcess.readAllStandardError()) << endl;
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		mLogStream << QLatin1String("Kup is aborting the bup backup job.") << endl;
+		mLogStream << QLatin1String("Kup did not successfully complete the bup backup job: failed to index everything.") << endl;
 		setError(ErrorWithLog);
-		setErrorText(i18nc("notification", "Indexing of file system did not complete successfully. "
+		setErrorText(i18nc("notification", "Failed to index the file system. "
 		                   "See log file for more details."));
 		emitResult();
 		return;
@@ -121,9 +123,39 @@ void BupJob::slotSavingStarted() {
 void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mLogStream << QString::fromUtf8(mSaveProcess.readAllStandardError()) << endl;
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		mLogStream << QLatin1String("Kup did not successfully complete the bup backup job.") << endl;
+		mLogStream << QLatin1String("Kup did not successfully complete the bup backup job: failed to save everything.") << endl;
 		setError(ErrorWithLog);
-		setErrorText(i18nc("notification", "Saving backup did not complete successfully. "
+		setErrorText(i18nc("notification", "Failed to save the complete backup. "
+		                   "See log file for more details."));
+		emitResult();
+		return;
+	}
+	if(mGenerateRecoveryInfo) {
+		mFsckProcess << QLatin1String("bup");
+		mFsckProcess << QLatin1String("-d") << mDestinationPath;
+		mFsckProcess << QLatin1String("fsck");
+		mFsckProcess << QLatin1String("-g");
+
+		connect(&mFsckProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotRecoveryInfoDone(int,QProcess::ExitStatus)));
+		connect(&mFsckProcess, SIGNAL(started()), SLOT(slotRecoveryInfoStarted()));
+		mLogStream << mFsckProcess.program().join(QLatin1String(" ")) << endl;
+		mFsckProcess.start();
+	} else {
+		mLogStream << QLatin1String("Kup successfully completed the bup backup job.") << endl;
+		emitResult();
+	}
+}
+
+void BupJob::slotRecoveryInfoStarted() {
+	makeNice(mFsckProcess.pid());
+}
+
+void BupJob::slotRecoveryInfoDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
+	mLogStream << QString::fromUtf8(mFsckProcess.readAllStandardError()) << endl;
+	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
+		mLogStream << QLatin1String("Kup did not successfully complete the bup backup job: failed to generate recovery info.") << endl;
+		setError(ErrorWithLog);
+		setErrorText(i18nc("notification", "Failed to generate recovery info for the backup. "
 		                   "See log file for more details."));
 	} else {
 		mLogStream << QLatin1String("Kup successfully completed the bup backup job.") << endl;

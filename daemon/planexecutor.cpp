@@ -269,7 +269,8 @@ void PlanExecutor::showFilesClicked() {
 
 BackupJob *PlanExecutor::createBackupJob() {
 	if(mPlan->mBackupType == BackupPlan::BupType) {
-		return new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath, mLogFilePath);
+		return new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath, mLogFilePath,
+		                  mPlan->mGenerateRecoveryInfo);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
 		return new RsyncJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath, mLogFilePath);
 	}
