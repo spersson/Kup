@@ -82,7 +82,8 @@ class BackupPlanWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion, const QString &pRsyncVersion);
+	BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion,
+	                 const QString &pRsyncVersion, bool pPar2Available);
 
 	void saveExtraData();
 
@@ -90,7 +91,7 @@ public:
 	KPageWidgetItem *createSourcePage();
 	KPageWidgetItem *createDestinationPage();
 	KPageWidgetItem *createSchedulePage();
-	KPageWidgetItem *createAdvancedPage();
+	KPageWidgetItem *createAdvancedPage(bool pPar2Available);
 
 	KLineEdit *mDescriptionEdit;
 	KPushButton *mConfigureButton;

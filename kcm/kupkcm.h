@@ -75,6 +75,7 @@ private:
 	KPushButton *mAddPlanButton;
 	QString mBupVersion;
 	QString mRsyncVersion;
+	bool mPar2Available;
 };
 
 #endif // KUPKCM_H

@@ -183,7 +183,8 @@ void DirDialog::createNewFolder() {
 	mTreeView->setCurrentUrl(lPartialUrl);
 }
 
-BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion, const QString &pRsyncVersion)
+BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion,
+                                   const QString &pRsyncVersion, bool pPar2Available)
    : QWidget(), mBackupPlan(pBackupPlan)
 {
 	mDescriptionEdit = new KLineEdit;
@@ -200,7 +201,7 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupV
 	mConfigPages->addPage(createSourcePage());
 	mConfigPages->addPage(createDestinationPage());
 	mConfigPages->addPage(createSchedulePage());
-	mConfigPages->addPage(createAdvancedPage());
+	mConfigPages->addPage(createAdvancedPage(pPar2Available));
 
 	QHBoxLayout *lHLayout1 = new QHBoxLayout;
 	lHLayout1->addWidget(mConfigureButton);
@@ -501,7 +502,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	return lPage;
 }
 
-KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
+KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	QWidget *lAdvancedWidget = new QWidget(this);
 	QVBoxLayout *lAdvancedLayout = new QVBoxLayout;
 
@@ -524,7 +525,7 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	lShowHiddenLayout->addWidget(lShowHiddenLabel, 0, 1);
 
 	QWidget *lRecoveryWidget = new QWidget;
-	QCheckBox *lRecoveryCheckBox = new QCheckBox(i18nc("@option:check", "Generate recovery information"));
+	QCheckBox *lRecoveryCheckBox = new QCheckBox;
 	lRecoveryCheckBox->setObjectName(QLatin1String("kcfg_Generate recovery info"));
 
 	QLabel *lRecoveryLabel = new QLabel(i18nc("@info", "This will make your backups use around 10% more storage "
@@ -532,6 +533,13 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	                                          "return it will be possible to recover from a partially corrupted "
 	                                          "backup."));
 	lRecoveryLabel->setWordWrap(true);
+	if(pPar2Available) {
+		lRecoveryCheckBox->setText(i18nc("@option:check", "Generate recovery information"));
+	} else {
+		lRecoveryCheckBox->setText(i18nc("@option:check", "Generate recovery information (not available because \"par2\" is not installed)"));
+		lRecoveryCheckBox->setEnabled(false);
+		lRecoveryLabel->setEnabled(false);
+	}
 	QGridLayout *lRecoveryLayout = new QGridLayout;
 	lRecoveryLayout->setContentsMargins(0, 0, 0, 0);
 	lRecoveryLayout->setSpacing(0);

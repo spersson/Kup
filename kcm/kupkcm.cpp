@@ -63,6 +63,11 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 	int lExitCode = lBupProcess.execute();
 	if(lExitCode >= 0) {
 		mBupVersion = QString::fromUtf8(lBupProcess.readAllStandardOutput());
+		KProcess lPar2Process;
+		lPar2Process << QLatin1String("bup") << QLatin1String("fsck") << QLatin1String("--par2-ok");
+		mPar2Available = lPar2Process.execute() == 0;
+	} else {
+		mPar2Available = false;
 	}
 
 	KProcess lRsyncProcess;
@@ -256,7 +261,7 @@ void KupKcm::createSettingsFrontPage() {
 }
 
 void KupKcm::createPlanWidgets(int pIndex) {
-	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion, mRsyncVersion);
+	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion, mRsyncVersion, mPar2Available);
 	connect(lPlanWidget, SIGNAL(requestOverviewReturn()), this, SLOT(showFrontPage()));
 	KConfigDialogManager *lConfigManager = new KConfigDialogManager(lPlanWidget, mPlans.at(pIndex));
 	lConfigManager->setObjectName(objectName());
