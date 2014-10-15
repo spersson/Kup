@@ -541,8 +541,28 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage() {
 	lRecoveryWidget->setLayout(lRecoveryLayout);
 	connect(mVersionedRadio, SIGNAL(toggled(bool)), lRecoveryWidget, SLOT(setVisible(bool)));
 
+	QWidget *lVerificationWidget = new QWidget;
+	QCheckBox *lVerificationCheckBox = new QCheckBox(i18nc("@option:check", "Verify integrity of backups"));
+	lVerificationCheckBox->setObjectName(QLatin1String("kcfg_Check backups"));
+
+	QLabel *lVerificationLabel = new QLabel(i18nc("@info", "Checks the whole backup archive for corruption "
+	                                              "every time you save new data. Saving backups will take a "
+	                                              "little bit longer time but it allows you to catch corruption "
+	                                              "problems sooner than at the time you need to use a backup, "
+	                                              "at that time it could be too late."));
+	lVerificationLabel->setWordWrap(true);
+	QGridLayout *lVerificationLayout = new QGridLayout;
+	lVerificationLayout->setContentsMargins(0, 0, 0, 0);
+	lVerificationLayout->setSpacing(0);
+	lVerificationLayout->setColumnMinimumWidth(0, lIndentation);
+	lVerificationLayout->addWidget(lVerificationCheckBox,0, 0, 1, 2);
+	lVerificationLayout->addWidget(lVerificationLabel, 1, 1);
+	lVerificationWidget->setLayout(lVerificationLayout);
+	connect(mVersionedRadio, SIGNAL(toggled(bool)), lVerificationWidget, SLOT(setVisible(bool)));
+
 	lAdvancedLayout->addWidget(lShowHiddenCheckBox);
 	lAdvancedLayout->addLayout(lShowHiddenLayout);
+	lAdvancedLayout->addWidget(lVerificationWidget);
 	lAdvancedLayout->addWidget(lRecoveryWidget);
 	lAdvancedLayout->addStretch();
 	lAdvancedWidget->setLayout(lAdvancedLayout);

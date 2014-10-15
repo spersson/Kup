@@ -75,6 +75,7 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 
 	addItemBool(QLatin1String("Show hidden folders"), mShowHiddenFolders);
 	addItemBool(QLatin1String("Generate recovery info"), mGenerateRecoveryInfo);
+	addItemBool(QLatin1String("Check backups"), mCheckBackups);
 
 	addItemDateTime(QLatin1String("Last complete backup"), mLastCompleteBackup);
 	addItemDouble(QLatin1String("Last backup size"), mLastBackupSize);

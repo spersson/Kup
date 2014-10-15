@@ -34,7 +34,9 @@ public:
 	virtual void start();
 
 protected slots:
-	void startIndexing();
+	void startJob();
+	void slotCheckingStarted();
+	void slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 	void slotIndexingStarted();
 	void slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 	void slotSavingStarted();
@@ -43,9 +45,10 @@ protected slots:
 	void slotRecoveryInfoDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 
 protected:
+	KProcess mFsckProcess;
 	KProcess mIndexProcess;
 	KProcess mSaveProcess;
-	KProcess mFsckProcess;
+	KProcess mPar2Process;
 	QString mBupVersion;
 };
 

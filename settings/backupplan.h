@@ -60,6 +60,7 @@ public:
 
 	bool mShowHiddenFolders;
 	bool mGenerateRecoveryInfo;
+	bool mCheckBackups;
 
 	QDateTime mLastCompleteBackup;
 	// Size of the last backup in bytes.
