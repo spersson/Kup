@@ -24,9 +24,8 @@
 #include <KLocale>
 #include <QTimer>
 
-RsyncJob::RsyncJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-                   const QString &pDestinationPath, const QString &pLogFilePath)
-   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pLogFilePath)
+RsyncJob::RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)
+   :BackupJob(pBackupPlan, pDestinationPath, pLogFilePath)
 {
 	mRsyncProcess.setOutputChannelMode(KProcess::SeparateChannels);
 }
@@ -54,10 +53,10 @@ void RsyncJob::startRsync() {
 
 	mRsyncProcess << QLatin1String("rsync") << QLatin1String("-aR");
 	mRsyncProcess << QLatin1String("--delete") << QLatin1String("--delete-excluded");
-	foreach(QString lExclude, mPathsExcluded) {
+	foreach(QString lExclude, mBackupPlan.mPathsExcluded) {
 		mRsyncProcess << QString::fromLatin1("--exclude=%1").arg(lExclude);
 	}
-	mRsyncProcess << mPathsIncluded;
+	mRsyncProcess << mBackupPlan.mPathsIncluded;
 	mRsyncProcess << mDestinationPath;
 
 	connect(&mRsyncProcess, SIGNAL(started()), SLOT(slotRsyncStarted()));

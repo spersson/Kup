@@ -39,11 +39,9 @@ public:
 	};
 
 protected:
-	BackupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	          const QString &pDestinationPath, const QString &pLogFilePath);
+	BackupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
 	static void makeNice(int pPid);
-	QStringList mPathsIncluded;
-	QStringList mPathsExcluded;
+	const BackupPlan &mBackupPlan;
 	QString mDestinationPath;
 	QString mLogFilePath;
 	QFile mLogFile;

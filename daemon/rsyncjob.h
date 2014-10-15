@@ -30,8 +30,7 @@ class RsyncJob : public BackupJob
 	Q_OBJECT
 
 public:
-	RsyncJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	         const QString &pDestinationPath, const QString &pLogFilePath);
+	RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
 
 	virtual void start();
 

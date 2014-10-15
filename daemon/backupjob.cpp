@@ -28,10 +28,8 @@
 #include <sys/syscall.h>
 #endif
 
-BackupJob::BackupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-                     const QString &pDestinationPath, const QString &pLogFilePath)
-   :KJob(), mPathsIncluded(pPathsIncluded), mPathsExcluded(pPathsExcluded),
-     mDestinationPath(pDestinationPath), mLogFilePath(pLogFilePath)
+BackupJob::BackupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)
+   :KJob(), mBackupPlan(pBackupPlan), mDestinationPath(pDestinationPath), mLogFilePath(pLogFilePath)
 {
 	mLogFile.setFileName(mLogFilePath);
 	mLogFile.open(QIODevice::WriteOnly | QIODevice::Truncate);

@@ -30,8 +30,7 @@ class BupJob : public BackupJob
 	Q_OBJECT
 
 public:
-	BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-	       const QString &pDestinationPath, const QString &pLogFilePath, bool pGenerateRecoveryInfo);
+	BupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
 	virtual void start();
 
 protected slots:
@@ -48,7 +47,6 @@ protected:
 	KProcess mSaveProcess;
 	KProcess mFsckProcess;
 	QString mBupVersion;
-	bool mGenerateRecoveryInfo;
 };
 
 #endif /*BUPJOB_H*/

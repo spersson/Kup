@@ -269,10 +269,9 @@ void PlanExecutor::showFilesClicked() {
 
 BackupJob *PlanExecutor::createBackupJob() {
 	if(mPlan->mBackupType == BackupPlan::BupType) {
-		return new BupJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath, mLogFilePath,
-		                  mPlan->mGenerateRecoveryInfo);
+		return new BupJob(*mPlan, mDestinationPath, mLogFilePath);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
-		return new RsyncJob(mPlan->mPathsIncluded, mPlan->mPathsExcluded, mDestinationPath, mLogFilePath);
+		return new RsyncJob(*mPlan, mDestinationPath, mLogFilePath);
 	}
 	qWarning("Invalid backup type in configuration!");
 	return NULL;

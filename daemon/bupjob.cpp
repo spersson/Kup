@@ -25,10 +25,8 @@
 #include <QDir>
 #include <QTimer>
 
-BupJob::BupJob(const QStringList &pPathsIncluded, const QStringList &pPathsExcluded,
-               const QString &pDestinationPath, const QString &pLogFilePath, bool pGenerateRecoveryInfo)
-   :BackupJob(pPathsIncluded, pPathsExcluded, pDestinationPath, pLogFilePath),
-     mGenerateRecoveryInfo(pGenerateRecoveryInfo)
+BupJob::BupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)
+   :BackupJob(pBackupPlan, pDestinationPath, pLogFilePath)
 {
 	mIndexProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	mSaveProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -77,11 +75,11 @@ void BupJob::startIndexing() {
 	mIndexProcess << QLatin1String("-d") << mDestinationPath;
 	mIndexProcess << QLatin1String("index") << QLatin1String("-u");
 
-	foreach(QString lExclude, mPathsExcluded) {
+	foreach(QString lExclude, mBackupPlan.mPathsExcluded) {
 		mIndexProcess << QLatin1String("--exclude");
 		mIndexProcess << lExclude;
 	}
-	mIndexProcess << mPathsIncluded;
+	mIndexProcess << mBackupPlan.mPathsIncluded;
 
 	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
 	connect(&mIndexProcess, SIGNAL(started()), SLOT(slotIndexingStarted()));
@@ -108,7 +106,7 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mSaveProcess << QLatin1String("-d") << mDestinationPath;
 	mSaveProcess << QLatin1String("save");
 	mSaveProcess << QLatin1String("-n") << QLatin1String("kup");
-	mSaveProcess << mPathsIncluded;
+	mSaveProcess << mBackupPlan.mPathsIncluded;
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
 	connect(&mSaveProcess, SIGNAL(started()), SLOT(slotSavingStarted()));
@@ -130,7 +128,7 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		emitResult();
 		return;
 	}
-	if(mGenerateRecoveryInfo) {
+	if(mBackupPlan.mGenerateRecoveryInfo) {
 		mFsckProcess << QLatin1String("bup");
 		mFsckProcess << QLatin1String("-d") << mDestinationPath;
 		mFsckProcess << QLatin1String("fsck");
