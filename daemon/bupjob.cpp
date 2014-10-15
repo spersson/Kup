@@ -53,7 +53,7 @@ void BupJob::startIndexing() {
 	mLogStream << QLatin1String("Kup is starting bup backup job at ")
 	           << KGlobal::locale()->formatDateTime(QDateTime::currentDateTime(),
 	                                                KLocale::LongDate, true)
-	           << endl;
+	           << endl << endl;
 
 	KProcess lInitProcess;
 	lInitProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -63,7 +63,8 @@ void BupJob::startIndexing() {
 	mLogStream << lInitProcess.program().join(QLatin1String(" ")) << endl;
 	if(lInitProcess.execute() != 0) {
 		mLogStream << QString::fromUtf8(lInitProcess.readAllStandardError()) << endl;
-		mLogStream << QLatin1String("Kup is aborting the bup backup job.") << endl;
+		mLogStream << endl << QLatin1String("Kup did not successfully complete the bup backup job: "
+		                                    "failed to initialize backup destination.") << endl;
 		setError(ErrorWithLog);
 		setErrorText(i18nc("notification", "Backup destination could not be initialised. "
 		                   "See log file for more details."));
@@ -92,12 +93,12 @@ void BupJob::slotIndexingStarted() {
 }
 
 void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
-	mLogStream << QString::fromUtf8(mIndexProcess.readAllStandardError()) << endl;
+	mLogStream << QString::fromUtf8(mIndexProcess.readAllStandardError());
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		mLogStream << QLatin1String("Kup did not successfully complete the bup backup job: failed to index everything.") << endl;
-		setError(ErrorWithLog);
+		mLogStream << endl << QLatin1String("Kup did not successfully complete the bup backup job: failed to index everything.") << endl;
 		setErrorText(i18nc("notification", "Failed to index the file system. "
 		                   "See log file for more details."));
+		setError(ErrorWithLog);
 		emitResult();
 		return;
 	}
@@ -119,12 +120,12 @@ void BupJob::slotSavingStarted() {
 }
 
 void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
-	mLogStream << QString::fromUtf8(mSaveProcess.readAllStandardError()) << endl;
+	mLogStream << QString::fromUtf8(mSaveProcess.readAllStandardError());
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		mLogStream << QLatin1String("Kup did not successfully complete the bup backup job: failed to save everything.") << endl;
-		setError(ErrorWithLog);
+		mLogStream << endl << QLatin1String("Kup did not successfully complete the bup backup job: failed to save everything.") << endl;
 		setErrorText(i18nc("notification", "Failed to save the complete backup. "
 		                   "See log file for more details."));
+		setError(ErrorWithLog);
 		emitResult();
 		return;
 	}
@@ -139,7 +140,7 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		mLogStream << mFsckProcess.program().join(QLatin1String(" ")) << endl;
 		mFsckProcess.start();
 	} else {
-		mLogStream << QLatin1String("Kup successfully completed the bup backup job.") << endl;
+		mLogStream << endl << QLatin1String("Kup successfully completed the bup backup job.") << endl;
 		emitResult();
 	}
 }
@@ -149,14 +150,15 @@ void BupJob::slotRecoveryInfoStarted() {
 }
 
 void BupJob::slotRecoveryInfoDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
-	mLogStream << QString::fromUtf8(mFsckProcess.readAllStandardError()) << endl;
+	mLogStream << QString::fromUtf8(mFsckProcess.readAllStandardError());
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
-		mLogStream << QLatin1String("Kup did not successfully complete the bup backup job: failed to generate recovery info.") << endl;
-		setError(ErrorWithLog);
+		mLogStream << endl << QLatin1String("Kup did not successfully complete the bup backup job: "
+		                                    "failed to generate recovery info.") << endl;
 		setErrorText(i18nc("notification", "Failed to generate recovery info for the backup. "
 		                   "See log file for more details."));
+		setError(ErrorWithLog);
 	} else {
-		mLogStream << QLatin1String("Kup successfully completed the bup backup job.") << endl;
+		mLogStream << endl << QLatin1String("Kup successfully completed the bup backup job.") << endl;
 	}
 	emitResult();
 }
