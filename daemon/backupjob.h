@@ -35,7 +35,8 @@ class BackupJob : public KJob
 public:
 	enum ErrorCodes {
 		ErrorWithLog = UserDefinedError,
-		ErrorWithoutLog
+		ErrorWithoutLog,
+		ErrorSuggestRepair
 	};
 
 protected:

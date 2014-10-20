@@ -157,6 +157,15 @@ void KupDaemon::updateTrayIcon() {
 	}
 }
 
+void KupDaemon::runIntegrityCheck(QString pPath) {
+	foreach(PlanExecutor *lExecutor, mExecutors) {
+		// if caller passes in an empty path, startsWith will return true and we will try to check all backup plans.
+		if(lExecutor->mDestinationPath.startsWith(pPath)) {
+			lExecutor->startIntegrityCheck();
+		}
+	}
+}
+
 void KupDaemon::setupExecutors() {
 	for(int i = 0; i < mSettings->mNumberOfPlans; ++i) {
 		PlanExecutor *lExecutor;

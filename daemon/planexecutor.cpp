@@ -20,6 +20,8 @@
 
 #include "planexecutor.h"
 #include "bupjob.h"
+#include "bupverificationjob.h"
+#include "buprepairjob.h"
 #include "rsyncjob.h"
 
 #include <KLocale>
@@ -33,7 +35,8 @@
 #include <QMenu>
 
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
-   :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL), mFailNotification(NULL)
+   :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL),
+     mFailNotification(NULL), mIntegrityNotification(NULL), mRepairNotification(NULL)
 {
 	QString lCachePath = QString::fromLocal8Bit(qgetenv("XDG_CACHE_HOME").constData());
 	if(lCachePath.isEmpty()) {
@@ -189,12 +192,19 @@ void PlanExecutor::notifyBackupFailed(KJob *pFailedJob) {
 	mFailNotification = new KNotification(QLatin1String("BackupFailed"), KNotification::Persistent);
 	mFailNotification->setTitle(i18nc("@title:window", "Saving of Backup Failed"));
 	mFailNotification->setText(pFailedJob->errorText());
+
+	QStringList lAnswers;
 	if(pFailedJob->error() == BackupJob::ErrorWithLog) {
-		QStringList lAnswers;
 		lAnswers << i18nc("@action:button", "Show log file");
-		mFailNotification->setActions(lAnswers);
+		connect(mFailNotification, SIGNAL(action1Activated()), SLOT(showLog()));
+	} else if(pFailedJob->error() == BackupJob::ErrorSuggestRepair) {
+		lAnswers << i18nc("@action:button", "Yes");
+		lAnswers << i18nc("@action:button", "No");
+		connect(mFailNotification, SIGNAL(action1Activated()), SLOT(startRepairJob()));
 	}
-	connect(mFailNotification, SIGNAL(action1Activated()), SLOT(showLog()));
+	mFailNotification->setActions(lAnswers);
+
+	connect(mFailNotification, SIGNAL(action2Activated()), SLOT(discardFailNotification()));
 	connect(mFailNotification, SIGNAL(closed()), SLOT(discardFailNotification()));
 	connect(mFailNotification, SIGNAL(ignored()), SLOT(discardFailNotification()));
 	mFailNotification->sendEvent();
@@ -209,6 +219,94 @@ void PlanExecutor::discardFailNotification() {
 
 void PlanExecutor::showLog() {
 	KRun::runUrl(mLogFilePath, QLatin1String("text/x-log"), NULL);
+}
+
+void PlanExecutor::startIntegrityCheck() {
+	if(mPlan->mBackupType != BackupPlan::BupType || busy() || mState == NOT_AVAILABLE) {
+		return;
+	}
+	KJob *lJob = new BupVerificationJob(*mPlan, mDestinationPath, mLogFilePath);
+	connect(lJob, SIGNAL(result(KJob*)), SLOT(integrityCheckFinished(KJob*)));
+	lJob->start();
+	mLastState = mState;
+	mState = INTEGRITY_TESTING;
+	emit stateChanged();
+	mRunBackupAction->setEnabled(false);
+}
+
+void PlanExecutor::startRepairJob() {
+	if(mPlan->mBackupType != BackupPlan::BupType || busy() || mState == NOT_AVAILABLE) {
+		return;
+	}
+	KJob *lJob = new BupRepairJob(*mPlan, mDestinationPath, mLogFilePath);
+	connect(lJob, SIGNAL(result(KJob*)), SLOT(repairFinished(KJob*)));
+	lJob->start();
+	mLastState = mState;
+	mState = REPAIRING;
+	emit stateChanged();
+	mRunBackupAction->setEnabled(false);
+}
+
+void PlanExecutor::integrityCheckFinished(KJob *pJob) {
+	discardIntegrityNotification();
+	mIntegrityNotification = new KNotification(QLatin1String("IntegrityCheckCompleted"), KNotification::Persistent);
+	mIntegrityNotification->setTitle(i18nc("@title:window", "Integrity Check Completed"));
+	mIntegrityNotification->setText(pJob->errorText());
+	QStringList lAnswers;
+	if(pJob->error() == BackupJob::ErrorWithLog) {
+		lAnswers << i18nc("@action:button", "Show log file");
+		connect(mIntegrityNotification, SIGNAL(action1Activated()), SLOT(showLog()));
+	} else if(pJob->error() == BackupJob::ErrorSuggestRepair) {
+		lAnswers << i18nc("@action:button", "Yes");
+		lAnswers << i18nc("@action:button", "No");
+		connect(mIntegrityNotification, SIGNAL(action1Activated()), SLOT(startRepairJob()));
+	}
+	mIntegrityNotification->setActions(lAnswers);
+
+	connect(mIntegrityNotification, SIGNAL(action2Activated()), SLOT(discardIntegrityNotification()));
+	connect(mIntegrityNotification, SIGNAL(closed()), SLOT(discardIntegrityNotification()));
+	connect(mIntegrityNotification, SIGNAL(ignored()), SLOT(discardIntegrityNotification()));
+	mIntegrityNotification->sendEvent();
+
+	if(mState == INTEGRITY_TESTING) { //only restore if nothing has changed during the run
+		mState = mLastState;
+	}
+	emit stateChanged();
+	mRunBackupAction->setEnabled(true);
+}
+
+void PlanExecutor::discardIntegrityNotification() {
+	if(mIntegrityNotification) {
+		mIntegrityNotification->deleteLater();
+		mIntegrityNotification = NULL;
+	}
+}
+
+void PlanExecutor::repairFinished(KJob *pJob) {
+	discardRepairNotification();
+	mRepairNotification = new KNotification(QLatin1String("RepairCompleted"), KNotification::Persistent);
+	mRepairNotification->setTitle(i18nc("@title:window", "Repair Completed"));
+	mRepairNotification->setText(pJob->errorText());
+	QStringList lAnswers;
+	lAnswers << i18nc("@action:button", "Show log file");
+	mRepairNotification->setActions(lAnswers);
+	connect(mRepairNotification, SIGNAL(action1Activated()), SLOT(showLog()));
+	connect(mRepairNotification, SIGNAL(closed()), SLOT(discardRepairNotification()));
+	connect(mRepairNotification, SIGNAL(ignored()), SLOT(discardRepairNotification()));
+	mRepairNotification->sendEvent();
+
+	if(mState == REPAIRING) { //only restore if nothing has changed during the run
+		mState = mLastState;
+	}
+	emit stateChanged();
+	mRunBackupAction->setEnabled(true);
+}
+
+void PlanExecutor::discardRepairNotification() {
+	if(mRepairNotification) {
+		mRepairNotification->deleteLater();
+		mRepairNotification = NULL;
+	}
 }
 
 void PlanExecutor::enterBackupRunningState() {

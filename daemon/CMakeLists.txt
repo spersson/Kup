@@ -10,6 +10,8 @@ edexecutor.cpp
 fsexecutor.cpp
 backupjob.cpp
 bupjob.cpp
+bupverificationjob.cpp
+buprepairjob.cpp
 rsyncjob.cpp
 ../settings/backupplan.cpp
 ../settings/kupsettings.cpp

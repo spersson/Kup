@@ -69,6 +69,8 @@ public slots:
 	virtual void checkStatus() = 0;
 	virtual void showFilesClicked();
 	void updateAccumulatedUsageTime();
+	void startIntegrityCheck();
+	void startRepairJob();
 
 signals:
 	void stateChanged();
@@ -89,6 +91,10 @@ protected slots:
 	void discardFailNotification();
 
 	void showLog();
+	void integrityCheckFinished(KJob *pJob);
+	void discardIntegrityNotification();
+	void repairFinished(KJob *pJob);
+	void discardRepairNotification();
 
 protected:
 	BackupJob *createBackupJob();
@@ -99,6 +105,9 @@ protected:
 	KNotification *mQuestion;
 	QTimer *mSchedulingTimer;
 	KNotification *mFailNotification;
+	KNotification *mIntegrityNotification;
+	KNotification *mRepairNotification;
+	ExecutorState mLastState;
 };
 
 #endif // PLANEXECUTOR_H

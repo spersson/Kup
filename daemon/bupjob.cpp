@@ -103,9 +103,15 @@ void BupJob::slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		mLogStream << endl << QLatin1String("Kup did not successfully complete the bup backup job: "
 		                            "failed integrity check. Your backups could be "
 		                            "corrupted! See above for details.") << endl;
-		setErrorText(i18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
-		                                   "See log file for more details."));
-		setError(ErrorWithLog);
+		if(mBackupPlan.mGenerateRecoveryInfo) {
+			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
+			                                   "See log file for more details. Do you want to try repairing the backup files?"));
+			setError(ErrorSuggestRepair);
+		} else {
+			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
+			                                   "See log file for more details."));
+			setError(ErrorWithLog);
+		}
 		emitResult();
 		return;
 	}

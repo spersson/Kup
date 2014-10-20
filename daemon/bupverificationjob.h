@@ -18,54 +18,29 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef KUPDAEMON_H
-#define KUPDAEMON_H
+#ifndef BUPVERIFICATIONJOB_H
+#define BUPVERIFICATIONJOB_H
 
-#include <KSharedConfig>
+#include "backupjob.h"
 
-#define KUP_DBUS_SERVICE_NAME QLatin1String("org.kde.kup-daemon")
-#define KUP_DBUS_OBJECT_PATH QLatin1String("/DaemonControl")
+#include <KProcess>
 
-
-class KupSettings;
-class PlanExecutor;
-
-class KMenu;
-class KStatusNotifierItem;
-
-class QTimer;
-
-class KupDaemon : public QObject
+class BupVerificationJob : public BackupJob
 {
 	Q_OBJECT
-	// interface names are not allowed to have hyphens. set name here without hyphen, otherwise the
-	// name gets taken from KAboutData combined with the QMetaData of this class.
-	Q_CLASSINFO("D-Bus Interface", "org.kde.kupdaemon")
 
 public:
-	KupDaemon();
-	virtual ~KupDaemon();
-	bool shouldStart();
-	void setupGuiStuff();
+	BupVerificationJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
+	virtual void start();
 
-public slots:
-	void reloadConfig();
-	void showConfig();
-	void updateTrayIcon();
-	void runIntegrityCheck(QString pPath);
+protected slots:
+	void startJob();
+	void slotCheckingStarted();
+	void slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 
-private:
-	void setupExecutors();
-	void setupTrayIcon();
-	void setupContextMenu();
+protected:
+	KProcess mFsckProcess;
 
-	KSharedConfigPtr mConfig;
-	KupSettings *mSettings;
-	QList<PlanExecutor *> mExecutors;
-	KStatusNotifierItem *mStatusNotifier;
-	KMenu *mContextMenu;
-	QTimer *mUsageAccumulatorTimer;
-	bool mWaitingToReloadConfig;
 };
 
-#endif /*KUPDAEMON_H*/
+#endif // BUPVERIFICATIONJOB_H

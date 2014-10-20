@@ -12,3 +12,13 @@ Action=Popup
 Name=Backup failed
 Comment=Saving of backup failed, offer user to see log file
 Action=Popup
+
+[Event/IntegrityCheckCompleted]
+Name=Integrity check completed
+Comment=Finished checking integrity of backup archive
+Action=Popup
+
+[Event/RepairCompleted]
+Name=Repair completed
+Comment=Finished repairing backup archive
+Action=Popup
