@@ -77,6 +77,19 @@ PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
 PlanExecutor::~PlanExecutor() {
 }
 
+QString PlanExecutor::currentActivityTitle() {
+	switch(mState) {
+	case BACKUP_RUNNING:
+		return i18nc("@info:tooltip", "Taking new backup");
+	case INTEGRITY_TESTING:
+		return i18nc("@info:tooltip", "Checking backup integrity");
+	case REPAIRING:
+		return i18nc("@info:tooltip", "Repairing backups");
+	default:
+		return QString();
+	}
+}
+
 // dispatcher code for entering one of the available states
 void PlanExecutor::enterAvailableState() {
 	if(mState == NOT_AVAILABLE) {
@@ -195,13 +208,12 @@ void PlanExecutor::discardFailNotification() {
 }
 
 void PlanExecutor::showLog() {
-	discardFailNotification();
 	KRun::runUrl(mLogFilePath, QLatin1String("text/x-log"), NULL);
 }
 
 void PlanExecutor::enterBackupRunningState() {
 	discardUserQuestion();
-	mState = RUNNING;
+	mState = BACKUP_RUNNING;
 	emit stateChanged();
 	mRunBackupAction->setEnabled(false);
 	startBackup();
@@ -231,7 +243,7 @@ void PlanExecutor::exitBackupRunningState(bool pWasSuccessful) {
 }
 
 void PlanExecutor::updateAccumulatedUsageTime() {
-	if(mState == RUNNING) { //usage time during backup doesn't count...
+	if(mState == BACKUP_RUNNING) { //usage time during backup doesn't count...
 		return;
 	}
 

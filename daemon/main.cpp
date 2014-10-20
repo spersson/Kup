@@ -55,7 +55,7 @@ extern "C" int KDE_EXPORT kdemain(int argc, char **argv) {
 	KUniqueApplication lApp;
 
 	// Use for debugging...
-	//KApplication lApp;
+//	KApplication lApp;
 
 	lApp.setQuitOnLastWindowClosed(false);
 	lApp.disableSessionManagement();

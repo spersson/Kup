@@ -39,17 +39,23 @@ void BupJob::start() {
 }
 
 void BupJob::startJob() {
-	KProcess lVersionProcess;
-	lVersionProcess.setOutputChannelMode(KProcess::SeparateChannels);
-	lVersionProcess << QLatin1String("bup") << QLatin1String("version");
-	if(lVersionProcess.execute() < 0) {
+	KProcess lPar2Process;
+	lPar2Process.setOutputChannelMode(KProcess::SeparateChannels);
+	lPar2Process << QLatin1String("bup") << QLatin1String("fsck") << QLatin1String("--par2-ok");
+	int lExitCode = lPar2Process.execute();
+	if(lExitCode < 0) {
 		setError(ErrorWithoutLog);
 		setErrorText(i18nc("notification", "The \"bup\" program is needed but could not be found, "
 		                   "maybe it is not installed?"));
 		emitResult();
 		return;
+	} else if(mBackupPlan.mGenerateRecoveryInfo && lExitCode != 0) {
+		setError(ErrorWithoutLog);
+		setErrorText(i18nc("notification", "The \"par2\" program is needed but could not be found, "
+		                   "maybe it is not installed?"));
+		emitResult();
+		return;
 	}
-	mBupVersion = QString::fromUtf8(lVersionProcess.readAllStandardOutput());
 
 	mLogStream << QLatin1String("Kup is starting bup backup job at ")
 	           << KGlobal::locale()->formatDateTime(QDateTime::currentDateTime(),

@@ -79,7 +79,7 @@ void KupDaemon::setupGuiStuff() {
 
 void KupDaemon::reloadConfig() {
 	foreach(PlanExecutor *lExecutor, mExecutors) {
-		if(lExecutor->running()) {
+		if(lExecutor->busy()) {
 			mWaitingToReloadConfig = true;
 			return;
 		}
@@ -114,21 +114,21 @@ void KupDaemon::updateTrayIcon() {
 	QString lToolTipIconName = BackupPlan::iconName(BackupPlan::GOOD);
 
 	foreach(PlanExecutor *lExec, mExecutors) {
-		if(lExec->destinationAvailable()) {
+		if(lExec->mState != PlanExecutor::NOT_AVAILABLE) {
 			lStatus = KStatusNotifierItem::Active;
 			lToolTipTitle = i18nc("@info:tooltip", "Backup destination available");
 		}
 	}
 
 	foreach(PlanExecutor *lExec, mExecutors) {
-		if(lExec->planStatus() == BackupPlan::MEDIUM) {
+		if(lExec->mPlan->backupStatus() == BackupPlan::MEDIUM) {
 			lToolTipIconName = BackupPlan::iconName(BackupPlan::MEDIUM);
 			lToolTipSubTitle = i18nc("@info:tooltip", "New backup suggested");
 		}
 	}
 
 	foreach(PlanExecutor *lExec, mExecutors) {
-		if(lExec->planStatus() == BackupPlan::BAD) {
+		if(lExec->mPlan->backupStatus() == BackupPlan::BAD) {
 			if(lExec->scheduleType() != BackupPlan::MANUAL) {
 				lStatus = KStatusNotifierItem::Active;
 			}
@@ -137,12 +137,12 @@ void KupDaemon::updateTrayIcon() {
 			lToolTipSubTitle = i18nc("@info:tooltip", "New backup neeeded");
 		}
 	}
-	foreach(PlanExecutor *lExec, mExecutors) {
-		if(lExec->running()) {
+	foreach(PlanExecutor *lExecutor, mExecutors) {
+		if(lExecutor->busy()) {
 			lStatus = KStatusNotifierItem::NeedsAttention;
 			lToolTipIconName = QLatin1String("kup");
-			lToolTipTitle = i18nc("@info:tooltip", "Taking new backup");
-			lToolTipSubTitle = lExec->description(); // TODO: show percentage etc.
+			lToolTipTitle = lExecutor->currentActivityTitle();
+			lToolTipSubTitle = lExecutor->mPlan->mDescription; // TODO: show percentage etc.
 		}
 	}
 	mStatusNotifier->setStatus(lStatus);
@@ -192,7 +192,7 @@ void KupDaemon::setupContextMenu() {
 	mContextMenu = new KMenu(i18nc("@title:menu", "Backups"));
 	mContextMenu->addAction(i18nc("@action:inmenu", "Configure Backups"), this, SLOT(showConfig()));
 	foreach(PlanExecutor *lExec, mExecutors) {
-		mContextMenu->addMenu(lExec->planActions());
+		mContextMenu->addMenu(lExec->mActionMenu);
 	}
 	mStatusNotifier->setContextMenu(mContextMenu);
 	mStatusNotifier->setAssociatedWidget(mContextMenu);

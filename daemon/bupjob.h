@@ -49,7 +49,6 @@ protected:
 	KProcess mIndexProcess;
 	KProcess mSaveProcess;
 	KProcess mPar2Process;
-	QString mBupVersion;
 };
 
 #endif /*BUPJOB_H*/

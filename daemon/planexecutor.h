@@ -46,29 +46,24 @@ public:
 	PlanExecutor(BackupPlan *pPlan, QObject *pParent);
 	virtual ~PlanExecutor();
 
-	bool destinationAvailable() {
-		return mState != NOT_AVAILABLE;
-	}
-
-	bool running() {
-		return mState == RUNNING;
-	}
-
-	virtual QMenu *planActions() {
-		return mActionMenu;
-	}
-
-	QString description() {
-		return mPlan->mDescription;
-	}
-
-	BackupPlan::Status planStatus() {
-		return mPlan->backupStatus();
-	}
-
 	BackupPlan::ScheduleType scheduleType() {
 		return (BackupPlan::ScheduleType)mPlan->mScheduleType;
 	}
+
+	bool busy() {
+		return mState == BACKUP_RUNNING || mState == INTEGRITY_TESTING || mState == REPAIRING;
+	}
+
+	QString currentActivityTitle();
+
+	enum ExecutorState {NOT_AVAILABLE, WAITING_FOR_FIRST_BACKUP,
+		                 WAITING_FOR_BACKUP_AGAIN, BACKUP_RUNNING, WAITING_FOR_MANUAL_BACKUP,
+		                 INTEGRITY_TESTING, REPAIRING};
+	ExecutorState mState;
+	QString mDestinationPath;
+	QString mLogFilePath;
+	BackupPlan *mPlan;
+	QMenu *mActionMenu;
 
 public slots:
 	virtual void checkStatus() = 0;
@@ -96,15 +91,8 @@ protected slots:
 	void showLog();
 
 protected:
-	enum ExecutorState {NOT_AVAILABLE, WAITING_FOR_FIRST_BACKUP,
-		                 WAITING_FOR_BACKUP_AGAIN, RUNNING, WAITING_FOR_MANUAL_BACKUP};
-	ExecutorState mState;
 	BackupJob *createBackupJob();
 
-	QString mDestinationPath;
-	QString mLogFilePath;
-	BackupPlan *mPlan;
-	QMenu *mActionMenu;
 	QAction *mShowFilesAction;
 	QAction *mRunBackupAction;
 	QAction *mShowLogFileAction;
