@@ -60,15 +60,19 @@ int main(int pArgCount, char **pArgArray) {
 	                                                     lParsedArguments->getOption("branch"));
 	if(!lRepository->open()) {
 		KMessageBox::sorry(NULL, i18nc("@info:label messagebox, %1 is a folder path",
-		                               "The bup repository \"%1\" could not be opened. Check if the backups really are located there.",
+		                               "The backup archive \"%1\" could not be opened. Check if the backups really are located there.",
 		                               lParsedArguments->arg(0)));
-		return -1;
+		return 1;
 	}
 	if(!lRepository->readBranch()) {
-		KMessageBox::sorry(NULL, i18nc("@info:label messagebox, %1 is the name of a repository branch",
-		                               "The branch \"%1\" could not be read. Either it does not exist or you do not have permission to read it.",
-		                               lParsedArguments->getOption("branch")));
-		return -1;
+		if(!lRepository->permissionsOk()) {
+			KMessageBox::sorry(NULL, i18nc("@info:label messagebox",
+			                               "You do not have permission needed to read this backup archive."));
+			return 2;
+		} else {
+			lRepository->askForIntegrityCheck();
+			return 3;
+		}
 	}
 
 	FileDigger *lFileDigger = new FileDigger(lRepository);

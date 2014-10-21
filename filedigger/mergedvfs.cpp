@@ -18,11 +18,15 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "kupdaemon.h"
 #include "mergedvfs.h"
 #include "vfshelpers.h"
 
 #include <QDebug>
+#include <QDir>
 #include <KLocale>
+#include <KMessageBox>
+#include <QDBusInterface>
 
 #include <git2/branch.h>
 #include <sys/stat.h>
@@ -101,12 +105,27 @@ MergedNodeList &MergedNode::subNodes() {
 	return *mSubNodes;
 }
 
+void MergedNode::askForIntegrityCheck() {
+	int lAnswer = KMessageBox::questionYesNo(NULL, i18nc("@info:label messagebox",
+	                                                     "Could not read this backup archive. Perhaps some files "
+	                                                     "have become corrupted. Do you want to run an integrity "
+	                                                     "check to test this?"));
+	if(lAnswer == KMessageBox::Yes) {
+		QDBusInterface lInterface(KUP_DBUS_SERVICE_NAME, KUP_DBUS_OBJECT_PATH);
+		if(lInterface.isValid()) {
+			lInterface.call(QLatin1String("runIntegrityCheck"),
+			                QDir::cleanPath(QString::fromLocal8Bit(git_repository_path(mRepository))));
+		}
+	}
+}
+
 void MergedNode::generateSubNodes() {
 	NameMap lSubNodeMap;
 	foreach(VersionData *lCurrentVersion, mVersionList) {
 		git_tree *lTree;
 		if(0 != git_tree_lookup(&lTree, mRepository, &lCurrentVersion->mOid)) {
-			continue;
+			askForIntegrityCheck();
+			continue; // try to be fault tolerant by not aborting...
 		}
 		git_blob *lMetadataBlob = NULL;
 		VintStream *lMetadataStream = NULL;
@@ -242,6 +261,30 @@ bool MergedRepository::readBranch() {
 	}
 	git_revwalk_free(lRevisionWalker);
 	return !lEmptyList;
+}
+
+bool MergedRepository::permissionsOk() {
+	if(mRepository == NULL) {
+		return false;
+	}
+	QDir lRepoDir(objectName());
+	if(!lRepoDir.exists()) {
+		return false;
+	}
+	QList<QDir> lDirectories;
+	lDirectories << lRepoDir;
+	while(!lDirectories.isEmpty()) {
+		QDir lDir = lDirectories.takeFirst();
+		foreach(QFileInfo lFileInfo, lDir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot)) {
+			if(!lFileInfo.isReadable()) {
+				return false;
+			}
+			if(lFileInfo.isDir()) {
+				lDirectories << QDir(lFileInfo.absoluteFilePath());
+			}
+		}
+	}
+	return true;
 }
 
 uint qHash(git_oid pOid) {

@@ -77,6 +77,7 @@ public:
 	virtual MergedNodeList &subNodes();
 	const VersionList *versionList() const { return &mVersionList; }
 	uint mode() const { return mMode; }
+	static void askForIntegrityCheck();
 
 protected:
 	virtual void generateSubNodes();
@@ -95,6 +96,7 @@ public:
 
 	bool open();
 	bool readBranch();
+	bool permissionsOk();
 
 	QString mBranchName;
 };

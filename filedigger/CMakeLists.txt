@@ -1,4 +1,5 @@
 include_directories(${KDE4_INCLUDES})
+include_directories("../daemon")
 include_directories("../kioslave")
 
 set(filedigger_SRCS
