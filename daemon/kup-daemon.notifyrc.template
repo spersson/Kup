@@ -1,0 +1,25 @@
+[Global]
+IconName=chronometer
+_Name=Kup
+_Comment=Kup Backup System
+
+
+[Event/StartBackup]
+_Name=Start taking backup
+_Comment=A question if user wants to start taking a backup
+Action=Popup
+
+[Event/BackupFailed]
+_Name=Backup failed
+_Comment=Saving of backup failed, offer user to see log file
+Action=Popup
+
+[Event/IntegrityCheckCompleted]
+_Name=Integrity check completed
+_Comment=Finished checking integrity of backup archive
+Action=Popup
+
+[Event/RepairCompleted]
+_Name=Repair completed
+_Comment=Finished repairing backup archive
+Action=Popup

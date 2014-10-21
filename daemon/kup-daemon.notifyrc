@@ -1,24 +1,35 @@
 [Global]
 IconName=chronometer
-Comment=Kup Backup System
 Name=Kup
+Name[sv]=Kup
+Comment=Kup Backup System
+Comment[sv]=Kup Säkerhetskopiering
+
 
 [Event/StartBackup]
 Name=Start taking backup
+Name[sv]=Ta ny säkerhetskopia
 Comment=A question if user wants to start taking a backup
+Comment[sv]=En fråga om användaren vill ta en ny säkerhetskopia
 Action=Popup
 
 [Event/BackupFailed]
 Name=Backup failed
+Name[sv]=Säkerhetskopiering misslyckades
 Comment=Saving of backup failed, offer user to see log file
+Comment[sv]=Säkerhetskopiering misslyckades, erbjud att se loggfil
 Action=Popup
 
 [Event/IntegrityCheckCompleted]
 Name=Integrity check completed
+Name[sv]=Integritetstest färdig
 Comment=Finished checking integrity of backup archive
+Comment[sv]=Färdig med att testa integritet av säkerhetskopior
 Action=Popup
 
 [Event/RepairCompleted]
 Name=Repair completed
+Name[sv]=Färdig med reparation
 Comment=Finished repairing backup archive
+Comment[sv]=Blev färdig med att reparera säkerhetskopior
 Action=Popup

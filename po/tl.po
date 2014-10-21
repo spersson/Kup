@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2014-10-21 17:47+0800\n"
+"POT-Creation-Date: 2014-10-21 18:20+0800\n"
 "PO-Revision-Date: 2014-03-13 18:28+0000\n"
 "Last-Translator: spersson <simonpersson1@gmail.com>\n"
 "Language-Team: Tagalog (http://www.transifex.com/projects/p/kup/language/"
@@ -1083,6 +1083,49 @@ msgstr "Magkompigura ng plano para sa seguridad na kopya"
 #: po/rc.cpp:45 rc.cpp:45
 msgid "backup,recovery,safety"
 msgstr "seguridad na kopya, pagkabawi,kaligtasan"
+
+#: po/rc.cpp:46 rc.cpp:46
+msgid "Kup"
+msgstr ""
+
+#: po/rc.cpp:47 rc.cpp:47
+#, fuzzy
+msgid "Kup Backup System"
+msgstr "Uri ng seguridad na kopya"
+
+#: po/rc.cpp:48 rc.cpp:48
+#, fuzzy
+msgid "Start taking backup"
+msgstr "Kumukuha ng bagong seguridad na kopya"
+
+#: po/rc.cpp:49 rc.cpp:49
+msgid "A question if user wants to start taking a backup"
+msgstr ""
+
+#: po/rc.cpp:50 rc.cpp:50
+#, fuzzy
+msgid "Backup failed"
+msgstr "Ang mga seguridad na kopya ay gumagana"
+
+#: po/rc.cpp:51 rc.cpp:51
+msgid "Saving of backup failed, offer user to see log file"
+msgstr ""
+
+#: po/rc.cpp:52 rc.cpp:52
+msgid "Integrity check completed"
+msgstr ""
+
+#: po/rc.cpp:53 rc.cpp:53
+msgid "Finished checking integrity of backup archive"
+msgstr ""
+
+#: po/rc.cpp:54 rc.cpp:54
+msgid "Repair completed"
+msgstr ""
+
+#: po/rc.cpp:55 rc.cpp:55
+msgid "Finished repairing backup archive"
+msgstr ""
 
 #: settings/backupplan.cpp:37
 msgctxt ""

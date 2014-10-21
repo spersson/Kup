@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2014-10-21 17:47+0800\n"
+"POT-Creation-Date: 2014-10-21 18:20+0800\n"
 "PO-Revision-Date: 2014-03-15 08:37+0000\n"
 "Last-Translator: spersson <simonpersson1@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/kup/language/"
@@ -1051,6 +1051,46 @@ msgstr "Konfigurera planer för säkerhetskopiering"
 #: po/rc.cpp:45 rc.cpp:45
 msgid "backup,recovery,safety"
 msgstr "säkerhetskopior,återställning,backup"
+
+#: po/rc.cpp:46 rc.cpp:46
+msgid "Kup"
+msgstr "Kup"
+
+#: po/rc.cpp:47 rc.cpp:47
+msgid "Kup Backup System"
+msgstr "Kup Säkerhetskopiering"
+
+#: po/rc.cpp:48 rc.cpp:48
+msgid "Start taking backup"
+msgstr "Ta ny säkerhetskopia"
+
+#: po/rc.cpp:49 rc.cpp:49
+msgid "A question if user wants to start taking a backup"
+msgstr "En fråga om användaren vill ta en ny säkerhetskopia"
+
+#: po/rc.cpp:50 rc.cpp:50
+msgid "Backup failed"
+msgstr "Säkerhetskopiering misslyckades"
+
+#: po/rc.cpp:51 rc.cpp:51
+msgid "Saving of backup failed, offer user to see log file"
+msgstr "Säkerhetskopiering misslyckades, erbjud att se loggfil"
+
+#: po/rc.cpp:52 rc.cpp:52
+msgid "Integrity check completed"
+msgstr "Integritetstest färdig"
+
+#: po/rc.cpp:53 rc.cpp:53
+msgid "Finished checking integrity of backup archive"
+msgstr "Färdig med att testa integritet av säkerhetskopior"
+
+#: po/rc.cpp:54 rc.cpp:54
+msgid "Repair completed"
+msgstr "Färdig med reparation"
+
+#: po/rc.cpp:55 rc.cpp:55
+msgid "Finished repairing backup archive"
+msgstr "Blev färdig med att reparera säkerhetskopior"
 
 #: settings/backupplan.cpp:37
 msgctxt ""

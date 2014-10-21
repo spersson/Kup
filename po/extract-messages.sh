@@ -10,10 +10,15 @@ cd ${BASEDIR}
 # we use simple sorting to make sure the lines do not jump around too much from system to system
 find . -name 'libgit2*' -prune -o '(' -name '*.rc' -o -name '*.ui' -o -name '*.kcfg' ')' -print | sort > ${WDIR}/rcfiles.list
 xargs --arg-file=${WDIR}/rcfiles.list extractrc > ${WDIR}/rc.cpp
+
 #extract strings from .desktop file
 intltool-extract --quiet --type=gettext/ini kcm/kcm_kup.desktop.template
 cat kcm/kcm_kup.desktop.template.h >> ${WDIR}/rc.cpp
 rm kcm/kcm_kup.desktop.template.h
+intltool-extract --quiet --type=gettext/ini daemon/kup-daemon.notifyrc.template
+cat daemon/kup-daemon.notifyrc.template.h >> ${WDIR}/rc.cpp
+rm daemon/kup-daemon.notifyrc.template.h
+
 cd ${WDIR}
 echo "Done preparing rc files"
  
@@ -40,6 +45,7 @@ for cat in $catalogs; do
 done
 cd ${WDIR}
 intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/kcm/kcm_kup.desktop.template ${BASEDIR}/kcm/kcm_kup.desktop
+intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/daemon/kup-daemon.notifyrc.template ${BASEDIR}/daemon/kup-daemon.notifyrc
 echo "Done merging translations"
  
  
