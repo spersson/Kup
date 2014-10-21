@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "versionlistmodel.h"
-#include "../kioslave/vfshelpers.h"
+#include "vfshelpers.h"
 
 #include <KLocale>
 #include <KMimeType>

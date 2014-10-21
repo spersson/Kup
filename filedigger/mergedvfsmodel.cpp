@@ -20,7 +20,7 @@
 
 #include "mergedvfsmodel.h"
 #include "mergedvfs.h"
-#include "../kioslave/vfshelpers.h"
+#include "vfshelpers.h"
 
 #include <KMimeType>
 #include <KIconLoader>

@@ -1,4 +1,5 @@
 include_directories(${KDE4_INCLUDES})
+include_directories("../kioslave")
 
 set(filedigger_SRCS
 filedigger.cpp
