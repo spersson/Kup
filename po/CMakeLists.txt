@@ -22,7 +22,7 @@ ELSE(NOT GETTEXT_MSGFMT_EXECUTABLE)
 			SET(_gmoFile ${CMAKE_CURRENT_BINARY_DIR}/${_lang}.gmo)
 
 			ADD_CUSTOM_COMMAND(TARGET translations
-			                   COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --check -o ${_gmoFile} ${_poFile}
+			                   COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --check-header --check-domain -o ${_gmoFile} ${_poFile}
 			                   DEPENDS ${_poFile})
 			                   INSTALL(FILES ${_gmoFile} DESTINATION ${LOCALE_INSTALL_DIR}/${_langCode}/LC_MESSAGES/ RENAME ${catalogname}.mo)
 		ENDIF( _langCode )
