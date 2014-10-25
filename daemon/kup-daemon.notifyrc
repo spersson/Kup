@@ -1,35 +1,55 @@
 [Global]
 IconName=chronometer
 Name=Kup
+Name[lt_LT]=Kup
 Name[sv]=Kup
+Name[zh_TW]=Kup
 Comment=Kup Backup System
+Comment[lt_LT]=Kup atsarginių kopijų sistema
 Comment[sv]=Kup Säkerhetskopiering
+Comment[zh_TW]=Kup 備份系統
 
 
 [Event/StartBackup]
 Name=Start taking backup
+Name[lt_LT]=Pradėti kurti atsarginę kopiją
 Name[sv]=Ta ny säkerhetskopia
+Name[zh_TW]=開始進行備份
 Comment=A question if user wants to start taking a backup
+Comment[lt_LT]=Klausimas, ar vartotojas nori pradėti kurti atsarginę kopiją
 Comment[sv]=En fråga om användaren vill ta en ny säkerhetskopia
+Comment[zh_TW]=如果使用者想要開始進行備份的話會被詢問一個問題
 Action=Popup
 
 [Event/BackupFailed]
 Name=Backup failed
+Name[lt_LT]=Atsarginės kopijos sukurti nepavyko
 Name[sv]=Säkerhetskopiering misslyckades
+Name[zh_TW]=備份失敗
 Comment=Saving of backup failed, offer user to see log file
+Comment[lt_LT]=Sukurti atsarginės kopijos nepavyko, pasiūlykite vartotojui peržiūrėti žurnalo failą
 Comment[sv]=Säkerhetskopiering misslyckades, erbjud att se loggfil
+Comment[zh_TW]=備份儲存失敗，建議使用者查看記錄檔。
 Action=Popup
 
 [Event/IntegrityCheckCompleted]
 Name=Integrity check completed
+Name[lt_LT]=Integralumo patikra baigta
 Name[sv]=Integritetstest färdig
+Name[zh_TW]=完整性校驗成功
 Comment=Finished checking integrity of backup archive
+Comment[lt_LT]=Baigta atsarginių kopijų archyvo integralumo patikra
 Comment[sv]=Färdig med att testa integritet av säkerhetskopior
+Comment[zh_TW]=備份壓縮檔的完整性校驗完成
 Action=Popup
 
 [Event/RepairCompleted]
 Name=Repair completed
+Name[lt_LT]=Taisymas baigtas
 Name[sv]=Färdig med reparation
+Name[zh_TW]=修復完成
 Comment=Finished repairing backup archive
+Comment[lt_LT]=Atsarginių kopijų archyvo taisymas baigtas
 Comment[sv]=Blev färdig med att reparera säkerhetskopior
+Comment[zh_TW]=修復備份壓縮檔完成
 Action=Popup
