@@ -24,6 +24,7 @@
 #include <QWidget>
 
 #include <KDialog>
+#include <KFileTreeView>
 
 class BackupPlan;
 class DriveSelection;
@@ -36,7 +37,19 @@ class KPageWidgetItem;
 class KPushButton;
 
 class QRadioButton;
-class QTreeView;
+
+class FolderSelectionWidget : public QTreeView {
+	Q_OBJECT
+public:
+	FolderSelectionWidget(FolderSelectionModel *pModel, QWidget *pParent = 0);
+
+public slots:
+	void setHiddenFoldersVisible(bool pVisible);
+	void expandToShowSelections();
+
+protected:
+	FolderSelectionModel *mModel;
+};
 
 class ConfigIncludeDummy : public QWidget {
 	Q_OBJECT
@@ -44,11 +57,11 @@ signals:
 	void includeListChanged();
 public:
 	Q_PROPERTY(QStringList includeList READ includeList WRITE setIncludeList USER true)
-	ConfigIncludeDummy(FolderSelectionModel *pModel, QTreeView *pParent);
+	ConfigIncludeDummy(FolderSelectionModel *pModel, FolderSelectionWidget *pParent);
 	QStringList includeList();
 	void setIncludeList(QStringList pIncludeList);
 	FolderSelectionModel *mModel;
-	QTreeView *mTreeView;
+	FolderSelectionWidget *mTreeView;
 };
 
 class ConfigExcludeDummy : public QWidget {
@@ -57,11 +70,11 @@ signals:
 	void excludeListChanged();
 public:
 	Q_PROPERTY(QStringList excludeList READ excludeList WRITE setExcludeList USER true)
-	ConfigExcludeDummy(FolderSelectionModel *pModel, QTreeView *pParent);
+	ConfigExcludeDummy(FolderSelectionModel *pModel, FolderSelectionWidget *pParent);
 	QStringList excludeList();
 	void setExcludeList(QStringList pExcludeList);
 	FolderSelectionModel *mModel;
-	QTreeView *mTreeView;
+	FolderSelectionWidget *mTreeView;
 };
 
 class DirDialog: public KDialog
@@ -101,7 +114,7 @@ public:
 	KLineEdit *mDriveDestEdit;
 	QRadioButton *mVersionedRadio;
 	QRadioButton *mSyncedRadio;
-	FolderSelectionModel *mSourceSelectionModel;
+	FolderSelectionWidget *mSourceSelectionWidget;
 
 protected slots:
 	void openDriveDestDialog();

@@ -28,7 +28,6 @@
 #include <KConfigDialogManager>
 #include <KIcon>
 #include <KInputDialog>
-#include <KFileTreeView>
 #include <KLineEdit>
 #include <KLocale>
 #include <KMessageBox>
@@ -44,17 +43,11 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QRadioButton>
+#include <QTimer>
 
 #include <cmath>
 
-static void expandRecursively(const QModelIndex& pIndex, QTreeView* pTreeView) {
-	if(pIndex.isValid()) {
-		pTreeView->expand(pIndex);
-		expandRecursively(pIndex.parent(), pTreeView);
-	}
-}
-
-ConfigIncludeDummy::ConfigIncludeDummy(FolderSelectionModel *pModel, QTreeView *pParent)
+ConfigIncludeDummy::ConfigIncludeDummy(FolderSelectionModel *pModel, FolderSelectionWidget *pParent)
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)
 {
 	connect(mModel, SIGNAL(includedPathsChanged()), this, SIGNAL(includeListChanged()));
@@ -74,12 +67,10 @@ void ConfigIncludeDummy::setIncludeList(QStringList pIncludeList) {
 	}
 
 	mModel->setFolders(pIncludeList, mModel->excludedFolders());
-	foreach(const QString& lFolder, mModel->includedFolders() + mModel->excludedFolders()) {
-		expandRecursively(mModel->index(lFolder).parent(), mTreeView);
-	}
+	mTreeView->expandToShowSelections();
 }
 
-ConfigExcludeDummy::ConfigExcludeDummy(FolderSelectionModel *pModel, QTreeView *pParent)
+ConfigExcludeDummy::ConfigExcludeDummy(FolderSelectionModel *pModel, FolderSelectionWidget *pParent)
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)
 {
 	connect(mModel, SIGNAL(excludedPathsChanged()), this, SIGNAL(excludeListChanged()));
@@ -98,29 +89,58 @@ void ConfigExcludeDummy::setExcludeList(QStringList pExcludeList) {
 		}
 	}
 	mModel->setFolders(mModel->includedFolders(), pExcludeList);
-	foreach(const QString& lFolder, mModel->includedFolders() + mModel->excludedFolders()) {
-		expandRecursively(mModel->index(lFolder).parent(), mTreeView);
+	mTreeView->expandToShowSelections();
+}
+
+FolderSelectionWidget::FolderSelectionWidget(FolderSelectionModel *pModel, QWidget *pParent)
+   : QTreeView(pParent), mModel(pModel)
+{
+	mModel->setRootPath(QLatin1String("/"));
+	mModel->setParent(this);
+	setAnimated(true);
+	setModel(mModel);
+	ConfigIncludeDummy *lIncludeDummy = new ConfigIncludeDummy(mModel, this);
+	lIncludeDummy->setObjectName(QLatin1String("kcfg_Paths included"));
+	ConfigExcludeDummy *lExcludeDummy = new ConfigExcludeDummy(mModel, this);
+	lExcludeDummy->setObjectName(QLatin1String("kcfg_Paths excluded"));
+	setHeaderHidden(true);
+}
+
+void FolderSelectionWidget::setHiddenFoldersVisible(bool pVisible) {
+	mModel->setHiddenFoldersShown(pVisible);
+	// give the filesystem model some time to refresh after changing filtering
+	// before expanding folders again.
+	if(pVisible) {
+		QTimer::singleShot(2000, this, SLOT(expandToShowSelections()));
 	}
 }
 
+void FolderSelectionWidget::expandToShowSelections() {
+	foreach(const QString& lFolder,  mModel->includedFolders() + mModel->excludedFolders()) {
+		if(!mModel->hiddenFoldersShown()) {
+			QFileInfo lFolderInfo(lFolder);
+			bool lShouldAbort = false;
+			forever {
+				if(lFolderInfo.isHidden()) {
+					lShouldAbort = true; // skip if this folder should not be shown.
+					break;
+				} else if(lFolderInfo.absolutePath() == QLatin1String("/")) {
+					break;
+				}
+				lFolderInfo = lFolderInfo.absolutePath();
+			}
+			if(lShouldAbort) {
+				continue;
+			}
+		}
 
-class FolderSelectionWidget : public QTreeView
-{
-public:
-	FolderSelectionWidget(FolderSelectionModel *pModel, QWidget *pParent = 0)
-	   : QTreeView(pParent), mModel(pModel)
-	{
-		mModel->setRootPath(QLatin1String("/"));
-		setAnimated(true);
-		setModel(mModel);
-		ConfigIncludeDummy *lIncludeDummy = new ConfigIncludeDummy(mModel, this);
-		lIncludeDummy->setObjectName(QLatin1String("kcfg_Paths included"));
-		ConfigExcludeDummy *lExcludeDummy = new ConfigExcludeDummy(mModel, this);
-		lExcludeDummy->setObjectName(QLatin1String("kcfg_Paths excluded"));
-		setHeaderHidden(true);
+		QModelIndex lIndex = mModel->index(lFolder).parent();
+		while(lIndex.isValid()) {
+			expand(lIndex);
+			lIndex = lIndex.parent();
+		}
 	}
-	FolderSelectionModel *mModel;
-};
+}
 
 DirDialog::DirDialog(const KUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent)
    : KDialog(pParent)
@@ -297,9 +317,8 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 }
 
 KPageWidgetItem *BackupPlanWidget::createSourcePage() {
-	mSourceSelectionModel = new FolderSelectionModel(mBackupPlan->mShowHiddenFolders, this);
-	FolderSelectionWidget *lSelectionWidget = new FolderSelectionWidget(mSourceSelectionModel, this);
-	KPageWidgetItem *lPage = new KPageWidgetItem(lSelectionWidget);
+	mSourceSelectionWidget = new FolderSelectionWidget(new FolderSelectionModel(mBackupPlan->mShowHiddenFolders), this);
+	KPageWidgetItem *lPage = new KPageWidgetItem(mSourceSelectionWidget);
 	lPage->setName(i18nc("@title", "Sources"));
 	lPage->setHeader(i18nc("@label", "Select which folders to include in backup"));
 	lPage->setIcon(KIcon(QLatin1String("folder-important")));
@@ -511,7 +530,7 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 
 	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check", "Show hidden folders in source selection"));
 	lShowHiddenCheckBox->setObjectName(QLatin1String("kcfg_Show hidden folders"));
-	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionModel, SLOT(setHiddenFoldersShown(bool)));
+	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionWidget, SLOT(setHiddenFoldersVisible(bool)));
 
 	QLabel *lShowHiddenLabel = new QLabel(i18nc("@info", "This makes it possible to explicitly include or exlude hidden "
 	                                            "files and folders in the backup source selection. Hidden files and "
@@ -594,4 +613,3 @@ void BackupPlanWidget::openDriveDestDialog() {
 		mDriveDestEdit->setText(lSelectedPath);
 	}
 }
-

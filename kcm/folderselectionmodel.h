@@ -74,6 +74,8 @@ public:
 	InclusionState inclusionState( const QModelIndex &index ) const;
 	InclusionState inclusionState( const QString &path ) const;
 
+	bool hiddenFoldersShown() const;
+
 public Q_SLOTS:
 	void setHiddenFoldersShown( bool shown );
 

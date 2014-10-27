@@ -304,3 +304,8 @@ FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState( const
 	}
 }
 
+bool FolderSelectionModel::hiddenFoldersShown() const
+{
+	return filter() & QDir::Hidden;
+}
+
