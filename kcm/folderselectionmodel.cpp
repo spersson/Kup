@@ -130,9 +130,6 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 			case StateNone:
 			case StateExcluded:
 			case StateExcludeInherited:
-				if(setContainsSubdir(m_included, path)) {
-					return Qt::PartiallyChecked;
-				}
 				return Qt::Unchecked;
 			case StateIncluded:
 			case StateIncludeInherited:
@@ -146,7 +143,8 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 			return inclusionState( index );
 		}
 		else if( role == Qt::ForegroundRole ) {
-			InclusionState state = inclusionState( index );
+			QString path = filePath( index );
+			InclusionState state = inclusionState( path );
 			QBrush brush = QFileSystemModel::data( index, role ).value<QBrush>();
 			switch( state ) {
 			case StateIncluded:
@@ -156,20 +154,35 @@ QVariant FolderSelectionModel::data( const QModelIndex& index, int role ) const
 			case StateNone:
 			case StateExcluded:
 			case StateExcludeInherited:
-				brush = QPalette().brush( QPalette::Disabled, QPalette::Text );
+				if(setContainsSubdir(m_included, path)) {
+					brush = QPalette().brush( QPalette::Active, QPalette::Text );
+				} else {
+					brush = QPalette().brush( QPalette::Disabled, QPalette::Text );
+				}
 				break;
 			}
 			return QVariant::fromValue( brush );
 		}
 		else if ( role == Qt::ToolTipRole ) {
-			InclusionState state = inclusionState( index );
+			QString path = filePath( index );
+			InclusionState state = inclusionState( path );
 			if ( state == StateIncluded || state == StateIncludeInherited ) {
+				if(setContainsSubdir(m_excluded, path)) {
+					return i18nc("@info:tooltip %1 is the path of the folder in a listview",
+					             "<filename>%1</filename><nl/>will be included in the backup, except "
+					             "for unchecked subfolders", filePath( index ) );
+				}
 				return i18nc("@info:tooltip %1 is the path of the folder in a listview",
-				             "<filename>%1</filename><nl/>(will be included in the backup)", filePath( index ) );
+				             "<filename>%1</filename><nl/>will be included in the backup", filePath( index ) );
 			}
 			else {
+				if(setContainsSubdir(m_included, path)) {
+					return i18nc("@info:tooltip %1 is the path of the folder in a listview",
+					             "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included "
+					             "in the backup but contains folders that will", filePath( index ) );
+				}
 				return i18nc("@info:tooltip %1 is the path of the folder in a listview",
-				             "<filename>%1</filename><nl/> (will <emphasis>not</emphasis> be included in the backup)", filePath( index ) );
+				             "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in the backup", filePath( index ) );
 			}
 		}
 		else if ( role == Qt::DecorationRole ) {
