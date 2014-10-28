@@ -107,7 +107,7 @@ FolderSelectionWidget::FolderSelectionWidget(FolderSelectionModel *pModel, QWidg
 }
 
 void FolderSelectionWidget::setHiddenFoldersVisible(bool pVisible) {
-	mModel->setHiddenFoldersShown(pVisible);
+	mModel->setHiddenFoldersVisible(pVisible);
 	// give the filesystem model some time to refresh after changing filtering
 	// before expanding folders again.
 	if(pVisible) {
@@ -117,7 +117,7 @@ void FolderSelectionWidget::setHiddenFoldersVisible(bool pVisible) {
 
 void FolderSelectionWidget::expandToShowSelections() {
 	foreach(const QString& lFolder,  mModel->includedFolders() + mModel->excludedFolders()) {
-		if(!mModel->hiddenFoldersShown()) {
+		if(!mModel->hiddenFoldersVisible()) {
 			QFileInfo lFolderInfo(lFolder);
 			bool lShouldAbort = false;
 			forever {

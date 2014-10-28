@@ -36,7 +36,7 @@ class FolderSelectionModel : public QFileSystemModel
 	Q_OBJECT
 
 public:
-	FolderSelectionModel( bool showHiddenFolders = false, QObject* parent = 0 );
+	FolderSelectionModel(bool pHiddenFoldersVisible = false, QObject *pParent = 0);
 	virtual ~FolderSelectionModel();
 
 	enum InclusionState {
@@ -51,41 +51,41 @@ public:
 		IncludeStateRole = 7777
 	};
 
-	Qt::ItemFlags flags( const QModelIndex &index ) const;
-	QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
-	bool setData( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
+	Qt::ItemFlags flags(const QModelIndex &pIndex) const;
+	QVariant data(const QModelIndex& pIndex, int pRole = Qt::DisplayRole) const;
+	bool setData(const QModelIndex& pIndex, const QVariant& pValue, int pRole = Qt::EditRole);
 
-	void setFolders( const QStringList& includeDirs, const QStringList& exclude );
+	void setFolders(const QStringList& pIncludedFolders, const QStringList& pExcludedFolders);
 	QStringList includedFolders() const;
 	QStringList excludedFolders() const;
 
 	/**
 	* Include the specified path. All subdirs will be reset.
 	*/
-	void includePath( const QString &path );
+	void includePath(const QString &pPath);
 
 	/**
 	* Exclude the specified path. All subdirs will be reset.
 	*/
-	void excludePath( const QString &path );
+	void excludePath(const QString &pPath);
 
-	int columnCount( const QModelIndex& ) const { return 1; }
+	int columnCount(const QModelIndex&) const { return 1; }
 
-	InclusionState inclusionState( const QModelIndex &index ) const;
-	InclusionState inclusionState( const QString &path ) const;
+	InclusionState inclusionState(const QModelIndex &pIndex) const;
+	InclusionState inclusionState(const QString &pPath) const;
 
-	bool hiddenFoldersShown() const;
+	bool hiddenFoldersVisible() const;
 
 public Q_SLOTS:
-	void setHiddenFoldersShown( bool shown );
+	void setHiddenFoldersVisible(bool pVisible);
 
 signals:
 	void includedPathsChanged();
 	void excludedPathsChanged();
 
 private:
-	QSet<QString> m_included;
-	QSet<QString> m_excluded;
+	QSet<QString> mIncludedFolderList;
+	QSet<QString> mExcludedFolderList;
 };
 
 #endif
