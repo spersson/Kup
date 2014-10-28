@@ -532,11 +532,10 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	lShowHiddenCheckBox->setObjectName(QLatin1String("kcfg_Show hidden folders"));
 	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionWidget, SLOT(setHiddenFoldersVisible(bool)));
 
-	QLabel *lShowHiddenLabel = new QLabel(i18nc("@info", "This makes it possible to explicitly include or exlude hidden "
-	                                            "files and folders in the backup source selection. Hidden files and "
-	                                            "folders have a name that starts with a dot. They are typically located "
-	                                            "in your home folder and are used to store settings and temporary files "
-	                                            "for your applications."));
+	QLabel *lShowHiddenLabel = new QLabel(i18nc("@info", "This makes it possible to explicitly include or exclude hidden "
+	                                            "folders in the backup source selection. Hidden folders have a name that "
+	                                            "starts with a dot. They are typically located in your home folder and "
+	                                            "are used to store settings and temporary files for your applications."));
 	lShowHiddenLabel->setWordWrap(true);
 	QGridLayout *lShowHiddenLayout = new QGridLayout;
 	lShowHiddenLayout->setContentsMargins(0, 0, 0, 0);
