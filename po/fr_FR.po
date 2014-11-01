@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2014-10-25 12:32+0800\n"
+"POT-Creation-Date: 2014-11-01 19:14+0800\n"
 "PO-Revision-Date: 2014-02-26 11:36+0000\n"
 "Last-Translator: benoits <benoit.schwinden@free.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/kup/"
@@ -216,6 +216,10 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
+#: daemon/main.cpp:52
+msgid "Kup is already running!"
+msgstr "Kup est déjà lancé !"
+
 #: daemon/planexecutor.cpp:58
 msgctxt "@action:inmenu"
 msgid "Take Backup Now"
@@ -389,7 +393,7 @@ msgctxt "added after file name in some cases"
 msgid " (file)"
 msgstr "(fichier)"
 
-#: filedigger/restoredialog.cpp:115 kcm/backupplanwidget.cpp:130
+#: filedigger/restoredialog.cpp:115 kcm/backupplanwidget.cpp:150
 msgctxt "@action:button"
 msgid "New Folder..."
 msgstr "Nouveau dossier..."
@@ -430,17 +434,17 @@ msgctxt "@info message bar appearing on top"
 msgid "The new name entered already exists, please enter a different one."
 msgstr "Le nouveau nom saisi existe déjà. Veuillez en saisir un autre."
 
-#: filedigger/restoredialog.cpp:369 kcm/backupplanwidget.cpp:156
+#: filedigger/restoredialog.cpp:369 kcm/backupplanwidget.cpp:176
 msgctxt "default folder name when creating a new folder"
 msgid "New Folder"
 msgstr "Nouveau dossier"
 
-#: filedigger/restoredialog.cpp:374 kcm/backupplanwidget.cpp:161
+#: filedigger/restoredialog.cpp:374 kcm/backupplanwidget.cpp:181
 msgctxt "@title:window"
 msgid "New Folder"
 msgstr "Nouveau dossier"
 
-#: filedigger/restoredialog.cpp:375 kcm/backupplanwidget.cpp:162
+#: filedigger/restoredialog.cpp:375 kcm/backupplanwidget.cpp:182
 msgctxt "@label:textbox"
 msgid ""
 "Create new folder in:\n"
@@ -449,11 +453,11 @@ msgstr ""
 "Créer un nouveau dossier dans :\n"
 "%1"
 
-#: filedigger/restoredialog.cpp:386 kcm/backupplanwidget.cpp:173
+#: filedigger/restoredialog.cpp:386 kcm/backupplanwidget.cpp:193
 msgid "A folder named %1 already exists."
 msgstr "Le répertoire %1 existe déjà."
 
-#: filedigger/restoredialog.cpp:391 kcm/backupplanwidget.cpp:178
+#: filedigger/restoredialog.cpp:391 kcm/backupplanwidget.cpp:198
 msgid "You do not have permission to create %1."
 msgstr "Vous n'avez pas les droits pour créer %1."
 
@@ -477,22 +481,22 @@ msgctxt "@action:button"
 msgid "Restore"
 msgstr "Restaurer"
 
-#: kcm/backupplanwidget.cpp:128
+#: kcm/backupplanwidget.cpp:148
 msgctxt "@title:window"
 msgid "Select Folder"
 msgstr "Sélection d'un répertoire"
 
-#: kcm/backupplanwidget.cpp:193
+#: kcm/backupplanwidget.cpp:213
 msgctxt "@label"
 msgid "Description:"
 msgstr "Description :"
 
-#: kcm/backupplanwidget.cpp:196
+#: kcm/backupplanwidget.cpp:216
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr "Retour à la vue d'ensemble"
 
-#: kcm/backupplanwidget.cpp:225
+#: kcm/backupplanwidget.cpp:245
 msgctxt "@label"
 msgid ""
 "This type of backup is an <em>archive</em>. It contains both the latest "
@@ -516,17 +520,17 @@ msgstr ""
 "l'intérieur de l'archive ne seront pas accessibles directement à l'aide d'un "
 "gestionnaire de fichiers, un programme spécial est nécessaire."
 
-#: kcm/backupplanwidget.cpp:240
+#: kcm/backupplanwidget.cpp:260
 msgctxt "@option:radio"
 msgid "Versioned Backup (not available because \"bup\" is not installed)"
 msgstr "Sauvegarde versionnée (indisponible car \"bup\" n'est pas installé)"
 
-#: kcm/backupplanwidget.cpp:244
+#: kcm/backupplanwidget.cpp:264
 msgctxt "@option:radio"
 msgid "Versioned Backup (recommended)"
 msgstr "Sauvegarde versionnée (recommandée)"
 
-#: kcm/backupplanwidget.cpp:248
+#: kcm/backupplanwidget.cpp:268
 msgctxt "@label"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -546,48 +550,48 @@ msgstr ""
 "les défaillances matérielles, mais ne pourra pas vous aider à revenir en "
 "arrière en cas d'erreur ou de mauvaise manipulation."
 
-#: kcm/backupplanwidget.cpp:260
+#: kcm/backupplanwidget.cpp:280
 msgctxt "@option:radio"
 msgid "Synchronized Backup (not available because \"rsync\" is not installed)"
 msgstr ""
 "Sauvegarde synchronisée (indisponible car \"rsync\" n'est pas installé)"
 
-#: kcm/backupplanwidget.cpp:264
+#: kcm/backupplanwidget.cpp:284
 msgctxt "@option:radio"
 msgid "Synchronized Backup"
 msgstr "Sauvegarde synchronisée"
 
-#: kcm/backupplanwidget.cpp:293
+#: kcm/backupplanwidget.cpp:313
 msgctxt "@title"
 msgid "Backup Type"
 msgstr "Type de sauvegarde"
 
-#: kcm/backupplanwidget.cpp:294
+#: kcm/backupplanwidget.cpp:314
 msgctxt "@label"
 msgid "Select what type of backup you want"
 msgstr "Choisissez le type de sauvegarde souhaité"
 
-#: kcm/backupplanwidget.cpp:303
+#: kcm/backupplanwidget.cpp:322
 msgctxt "@title"
 msgid "Sources"
 msgstr "Sources"
 
-#: kcm/backupplanwidget.cpp:304
+#: kcm/backupplanwidget.cpp:323
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr "Sélectionnez les répertoires à inclure dans la sauvegarde"
 
-#: kcm/backupplanwidget.cpp:318
+#: kcm/backupplanwidget.cpp:337
 msgctxt "@option:radio"
 msgid "Filesystem Path"
 msgstr "Chemin du système de fichiers"
 
-#: kcm/backupplanwidget.cpp:319
+#: kcm/backupplanwidget.cpp:338
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr "Stockage externe"
 
-#: kcm/backupplanwidget.cpp:324
+#: kcm/backupplanwidget.cpp:343
 #, fuzzy
 msgctxt "@label"
 msgid ""
@@ -600,12 +604,12 @@ msgstr ""
 "s'il est toujours monté au même endroit. Le chemin spécifié ici n'a pas "
 "besoin d'exister en permanence : sa présence sera surveillée."
 
-#: kcm/backupplanwidget.cpp:330
+#: kcm/backupplanwidget.cpp:349
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
 msgstr "Chemin de la destination pour la sauvegarde :"
 
-#: kcm/backupplanwidget.cpp:348
+#: kcm/backupplanwidget.cpp:367
 msgctxt "@label"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -615,47 +619,47 @@ msgstr ""
 "périphérique de stockage externe pouvant être connecté à cet ordinateur, "
 "comme un disque dur ou une clé USB."
 
-#: kcm/backupplanwidget.cpp:356 kcm/backupplanwidget.cpp:359
+#: kcm/backupplanwidget.cpp:375 kcm/backupplanwidget.cpp:378
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr "Le répertoire spécifié sera crée s'il n'existe pas."
 
-#: kcm/backupplanwidget.cpp:358
+#: kcm/backupplanwidget.cpp:377
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr "Dossier sur le lecteur de destination :"
 
-#: kcm/backupplanwidget.cpp:365
+#: kcm/backupplanwidget.cpp:384
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:395
+#: kcm/backupplanwidget.cpp:414
 msgctxt "@title"
 msgid "Destination"
 msgstr "Destination"
 
-#: kcm/backupplanwidget.cpp:396
+#: kcm/backupplanwidget.cpp:415
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr "Choisissez la destination de sauvegarde"
 
-#: kcm/backupplanwidget.cpp:413
+#: kcm/backupplanwidget.cpp:432
 msgctxt "@option:radio"
 msgid "Manual Activation"
 msgstr "Activation manuelle"
 
-#: kcm/backupplanwidget.cpp:414
+#: kcm/backupplanwidget.cpp:433
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr "Intervalle"
 
-#: kcm/backupplanwidget.cpp:415
+#: kcm/backupplanwidget.cpp:434
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr "Temps d'utilisation active"
 
-#: kcm/backupplanwidget.cpp:417
+#: kcm/backupplanwidget.cpp:436
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
@@ -664,7 +668,7 @@ msgstr ""
 "Les sauvegardes ne seront exécutées que sur demande manuelle à partir du "
 "menu accessible via l'icône de la barre des tâches."
 
-#: kcm/backupplanwidget.cpp:431
+#: kcm/backupplanwidget.cpp:450
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -673,27 +677,27 @@ msgstr ""
 "Une nouvelle sauvegarde sera lancée dès que la destination sera disponible "
 "et si la dernière sauvegarde est plus ancienne que l'intervalle configuré."
 
-#: kcm/backupplanwidget.cpp:448
+#: kcm/backupplanwidget.cpp:467
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr "Minutes"
 
-#: kcm/backupplanwidget.cpp:449 kcm/backupplanwidget.cpp:475
+#: kcm/backupplanwidget.cpp:468 kcm/backupplanwidget.cpp:494
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr "Heures"
 
-#: kcm/backupplanwidget.cpp:450
+#: kcm/backupplanwidget.cpp:469
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr "Jours"
 
-#: kcm/backupplanwidget.cpp:451
+#: kcm/backupplanwidget.cpp:470
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr "Semaines"
 
-#: kcm/backupplanwidget.cpp:460
+#: kcm/backupplanwidget.cpp:479
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -704,37 +708,37 @@ msgstr ""
 "et que la durée minimale d'utilisation configurée a été dépassée depuis la "
 "dernière sauvegarde."
 
-#: kcm/backupplanwidget.cpp:480
+#: kcm/backupplanwidget.cpp:499
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr "Demander confirmation avant d'exécuter la sauvegarde"
 
-#: kcm/backupplanwidget.cpp:499
+#: kcm/backupplanwidget.cpp:518
 msgctxt "@title"
 msgid "Schedule"
 msgstr "Planifier"
 
-#: kcm/backupplanwidget.cpp:500
+#: kcm/backupplanwidget.cpp:519
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "Spécifiez la planification de la sauvegarde"
 
-#: kcm/backupplanwidget.cpp:512
+#: kcm/backupplanwidget.cpp:531
 #, fuzzy
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
 msgstr "Afficher les dossiers cachés dans la sélection de la source :"
 
-#: kcm/backupplanwidget.cpp:516
+#: kcm/backupplanwidget.cpp:535
 msgctxt "@info"
 msgid ""
-"This makes it possible to explicitly include or exlude hidden files and "
-"folders in the backup source selection. Hidden files and folders have a name "
-"that starts with a dot. They are typically located in your home folder and "
-"are used to store settings and temporary files for your applications."
+"This makes it possible to explicitly include or exclude hidden folders in "
+"the backup source selection. Hidden folders have a name that starts with a "
+"dot. They are typically located in your home folder and are used to store "
+"settings and temporary files for your applications."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:531
+#: kcm/backupplanwidget.cpp:549
 #, c-format
 msgctxt "@info"
 msgid ""
@@ -743,12 +747,12 @@ msgid ""
 "recover from a partially corrupted backup."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:537
+#: kcm/backupplanwidget.cpp:555
 msgctxt "@option:check"
 msgid "Generate recovery information"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:539
+#: kcm/backupplanwidget.cpp:557
 #, fuzzy
 msgctxt "@option:check"
 msgid ""
@@ -756,12 +760,12 @@ msgid ""
 "installed)"
 msgstr "Sauvegarde versionnée (indisponible car \"bup\" n'est pas installé)"
 
-#: kcm/backupplanwidget.cpp:553
+#: kcm/backupplanwidget.cpp:571
 msgctxt "@option:check"
 msgid "Verify integrity of backups"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:556
+#: kcm/backupplanwidget.cpp:574
 msgctxt "@info"
 msgid ""
 "Checks the whole backup archive for corruption every time you save new data. "
@@ -770,12 +774,12 @@ msgid ""
 "that time it could be too late."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:578
+#: kcm/backupplanwidget.cpp:596
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Avancé"
 
-#: kcm/backupplanwidget.cpp:579
+#: kcm/backupplanwidget.cpp:597
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Autres options pour les utilisateurs avancés"
@@ -841,16 +845,36 @@ msgid ""
 "if you are backing up executable program files."
 msgstr ""
 
-#: kcm/folderselectionmodel.cpp:168
-msgctxt "@info:tooltip %1 is the path of the folder in a listview"
-msgid "<filename>%1</filename><nl/>(will be included in the backup)"
-msgstr "<filename>%1</filename><nl/>(sera inclus dans la sauvegarde)"
-
-#: kcm/folderselectionmodel.cpp:172
+#: kcm/folderselectionmodel.cpp:154
+#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
-"<filename>%1</filename><nl/> (will <emphasis>not</emphasis> be included in "
-"the backup)"
+"<filename>%1</filename><nl/>will be included in the backup, except for "
+"unchecked subfolders"
+msgstr "<filename>%1</filename><nl/>(sera inclus dans la sauvegarde)"
+
+#: kcm/folderselectionmodel.cpp:158
+#, fuzzy
+msgctxt "@info:tooltip %1 is the path of the folder in a listview"
+msgid "<filename>%1</filename><nl/>will be included in the backup"
+msgstr "<filename>%1</filename><nl/>(sera inclus dans la sauvegarde)"
+
+#: kcm/folderselectionmodel.cpp:162
+#, fuzzy
+msgctxt "@info:tooltip %1 is the path of the folder in a listview"
+msgid ""
+"<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
+"the backup but contains folders that will"
+msgstr ""
+"<filename>%1</filename><nl/> (ne sera <emphasis>pas</emphasis> inclus dans "
+"la sauvegarde)"
+
+#: kcm/folderselectionmodel.cpp:166
+#, fuzzy
+msgctxt "@info:tooltip %1 is the path of the folder in a listview"
+msgid ""
+"<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
+"the backup"
 msgstr ""
 "<filename>%1</filename><nl/> (ne sera <emphasis>pas</emphasis> inclus dans "
 "la sauvegarde)"
@@ -1047,7 +1071,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr "Fermer"
 
-#: po/rc.cpp:43 settings/backupplan.cpp:69 rc.cpp:43
+#: po/rc.cpp:43 settings/backupplan.cpp:70 rc.cpp:43
 msgid "Backups"
 msgstr "Sauvegardes"
 
@@ -1116,9 +1140,6 @@ msgstr "Plan de sauvegarde %1"
 #~ msgstr ""
 #~ "L'indexation du système de fichiers ne s'est pas terminée correctement :\n"
 #~ "%1"
-
-#~ msgid "Kup is already running!"
-#~ msgstr "Kup est déjà lancé !"
 
 #~ msgctxt "@info:label messagebox"
 #~ msgid "The specified bup repository could not be opened."

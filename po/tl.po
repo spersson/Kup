@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2014-10-25 12:32+0800\n"
+"POT-Creation-Date: 2014-11-01 19:14+0800\n"
 "PO-Revision-Date: 2014-03-13 18:28+0000\n"
 "Last-Translator: spersson <simonpersson1@gmail.com>\n"
 "Language-Team: Tagalog (http://www.transifex.com/projects/p/kup/language/"
@@ -222,6 +222,10 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "faye_333@yahoo.com.sg"
 
+#: daemon/main.cpp:52
+msgid "Kup is already running!"
+msgstr "Ang kup ay kasalukuyang ginagamit"
+
 #: daemon/planexecutor.cpp:58
 msgctxt "@action:inmenu"
 msgid "Take Backup Now"
@@ -398,7 +402,7 @@ msgctxt "added after file name in some cases"
 msgid " (file)"
 msgstr "(talaksan)"
 
-#: filedigger/restoredialog.cpp:115 kcm/backupplanwidget.cpp:130
+#: filedigger/restoredialog.cpp:115 kcm/backupplanwidget.cpp:150
 msgctxt "@action:button"
 msgid "New Folder..."
 msgstr "Bagong polder"
@@ -443,17 +447,17 @@ msgstr ""
 "Ang bagong pangalan na ipinasok ay nakalagay na sa sistema, kailangang "
 "maglagay ng ibang pangalan."
 
-#: filedigger/restoredialog.cpp:369 kcm/backupplanwidget.cpp:156
+#: filedigger/restoredialog.cpp:369 kcm/backupplanwidget.cpp:176
 msgctxt "default folder name when creating a new folder"
 msgid "New Folder"
 msgstr "Bagong polder"
 
-#: filedigger/restoredialog.cpp:374 kcm/backupplanwidget.cpp:161
+#: filedigger/restoredialog.cpp:374 kcm/backupplanwidget.cpp:181
 msgctxt "@title:window"
 msgid "New Folder"
 msgstr "Bagong polder"
 
-#: filedigger/restoredialog.cpp:375 kcm/backupplanwidget.cpp:162
+#: filedigger/restoredialog.cpp:375 kcm/backupplanwidget.cpp:182
 msgctxt "@label:textbox"
 msgid ""
 "Create new folder in:\n"
@@ -462,11 +466,11 @@ msgstr ""
 "Gumawa ng bagong polder sa:\n"
 "%1"
 
-#: filedigger/restoredialog.cpp:386 kcm/backupplanwidget.cpp:173
+#: filedigger/restoredialog.cpp:386 kcm/backupplanwidget.cpp:193
 msgid "A folder named %1 already exists."
 msgstr "Ang %1 na pangalan ay nagamit na."
 
-#: filedigger/restoredialog.cpp:391 kcm/backupplanwidget.cpp:178
+#: filedigger/restoredialog.cpp:391 kcm/backupplanwidget.cpp:198
 msgid "You do not have permission to create %1."
 msgstr "Wala kang pahintulot na lumikha %1."
 
@@ -490,22 +494,22 @@ msgctxt "@action:button"
 msgid "Restore"
 msgstr "Ibalik"
 
-#: kcm/backupplanwidget.cpp:128
+#: kcm/backupplanwidget.cpp:148
 msgctxt "@title:window"
 msgid "Select Folder"
 msgstr "Piliin ang polder"
 
-#: kcm/backupplanwidget.cpp:193
+#: kcm/backupplanwidget.cpp:213
 msgctxt "@label"
 msgid "Description:"
 msgstr "Paglalarawan:"
 
-#: kcm/backupplanwidget.cpp:196
+#: kcm/backupplanwidget.cpp:216
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr "Bumalik sa kabuudan"
 
-#: kcm/backupplanwidget.cpp:225
+#: kcm/backupplanwidget.cpp:245
 msgctxt "@label"
 msgid ""
 "This type of backup is an <em>archive</em>. It contains both the latest "
@@ -529,19 +533,19 @@ msgstr ""
 "malaman na ang mga talaksan na nakaimbak ay maaari lamang buksan sa "
 "pamamagitan ng espesyal na programa."
 
-#: kcm/backupplanwidget.cpp:240
+#: kcm/backupplanwidget.cpp:260
 msgctxt "@option:radio"
 msgid "Versioned Backup (not available because \"bup\" is not installed)"
 msgstr ""
 "May salin na seduridad na kopya (hindi magagamit dahil ang \"bup\" ay hindi "
 "pa nakalagay sa kompyuter na ito)"
 
-#: kcm/backupplanwidget.cpp:244
+#: kcm/backupplanwidget.cpp:264
 msgctxt "@option:radio"
 msgid "Versioned Backup (recommended)"
 msgstr "May salin na seguridad na kopya (inirerekomenda)"
 
-#: kcm/backupplanwidget.cpp:248
+#: kcm/backupplanwidget.cpp:268
 msgctxt "@label"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -563,49 +567,49 @@ msgstr ""
 "ng iyong hard drive pero hindi ito makakatulong sa pagkuha o pagbawi ng mga "
 "talaksang iyong nabura dahil sa pagkakamali."
 
-#: kcm/backupplanwidget.cpp:260
+#: kcm/backupplanwidget.cpp:280
 msgctxt "@option:radio"
 msgid "Synchronized Backup (not available because \"rsync\" is not installed)"
 msgstr ""
 "Magkapanabay na kopya (Hindi magagamit dahil ang \"rsync\" ay hindi pa "
 "nakalagay sa kompyuter na ito)"
 
-#: kcm/backupplanwidget.cpp:264
+#: kcm/backupplanwidget.cpp:284
 msgctxt "@option:radio"
 msgid "Synchronized Backup"
 msgstr "Magkapanabay na seguridad na kopya"
 
-#: kcm/backupplanwidget.cpp:293
+#: kcm/backupplanwidget.cpp:313
 msgctxt "@title"
 msgid "Backup Type"
 msgstr "Uri ng seguridad na kopya"
 
-#: kcm/backupplanwidget.cpp:294
+#: kcm/backupplanwidget.cpp:314
 msgctxt "@label"
 msgid "Select what type of backup you want"
 msgstr "Piliin kung anong uri ng seguridad na kopya ang kinakailangan"
 
-#: kcm/backupplanwidget.cpp:303
+#: kcm/backupplanwidget.cpp:322
 msgctxt "@title"
 msgid "Sources"
 msgstr "Pinagmumulan"
 
-#: kcm/backupplanwidget.cpp:304
+#: kcm/backupplanwidget.cpp:323
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr "Piliin ang mga polder na kailangan isama sa seguridad na kopya"
 
-#: kcm/backupplanwidget.cpp:318
+#: kcm/backupplanwidget.cpp:337
 msgctxt "@option:radio"
 msgid "Filesystem Path"
 msgstr "Lokasyon ng talaksang pang-sistema"
 
-#: kcm/backupplanwidget.cpp:319
+#: kcm/backupplanwidget.cpp:338
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr "Panlabas na imbakan"
 
-#: kcm/backupplanwidget.cpp:324
+#: kcm/backupplanwidget.cpp:343
 #, fuzzy
 msgctxt "@label"
 msgid ""
@@ -619,12 +623,12 @@ msgstr ""
 "kinakailangang palaging nakakabit, pero makikita ito ng kompyuter kung ito "
 "man ay nakakabit."
 
-#: kcm/backupplanwidget.cpp:330
+#: kcm/backupplanwidget.cpp:349
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
 msgstr "Destinasyon para sa seguridad na kopya:"
 
-#: kcm/backupplanwidget.cpp:348
+#: kcm/backupplanwidget.cpp:367
 msgctxt "@label"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -634,48 +638,48 @@ msgstr ""
 "na kopya sa panlabasang imbakan na pwedeng isaksak sa kompyuter na ito "
 "kagaya ng USB hard drive o memory stick."
 
-#: kcm/backupplanwidget.cpp:356 kcm/backupplanwidget.cpp:359
+#: kcm/backupplanwidget.cpp:375 kcm/backupplanwidget.cpp:378
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr ""
 "Ang tinutukoy na polder ay pwedeng ilikha kung ito ay hindi pa nalilikha."
 
-#: kcm/backupplanwidget.cpp:358
+#: kcm/backupplanwidget.cpp:377
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr "Polder sa destinasyon:"
 
-#: kcm/backupplanwidget.cpp:365
+#: kcm/backupplanwidget.cpp:384
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
 msgstr "Buksan ang diyalogo para pumili ng polder"
 
-#: kcm/backupplanwidget.cpp:395
+#: kcm/backupplanwidget.cpp:414
 msgctxt "@title"
 msgid "Destination"
 msgstr "Destinasyon"
 
-#: kcm/backupplanwidget.cpp:396
+#: kcm/backupplanwidget.cpp:415
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr "Piliin ang destinasyon ng seguridad na kopya"
 
-#: kcm/backupplanwidget.cpp:413
+#: kcm/backupplanwidget.cpp:432
 msgctxt "@option:radio"
 msgid "Manual Activation"
 msgstr "Manu-manong paganahin"
 
-#: kcm/backupplanwidget.cpp:414
+#: kcm/backupplanwidget.cpp:433
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr "Pagitan"
 
-#: kcm/backupplanwidget.cpp:415
+#: kcm/backupplanwidget.cpp:434
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr "Aktibong Oras ng Paggamit"
 
-#: kcm/backupplanwidget.cpp:417
+#: kcm/backupplanwidget.cpp:436
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
@@ -684,7 +688,7 @@ msgstr ""
 "Kinukuha lamang ang seguridad na kopya sang-ayon sa iyong kahilingan. Ito ay "
 "maaaring hilingin o piliin sa pamamagitan ng talaan sa may system tray icon. "
 
-#: kcm/backupplanwidget.cpp:431
+#: kcm/backupplanwidget.cpp:450
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -694,27 +698,27 @@ msgstr ""
 "na imbakan at kung lumagpas na ang panahon na nakalagay sa kompigurasyon ng "
 "pagkuha ng seguridad na kopya mula nung huli ito ay nakuha."
 
-#: kcm/backupplanwidget.cpp:448
+#: kcm/backupplanwidget.cpp:467
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr "Minuto"
 
-#: kcm/backupplanwidget.cpp:449 kcm/backupplanwidget.cpp:475
+#: kcm/backupplanwidget.cpp:468 kcm/backupplanwidget.cpp:494
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr "Oras"
 
-#: kcm/backupplanwidget.cpp:450
+#: kcm/backupplanwidget.cpp:469
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr "Araw"
 
-#: kcm/backupplanwidget.cpp:451
+#: kcm/backupplanwidget.cpp:470
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr "Linggo"
 
-#: kcm/backupplanwidget.cpp:460
+#: kcm/backupplanwidget.cpp:479
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -727,37 +731,37 @@ msgstr ""
 "seguridad na kopya o kung lumagpas na ang panahon na nakalagay sa "
 "kompigurasyon ng pagkuha ng seguridad na kopya mula nung huli ito ay nakuha."
 
-#: kcm/backupplanwidget.cpp:480
+#: kcm/backupplanwidget.cpp:499
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr "Kumpirmahin bago kumuha ng seguridad na kopya"
 
-#: kcm/backupplanwidget.cpp:499
+#: kcm/backupplanwidget.cpp:518
 msgctxt "@title"
 msgid "Schedule"
 msgstr "iskedyul"
 
-#: kcm/backupplanwidget.cpp:500
+#: kcm/backupplanwidget.cpp:519
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "Magtakda ng iskedyul para sa seguridad na kopya"
 
-#: kcm/backupplanwidget.cpp:512
+#: kcm/backupplanwidget.cpp:531
 #, fuzzy
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
 msgstr "Ipakita ang mga nakatagong polder sa pamilian:"
 
-#: kcm/backupplanwidget.cpp:516
+#: kcm/backupplanwidget.cpp:535
 msgctxt "@info"
 msgid ""
-"This makes it possible to explicitly include or exlude hidden files and "
-"folders in the backup source selection. Hidden files and folders have a name "
-"that starts with a dot. They are typically located in your home folder and "
-"are used to store settings and temporary files for your applications."
+"This makes it possible to explicitly include or exclude hidden folders in "
+"the backup source selection. Hidden folders have a name that starts with a "
+"dot. They are typically located in your home folder and are used to store "
+"settings and temporary files for your applications."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:531
+#: kcm/backupplanwidget.cpp:549
 #, c-format
 msgctxt "@info"
 msgid ""
@@ -766,12 +770,12 @@ msgid ""
 "recover from a partially corrupted backup."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:537
+#: kcm/backupplanwidget.cpp:555
 msgctxt "@option:check"
 msgid "Generate recovery information"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:539
+#: kcm/backupplanwidget.cpp:557
 #, fuzzy
 msgctxt "@option:check"
 msgid ""
@@ -781,12 +785,12 @@ msgstr ""
 "May salin na seduridad na kopya (hindi magagamit dahil ang \"bup\" ay hindi "
 "pa nakalagay sa kompyuter na ito)"
 
-#: kcm/backupplanwidget.cpp:553
+#: kcm/backupplanwidget.cpp:571
 msgctxt "@option:check"
 msgid "Verify integrity of backups"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:556
+#: kcm/backupplanwidget.cpp:574
 msgctxt "@info"
 msgid ""
 "Checks the whole backup archive for corruption every time you save new data. "
@@ -795,12 +799,12 @@ msgid ""
 "that time it could be too late."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:578
+#: kcm/backupplanwidget.cpp:596
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Pauna"
 
-#: kcm/backupplanwidget.cpp:579
+#: kcm/backupplanwidget.cpp:597
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Dagdag na pamiliian para sa mga dalubhasang gumagamit nito"
@@ -866,16 +870,36 @@ msgid ""
 "if you are backing up executable program files."
 msgstr ""
 
-#: kcm/folderselectionmodel.cpp:168
-msgctxt "@info:tooltip %1 is the path of the folder in a listview"
-msgid "<filename>%1</filename><nl/>(will be included in the backup)"
-msgstr "<filename>%1</filename><nl/>(kasali sa seguridad na kopya)"
-
-#: kcm/folderselectionmodel.cpp:172
+#: kcm/folderselectionmodel.cpp:154
+#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
-"<filename>%1</filename><nl/> (will <emphasis>not</emphasis> be included in "
-"the backup)"
+"<filename>%1</filename><nl/>will be included in the backup, except for "
+"unchecked subfolders"
+msgstr "<filename>%1</filename><nl/>(kasali sa seguridad na kopya)"
+
+#: kcm/folderselectionmodel.cpp:158
+#, fuzzy
+msgctxt "@info:tooltip %1 is the path of the folder in a listview"
+msgid "<filename>%1</filename><nl/>will be included in the backup"
+msgstr "<filename>%1</filename><nl/>(kasali sa seguridad na kopya)"
+
+#: kcm/folderselectionmodel.cpp:162
+#, fuzzy
+msgctxt "@info:tooltip %1 is the path of the folder in a listview"
+msgid ""
+"<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
+"the backup but contains folders that will"
+msgstr ""
+"<filename>%1</filename><nl/> (ay <emphasis>hindi</emphasis> isasama sa "
+"seguridad na kopya)"
+
+#: kcm/folderselectionmodel.cpp:166
+#, fuzzy
+msgctxt "@info:tooltip %1 is the path of the folder in a listview"
+msgid ""
+"<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
+"the backup"
 msgstr ""
 "<filename>%1</filename><nl/> (ay <emphasis>hindi</emphasis> isasama sa "
 "seguridad na kopya)"
@@ -1072,7 +1096,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr "Isara"
 
-#: po/rc.cpp:43 settings/backupplan.cpp:69 rc.cpp:43
+#: po/rc.cpp:43 settings/backupplan.cpp:70 rc.cpp:43
 msgid "Backups"
 msgstr "Mga seguridad na kopya"
 
@@ -1142,9 +1166,6 @@ msgstr "Plano ng seguridad na kopya %1"
 #~ "Ang paglalagay ng talatuntunan sa mga talaksang pangsistema ay hindi "
 #~ "nakumpleto:\n"
 #~ "%1"
-
-#~ msgid "Kup is already running!"
-#~ msgstr "Ang kup ay kasalukuyang ginagamit"
 
 #~ msgctxt "@info:label messagebox"
 #~ msgid "The specified bup repository could not be opened."
