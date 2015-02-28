@@ -4,13 +4,14 @@
 #
 # Translators:
 # Jeff Huang <s8321414@gmail.com>, 2014
+# Simon Persson <simon.persson@mykolab.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2014-11-01 19:14+0800\n"
-"PO-Revision-Date: 2014-10-22 00:34+0000\n"
+"POT-Creation-Date: 2015-02-28 17:06+0800\n"
+"PO-Revision-Date: 2014-11-01 12:56+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/kup/"
 "language/zh_TW/)\n"
@@ -215,7 +216,7 @@ msgstr "s8321414@yahoo.com.tw "
 
 #: daemon/main.cpp:52
 msgid "Kup is already running!"
-msgstr ""
+msgstr "Kup 已在執行中！"
 
 #: daemon/planexecutor.cpp:58
 msgctxt "@action:inmenu"
@@ -697,7 +698,6 @@ msgid "Show hidden folders in source selection"
 msgstr "在選擇的來源中顯示隱藏的資料夾"
 
 #: kcm/backupplanwidget.cpp:535
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This makes it possible to explicitly include or exclude hidden folders in "
@@ -705,9 +705,9 @@ msgid ""
 "dot. They are typically located in your home folder and are used to store "
 "settings and temporary files for your applications."
 msgstr ""
-"這樣就可以明確的包含或排除在選擇的備份來源中的隱藏檔及隱藏資料夾。隱藏檔及隱"
-"藏資料夾的名稱會以一個點作為開頭。它們通常位於您的家目錄，且通常用於儲存您應"
-"用程式的設定及暫存檔案。"
+"這樣就可以明確的包含或排除在選擇的備份來源中的隱藏資料夾。隱藏資料夾的名稱會"
+"以一個點作為開頭。它們通常位於您的家目錄，且通常用於儲存您應用程式的設定及暫"
+"存檔案。"
 
 #: kcm/backupplanwidget.cpp:549
 #, c-format
@@ -823,36 +823,33 @@ msgstr ""
 "時需要煩惱，或是如果您備份的是可執行的程式檔。"
 
 #: kcm/folderselectionmodel.cpp:154
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
-msgstr "<filename>%1</filename><nl/>(將會被包括在備份中)"
+msgstr "<filename>%1</filename><nl/>將會被包括在備份中，除了未勾選的子資料夾"
 
 #: kcm/folderselectionmodel.cpp:158
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>(將會被包括在備份中)"
+msgstr "<filename>%1</filename><nl/>將會被包括在備份中"
 
 #: kcm/folderselectionmodel.cpp:162
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
-"<filename>%1</filename><nl/> (將 <emphasis>不會</emphasis> 被包括在備份中)"
+"<filename>%1</filename><nl/>將 <emphasis>不會</emphasis> 被包括在備份中，但包"
+"含它的資料夾會"
 
 #: kcm/folderselectionmodel.cpp:166
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
 msgstr ""
-"<filename>%1</filename><nl/> (將 <emphasis>不會</emphasis> 被包括在備份中)"
+"<filename>%1</filename><nl/>將 <emphasis>不會</emphasis> 被包括在備份中"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"

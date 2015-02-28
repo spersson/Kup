@@ -4,14 +4,15 @@
 #
 # Translators:
 # dgvirtual <dgvirtual@akl.lt>, 2014
+# Simon Persson <simon.persson@mykolab.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2014-11-01 19:14+0800\n"
-"PO-Revision-Date: 2014-10-21 14:40+0000\n"
-"Last-Translator: dgvirtual <dgvirtual@akl.lt>\n"
+"POT-Creation-Date: 2015-02-28 17:06+0800\n"
+"PO-Revision-Date: 2014-11-01 11:39+0000\n"
+"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/"
 "kup/language/lt_LT/)\n"
 "Language: lt_LT\n"
@@ -861,38 +862,32 @@ msgid ""
 msgstr ""
 
 #: kcm/folderselectionmodel.cpp:154
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
-msgstr "<filename>%1</filename><nl/>(bus įtraukta į atsarginę kopiją)"
+msgstr ""
 
 #: kcm/folderselectionmodel.cpp:158
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>(bus įtraukta į atsarginę kopiją)"
+msgstr "<filename>%1</filename><nl/>bus įtraukta į atsarginę kopiją"
 
 #: kcm/folderselectionmodel.cpp:162
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
-"<filename>%1</filename><nl/> (<emphasis>nebus</emphasis> įtraukta į "
-"atsarginę kopiją)"
 
 #: kcm/folderselectionmodel.cpp:166
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
 msgstr ""
-"<filename>%1</filename><nl/> (<emphasis>nebus</emphasis> įtraukta į "
-"atsarginę kopiją)"
+"<filename>%1</filename><nl/><emphasis>nebus</emphasis> įtraukta į atsarginę "
+"kopiją"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
