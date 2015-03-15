@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-02-28 17:06+0800\n"
+"POT-Creation-Date: 2015-03-15 10:15+0800\n"
 "PO-Revision-Date: 2014-02-26 11:36+0000\n"
 "Last-Translator: benoits <benoit.schwinden@free.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/kup/"
@@ -403,7 +403,12 @@ msgctxt "@info message bar appearing on top"
 msgid "No destination was selected, please select one."
 msgstr "Aucune destination sélectionnée. Veuillez en choisir une."
 
-#: filedigger/restoredialog.cpp:262
+#: filedigger/restoredialog.cpp:253
+msgctxt "@info message bar appearing on top"
+msgid "There was a problem while getting a list of all files to restore: %1"
+msgstr ""
+
+#: filedigger/restoredialog.cpp:266
 msgctxt "@info message bar appearing on top"
 msgid ""
 "The destination does not have enough space available. Please choose a "
@@ -412,39 +417,39 @@ msgstr ""
 "L'espace libre sur la destination est insuffisant. Veuillez choisir une "
 "autre destination ou libérer de l'espace."
 
-#: filedigger/restoredialog.cpp:272
+#: filedigger/restoredialog.cpp:276
 msgctxt ""
 "added to the suggested filename when restoring, %1 is the time when backup "
 "was taken"
 msgid " - saved at %1"
 msgstr "- sauvegardé à %1"
 
-#: filedigger/restoredialog.cpp:273
+#: filedigger/restoredialog.cpp:277
 msgctxt "@info"
 msgid "Folder already exists, please choose a solution"
 msgstr "Le répertoire existe déjà : indiquez une solution"
 
-#: filedigger/restoredialog.cpp:279
+#: filedigger/restoredialog.cpp:283
 msgctxt "@info"
 msgid "File already exists"
 msgstr "Le fichier existe déjà"
 
-#: filedigger/restoredialog.cpp:292
+#: filedigger/restoredialog.cpp:296
 msgctxt "@info message bar appearing on top"
 msgid "The new name entered already exists, please enter a different one."
 msgstr "Le nouveau nom saisi existe déjà. Veuillez en saisir un autre."
 
-#: filedigger/restoredialog.cpp:369 kcm/backupplanwidget.cpp:176
+#: filedigger/restoredialog.cpp:373 kcm/backupplanwidget.cpp:176
 msgctxt "default folder name when creating a new folder"
 msgid "New Folder"
 msgstr "Nouveau dossier"
 
-#: filedigger/restoredialog.cpp:374 kcm/backupplanwidget.cpp:181
+#: filedigger/restoredialog.cpp:378 kcm/backupplanwidget.cpp:181
 msgctxt "@title:window"
 msgid "New Folder"
 msgstr "Nouveau dossier"
 
-#: filedigger/restoredialog.cpp:375 kcm/backupplanwidget.cpp:182
+#: filedigger/restoredialog.cpp:379 kcm/backupplanwidget.cpp:182
 msgctxt "@label:textbox"
 msgid ""
 "Create new folder in:\n"
@@ -453,11 +458,11 @@ msgstr ""
 "Créer un nouveau dossier dans :\n"
 "%1"
 
-#: filedigger/restoredialog.cpp:386 kcm/backupplanwidget.cpp:193
+#: filedigger/restoredialog.cpp:390 kcm/backupplanwidget.cpp:193
 msgid "A folder named %1 already exists."
 msgstr "Le répertoire %1 existe déjà."
 
-#: filedigger/restoredialog.cpp:391 kcm/backupplanwidget.cpp:198
+#: filedigger/restoredialog.cpp:395 kcm/backupplanwidget.cpp:198
 msgid "You do not have permission to create %1."
 msgstr "Vous n'avez pas les droits pour créer %1."
 

@@ -249,7 +249,11 @@ void RestoreDialog::sourceListingCompleted(KJob *pJob) {
 		QDir::setCurrent(mSavedWorkingDirectory);
 	}
 	if(pJob->error() != 0) {
-		// FIXME: show something
+		mMessageWidget->setText(i18nc("@info message bar appearing on top",
+		                              "There was a problem while getting a list of all files to restore: %1",
+		                              pJob->errorString()));
+		mMessageWidget->setMessageType(KMessageWidget::Error);
+		mMessageWidget->animatedShow();
 	} else {
 		completePrechecks();
 	}
