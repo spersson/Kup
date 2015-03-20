@@ -3,15 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Matriks404 <marcink96@gmail.com>, 2014
+# Marcin Kralka <marcink96@gmail.com>, 2014
+# Marcin Kralka <marcink96@gmail.com>, 2014
+# Simon Persson <simon.persson@mykolab.com>, 2014
+# Simon Persson <simon.persson@mykolab.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-15 10:15+0800\n"
-"PO-Revision-Date: 2014-02-12 22:26+0000\n"
-"Last-Translator: Matriks404 <marcink96@gmail.com>\n"
+"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"PO-Revision-Date: 2015-03-20 02:36+0000\n"
+"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/kup/language/"
 "pl/)\n"
 "Language: pl\n"
@@ -32,23 +35,17 @@ msgstr ""
 "jest zainstalowany?"
 
 #: daemon/bupjob.cpp:54 daemon/buprepairjob.cpp:50
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "The \"par2\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
-"Program \"bup\" jest wymagany, ale nie może zostać odnaleziony, może nie "
-"jest zainstalowany?"
 
 #: daemon/bupjob.cpp:76
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
-"Miejsce docelowe kopii zapasowej nie może zostać zainicjowane przez bup:\n"
-"%1"
 
 #: daemon/bupjob.cpp:107 daemon/bupverificationjob.cpp:75
 msgctxt "notification"
@@ -127,12 +124,12 @@ msgid ""
 msgstr ""
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
 msgctxt "@title"
 msgid "Problem"
 msgstr "Problem"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Nieprawidłowy typ kopii zapasowej w konfiguracji."
@@ -140,7 +137,7 @@ msgstr "Nieprawidłowy typ kopii zapasowej w konfiguracji."
 #: daemon/kupdaemon.cpp:112
 msgctxt "@info:tooltip"
 msgid "Backup destination unavailable"
-msgstr "Miejsce docelowe kopii zapoasowej jest niedostępne"
+msgstr "Miejsce docelowe kopii zapasowej jest niedostępne"
 
 #: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
@@ -183,17 +180,16 @@ msgid ""
 "This allows it to quickly perform incremental backups, only saving the parts "
 "of files that has actually changed since last backup was taken."
 msgstr ""
-"Kup jest elastycznym rozwiązaniem tworzenia kopii zapasowych używający "
-"system przechowywania kopii 'bup'. To pozwala na szybkie wykonywanie "
+"Kup jest elastycznym rozwiązaniem tworzenia kopii zapasowych używającym "
+"systemu przechowywania kopii 'bup'. Pozwala na szybkie wykonywanie "
 "przyrostowych kopii, zapisując tylko części plików które zostały zmienione "
 "od ostatniej zrobionej kopii zapasowej."
 
 #: daemon/main.cpp:39
-#, fuzzy
 msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running 'kcmshell4 kup'"
-msgstr "Kup nie jest włączony, włącz go w module ustawień systemowych."
+msgstr ""
 
 #: daemon/main.cpp:43
 msgctxt "@title"
@@ -211,12 +207,12 @@ msgstr "Simon Persson"
 #: daemon/main.cpp:47 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Twoje imiona"
+msgstr "Marcin Kralka,Jacek Baszkiewicz"
 
 #: daemon/main.cpp:47 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "Twoje adresy E-mail"
+msgstr "marcink96@gmail.com,jbaszkiewicz@o2.pl"
 
 #: daemon/main.cpp:52
 msgid "Kup is already running!"
@@ -230,18 +226,17 @@ msgstr "Zrób kopię zapasową teraz"
 #: daemon/planexecutor.cpp:62
 msgctxt "@action:inmenu"
 msgid "Show Files"
-msgstr "Wyświetl Pliki"
+msgstr "Wyświetl pliki"
 
 #: daemon/planexecutor.cpp:66
-#, fuzzy
 msgctxt "@action:inmenu"
 msgid "Show Log File"
-msgstr "Wyświetl Pliki"
+msgstr ""
 
 #: daemon/planexecutor.cpp:86
 msgctxt "@info:tooltip"
 msgid "Taking new backup"
-msgstr ""
+msgstr "Tworzenie nowej kopii"
 
 #: daemon/planexecutor.cpp:88
 msgctxt "@info:tooltip"
@@ -264,7 +259,7 @@ msgid ""
 "It's been %1 since the last backup was taken, do you want to take a backup "
 "now?"
 msgstr ""
-"Upłyneło już %1 od kiedy została wykonana ostatnia kopia zapasowa, czy "
+"Upłynęło już %1 od kiedy została wykonana ostatnia kopia zapasowa, czy "
 "chcesz wykonać kopię teraz?"
 
 #: daemon/planexecutor.cpp:138
@@ -300,10 +295,9 @@ msgstr ""
 
 #: daemon/planexecutor.cpp:198 daemon/planexecutor.cpp:257
 #: daemon/planexecutor.cpp:291
-#, fuzzy
 msgctxt "@action:button"
 msgid "Show log file"
-msgstr "Wyświetl Pliki"
+msgstr ""
 
 #: daemon/planexecutor.cpp:253
 msgctxt "@title:window"
@@ -325,13 +319,10 @@ msgstr ""
 "jest zainstalowany?"
 
 #: daemon/rsyncjob.cpp:76
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr ""
-"Kopia zapasowa nie zakończyła się pomyślnie:\n"
-"%1"
 
 #: filedigger/main.cpp:34
 msgid "Browser for bup archives."
@@ -339,7 +330,7 @@ msgstr "Przeglądarka archiwów bup"
 
 #: filedigger/main.cpp:37
 msgid "File Digger"
-msgstr ""
+msgstr "Wyszukiwarka plików"
 
 #: filedigger/main.cpp:38
 msgid "Copyright (C) 2013 Simon Persson"
@@ -370,10 +361,9 @@ msgid ""
 msgstr ""
 
 #: filedigger/main.cpp:70
-#, fuzzy
 msgctxt "@info:label messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr "Nie masz uprawnień aby utworzyć %1."
+msgstr ""
 
 #: filedigger/mergedvfs.cpp:110
 msgctxt "@info:label messagebox"
@@ -400,7 +390,7 @@ msgstr "(plik)"
 #: filedigger/restoredialog.cpp:115 kcm/backupplanwidget.cpp:150
 msgctxt "@action:button"
 msgid "New Folder..."
-msgstr "Nowy Folder..."
+msgstr "Nowy folder..."
 
 #: filedigger/restoredialog.cpp:143 filedigger/restoredialog.cpp:162
 msgctxt "@info message bar appearing on top"
@@ -419,7 +409,7 @@ msgid ""
 "different destination or free some space."
 msgstr ""
 "Miejsce docelowe nie posiada wystarczająco wolnego miejsca. Proszę wybrać "
-"inne miejsce docelowe lub zwolnij trochę miejsca."
+"inne miejsce docelowe lub zwolnić trochę miejsca."
 
 #: filedigger/restoredialog.cpp:276
 msgctxt ""
@@ -464,7 +454,7 @@ msgstr ""
 
 #: filedigger/restoredialog.cpp:390 kcm/backupplanwidget.cpp:193
 msgid "A folder named %1 already exists."
-msgstr "Folder nazwany %1 już istnieje."
+msgstr "Folder o nazwie %1 już istnieje."
 
 #: filedigger/restoredialog.cpp:395 kcm/backupplanwidget.cpp:198
 msgid "You do not have permission to create %1."
@@ -493,7 +483,7 @@ msgstr "Przywróć"
 #: kcm/backupplanwidget.cpp:148
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "Wybierz Folder"
+msgstr "Wybierz folder"
 
 #: kcm/backupplanwidget.cpp:213
 msgctxt "@label"
@@ -518,6 +508,15 @@ msgid ""
 "in the archive can not be accessed directly with a general file manager, a "
 "special program is needed."
 msgstr ""
+"Ten typ kopii to <em>archiwum</em>. Zawiera zarówno ostatnią wersję twoich "
+"plików, jak i wersje zachowane poprzednio. Użycie tego typu kopii pozwala na "
+"odtworzenie starszych wersji plików bądź też plików usuniętych wcześniej z "
+"dysku. Przestrzeń dyskowa potrzebna do zachowania kopii jest minimalizowana "
+"poprzez wyszukiwanie w kolejnych wersjach plików ich części wspólnych i "
+"zapisywanie tych części tylko raz. Niemniej jednak archiwum będzie z czasem "
+"coraz większe.<br>Należy również pamiętać, że pliki archiwum tego typu nie "
+"będą dostępne bezpośrednio w systemowym menedżerze plików - niezbędny jest "
+"specjalny program."
 
 #: kcm/backupplanwidget.cpp:260
 msgctxt "@option:radio"
@@ -542,6 +541,14 @@ msgid ""
 "due to a broken hard drive but it does not help you to recover from your own "
 "mistakes."
 msgstr ""
+"Ten typ kopii to folder docelowy synchronizowany z wybranymi folderami "
+"źródłowymi. Utworzenie kopii oznacza po prostu przekopiowanie do lokalizacji "
+"docelowej dokładnie wszystkich plików zawartych w folderach źródłowych i nic "
+"poza tym. Jeśli jakiś plik został usunięty w folderze źródłowym, to po "
+"utworzeniu kopii nie będzie go również w folderze docelowym.<br>Ten typ "
+"kopii zabezpiecza cię przed utratą danych na skutek uszkodzenia dysku "
+"twardego, ale nie pomoże ci odzyskać plików utraconych w wyniku twych "
+"własnych błędów.  "
 
 #: kcm/backupplanwidget.cpp:280
 msgctxt "@option:radio"
@@ -586,7 +593,6 @@ msgid "External Storage"
 msgstr "Pamięć zewnętrzna"
 
 #: kcm/backupplanwidget.cpp:343
-#, fuzzy
 msgctxt "@label"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -594,9 +600,6 @@ msgid ""
 "always mount it at the same path in the filesystem. The path specified here "
 "does not need to exist at all times, its existance will be monitored."
 msgstr ""
-"Możesz użyć tej opcji do tworzenia kopii zapasowej na dysku sieciowym jeżeli "
-"zawsze montujesz go w tej samej ścieżce. Określona ścieżka nie musi istnieć "
-"cały czas, jej dostępność będzie monitorowana."
 
 #: kcm/backupplanwidget.cpp:349
 msgctxt "@label:textbox"
@@ -610,13 +613,13 @@ msgid ""
 "can be plugged in to this computer, such as a USB hard drive or memory stick."
 msgstr ""
 "Użyj tej opcji jeśli chcesz tworzyć kopie zapasową twoich plików na pamięci "
-"zewnętrznej która może być podłączana do tego komputera, czyli na przykład "
+"zewnętrznej, która może być podłączana do tego komputera, czyli na przykład "
 "dysk zewnętrzny lub karta pamięci."
 
 #: kcm/backupplanwidget.cpp:375 kcm/backupplanwidget.cpp:378
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
-msgstr "Określony folder zostanie stworzony jeżeli jeszcze nie istnieje."
+msgstr "Określony folder zostanie stworzony, jeżeli jeszcze nie istnieje."
 
 #: kcm/backupplanwidget.cpp:377
 msgctxt "@label:textbox"
@@ -651,7 +654,7 @@ msgstr "Interwał"
 #: kcm/backupplanwidget.cpp:434
 msgctxt "@option:radio"
 msgid "Active Usage Time"
-msgstr ""
+msgstr "Czas aktywnego używania"
 
 #: kcm/backupplanwidget.cpp:436
 msgctxt "@info"
@@ -659,8 +662,8 @@ msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
 msgstr ""
-"Kopie zapasowe są tworzone tylko jeżeli manualnie zażądane. Może to być "
-"wykonane przez menu kontekstowe ikony zasobnika systemowego."
+"Kopie zapasowe są tworzone tylko ręcznie. Można je utworzyć przez menu "
+"kontekstowe ikony zasobnika systemowego."
 
 #: kcm/backupplanwidget.cpp:450
 msgctxt "@info"
@@ -699,11 +702,14 @@ msgid ""
 "you have been using your computer actively for more than the configured time "
 "limit since the last backup was taken."
 msgstr ""
+"Nowa kopia zostanie utworzona, gdy lokalizacja docelowa stanie się dostępna, "
+"a czas aktywnego użycia komputera od chwili utworzenia ostatniej kopii "
+"przekroczy wartość podaną w konfiguracji."
 
 #: kcm/backupplanwidget.cpp:499
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
-msgstr "Pytaj o potwiedzenie przed wykonaniem kopii zapasowej"
+msgstr "Pytaj o potwierdzenie przed wykonaniem kopii zapasowej"
 
 #: kcm/backupplanwidget.cpp:518
 msgctxt "@title"
@@ -716,10 +722,9 @@ msgid "Specify the backup schedule"
 msgstr "Określ harmonogram wykonywania kopii zapasowych"
 
 #: kcm/backupplanwidget.cpp:531
-#, fuzzy
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
-msgstr "Wyświetl ukryte foldery w wyborze ścieżki:"
+msgstr ""
 
 #: kcm/backupplanwidget.cpp:535
 msgctxt "@info"
@@ -745,14 +750,11 @@ msgid "Generate recovery information"
 msgstr ""
 
 #: kcm/backupplanwidget.cpp:557
-#, fuzzy
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because \"par2\" is not "
 "installed)"
 msgstr ""
-"Wersjonowana kopia zapasowa (nie jest dostępna ponieważ \"bup\" nie jest "
-"zainstalowany)"
 
 #: kcm/backupplanwidget.cpp:571
 msgctxt "@option:check"
@@ -771,19 +773,19 @@ msgstr ""
 #: kcm/backupplanwidget.cpp:596
 msgctxt "@title"
 msgid "Advanced"
-msgstr "Zawansowane"
+msgstr "Zaawansowane"
 
 #: kcm/backupplanwidget.cpp:597
 msgctxt "@label"
 msgid "Extra options for advanced users"
-msgstr "Dodatkowe opcje dla zawansowanych użytkowników"
+msgstr "Dodatkowe opcje dla zaawansowanych użytkowników"
 
 #: kcm/driveselection.cpp:274
 msgctxt "@label Only shown if no drives are detected"
 msgid ""
 "Plug in the external storage you wish to use, then select it in this list."
 msgstr ""
-"Podłącz pamięć zewnętrzną którą chcesz użyć, i wybierz ją na tej liście."
+"Podłącz pamięć zewnętrzną którą chcesz użyć i wybierz ją na tej liście."
 
 #: kcm/driveselectiondelegate.cpp:75
 msgctxt "@item:inlistbox this text is added if selected drive is disconnected"
@@ -839,38 +841,32 @@ msgid ""
 msgstr ""
 
 #: kcm/folderselectionmodel.cpp:154
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
-msgstr "<filename>%1</filename><nl/>(zostanie zawarte w kopii zapasowej)"
+msgstr ""
 
 #: kcm/folderselectionmodel.cpp:158
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>(zostanie zawarte w kopii zapasowej)"
+msgstr "<filename>%1</filename><nl/>zostanie zawarte w kopii zapasowej"
 
 #: kcm/folderselectionmodel.cpp:162
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
-"<filename>%1</filename><nl/>(<emphasis>nie</emphasis zostanie zawarte w "
-"kopii zapasowej)"
 
 #: kcm/folderselectionmodel.cpp:166
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
 msgstr ""
-"<filename>%1</filename><nl/>(<emphasis>nie</emphasis zostanie zawarte w "
-"kopii zapasowej)"
+"<filename>%1</filename><nl/><emphasis>nie</emphasis zostanie zawarte w kopii "
+"zapasowej"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
@@ -1074,16 +1070,15 @@ msgstr "Konfiguruj plany kopii zapasowych"
 
 #: po/rc.cpp:45 rc.cpp:45
 msgid "backup,recovery,safety"
-msgstr ""
+msgstr "kopia,odzyskiwanie,bezpieczeństwo"
 
 #: po/rc.cpp:46 rc.cpp:46
 msgid "Kup"
 msgstr ""
 
 #: po/rc.cpp:47 rc.cpp:47
-#, fuzzy
 msgid "Kup Backup System"
-msgstr "Typ kopii zapasowej"
+msgstr ""
 
 #: po/rc.cpp:48 rc.cpp:48
 msgid "Start taking backup"
@@ -1094,9 +1089,8 @@ msgid "A question if user wants to start taking a backup"
 msgstr ""
 
 #: po/rc.cpp:50 rc.cpp:50
-#, fuzzy
 msgid "Backup failed"
-msgstr "Kopie zapasowe włączone"
+msgstr ""
 
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Saving of backup failed, offer user to see log file"
@@ -1124,19 +1118,3 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Plan kopii zapasowej %1"
-
-#~ msgctxt "notification"
-#~ msgid ""
-#~ "Indexing of file system did not complete successfully:\n"
-#~ "%1"
-#~ msgstr ""
-#~ "Indeksowanie systemu plików nie zostało zakończone pomyślnie:\n"
-#~ "%1"
-
-#~ msgctxt "@info:label messagebox"
-#~ msgid "The specified bup repository could not be opened."
-#~ msgstr "Określone repozytorium bup nie może zostać otwarte."
-
-#~ msgctxt "@option:check"
-#~ msgid "Yes"
-#~ msgstr "Tak"

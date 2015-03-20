@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# dgvirtual <dgvirtual@akl.lt>, 2014
+# dgvirtual <dgvirtual@akl.lt>, 2014-2015
 # Simon Persson <simon.persson@mykolab.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-15 10:15+0800\n"
-"PO-Revision-Date: 2014-11-01 11:39+0000\n"
-"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
+"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"PO-Revision-Date: 2015-03-16 14:33+0000\n"
+"Last-Translator: dgvirtual <dgvirtual@akl.lt>\n"
 "Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/"
 "kup/language/lt_LT/)\n"
 "Language: lt_LT\n"
@@ -149,12 +149,12 @@ msgstr ""
 "norite pamėginti pataisyti atsarginių kopijų failus?"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
 msgctxt "@title"
 msgid "Problem"
 msgstr "Problema"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Netinkamas tipas atsarginių kopijų konfigūracijoje."
@@ -243,7 +243,7 @@ msgstr "dgvirtual@akl.lt"
 
 #: daemon/main.cpp:52
 msgid "Kup is already running!"
-msgstr ""
+msgstr "Kup jau veikia!"
 
 #: daemon/planexecutor.cpp:58
 msgctxt "@action:inmenu"
@@ -435,7 +435,7 @@ msgstr ""
 #: filedigger/restoredialog.cpp:253
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
-msgstr ""
+msgstr "Bandant gauti sąrašą atkurtinų failų susidurta su problema: %1"
 
 #: filedigger/restoredialog.cpp:266
 msgctxt "@info message bar appearing on top"
@@ -575,6 +575,13 @@ msgid ""
 "due to a broken hard drive but it does not help you to recover from your own "
 "mistakes."
 msgstr ""
+"Šis atsarginių kopijų tipas - tai aplankas, kuris sinchronizuojamas su "
+"nurodytais šaltinių aplankais. Atsarginės kopijos padarymas reiškia, kad "
+"atsarginės kopijos tikslas turės tikslią kopiją šaltinio aplankų, tokių, "
+"kokie jie yra dabar, ir - nieko daugiau. Jei failas bus ištrintas šaltinio "
+"aplanke, jis bus ištrintas iš atsarginės kopijos aplanke.<br>Tokia atsarginė "
+"kopija gali apsaugoti nuo duomenų praradimo dėl sugedusio kietojo disko, "
+"tačiau ji neapsaugos nuo Jūsų pačių klaidų. "
 
 #: kcm/backupplanwidget.cpp:280
 msgctxt "@option:radio"
@@ -626,6 +633,11 @@ msgid ""
 "always mount it at the same path in the filesystem. The path specified here "
 "does not need to exist at all times, its existance will be monitored."
 msgstr ""
+"Šią parinktį galite naudoti norėdami daryti atsarginę kopiją į antrinį "
+"vidinį kietąjį diską, išorinį eSATA diską ar tinklo saugyklą. Vienintelis "
+"reikalavimas - visuomet prijungti ją tuo pačiu vidinės failų sistemos "
+"adresu. Čia nurodytas adresas neturi egzistuoti visą laiką, jo atsiradimą "
+"sistema pati pastebės."
 
 #: kcm/backupplanwidget.cpp:349
 msgctxt "@label:textbox"
@@ -638,6 +650,9 @@ msgid ""
 "Use this option if you want to backup your files on an external storage that "
 "can be plugged in to this computer, such as a USB hard drive or memory stick."
 msgstr ""
+"Pažymėkite šią parinktį jei norite, kad atsarginė kopija būtų daroma "
+"išorinėje laikmenoje, prijungiamoje prie šio kompiuterio, pvz., išoriniame "
+"USB diske ar atminties kortelėje."
 
 #: kcm/backupplanwidget.cpp:375 kcm/backupplanwidget.cpp:378
 msgctxt "@info:tooltip"
@@ -724,6 +739,9 @@ msgid ""
 "you have been using your computer actively for more than the configured time "
 "limit since the last backup was taken."
 msgstr ""
+"Jei atsarginių kopijų darymo vieta taps prieinama, ir jei būsite naudoję "
+"kompiuterį tam tikrą nustatytą laiką nuo praėjusios kopijos padarymo, "
+"sistema pasiūlys daryti naują atsarginę kopiją."
 
 #: kcm/backupplanwidget.cpp:499
 msgctxt "@option:check"
@@ -753,6 +771,10 @@ msgid ""
 "dot. They are typically located in your home folder and are used to store "
 "settings and temporary files for your applications."
 msgstr ""
+"Ši parinktis leidžia įtraukti arba neįtraukti paslėptų aplankų renkantis, ką "
+"sistema turėtų įtraukti į atsarginę kopiją. Paslėptų aplankų pavadinimai "
+"prasideda tašku. Jie paprastai yra namų aplanke, juose saugomi programų "
+"nustatymai ir laikinieji programų failai."
 
 #: kcm/backupplanwidget.cpp:549
 #, c-format
@@ -762,6 +784,9 @@ msgid ""
 "backups will take slightly longer time. In return it will be possible to "
 "recover from a partially corrupted backup."
 msgstr ""
+"Pasirinkus šią parinktį atsarginės kopijos užims maždaug 10 proc. daugiau "
+"vietos ir atsarginių kopijų įrašymas užtruks šiek tiek ilgiau. Tačiau užtat "
+"bus galima atkurti failus iš dalinai sugadintos atsarginės kopijos. "
 
 #: kcm/backupplanwidget.cpp:555
 msgctxt "@option:check"
@@ -857,6 +882,10 @@ msgid ""
 "system. File permissions only matters if there is more than one user of this "
 "computer or if you are backing up executable program files."
 msgstr ""
+"Perspėjimas: šioje failų sistemoje negalima išsaugoti simbolinių nuorodų ir "
+"failų leidimų. Failų leidimai svarbūs tik tuo atveju, jei kompiuteriu "
+"naudojasi daugiau nei vienas asmuo, arba, jei darote vykdomųjų programų "
+"atsargines kopijas."
 
 #: kcm/driveselectiondelegate.cpp:155
 msgctxt "@item:inlistbox"
@@ -865,6 +894,9 @@ msgid ""
 "permissions only matters if there is more than one user of this computer or "
 "if you are backing up executable program files."
 msgstr ""
+"Perspėjimas: šioje failų sistemoje negalima išsaugoti failų leidimų. Failų "
+"leidimai svarbūs tik tuo atveju, jei kompiuteriu naudojasi daugiau nei "
+"vienas asmuo, arba, jei darote vykdomųjų programų atsargines kopijas."
 
 #: kcm/folderselectionmodel.cpp:154
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
@@ -872,11 +904,13 @@ msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
 msgstr ""
+"<filename>%1</filename><nl/> bus įtrauktas į atsarginę kopiją, neskaitant "
+"nepažymėtų paaplankių"
 
 #: kcm/folderselectionmodel.cpp:158
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>bus įtraukta į atsarginę kopiją"
+msgstr "<filename>%1</filename><nl/>bus įtrauktas į atsarginę kopiją"
 
 #: kcm/folderselectionmodel.cpp:162
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
@@ -884,6 +918,8 @@ msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
+"<filename>%1</filename><nl/> nebus įtrauktas į atsarginę kopiją, tačiau kai "
+"kurie jame esantys aplankai bus įtraukti"
 
 #: kcm/folderselectionmodel.cpp:166
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
@@ -891,7 +927,7 @@ msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
 msgstr ""
-"<filename>%1</filename><nl/><emphasis>nebus</emphasis> įtraukta į atsarginę "
+"<filename>%1</filename><nl/><emphasis>nebus</emphasis> įtrauktas į atsarginę "
 "kopiją"
 
 #: kcm/kupkcm.cpp:51

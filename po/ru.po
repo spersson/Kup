@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jacobtey <jacobtey@gmail.com>, 2014
+# Ilya Ostapenko <jacobtey@gmail.com>, 2014
+# Simon Persson <simon.persson@mykolab.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-15 10:15+0800\n"
-"PO-Revision-Date: 2014-02-03 13:28+0000\n"
-"Last-Translator: Jacobtey <jacobtey@gmail.com>\n"
+"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"PO-Revision-Date: 2015-03-20 02:40+0000\n"
+"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kup/language/"
 "ru/)\n"
 "Language: ru\n"
@@ -31,22 +32,17 @@ msgstr ""
 "Требуется программа bup, но она не найдена. Похоже, она не установлена."
 
 #: daemon/bupjob.cpp:54 daemon/buprepairjob.cpp:50
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "The \"par2\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
-"Требуется программа bup, но она не найдена. Похоже, она не установлена."
 
 #: daemon/bupjob.cpp:76
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
-"bup не нашло место под хранение резервной копии:\n"
-"%1"
 
 #: daemon/bupjob.cpp:107 daemon/bupverificationjob.cpp:75
 msgctxt "notification"
@@ -125,12 +121,12 @@ msgid ""
 msgstr ""
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
 msgctxt "@title"
 msgid "Problem"
 msgstr "Проблема"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Неверно сконфигурирован тип резервного копирования."
@@ -187,11 +183,10 @@ msgstr ""
 "момента прошлого резервного копирования."
 
 #: daemon/main.cpp:39
-#, fuzzy
 msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running 'kcmshell4 kup'"
-msgstr "Kup недоступен. Активируйте его в настройках системы."
+msgstr ""
 
 #: daemon/main.cpp:43
 msgctxt "@title"
@@ -231,10 +226,9 @@ msgid "Show Files"
 msgstr "Показать файлы"
 
 #: daemon/planexecutor.cpp:66
-#, fuzzy
 msgctxt "@action:inmenu"
 msgid "Show Log File"
-msgstr "Показать файлы"
+msgstr ""
 
 #: daemon/planexecutor.cpp:86
 msgctxt "@info:tooltip"
@@ -247,10 +241,9 @@ msgid "Checking backup integrity"
 msgstr ""
 
 #: daemon/planexecutor.cpp:90
-#, fuzzy
 msgctxt "@info:tooltip"
 msgid "Repairing backups"
-msgstr "Создание новой резервной копии"
+msgstr ""
 
 #: daemon/planexecutor.cpp:119 daemon/planexecutor.cpp:134
 msgctxt "@info"
@@ -299,10 +292,9 @@ msgstr ""
 
 #: daemon/planexecutor.cpp:198 daemon/planexecutor.cpp:257
 #: daemon/planexecutor.cpp:291
-#, fuzzy
 msgctxt "@action:button"
 msgid "Show log file"
-msgstr "Показать файлы"
+msgstr ""
 
 #: daemon/planexecutor.cpp:253
 msgctxt "@title:window"
@@ -322,13 +314,10 @@ msgid ""
 msgstr "Нужна программа rsync, но она не найдена. Похоже, она не установлена."
 
 #: daemon/rsyncjob.cpp:76
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr ""
-"Резервное копирование завершилось неудачно:\n"
-"%1"
 
 #: filedigger/main.cpp:34
 msgid "Browser for bup archives."
@@ -367,10 +356,9 @@ msgid ""
 msgstr ""
 
 #: filedigger/main.cpp:70
-#, fuzzy
 msgctxt "@info:label messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr "Недостаточно прав для создания %1."
+msgstr ""
 
 #: filedigger/mergedvfs.cpp:110
 msgctxt "@info:label messagebox"
@@ -595,7 +583,6 @@ msgid "External Storage"
 msgstr "Внешнее хранилище"
 
 #: kcm/backupplanwidget.cpp:343
-#, fuzzy
 msgctxt "@label"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -603,10 +590,6 @@ msgid ""
 "always mount it at the same path in the filesystem. The path specified here "
 "does not need to exist at all times, its existance will be monitored."
 msgstr ""
-"Можно использовать эту опцию для резервного копирования на сетевые "
-"устройства хранения, если они всегда будут смонтированы по одному и тому же "
-"пути. Нет необходимости каждый раз заново вводить путь, указанный здесь, его "
-"наличие будет контролироваться."
 
 #: kcm/backupplanwidget.cpp:349
 msgctxt "@label:textbox"
@@ -729,10 +712,9 @@ msgid "Specify the backup schedule"
 msgstr "Составить план резервного копирования"
 
 #: kcm/backupplanwidget.cpp:531
-#, fuzzy
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
-msgstr "Отображать скрытые папки "
+msgstr ""
 
 #: kcm/backupplanwidget.cpp:535
 msgctxt "@info"
@@ -758,12 +740,11 @@ msgid "Generate recovery information"
 msgstr ""
 
 #: kcm/backupplanwidget.cpp:557
-#, fuzzy
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because \"par2\" is not "
 "installed)"
-msgstr "Версионное резервное копирование (недоступно, т.к. bup не установлен)"
+msgstr ""
 
 #: kcm/backupplanwidget.cpp:571
 msgctxt "@option:check"
@@ -849,38 +830,32 @@ msgid ""
 msgstr ""
 
 #: kcm/folderselectionmodel.cpp:154
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
-msgstr "<filename>%1</filename><nl/>(будет включено в резервную копию)"
+msgstr ""
 
 #: kcm/folderselectionmodel.cpp:158
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>(будет включено в резервную копию)"
+msgstr "<filename>%1</filename><nl/>будет включено в резервную копию"
 
 #: kcm/folderselectionmodel.cpp:162
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
-"<filename>%1</filename><nl/> (<emphasis>не</emphasis> будет включено в "
-"резервную копию)"
 
 #: kcm/folderselectionmodel.cpp:166
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
 msgstr ""
-"<filename>%1</filename><nl/> (<emphasis>не</emphasis> будет включено в "
-"резервную копию)"
+"<filename>%1</filename><nl/><emphasis>не</emphasis> будет включено в "
+"резервную копию"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
@@ -1089,23 +1064,20 @@ msgid "Kup"
 msgstr ""
 
 #: po/rc.cpp:47 rc.cpp:47
-#, fuzzy
 msgid "Kup Backup System"
-msgstr "Тип резервного копирования"
+msgstr ""
 
 #: po/rc.cpp:48 rc.cpp:48
-#, fuzzy
 msgid "Start taking backup"
-msgstr "Создание новой резервной копии"
+msgstr ""
 
 #: po/rc.cpp:49 rc.cpp:49
 msgid "A question if user wants to start taking a backup"
 msgstr ""
 
 #: po/rc.cpp:50 rc.cpp:50
-#, fuzzy
 msgid "Backup failed"
-msgstr "Доступно резервное копирование"
+msgstr ""
 
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Saving of backup failed, offer user to see log file"
@@ -1133,19 +1105,3 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "План резервного копирования %1"
-
-#~ msgctxt "notification"
-#~ msgid ""
-#~ "Indexing of file system did not complete successfully:\n"
-#~ "%1"
-#~ msgstr ""
-#~ "Индексация файловой системы завершилась неудачно:\n"
-#~ "%1"
-
-#~ msgctxt "@info:label messagebox"
-#~ msgid "The specified bup repository could not be opened."
-#~ msgstr "Невозможно открыть указанный репозиторий bup."
-
-#~ msgctxt "@option:check"
-#~ msgid "Yes"
-#~ msgstr "Да"

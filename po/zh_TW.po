@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jeff Huang <s8321414@gmail.com>, 2014
+# Jeff Huang <s8321414@gmail.com>, 2014-2015
 # Simon Persson <simon.persson@mykolab.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-15 10:15+0800\n"
-"PO-Revision-Date: 2014-11-01 12:56+0000\n"
+"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"PO-Revision-Date: 2015-03-15 03:24+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/kup/"
 "language/zh_TW/)\n"
@@ -124,12 +124,12 @@ msgstr ""
 "修復備份檔案嗎？"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
 msgctxt "@title"
 msgid "Problem"
 msgstr "問題"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "在組態設定中無效的備份類型。"
@@ -393,7 +393,7 @@ msgstr "目的地尚未選擇，請選擇一個。"
 #: filedigger/restoredialog.cpp:253
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
-msgstr ""
+msgstr "當要取得所有要恢復檔案的列表時發生了問題： %1"
 
 #: filedigger/restoredialog.cpp:266
 msgctxt "@info message bar appearing on top"

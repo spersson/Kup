@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Koali_Spain <admin@koali.es>, 2014
+# Administrador de Sistemas de Koali <admin@koali.es>, 2014
 # Francisco García Cisneros <fgarciacis@koali.es>, 2013
+# Simon Persson <simon.persson@mykolab.com>, 2014
+# Simon Persson <simon.persson@mykolab.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-15 10:15+0800\n"
-"PO-Revision-Date: 2014-02-04 16:01+0000\n"
-"Last-Translator: Koali_Spain <admin@koali.es>\n"
+"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"PO-Revision-Date: 2015-03-20 02:29+0000\n"
+"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/kup/language/"
 "es/)\n"
 "Language: es\n"
@@ -32,23 +34,17 @@ msgstr ""
 "instalado?"
 
 #: daemon/bupjob.cpp:54 daemon/buprepairjob.cpp:50
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "The \"par2\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
-"El programa \"bup\" es necesario pero no pudo encontrarse, ¿podría no estar "
-"instalado?"
 
 #: daemon/bupjob.cpp:76
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
-"El destino de la copia no ha podido ser inicializado por bub:\n"
-"%1"
 
 #: daemon/bupjob.cpp:107 daemon/bupverificationjob.cpp:75
 msgctxt "notification"
@@ -127,12 +123,12 @@ msgid ""
 msgstr ""
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
 msgctxt "@title"
 msgid "Problem"
 msgstr "Problema"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Tipo incorrecto de copia en la configuración."
@@ -155,7 +151,7 @@ msgstr "Destino de la copia de seguridad disponible"
 #: daemon/kupdaemon.cpp:126
 msgctxt "@info:tooltip"
 msgid "New backup suggested"
-msgstr "Sugerida nueva copia de seguridad"
+msgstr "Recomendada nueva copia de seguridad"
 
 #: daemon/kupdaemon.cpp:137
 msgctxt "@info:tooltip"
@@ -190,13 +186,10 @@ msgstr ""
 "seguridad."
 
 #: daemon/main.cpp:39
-#, fuzzy
 msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running 'kcmshell4 kup'"
 msgstr ""
-"Kup no está habilitado, habilítalo desde el módulo de Preferencias del "
-"Sistema."
 
 #: daemon/main.cpp:43
 msgctxt "@title"
@@ -214,12 +207,12 @@ msgstr "Simon Persson"
 #: daemon/main.cpp:47 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Su nombre"
+msgstr "Administrador de Sistemas de Koali"
 
 #: daemon/main.cpp:47 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "Sus correos"
+msgstr "admin@koali.es"
 
 #: daemon/main.cpp:52
 msgid "Kup is already running!"
@@ -236,15 +229,14 @@ msgid "Show Files"
 msgstr "Mostrar archivos"
 
 #: daemon/planexecutor.cpp:66
-#, fuzzy
 msgctxt "@action:inmenu"
 msgid "Show Log File"
-msgstr "Mostrar archivos"
+msgstr ""
 
 #: daemon/planexecutor.cpp:86
 msgctxt "@info:tooltip"
 msgid "Taking new backup"
-msgstr "Haciando nueva copia de seguridad"
+msgstr "Haciendo nueva copia de seguridad"
 
 #: daemon/planexecutor.cpp:88
 msgctxt "@info:tooltip"
@@ -252,10 +244,9 @@ msgid "Checking backup integrity"
 msgstr ""
 
 #: daemon/planexecutor.cpp:90
-#, fuzzy
 msgctxt "@info:tooltip"
 msgid "Repairing backups"
-msgstr "Haciando nueva copia de seguridad"
+msgstr ""
 
 #: daemon/planexecutor.cpp:119 daemon/planexecutor.cpp:134
 msgctxt "@info"
@@ -304,10 +295,9 @@ msgstr ""
 
 #: daemon/planexecutor.cpp:198 daemon/planexecutor.cpp:257
 #: daemon/planexecutor.cpp:291
-#, fuzzy
 msgctxt "@action:button"
 msgid "Show log file"
-msgstr "Mostrar archivos"
+msgstr ""
 
 #: daemon/planexecutor.cpp:253
 msgctxt "@title:window"
@@ -329,13 +319,10 @@ msgstr ""
 "estar instalado?"
 
 #: daemon/rsyncjob.cpp:76
-#, fuzzy
 msgctxt "notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr ""
-"La copia no se completó con éxito:\n"
-"%1"
 
 #: filedigger/main.cpp:34
 msgid "Browser for bup archives."
@@ -343,7 +330,7 @@ msgstr "Navegador para archivos bup."
 
 #: filedigger/main.cpp:37
 msgid "File Digger"
-msgstr ""
+msgstr "Extractor de Archivos"
 
 #: filedigger/main.cpp:38
 msgid "Copyright (C) 2013 Simon Persson"
@@ -374,10 +361,9 @@ msgid ""
 msgstr ""
 
 #: filedigger/main.cpp:70
-#, fuzzy
 msgctxt "@info:label messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr "No tienes permiso para crear %1."
+msgstr ""
 
 #: filedigger/mergedvfs.cpp:110
 msgctxt "@info:label messagebox"
@@ -603,7 +589,6 @@ msgid "External Storage"
 msgstr "Almacenamiento externo"
 
 #: kcm/backupplanwidget.cpp:343
-#, fuzzy
 msgctxt "@label"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -611,9 +596,6 @@ msgid ""
 "always mount it at the same path in the filesystem. The path specified here "
 "does not need to exist at all times, its existance will be monitored."
 msgstr ""
-"Puedes usar esta opción para copiar en un almacenamiento en red si siempre "
-"lo montas en la misma ruta. La ruta especificada aquí no necesita estar "
-"siempre disponible, su existencia será monitorizada."
 
 #: kcm/backupplanwidget.cpp:349
 msgctxt "@label:textbox"
@@ -736,10 +718,9 @@ msgid "Specify the backup schedule"
 msgstr "Especificar el calendario de copias de seguridad"
 
 #: kcm/backupplanwidget.cpp:531
-#, fuzzy
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
-msgstr "Mostrar carpetas ocultas en la selección de orígenes:"
+msgstr ""
 
 #: kcm/backupplanwidget.cpp:535
 msgctxt "@info"
@@ -765,12 +746,11 @@ msgid "Generate recovery information"
 msgstr ""
 
 #: kcm/backupplanwidget.cpp:557
-#, fuzzy
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because \"par2\" is not "
 "installed)"
-msgstr "Control de Versiones (no disponible porque \"bup\" no está instalado)"
+msgstr ""
 
 #: kcm/backupplanwidget.cpp:571
 msgctxt "@option:check"
@@ -858,38 +838,32 @@ msgid ""
 msgstr ""
 
 #: kcm/folderselectionmodel.cpp:154
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
-msgstr "<filename>%1</filename><nl/>(será incluido en la copia de seguridad)"
+msgstr ""
 
 #: kcm/folderselectionmodel.cpp:158
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>(será incluido en la copia de seguridad)"
+msgstr "<filename>%1</filename><nl/>será incluido en la copia de seguridad"
 
 #: kcm/folderselectionmodel.cpp:162
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
-"<filename>%1</filename><nl/> (<emphasis>no</emphasis> será incluido en la "
-"copia de seguridad)"
 
 #: kcm/folderselectionmodel.cpp:166
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
 msgstr ""
-"<filename>%1</filename><nl/> (<emphasis>no</emphasis> será incluido en la "
-"copia de seguridad)"
+"<filename>%1</filename><nl/><emphasis>no</emphasis> será incluido en la "
+"copia de seguridad"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"
@@ -1098,23 +1072,20 @@ msgid "Kup"
 msgstr ""
 
 #: po/rc.cpp:47 rc.cpp:47
-#, fuzzy
 msgid "Kup Backup System"
-msgstr "Tipo de Copia"
+msgstr ""
 
 #: po/rc.cpp:48 rc.cpp:48
-#, fuzzy
 msgid "Start taking backup"
-msgstr "Haciando nueva copia de seguridad"
+msgstr ""
 
 #: po/rc.cpp:49 rc.cpp:49
 msgid "A question if user wants to start taking a backup"
 msgstr ""
 
 #: po/rc.cpp:50 rc.cpp:50
-#, fuzzy
 msgid "Backup failed"
-msgstr "Copias de seguridad Activadas"
+msgstr ""
 
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Saving of backup failed, offer user to see log file"
@@ -1142,19 +1113,3 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Plan de copia de seguridad %1"
-
-#~ msgctxt "notification"
-#~ msgid ""
-#~ "Indexing of file system did not complete successfully:\n"
-#~ "%1"
-#~ msgstr ""
-#~ "El indexado del sistema de ficheros no se completó con éxito:\n"
-#~ "%1"
-
-#~ msgctxt "@info:label messagebox"
-#~ msgid "The specified bup repository could not be opened."
-#~ msgstr "El repositorio bup especificado no pudo abrirse."
-
-#~ msgctxt "@option:check"
-#~ msgid "Yes"
-#~ msgstr "Sí"

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Simon Persson <simon.persson@mykolab.com>, 2012-2014
-# Simon Persson <simon.persson@mykolab.com>, 2014
+# Simon Persson <simon.persson@mykolab.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-15 10:15+0800\n"
-"PO-Revision-Date: 2014-10-23 10:34+0000\n"
+"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"PO-Revision-Date: 2015-03-15 03:03+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/kup/language/"
 "sv/)\n"
@@ -141,12 +141,12 @@ msgstr ""
 "loggfil för detaljer. Vill du försöka reparera säkerhetskopiorna?"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
 msgctxt "@title"
 msgid "Problem"
 msgstr "Problem"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Ogiltig kopieringstyp i dina inställningar."
@@ -235,7 +235,7 @@ msgstr "simonpersson1@gmail.com"
 
 #: daemon/main.cpp:52
 msgid "Kup is already running!"
-msgstr ""
+msgstr "Kup kör redan!"
 
 #: daemon/planexecutor.cpp:58
 msgctxt "@action:inmenu"
@@ -419,7 +419,7 @@ msgstr "Ingen destination vald, du måste välja en."
 #: filedigger/restoredialog.cpp:253
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
-msgstr ""
+msgstr "Det uppstod ett problem när antal filer att återställa undersöktes: %1"
 
 #: filedigger/restoredialog.cpp:266
 msgctxt "@info message bar appearing on top"
@@ -747,7 +747,6 @@ msgid "Show hidden folders in source selection"
 msgstr "Visa dolda mappar i val av källor"
 
 #: kcm/backupplanwidget.cpp:535
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This makes it possible to explicitly include or exclude hidden folders in "
@@ -756,9 +755,9 @@ msgid ""
 "settings and temporary files for your applications."
 msgstr ""
 "Detta valet gör det möjligt att uttryckligen inkludera eller exkludera dolda "
-"filer och mappar i valet av källor. Dolda filer och mappar har ett namn som "
-"börjar med en punkt. De finns typiskt i din användarmapp och används för att "
-"lagra inställningar och temporära filer för dina applikationer. "
+"mappar i valet av källor. Dolda mappar har ett namn som börjar med en punkt. "
+"De finns typiskt i din användarmapp och används för att lagra inställningar "
+"och temporära filer för dina applikationer."
 
 #: kcm/backupplanwidget.cpp:549
 #, c-format
@@ -882,36 +881,35 @@ msgstr ""
 "säkerhetskopior av körbara programfiler."
 
 #: kcm/folderselectionmodel.cpp:154
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
-msgstr "<filename>%1</filename><nl/>(kommer inkluderas)"
+msgstr ""
+"<filename>%1</filename><nl/>kommer inkluderas, förutom avmarkerade "
+"undermappar"
 
 #: kcm/folderselectionmodel.cpp:158
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>(kommer inkluderas)"
+msgstr "<filename>%1</filename><nl/>kommer inkluderas"
 
 #: kcm/folderselectionmodel.cpp:162
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
-"<filename>%1</filename><nl/> (kommer <emphasis>inte</emphasis> inkluderas)"
+"<filename>%1</filename><nl/>kommer <emphasis>inte</emphasis> inkluderas men "
+"innehåller inkluderade undermappar "
 
 #: kcm/folderselectionmodel.cpp:166
-#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
 msgstr ""
-"<filename>%1</filename><nl/> (kommer <emphasis>inte</emphasis> inkluderas)"
+"<filename>%1</filename><nl/>kommer <emphasis>inte</emphasis> inkluderas"
 
 #: kcm/kupkcm.cpp:51
 msgid "Kup Configuration Module"

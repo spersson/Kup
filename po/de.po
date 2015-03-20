@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-15 10:15+0800\n"
-"PO-Revision-Date: 2015-02-09 07:45+0000\n"
+"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"PO-Revision-Date: 2015-03-17 10:16+0000\n"
 "Last-Translator: HinzundKunz <martin.tlustos@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/kup/language/"
 "de/)\n"
@@ -153,12 +153,12 @@ msgstr ""
 "Sicherungsdateien zu reparieren?"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
 msgctxt "@title"
 msgid "Problem"
 msgstr "Problem"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Ungültige Art der Sicherung in der Konfiguration."
@@ -438,6 +438,8 @@ msgstr "Es wurde kein Ziel angegeben, Bitte ein Ziel angeben."
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
 msgstr ""
+"Es gab ein Problem dabei, eine Liste aller wiederherzustellenden Dateien zu "
+"erhalten: %1"
 
 #: filedigger/restoredialog.cpp:266
 msgctxt "@info message bar appearing on top"

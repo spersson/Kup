@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# carlo giusepe tadei valente sasaki <carlo.gt.valente@gmail.com>, 2014
+# carlo giusepe tadei valente sasaki <carlo.gt.valente@gmail.com>, 2014-2015
 # carlo giusepe tadei valente sasaki <carlo.gt.valente@gmail.com>, 2014
 # Simon Persson <simon.persson@mykolab.com>, 2014
 # Simon Persson <simon.persson@mykolab.com>, 2014
@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-15 10:15+0800\n"
-"PO-Revision-Date: 2014-11-01 16:23+0000\n"
+"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"PO-Revision-Date: 2015-03-15 19:55+0000\n"
 "Last-Translator: carlo giusepe tadei valente sasaki <carlo.gt.valente@gmail."
 "com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/kup/"
@@ -150,12 +150,12 @@ msgstr ""
 "os arquivos de backup?"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
+#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
 msgctxt "@title"
 msgid "Problem"
 msgstr "Problema"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Tipo inválido de backup na configuração."
@@ -433,6 +433,7 @@ msgstr "Nenhum destino foi selecionado, por favor selecione um."
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
 msgstr ""
+"Houve um problema ao obter uma lista de todos os arquivos a restaurar: %1"
 
 #: filedigger/restoredialog.cpp:266
 msgctxt "@info message bar appearing on top"
