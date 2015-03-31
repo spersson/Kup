@@ -28,6 +28,7 @@ KF5::I18n
 KF5::Solid
 KF5::WindowSystem
 KF5::Notifications
+KF5::CoreAddons
 )
 
 ########### install files ###############

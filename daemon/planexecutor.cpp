@@ -24,6 +24,7 @@
 #include "buprepairjob.h"
 #include "rsyncjob.h"
 
+#include <KFormat>
 #include <KLocale>
 #include <KNotification>
 #include <KRun>
@@ -118,7 +119,7 @@ void PlanExecutor::enterAvailableState() {
 			if(!mPlan->mLastCompleteBackup.isValid())
 				lUserQuestion = i18nc("@info", "Do you want to take a first backup now?");
 			else {
-				QString t = KGlobal::locale()->prettyFormatDuration(mPlan->mLastCompleteBackup.secsTo(lNow) * 1000);
+				QString t = KFormat().formatSpelloutDuration(mPlan->mLastCompleteBackup.secsTo(lNow) * 1000);
 				lUserQuestion = i18nc("@info", "It's been %1 since the last backup was taken, "
 				                     "do you want to take a backup now?", t);
 			}
@@ -134,7 +135,7 @@ void PlanExecutor::enterAvailableState() {
 			lUserQuestion = i18nc("@info", "Do you want to take a first backup now?");
 		} else if(mPlan->mAccumulatedUsageTime > (quint32)mPlan->mUsageLimit * 3600) {
 			lShouldBeTakenNow = true;
-			QString t = KGlobal::locale()->prettyFormatDuration(mPlan->mAccumulatedUsageTime * 1000);
+			QString t = KFormat().formatSpelloutDuration(mPlan->mAccumulatedUsageTime * 1000);
 			lUserQuestion = i18nc("@info", "You've been active with this computer for %1 since the last backup was taken, "
 			                     "do you want to take a backup now?", t);
 		}
