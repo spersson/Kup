@@ -22,7 +22,7 @@ include(FeatureSummary)
 include(ECMInstallIcons)
 
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
-find_package(KF5 REQUIRED COMPONENTS Solid KIO IdleTime Init I18n WindowSystem)
+find_package(KF5 REQUIRED COMPONENTS Solid KIO IdleTime Init I18n WindowSystem Notifications)
 
 add_subdirectory(daemon)
 add_subdirectory(icons)

@@ -27,6 +27,7 @@ KF5::IdleTime
 KF5::I18n
 KF5::Solid
 KF5::WindowSystem
+KF5::Notifications
 )
 
 ########### install files ###############
