@@ -142,7 +142,7 @@ void FolderSelectionWidget::expandToShowSelections() {
 	}
 }
 
-DirDialog::DirDialog(const KUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent)
+DirDialog::DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent)
    : KDialog(pParent)
 {
 	setCaption(i18nc("@title:window","Select Folder"));
@@ -161,20 +161,21 @@ DirDialog::DirDialog(const KUrl &pRootDir, const QString &pStartSubDir, QWidget 
 	setMainWidget(mTreeView);
 
 	mTreeView->setRootUrl(pRootDir);
-	KUrl lSubUrl(pRootDir);
-	lSubUrl.addPath(pStartSubDir);
+	QUrl lSubUrl(pRootDir);
+	lSubUrl = lSubUrl.adjusted(QUrl::StripTrailingSlash);
+	lSubUrl.setPath(lSubUrl.path() + '/' + (pStartSubDir));
 	mTreeView->setCurrentUrl(lSubUrl);
 	mTreeView->setFocus();
 }
 
-KUrl DirDialog::url() const {
+QUrl DirDialog::url() const {
 	return mTreeView->currentUrl();
 }
 
 void DirDialog::createNewFolder() {
 	bool lUserAccepted;
 	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
-	if(QFileInfo(url().path(KUrl::AddTrailingSlash) + lNameSuggestion).exists()) {
+	if(QFileInfo(url().path(QUrl::AddTrailingSlash) + lNameSuggestion).exists()) {
 		lNameSuggestion = KIO::RenameDialog::suggestName(url(), lNameSuggestion);
 	}
 
@@ -184,21 +185,24 @@ void DirDialog::createNewFolder() {
 	if (!lUserAccepted)
 		return;
 
-	KUrl lPartialUrl(url());
+	QUrl lPartialUrl(url());
 	const QStringList lDirectories = lSelectedName.split(QLatin1Char('/'), QString::SkipEmptyParts);
 	foreach(QString lSubDirectory, lDirectories) {
 		QDir lDir(lPartialUrl.path());
 		if(lDir.exists(lSubDirectory)) {
-			lPartialUrl.addPath(lSubDirectory);
+			lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
+			lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
 			KMessageBox::sorry(this, i18n("A folder named %1 already exists.", lPartialUrl.path()));
 			return;
 		}
 		if(!lDir.mkdir(lSubDirectory)) {
-			lPartialUrl.addPath(lSubDirectory);
+			lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
+			lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
 			KMessageBox::sorry(this, i18n("You do not have permission to create %1.", lPartialUrl.path()));
 			return;
 		}
-		lPartialUrl.addPath(lSubDirectory);
+		lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
+		lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
 	}
 	mTreeView->setCurrentUrl(lPartialUrl);
 }

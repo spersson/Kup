@@ -84,7 +84,7 @@ void FileDigger::updateVersionModel(const QModelIndex &pCurrent, const QModelInd
 }
 
 void FileDigger::open(const QModelIndex &pIndex) {
-	KRun::runUrl(pIndex.data(VersionBupUrlRole).value<KUrl>(),
+	KRun::runUrl(pIndex.data(VersionBupUrlRole).value<QUrl>(),
 	             pIndex.data(VersionMimeTypeRole).toString(), this);
 
 }

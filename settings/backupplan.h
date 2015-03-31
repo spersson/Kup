@@ -49,7 +49,7 @@ public:
 	bool mAskBeforeTakingBackup;
 
 	qint32 mDestinationType;
-	KUrl mFilesystemDestinationPath;
+	QUrl mFilesystemDestinationPath;
 	QString mExternalUUID;
 	QString mExternalDestinationPath;
 	QString mExternalVolumeLabel;

@@ -56,7 +56,7 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 	case Qt::DisplayRole:
 		return KGlobal::locale()->formatDateTime(QDateTime::fromTime_t(lData->mModifiedDate), KLocale::FancyLongDate);
 	case VersionBupUrlRole: {
-		KUrl lUrl;
+		QUrl lUrl;
 		mNode->getBupUrl(pIndex.row(), &lUrl);
 		return lUrl;
 	}

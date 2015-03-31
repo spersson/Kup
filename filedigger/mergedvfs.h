@@ -27,7 +27,7 @@ bool operator ==(const git_oid &pOidA, const git_oid &pOidB);
 #include <QHash>
 #include <QObject>
 
-#include <KUrl>
+#include <QUrl>
 
 #include <sys/stat.h>
 
@@ -72,7 +72,7 @@ public:
 		}
 	}
 	bool isDirectory() const { return S_ISDIR(mMode); }
-	void getBupUrl(int pVersionIndex, KUrl *pComplete, QString *pRepoPath = NULL, QString *pBranchName = NULL,
+	void getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPath = NULL, QString *pBranchName = NULL,
 	               quint64 *pCommitTime = NULL, QString *pPathInRepo = NULL) const;
 	virtual MergedNodeList &subNodes();
 	const VersionList *versionList() const { return &mVersionList; }

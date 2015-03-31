@@ -81,8 +81,8 @@ class DirDialog: public KDialog
 {
 	Q_OBJECT
 public:
-	explicit DirDialog(const KUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent = NULL);
-	KUrl url() const;
+	explicit DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent = NULL);
+	QUrl url() const;
 
 public slots:
 	void createNewFolder();

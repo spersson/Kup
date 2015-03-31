@@ -25,7 +25,7 @@
 #include "mergedvfs.h"
 
 struct BupSourceInfo {
-	KUrl mBupKioPath;
+	QUrl mBupKioPath;
 	QString mRepoPath;
 	QString mBranchName;
 	QString mPathInRepo;
@@ -51,7 +51,7 @@ protected:
 };
 
 enum VersionDataRole {
-	VersionBupUrlRole = Qt::UserRole + 1, // KUrl
+	VersionBupUrlRole = Qt::UserRole + 1, // QUrl
 	VersionMimeTypeRole, // QString
 	VersionSizeRole, // quint64
 	VersionSourceInfoRole, // PathInfo

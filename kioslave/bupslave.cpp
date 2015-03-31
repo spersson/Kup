@@ -21,16 +21,16 @@ public:
 	BupSlave(const QByteArray &pPoolSocket, const QByteArray &pAppSocket);
 	virtual ~BupSlave();
 	virtual void close();
-	virtual void get(const KUrl &pUrl);
-	virtual void listDir(const KUrl &pUrl) ;
-	virtual void open(const KUrl &pUrl, QIODevice::OpenMode pMode);
+	virtual void get(const QUrl &pUrl);
+	virtual void listDir(const QUrl &pUrl) ;
+	virtual void open(const QUrl &pUrl, QIODevice::OpenMode pMode);
 	virtual void read(filesize_t pSize);
 	virtual void seek(filesize_t pOffset);
-	virtual void stat(const KUrl &pUrl);
-	virtual void mimetype(const KUrl &pUrl);
+	virtual void stat(const QUrl &pUrl);
+	virtual void mimetype(const QUrl &pUrl);
 
 private:
-	bool checkCorrectRepository(const KUrl &pUrl, QStringList &pPathInRepository);
+	bool checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepository);
 	QString getUserName(uid_t pUid);
 	QString getGroupName(gid_t pGid);
 	void createUDSEntry(Node *pNode, KIO::UDSEntry & pUDSEntry, int pDetails);
@@ -61,10 +61,10 @@ void BupSlave::close() {
 	emit finished();
 }
 
-void BupSlave::get(const KUrl& pUrl) {
+void BupSlave::get(const QUrl &pUrl) {
 	QStringList lPathInRepo;
 	if(!checkCorrectRepository(pUrl, lPathInRepo)) {
-		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.prettyUrl()));
+		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.toDisplayString()));
 		return;
 	}
 
@@ -118,10 +118,10 @@ void BupSlave::get(const KUrl& pUrl) {
 	}
 }
 
-void BupSlave::listDir(const KUrl& pUrl) {
+void BupSlave::listDir(const QUrl &pUrl) {
 	QStringList lPathInRepo;
 	if(!checkCorrectRepository(pUrl, lPathInRepo)) {
-		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.prettyUrl()));
+		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.toDisplayString()));
 		return;
 	}
 	Node *lNode = mRepository->resolve(lPathInRepo, true);
@@ -151,15 +151,15 @@ void BupSlave::listDir(const KUrl& pUrl) {
 	emit finished();
 }
 
-void BupSlave::open(const KUrl &pUrl, QIODevice::OpenMode pMode) {
+void BupSlave::open(const QUrl &pUrl, QIODevice::OpenMode pMode) {
 	if(pMode & QIODevice::WriteOnly) {
-		emit error(KIO::ERR_CANNOT_OPEN_FOR_WRITING, pUrl.prettyUrl());
+		emit error(KIO::ERR_CANNOT_OPEN_FOR_WRITING, pUrl.toDisplayString());
 		return;
 	}
 
 	QStringList lPathInRepo;
 	if(!checkCorrectRepository(pUrl, lPathInRepo)) {
-		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.prettyUrl()));
+		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.toDisplayString()));
 		return;
 	}
 
@@ -176,7 +176,7 @@ void BupSlave::open(const KUrl &pUrl, QIODevice::OpenMode pMode) {
 	}
 
 	if(0 != lFile->seek(0)) {
-		emit error(KIO::ERR_CANNOT_OPEN_FOR_READING, pUrl.prettyUrl());
+		emit error(KIO::ERR_CANNOT_OPEN_FOR_READING, pUrl.toDisplayString());
 		return;
 	}
 
@@ -219,10 +219,10 @@ void BupSlave::seek(filesize_t pOffset) {
 	emit position(pOffset);
 }
 
-void BupSlave::stat(const KUrl& pUrl) {
+void BupSlave::stat(const QUrl &pUrl) {
 	QStringList lPathInRepo;
 	if(!checkCorrectRepository(pUrl, lPathInRepo)) {
-		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.prettyUrl()));
+		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.toDisplayString()));
 		return;
 	}
 
@@ -241,10 +241,10 @@ void BupSlave::stat(const KUrl& pUrl) {
 	emit finished();
 }
 
-void BupSlave::mimetype(const KUrl &pUrl) {
+void BupSlave::mimetype(const QUrl &pUrl) {
 	QStringList lPathInRepo;
 	if(!checkCorrectRepository(pUrl, lPathInRepo)) {
-		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.prettyUrl()));
+		emit error(KIO::ERR_SLAVE_DEFINED, i18n("No bup repository found.\n%1", pUrl.toDisplayString()));
 		return;
 	}
 
@@ -258,14 +258,14 @@ void BupSlave::mimetype(const KUrl &pUrl) {
 	emit finished();
 }
 
-bool BupSlave::checkCorrectRepository(const KUrl &pUrl, QStringList &pPathInRepository) {
+bool BupSlave::checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepository) {
 	// make this slave accept most URLs.. even incorrect ones. (no slash (wrong),
 	// one slash (correct), two slashes (wrong), three slashes (correct))
 	QString lPath;
 	if(pUrl.hasHost()) {
-		lPath = QLatin1String("/") + pUrl.host() + pUrl.path(KUrl::AddTrailingSlash);
+		lPath = QLatin1String("/") + pUrl.host() + pUrl.path(QUrl::AddTrailingSlash);
 	} else {
-		lPath = pUrl.path(KUrl::AddTrailingSlash);
+		lPath = pUrl.path(QUrl::AddTrailingSlash);
 		if(!lPath.startsWith(QLatin1Char('/'))) {
 			lPath.prepend(QLatin1Char('/'));
 		}

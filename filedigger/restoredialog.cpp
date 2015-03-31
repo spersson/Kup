@@ -134,7 +134,7 @@ void RestoreDialog::setCustomDestination() {
 
 void RestoreDialog::checkDestinationSelection() {
 	if(mSourceInfo.mIsDirectory) {
-		KUrl lUrl = mDirDialog->url();
+		QUrl lUrl = mDirDialog->url();
 		if(!lUrl.isEmpty()) {
 			mDestination.setFile(lUrl.path());
 			startPrechecks();
@@ -369,9 +369,9 @@ void RestoreDialog::folderMoveCompleted(KJob *pJob) {
 
 void RestoreDialog::createNewFolder() {
 	bool lUserAccepted;
-	KUrl lUrl = mDirDialog->url();
+	QUrl lUrl = mDirDialog->url();
 	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
-	if(QFileInfo(lUrl.path(KUrl::AddTrailingSlash) + lNameSuggestion).exists()) {
+	if(QFileInfo(lUrl.path(QUrl::AddTrailingSlash) + lNameSuggestion).exists()) {
 		lNameSuggestion = KIO::RenameDialog::suggestName(lUrl, lNameSuggestion);
 	}
 
@@ -381,21 +381,24 @@ void RestoreDialog::createNewFolder() {
 	if (!lUserAccepted)
 		return;
 
-	KUrl lPartialUrl(lUrl);
+	QUrl lPartialUrl(lUrl);
 	const QStringList lDirectories = lSelectedName.split(QDir::separator(), QString::SkipEmptyParts);
 	foreach(QString lSubDirectory, lDirectories) {
 		QDir lDir(lPartialUrl.path());
 		if(lDir.exists(lSubDirectory)) {
-			lPartialUrl.addPath(lSubDirectory);
+			lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
+			lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
 			KMessageBox::sorry(this, i18n("A folder named %1 already exists.", lPartialUrl.path()));
 			return;
 		}
 		if(!lDir.mkdir(lSubDirectory)) {
-			lPartialUrl.addPath(lSubDirectory);
+			lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
+			lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
 			KMessageBox::sorry(this, i18n("You do not have permission to create %1.", lPartialUrl.path()));
 			return;
 		}
-		lPartialUrl.addPath(lSubDirectory);
+		lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
+		lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
 	}
 	mDirDialog->setCurrentUrl(lPartialUrl);
 }

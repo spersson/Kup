@@ -56,7 +56,7 @@ MergedNode::MergedNode(QObject *pParent, const QString &pName, uint pMode)
 	mMode = pMode;
 }
 
-void MergedNode::getBupUrl(int pVersionIndex, KUrl *pComplete, QString *pRepoPath,
+void MergedNode::getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPath,
                            QString *pBranchName, quint64 *pCommitTime, QString *pPathInRepo) const {
 	QList<const MergedNode *> lStack;
 	const MergedNode *lNode = this;
