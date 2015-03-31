@@ -30,7 +30,7 @@
 class KupSettings;
 class PlanExecutor;
 
-class KMenu;
+class QMenu;
 class KStatusNotifierItem;
 
 class QTimer;
@@ -63,7 +63,7 @@ private:
 	KupSettings *mSettings;
 	QList<PlanExecutor *> mExecutors;
 	KStatusNotifierItem *mStatusNotifier;
-	KMenu *mContextMenu;
+	QMenu *mContextMenu;
 	QTimer *mUsageAccumulatorTimer;
 	bool mWaitingToReloadConfig;
 };

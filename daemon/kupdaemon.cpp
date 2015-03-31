@@ -29,7 +29,7 @@
 
 #include <KIdleTime>
 #include <KLocale>
-#include <KMenu>
+#include <QMenu>
 #include <KRun>
 #include <KServiceTypeTrader>
 #include <KStandardAction>
@@ -198,7 +198,7 @@ void KupDaemon::setupTrayIcon() {
 }
 
 void KupDaemon::setupContextMenu() {
-	mContextMenu = new KMenu(i18nc("@title:menu", "Backups"));
+	mContextMenu = new QMenu(i18nc("@title:menu", "Backups"));
 	mContextMenu->addAction(i18nc("@action:inmenu", "Configure Backups"), this, SLOT(showConfig()));
 	foreach(PlanExecutor *lExec, mExecutors) {
 		mContextMenu->addMenu(lExec->mActionMenu);
