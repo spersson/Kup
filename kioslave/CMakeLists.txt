@@ -1,4 +1,3 @@
-include_directories(${KDE4_INCLUDES})
 
 set(bupslave_SRCS
 bupslave.cpp
@@ -6,11 +5,10 @@ bupvfs.cpp
 vfshelpers.cpp
 )
 
-kde4_add_plugin(kio_bup ${bupslave_SRCS})
+add_library(kio_bup MODULE ${bupslave_SRCS})
 target_link_libraries(kio_bup
-${QT_QTCORE_LIBRARY}
-${KDE4_KDECORE_LIBRARY}
-${KDE4_KIO_LIBRARY}
+Qt5::Core
+KF5::KIOCore
 git24kup
 )
 

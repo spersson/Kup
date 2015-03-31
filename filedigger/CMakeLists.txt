@@ -1,4 +1,3 @@
-include_directories(${KDE4_INCLUDES})
 include_directories("../daemon")
 include_directories("../kioslave")
 
@@ -16,15 +15,13 @@ versionlistmodel.cpp
 
 add_definitions(-fexceptions)
 
-kde4_add_ui_files(filedigger_SRCS restoredialog.ui)
-kde4_add_executable(kup-filedigger ${filedigger_SRCS})
+ki18n_wrap_ui(filedigger_SRCS restoredialog.ui)
+add_executable(kup-filedigger ${filedigger_SRCS})
 target_link_libraries(kup-filedigger
-${QT_QTCORE_LIBRARY}
-${QT_QTGUI_LIBRARY}
-${KDE4_KDECORE_LIBRARY}
-${KDE4_KDEUI_LIBRARY}
-${KDE4_KIO_LIBRARY}
-${KDE4_KFILE_LIBRARY}
+Qt5::Core
+Qt5::Gui
+KF5::KIOCore
+KF5::KIOFileWidgets
 git24kup
 )
 
