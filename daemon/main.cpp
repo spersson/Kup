@@ -23,6 +23,7 @@
 #include <KStartupInfo>
 #include <KUniqueApplication>
 #include <KAboutData>
+#include <KLocalizedString>
 #include <KCmdLineArgs>
 
 #include <QDebug>

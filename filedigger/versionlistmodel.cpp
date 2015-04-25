@@ -21,7 +21,7 @@
 #include "versionlistmodel.h"
 #include "vfshelpers.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMimeType>
 #include <QDateTime>
 

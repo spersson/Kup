@@ -22,7 +22,7 @@
 #include "versionlistmodel.h"
 
 #include <KGlobal>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QAbstractItemView>
 #include <QAbstractItemModel>
 #include <QApplication>

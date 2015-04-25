@@ -21,7 +21,7 @@
 #include "bupverificationjob.h"
 
 #include <KGlobal>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QTimer>
 
 BupVerificationJob::BupVerificationJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath,

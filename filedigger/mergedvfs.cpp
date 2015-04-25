@@ -24,7 +24,7 @@
 
 #include <QDebug>
 #include <QDir>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <QDBusInterface>
 

@@ -25,7 +25,7 @@
 #include "rsyncjob.h"
 
 #include <KFormat>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KNotification>
 #include <KRun>
 #include <KStandardDirs>

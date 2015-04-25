@@ -34,7 +34,7 @@
 
 #include <KDebug>
 #include <KIcon>
-#include <KLocale>
+#include <KLocalizedString>
 
 namespace {
 void removeSubDirs( const QString& path, QSet<QString>& set ) {

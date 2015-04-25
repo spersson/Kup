@@ -23,11 +23,11 @@
 #include "backupplan.h"
 
 #include <KGlobal>
-#include <KLocale>
 #include <KPushButton>
 
 #include <QBoxLayout>
 #include <QLabel>
+#include <KLocalizedString>
 
 PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
    : QGroupBox(pParent), mPlan(pPlan)

@@ -29,7 +29,7 @@
 #include <kcapacitybar.h>
 #include <KIcon>
 #include <KIconLoader>
-#include <KLocale>
+#include <KLocalizedString>
 #include <kio/global.h>
 
 static const int cMargin = 6;

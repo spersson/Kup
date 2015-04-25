@@ -30,7 +30,7 @@
 
 #include <KConfigDialogManager>
 #include <KDiskFreeSpaceInfo>
-#include <KLocale>
+#include <KLocalizedString>
 #include <Solid/Device>
 #include <Solid/DeviceNotifier>
 #include <Solid/StorageAccess>

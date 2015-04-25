@@ -28,7 +28,7 @@
 #include <QTimer>
 
 #include <KIdleTime>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QMenu>
 #include <KRun>
 #include <KServiceTypeTrader>

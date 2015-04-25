@@ -21,7 +21,7 @@
 #include "rsyncjob.h"
 
 #include <KGlobal>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QTimer>
 
 RsyncJob::RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)

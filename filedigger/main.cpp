@@ -26,6 +26,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <KAboutData>
+#include <KLocalizedString>
 #include <KApplication>
 #include <KCmdLineArgs>
 #include <KMessageBox>

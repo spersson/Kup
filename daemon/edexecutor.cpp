@@ -23,7 +23,7 @@
 
 #include <kio/directorysizejob.h>
 #include <KDiskFreeSpaceInfo>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KNotification>
 
 #include <Solid/DeviceNotifier>

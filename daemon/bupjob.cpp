@@ -21,7 +21,7 @@
 #include "bupjob.h"
 
 #include <KGlobal>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDir>
 #include <QTimer>
 

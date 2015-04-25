@@ -22,6 +22,7 @@ Qt5::Gui
 KF5::KIOCore
 KF5::KIOFileWidgets
 KF5::Solid
+KF5::I18n
 )
 
 ########### install files ###############

@@ -32,7 +32,7 @@
 #include <KFileTreeView>
 #include <KHistoryComboBox>
 #include <KInputDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KMessageWidget>
 #include <KPushButton>

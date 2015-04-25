@@ -26,7 +26,6 @@
 
 #include <KAction>
 #include <KFileDialog>
-#include <KLocale>
 #include <KRun>
 #include <KStandardAction>
 #include <KToolBar>

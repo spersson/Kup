@@ -7,6 +7,7 @@
 
 #include <KIO/SlaveBase>
 using namespace KIO;
+#include <KLocalizedString>
 
 #include <KComponentData>
 #include <KMimeType>

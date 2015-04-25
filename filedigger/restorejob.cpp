@@ -20,7 +20,7 @@
 
 #include <QDir>
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 #include "restorejob.h"
 

@@ -9,6 +9,7 @@ add_library(kio_bup MODULE ${bupslave_SRCS})
 target_link_libraries(kio_bup
 Qt5::Core
 KF5::KIOCore
+KF5::I18n
 git24kup
 )
 

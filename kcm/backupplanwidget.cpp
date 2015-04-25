@@ -29,7 +29,7 @@
 #include <KIcon>
 #include <KInputDialog>
 #include <KLineEdit>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KNumInput>
 #include <KPushButton>

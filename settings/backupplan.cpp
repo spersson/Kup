@@ -25,7 +25,7 @@
 
 #include <KGlobalSettings>
 #include <KIcon>
-#include <KLocale>
+#include <KLocalizedString>
 
 BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent)
    :KConfigSkeleton(pConfig, pParent), mPlanNumber(pPlanNumber)

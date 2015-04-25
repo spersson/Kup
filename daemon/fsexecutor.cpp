@@ -24,7 +24,7 @@
 #include <kio/directorysizejob.h>
 #include <KDirWatch>
 #include <KDiskFreeSpaceInfo>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KNotification>
 
 #include <QAction>
