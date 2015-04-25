@@ -23,10 +23,10 @@
 #include "backupplan.h"
 
 #include <KGlobal>
-#include <KPushButton>
 
 #include <QBoxLayout>
 #include <QLabel>
+#include <QPushButton>
 #include <KLocalizedString>
 
 PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
@@ -43,9 +43,9 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	mDescriptionLabel->setFont(lDescriptionFont);
 	mStatusIconLabel = new QLabel();
 	mStatusTextLabel = new QLabel(statusText()); //TODO: add dbus interface to be notified from daemon when this is updated.
-	mConfigureButton = new KPushButton(KIcon(QLatin1String("configure")), i18nc("@action:button", "Configure"));
+	mConfigureButton = new QPushButton(QIcon::fromTheme(QLatin1String("configure")), i18nc("@action:button", "Configure"));
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(configureMe()));
-	mRemoveButton = new KPushButton(KIcon(QLatin1String("list-remove")), i18nc("@action:button", "Remove"));
+	mRemoveButton = new QPushButton(QIcon::fromTheme(QLatin1String("list-remove")), i18nc("@action:button", "Remove"));
 	connect(mRemoveButton, SIGNAL(clicked()), this, SIGNAL(removeMe()));
 
 	lVLayout1->addWidget(mDescriptionLabel);
@@ -86,7 +86,6 @@ QString PlanStatusWidget::statusText() {
 }
 
 void PlanStatusWidget::updateIcon() {
-	mStatusIconLabel->setPixmap(KIconLoader::global()->loadIcon(mPlan->iconName(mPlan->backupStatus()),
-	                                                            KIconLoader::Desktop, KIconLoader::SizeHuge));
+	mStatusIconLabel->setPixmap(QIcon::fromTheme(mPlan->iconName(mPlan->backupStatus())).pixmap(64,64));
 }
 

@@ -26,13 +26,11 @@
 #include <KButtonGroup>
 #include <KComboBox>
 #include <KConfigDialogManager>
-#include <KIcon>
 #include <KInputDialog>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNumInput>
-#include <KPushButton>
 #include <KPageWidget>
 #include <KUrlRequester>
 #include <KIO/RenameDialog>
@@ -41,7 +39,9 @@
 #include <QCheckBox>
 #include <QFile>
 #include <QFormLayout>
+#include <QIcon>
 #include <QLabel>
+#include <QPushButton>
 #include <QRadioButton>
 #include <QTimer>
 
@@ -216,7 +216,7 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupV
 	mDescriptionEdit->setClearButtonShown(true);
 	QLabel *lDescriptionLabel = new QLabel(i18nc("@label", "Description:"));
 	lDescriptionLabel->setBuddy(mDescriptionEdit);
-	mConfigureButton = new KPushButton(KIcon(QLatin1String("go-previous-view")),
+	mConfigureButton = new QPushButton(QIcon::fromTheme(QLatin1String("go-previous-view")),
 	                                   i18nc("@action:button", "Back to overview"));
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(requestOverviewReturn()));
 
@@ -381,8 +381,8 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QLabel *lDriveDestLabel = new QLabel(i18nc("@label:textbox", "Folder on Destination Drive:"));
 	lDriveDestLabel->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
 	lDriveDestLabel->setBuddy(mDriveDestEdit);
-	KPushButton *lDriveDestButton = new KPushButton;
-	lDriveDestButton->setIcon(KIcon(QLatin1String("document-open")));
+	QPushButton *lDriveDestButton = new QPushButton;
+	lDriveDestButton->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
 	int lButtonSize = lDriveDestButton->sizeHint().expandedTo(mDriveDestEdit->sizeHint()).height();
 	lDriveDestButton->setFixedSize(lButtonSize, lButtonSize);
 	lDriveDestButton->setToolTip(i18nc("@info:tooltip", "Open dialog to select a folder"));
@@ -417,7 +417,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
 	lPage->setName(i18nc("@title", "Destination"));
 	lPage->setHeader(i18nc("@label", "Select the backup destination"));
-	lPage->setIcon(KIcon(QLatin1String("folder-downloads")));
+	lPage->setIcon(QIcon::fromTheme(QLatin1String("folder-downloads")));
 	return lPage;
 }
 
@@ -521,7 +521,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lTopWidget);
 	lPage->setName(i18nc("@title", "Schedule"));
 	lPage->setHeader(i18nc("@label", "Specify the backup schedule"));
-	lPage->setIcon(KIcon(QLatin1String("view-time-schedule")));
+	lPage->setIcon(QIcon::fromTheme(QLatin1String("view-time-schedule")));
 	return lPage;
 }
 
@@ -599,7 +599,7 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);
 	lPage->setName(i18nc("@title", "Advanced"));
 	lPage->setHeader(i18nc("@label", "Extra options for advanced users"));
-	lPage->setIcon(KIcon(QLatin1String("preferences-other")));
+	lPage->setIcon(QIcon::fromTheme(QLatin1String("preferences-other")));
 	return lPage;
 }
 

@@ -408,7 +408,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="KPushButton" name="mOpenDestinationButton">
+              <widget class="QPushButton" name="mOpenDestinationButton">
                <property name="text">
                 <string>Open Destination</string>
                </property>
@@ -489,13 +489,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>mRestoreOriginalButton</tabstop>
   <tabstop>mRestoreCustomButton</tabstop>

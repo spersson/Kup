@@ -29,6 +29,7 @@
 #include <QDBusInterface>
 #include <QLabel>
 #include <QMessageBox>
+#include <QPushButton>
 #include <QScrollArea>
 #include <QStackedLayout>
 
@@ -38,7 +39,6 @@
 #include <KLineEdit>
 #include <KPluginFactory>
 #include <KProcess>
-#include <KPushButton>
 
 K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
 K_EXPORT_PLUGIN(KupKcmFactory("kcm_kup", "kup"))
@@ -81,8 +81,7 @@ KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
 
 	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
 		QLabel *lSorryIcon = new QLabel;
-		lSorryIcon->setPixmap(KIconLoader::global()->loadIcon(QLatin1String("dialog-error"),
-		                                                      KIconLoader::Dialog, KIconLoader::SizeHuge));
+		lSorryIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-error")).pixmap(64, 64));
 		QString lInstallMessage = i18nc("@info", "<h2>Backup programs are missing</h2><p>Before you can activate "
 		                                "any backup plan you need to install either of</p><ul>"
 		                                "<li>bup, for versioned backups</li>"
@@ -242,7 +241,7 @@ void KupKcm::createSettingsFrontPage() {
 	lScrollArea->setWidgetResizable(true);
 	lScrollArea->setFrameStyle(QFrame::NoFrame);
 
-	mAddPlanButton = new KPushButton(KIcon(QLatin1String("list-add")), i18nc("@action:button", "Add New Plan"));
+	mAddPlanButton = new QPushButton(QIcon::fromTheme(QLatin1String("list-add")), i18nc("@action:button", "Add New Plan"));
 	connect(mAddPlanButton, SIGNAL(clicked()), this, SLOT(addPlan()));
 
 	mEnableCheckBox = new QCheckBox(i18nc("@option:check", "Backups Enabled"));

@@ -27,7 +27,7 @@
 class BackupPlan;
 class KupSettings;
 
-class KPushButton;
+class QPushButton;
 
 class QLabel;
 
@@ -42,8 +42,8 @@ public:
 	QLabel *mDescriptionLabel;
 	QLabel *mStatusIconLabel;
 	QLabel *mStatusTextLabel;
-	KPushButton *mConfigureButton;
-	KPushButton *mRemoveButton;
+	QPushButton *mConfigureButton;
+	QPushButton *mRemoveButton;
 
 public slots:
 	void updateIcon();

@@ -34,7 +34,7 @@ class PlanStatusWidget;
 
 class KAssistantDialog;
 class KPageWidgetItem;
-class KPushButton;
+class QPushButton;
 
 class QCheckBox;
 class QStackedLayout;
@@ -72,7 +72,7 @@ private:
 	QStackedLayout *mStackedLayout;
 	QVBoxLayout *mVerticalLayout;
 	QCheckBox *mEnableCheckBox;
-	KPushButton *mAddPlanButton;
+	QPushButton *mAddPlanButton;
 	QString mBupVersion;
 	QString mRsyncVersion;
 	bool mPar2Available;

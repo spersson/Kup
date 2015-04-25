@@ -34,7 +34,7 @@ class KFileTreeView;
 class KLineEdit;
 class KPageWidget;
 class KPageWidgetItem;
-class KPushButton;
+class QPushButton;
 
 class QRadioButton;
 
@@ -107,7 +107,7 @@ public:
 	KPageWidgetItem *createAdvancedPage(bool pPar2Available);
 
 	KLineEdit *mDescriptionEdit;
-	KPushButton *mConfigureButton;
+	QPushButton *mConfigureButton;
 	KPageWidget *mConfigPages;
 	BackupPlan *mBackupPlan;
 	DriveSelection *mDriveSelection;

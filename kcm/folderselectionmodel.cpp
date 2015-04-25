@@ -31,9 +31,9 @@
 #include <QtGui/QColor>
 #include <QtGui/QBrush>
 #include <QtGui/QPalette>
+#include <QIcon>
 
 #include <KDebug>
-#include <KIcon>
 #include <KLocalizedString>
 
 namespace {
@@ -169,7 +169,7 @@ QVariant FolderSelectionModel::data(const QModelIndex& pIndex, int pRole) const 
 	}
 	case Qt::DecorationRole:
 		if(lPath == QDir::homePath()) {
-			return KIcon(QLatin1String("user-home"));
+			return QIcon::fromTheme(QLatin1String("user-home"));
 		}
 		break;
 	}

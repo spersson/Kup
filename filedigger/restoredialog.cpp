@@ -35,7 +35,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMessageWidget>
-#include <KPushButton>
+#include <QPushButton>
 #include <KProcess>
 #include <KRun>
 #include <KUrlCompletion>
@@ -111,7 +111,7 @@ void RestoreDialog::setCustomDestination() {
 		mDirDialog = new KDirSelectDialog(mSourceInfo.mPathInRepo, true, this);
 		mDirDialog->setButtons(0);
 		mUI->mDestinationVLayout->insertWidget(0, mDirDialog);
-		KPushButton *lNewFolderButton = new KPushButton(KIcon(QLatin1String("folder-new")),
+		QPushButton *lNewFolderButton = new QPushButton(QIcon::fromTheme(QLatin1String("folder-new")),
 		                                                i18nc("@action:button","New Folder..."));
 		connect(lNewFolderButton, SIGNAL(clicked()), SLOT(createNewFolder()));
 		mUI->mDestinationHLayout->insertWidget(0, lNewFolderButton);

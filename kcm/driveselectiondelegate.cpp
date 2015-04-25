@@ -27,8 +27,7 @@
 #include <QStyle>
 
 #include <kcapacitybar.h>
-#include <KIcon>
-#include <KIconLoader>
+#include <QIcon>
 #include <KLocalizedString>
 #include <kio/global.h>
 
@@ -108,10 +107,10 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	lDisplayLabel = QApplication::fontMetrics().elidedText(lDisplayLabel, Qt::ElideMiddle, lTextEnd - pOption.rect.left() - cMargin);
 	pPainter->drawText(pOption.rect.topLeft() + QPoint(cMargin, cMargin+QApplication::fontMetrics().height()), lDisplayLabel);
 
-	int lIconSize = KIconLoader::SizeLarge;
+	int lIconSize = 48;
 	QRect lWarningRect = warningRect(pOption.rect.adjusted(lIconSize + cMargin, 0, 0, 0), pIndex);
 	if(!lWarningRect.isEmpty()) {
-		KIcon lIcon(QLatin1String("dialog-warning"));
+		QIcon lIcon = QIcon::fromTheme(QLatin1String("dialog-warning"));
 		lIcon.paint(pPainter, lWarningRect.left() - cMargin - lIconSize, lWarningRect.top(), lIconSize, lIconSize);
 		pPainter->drawText(lWarningRect, Qt::AlignVCenter | Qt::TextWordWrap, warningText(pIndex));
 	}
@@ -124,7 +123,8 @@ QSize DriveSelectionDelegate::sizeHint(const QStyleOptionViewItem& pOption, cons
 	QSize lSize;
 	lSize.setWidth(cMargin*2 + QApplication::fontMetrics().width(pIndex.data().toString()));
 	lSize.setHeight(cMargin*5 + QApplication::fontMetrics().height());
-	QRect lWarningRect = warningRect(mListView->rect().adjusted(KIconLoader::SizeLarge + cMargin, 0, 0, 0), pIndex);
+	int lIconSize = 48;
+	QRect lWarningRect = warningRect(mListView->rect().adjusted(lIconSize + cMargin, 0, 0, 0), pIndex);
 	if(!lWarningRect.isEmpty()) {
 		lSize.setHeight(lSize.height() + 2*cMargin + lWarningRect.height());
 	}
@@ -138,8 +138,9 @@ QRect DriveSelectionDelegate::warningRect(const QRect &pRect, const QModelIndex 
 		return QRect();
 	}
 	QRect lTextBoundary = QApplication::fontMetrics().boundingRect(lTextLocation, Qt::TextWordWrap, lWarningText);
-	if(lTextBoundary.height() < KIconLoader::SizeLarge) {
-		lTextBoundary.setHeight(KIconLoader::SizeLarge);
+	int lIconSize = 48;
+	if(lTextBoundary.height() < lIconSize) {
+		lTextBoundary.setHeight(lIconSize);
 	}
 	return lTextBoundary;
 }
