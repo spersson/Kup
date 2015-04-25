@@ -86,7 +86,7 @@ void KupDaemon::reloadConfig() {
 	}
 	mWaitingToReloadConfig = false;
 
-	mSettings->readConfig();
+	mSettings->load();
 	while(!mExecutors.isEmpty()) {
 		delete mExecutors.takeFirst();
 	}
@@ -102,7 +102,7 @@ void KupDaemon::showConfig() {
 	KService::List lServices = KServiceTypeTrader::self()->query(QLatin1String("KCModule"), QLatin1String("Library == 'kcm_kup'"));
 	if (!lServices.isEmpty()) {
 		KService::Ptr lService = lServices.first();
-		KRun::run(*lService, QList<QUrl>(), 0);
+		KRun::runService(*lService, QList<QUrl>(), 0);
 	}
 }
 

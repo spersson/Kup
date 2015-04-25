@@ -82,7 +82,7 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	addItemDouble(QLatin1String("Last backup size"), mLastBackupSize);
 	addItemDouble(QLatin1String("Last available space"), mLastAvailableSpace);
 	addItemUInt(QLatin1String("Accumulated usage time"), mAccumulatedUsageTime);
-	readConfig();
+	load();
 }
 
 void BackupPlan::setPlanNumber(int pPlanNumber) {

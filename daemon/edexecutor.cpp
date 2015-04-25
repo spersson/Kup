@@ -155,7 +155,7 @@ void EDExecutor::slotBackupSizeDone(KJob *pJob) {
 		KIO::DirectorySizeJob *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);
 		mPlan->mLastBackupSize = (double)lSizeJob->totalSize();
 	}
-	mPlan->writeConfig();
+	mPlan->save();
 	exitBackupRunningState(pJob->error() == 0);
 }
 

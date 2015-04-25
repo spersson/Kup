@@ -146,9 +146,8 @@ void BupSlave::listDir(const QUrl &pUrl) {
 	UDSEntry lEntry;
 	while(i.hasNext()) {
 		createUDSEntry(i.next().value(), lEntry, lDetails);
-		emit listEntry(lEntry, false);
+		emit listEntry(lEntry);
 	}
-	emit listEntry(lEntry, true);
 	emit finished();
 }
 

@@ -325,7 +325,7 @@ void PlanExecutor::exitBackupRunningState(bool pWasSuccessful) {
 		if(mPlan->mScheduleType == BackupPlan::USAGE) {
 			//reset usage time after successful backup
 			mPlan->mAccumulatedUsageTime =0;
-			mPlan->writeConfig();
+			mPlan->save();
 		}
 		mState = WAITING_FOR_BACKUP_AGAIN;
 		emit stateChanged();
@@ -348,7 +348,7 @@ void PlanExecutor::updateAccumulatedUsageTime() {
 
 	if(mPlan->mScheduleType == BackupPlan::USAGE) {
 		mPlan->mAccumulatedUsageTime += KUP_USAGE_MONITOR_INTERVAL_S;
-		mPlan->writeConfig();
+		mPlan->save();
 	}
 
 	// trigger refresh of backup status, potentially changed since some time has passed...

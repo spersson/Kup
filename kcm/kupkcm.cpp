@@ -167,7 +167,7 @@ void KupKcm::save() {
 		}
 	}
 	mSettings->mNumberOfPlans = mPlans.count();
-	mSettings->writeConfig();
+	mSettings->save();
 
 	KCModule::save();
 
