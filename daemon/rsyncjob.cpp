@@ -20,8 +20,9 @@
 
 #include "rsyncjob.h"
 
-#include <KLocalizedString>
 #include <QTimer>
+
+#include <KLocalizedString>
 
 RsyncJob::RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)
    :BackupJob(pBackupPlan, pDestinationPath, pLogFilePath)

@@ -24,7 +24,6 @@
 #include <QString>
 
 #include <KGlobalSettings>
-#include <KIcon>
 #include <KLocalizedString>
 
 BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent)

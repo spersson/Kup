@@ -34,9 +34,9 @@
 #include <QStackedLayout>
 
 #include <KAboutData>
-#include <KAssistantDialog>
 #include <KConfigDialogManager>
 #include <KLineEdit>
+#include <KLocalizedString>
 #include <KPluginFactory>
 #include <KProcess>
 

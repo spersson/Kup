@@ -23,14 +23,14 @@
 #include "driveselection.h"
 
 #include <QApplication>
+#include <QIcon>
 #include <QPainter>
 #include <QStyle>
 
-#include <kcapacitybar.h>
-#include <QIcon>
+#include <KCapacityBar>
 #include <KFormat>
+#include <KIO/Global>
 #include <KLocalizedString>
-#include <kio/global.h>
 
 static const int cMargin = 6;
 

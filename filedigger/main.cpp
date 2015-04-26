@@ -23,8 +23,6 @@
 
 #include <git2/threads.h>
 
-#include <QFile>
-#include <QTextStream>
 #include <KAboutData>
 #include <KLocalizedString>
 #include <KApplication>
@@ -33,6 +31,8 @@
 
 static const char version[] = "0.5.1";
 static const char description[] = I18N_NOOP("Browser for bup archives.");
+#include <QFile>
+#include <QTextStream>
 
 int main(int pArgCount, char **pArgArray) {
 	KAboutData lAbout("kup-filedigger", "kup", ki18n("File Digger"), version, ki18n(description),

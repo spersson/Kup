@@ -24,28 +24,25 @@
 #include "driveselection.h"
 
 #include <KButtonGroup>
-#include <KComboBox>
-#include <KConfigDialogManager>
 #include <KInputDialog>
-#include <KLineEdit>
-#include <KLocalizedString>
-#include <KMessageBox>
 #include <KNumInput>
-#include <KPageWidget>
-#include <KUrlRequester>
 #include <KIO/RenameDialog>
 
 #include <QBoxLayout>
 #include <QCheckBox>
-#include <QFile>
-#include <QFormLayout>
 #include <QIcon>
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QTimer>
 
-#include <cmath>
+#include <KComboBox>
+#include <KConfigDialogManager>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KPageWidget>
+#include <KUrlRequester>
 
 ConfigIncludeDummy::ConfigIncludeDummy(FolderSelectionModel *pModel, FolderSelectionWidget *pParent)
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)

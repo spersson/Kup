@@ -20,9 +20,10 @@
 
 #include "bupjob.h"
 
-#include <KLocalizedString>
 #include <QDir>
 #include <QTimer>
+
+#include <KLocalizedString>
 
 BupJob::BupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)
    :BackupJob(pBackupPlan, pDestinationPath, pLogFilePath)

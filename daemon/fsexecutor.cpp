@@ -21,17 +21,17 @@
 #include "fsexecutor.h"
 #include "backupplan.h"
 
-#include <kio/directorysizejob.h>
-#include <KDirWatch>
-#include <KDiskFreeSpaceInfo>
-#include <KLocalizedString>
-#include <KNotification>
-
 #include <QAction>
 #include <QDir>
 #include <QFileInfo>
 #include <QTimer>
 #include <QTextStream>
+
+#include <KDirWatch>
+#include <KDiskFreeSpaceInfo>
+#include <KIO/DirectorySizeJob>
+#include <KLocalizedString>
+#include <KNotification>
 
 #include <fcntl.h>
 

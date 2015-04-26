@@ -24,16 +24,15 @@
 #include "buprepairjob.h"
 #include "rsyncjob.h"
 
+#include <QAction>
+#include <QDir>
+#include <QMenu>
+#include <QTimer>
+
 #include <KFormat>
 #include <KLocalizedString>
 #include <KNotification>
 #include <KRun>
-#include <KStandardDirs>
-#include <KTempDir>
-
-#include <QAction>
-#include <QDir>
-#include <QMenu>
 
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
    :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL),

@@ -20,8 +20,9 @@
 
 #include "buprepairjob.h"
 
-#include <KLocalizedString>
 #include <QTimer>
+
+#include <KLocalizedString>
 
 BupRepairJob::BupRepairJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath,
                                        const QString &pLogFilePath)

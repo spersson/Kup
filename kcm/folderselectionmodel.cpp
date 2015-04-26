@@ -26,14 +26,13 @@
 
 #include "folderselectionmodel.h"
 
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
-#include <QtGui/QColor>
-#include <QtGui/QBrush>
-#include <QtGui/QPalette>
+#include <QBrush>
+#include <QColor>
+#include <QDir>
+#include <QFileInfo>
 #include <QIcon>
+#include <QPalette>
 
-#include <KDebug>
 #include <KLocalizedString>
 
 namespace {

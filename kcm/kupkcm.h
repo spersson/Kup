@@ -24,8 +24,6 @@
 #include <KCModule>
 #include <KSharedConfig>
 
-#include <QList>
-
 class BackupPlan;
 class BackupPlanWidget;
 class KupSettings;

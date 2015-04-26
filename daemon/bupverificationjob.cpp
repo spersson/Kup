@@ -20,8 +20,9 @@
 
 #include "bupverificationjob.h"
 
-#include <KLocalizedString>
 #include <QTimer>
+
+#include <KLocalizedString>
 
 BupVerificationJob::BupVerificationJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath,
                                        const QString &pLogFilePath)

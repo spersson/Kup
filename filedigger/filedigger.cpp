@@ -25,7 +25,6 @@
 #include "versionlistdelegate.h"
 
 #include <KAction>
-#include <KFileDialog>
 #include <KRun>
 #include <KStandardAction>
 #include <KToolBar>

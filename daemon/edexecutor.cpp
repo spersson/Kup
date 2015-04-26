@@ -21,8 +21,14 @@
 #include "edexecutor.h"
 #include "backupplan.h"
 
-#include <kio/directorysizejob.h>
+#include <QAction>
+#include <QDir>
+#include <QFileInfo>
+#include <QMenu>
+#include <QTimer>
+
 #include <KDiskFreeSpaceInfo>
+#include <KIO/DirectorySizeJob>
 #include <KLocalizedString>
 #include <KNotification>
 
@@ -30,12 +36,6 @@
 #include <Solid/DeviceInterface>
 #include <Solid/StorageDrive>
 #include <Solid/StorageVolume>
-
-#include <QAction>
-#include <QDir>
-#include <QFileInfo>
-#include <QMenu>
-#include <QTimer>
 
 EDExecutor::EDExecutor(BackupPlan *pPlan, QObject *pParent)
    :PlanExecutor(pPlan, pParent), mStorageAccess(NULL), mWantsToRunBackup(false), mWantsToShowFiles(false)

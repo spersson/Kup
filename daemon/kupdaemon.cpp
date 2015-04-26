@@ -25,11 +25,11 @@
 #include "fsexecutor.h"
 
 #include <QDBusConnection>
+#include <QMenu>
 #include <QTimer>
 
 #include <KIdleTime>
 #include <KLocalizedString>
-#include <QMenu>
 #include <KRun>
 #include <KServiceTypeTrader>
 #include <KStandardAction>
