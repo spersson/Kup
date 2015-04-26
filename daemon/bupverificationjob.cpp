@@ -20,7 +20,6 @@
 
 #include "bupverificationjob.h"
 
-#include <KGlobal>
 #include <KLocalizedString>
 #include <QTimer>
 
@@ -47,8 +46,7 @@ void BupVerificationJob::startJob() {
 	}
 
 	mLogStream << QLatin1String("Kup is starting bup verification job at ")
-	           << KGlobal::locale()->formatDateTime(QDateTime::currentDateTime(),
-	                                                KLocale::LongDate, true)
+	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl << endl;
 
 	mFsckProcess << QLatin1String("bup");

@@ -20,7 +20,6 @@
 
 #include "rsyncjob.h"
 
-#include <KGlobal>
 #include <KLocalizedString>
 #include <QTimer>
 
@@ -47,8 +46,7 @@ void RsyncJob::startRsync() {
 	}
 
 	mLogStream << QLatin1String("Kup is starting rsync backup job at ")
-	           << KGlobal::locale()->formatDateTime(QDateTime::currentDateTime(),
-	                                                KLocale::LongDate, true)
+	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl;
 
 	mRsyncProcess << QLatin1String("rsync") << QLatin1String("-aR");

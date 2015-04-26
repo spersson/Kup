@@ -20,7 +20,6 @@
 
 #include "buprepairjob.h"
 
-#include <KGlobal>
 #include <KLocalizedString>
 #include <QTimer>
 
@@ -54,8 +53,7 @@ void BupRepairJob::startJob() {
 	}
 
 	mLogStream << QLatin1String("Kup is starting bup repair job at ")
-	           << KGlobal::locale()->formatDateTime(QDateTime::currentDateTime(),
-	                                                KLocale::LongDate, true)
+	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl << endl;
 
 	mFsckProcess << QLatin1String("bup");

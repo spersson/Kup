@@ -28,6 +28,7 @@
 
 #include <kcapacitybar.h>
 #include <QIcon>
+#include <KFormat>
 #include <KLocalizedString>
 #include <kio/global.h>
 
@@ -67,7 +68,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	else
 		pPainter->setPen(pOption.palette.color(QPalette::Text));
 
-	KLocale *lLocale = KGlobal::locale();
+	KFormat lFormat;
 	QString lDisplayLabel, lPartitionLabel, lDisconnectedLabel;
 	int lTextEnd = pOption.rect.right() - cMargin;
 	if(lIsDisconnected) {
@@ -75,7 +76,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	} else {
 		lDisconnectedLabel = QString();
 		QString lFreeSpace = i18nc("@label %1 is amount of free storage space of hard drive","%1 free",
-		                           lLocale->formatByteSize(lTotalSize - lUsedSize, 1));
+		                           lFormat.formatByteSize(lTotalSize - lUsedSize));
 		int lTextWidth = QApplication::fontMetrics().width(lFreeSpace);
 		lTextEnd -= lTextWidth + cMargin;
 		pPainter->drawText(pOption.rect.topRight() + QPoint(-cMargin - lTextWidth,
@@ -102,7 +103,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 		lDisplayLabel = lPartitionLabel;
 	} else {
 		lDisplayLabel = i18nc("@item:inlistbox %1 is drive(partition) label, %2 is storage capacity",
-		                      "%1: %2 total capacity", lPartitionLabel, lLocale->formatByteSize(lTotalSize, 1));
+		                      "%1: %2 total capacity", lPartitionLabel, lFormat.formatByteSize(lTotalSize));
 	}
 	lDisplayLabel = QApplication::fontMetrics().elidedText(lDisplayLabel, Qt::ElideMiddle, lTextEnd - pOption.rect.left() - cMargin);
 	pPainter->drawText(pOption.rect.topLeft() + QPoint(cMargin, cMargin+QApplication::fontMetrics().height()), lDisplayLabel);

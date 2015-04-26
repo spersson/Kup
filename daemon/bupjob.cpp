@@ -20,7 +20,6 @@
 
 #include "bupjob.h"
 
-#include <KGlobal>
 #include <KLocalizedString>
 #include <QDir>
 #include <QTimer>
@@ -58,8 +57,7 @@ void BupJob::startJob() {
 	}
 
 	mLogStream << QLatin1String("Kup is starting bup backup job at ")
-	           << KGlobal::locale()->formatDateTime(QDateTime::currentDateTime(),
-	                                                KLocale::LongDate, true)
+	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl << endl;
 
 	KProcess lInitProcess;

@@ -22,11 +22,12 @@
 #include "kupsettings.h"
 #include "backupplan.h"
 
-#include <KGlobal>
-
 #include <QBoxLayout>
 #include <QLabel>
+#include <QLocale>
 #include <QPushButton>
+
+#include <KFormat>
 #include <KLocalizedString>
 
 PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
@@ -63,22 +64,23 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 }
 
 QString PlanStatusWidget::statusText() {
-	KLocale *lLocale = KGlobal::locale();
+	QLocale lLocale;
+	KFormat lFormat(lLocale);
 	QString lStatus;
 	if(mPlan->mLastCompleteBackup.isValid()) {
 		QDateTime lLocalTime = mPlan->mLastCompleteBackup.toLocalTime();
 
 		lStatus += i18nc("@label %1 is fancy formatted date, %2 is time of day", "Last backup was taken %1 at %2.\n",
-		                lLocale->formatDate(lLocalTime.date(), KLocale::FancyLongDate),
-		                lLocale->formatLocaleTime(lLocalTime.time()));
+		                lLocale.toString(lLocalTime.date()),
+		                lLocale.toString(lLocalTime.time()));
 		if(mPlan->mLastBackupSize > 0.0)
 			lStatus += i18nc("@label %1 is storage size of archive" ,
 			                 "The size of the backup archive was %1.\n",
-			                 lLocale->formatByteSize(mPlan->mLastBackupSize, 1));
+			                 lFormat.formatByteSize(mPlan->mLastBackupSize));
 		if(mPlan->mLastAvailableSpace > 0.0)
 			lStatus += i18nc("@label %1 is free storage space",
 			                 "The destination still had %1 available.\n",
-			                 lLocale->formatByteSize(mPlan->mLastAvailableSpace, 1));
+			                 lFormat.formatByteSize(mPlan->mLastAvailableSpace));
 	} else {
 		lStatus = i18nc("@label", "This backup plan has never been run.");
 	}
