@@ -33,6 +33,7 @@ class PlanExecutor;
 class QMenu;
 class KStatusNotifierItem;
 
+class QSessionManager;
 class QTimer;
 
 class KupDaemon : public QObject
@@ -53,6 +54,9 @@ public slots:
 	void showConfig();
 	void updateTrayIcon();
 	void runIntegrityCheck(QString pPath);
+
+private slots:
+	void disableSessionManagement(QSessionManager &pManager);
 
 private:
 	void setupExecutors();

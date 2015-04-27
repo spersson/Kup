@@ -24,8 +24,10 @@
 #include "edexecutor.h"
 #include "fsexecutor.h"
 
+#include <QApplication>
 #include <QDBusConnection>
 #include <QMenu>
+#include <QSessionManager>
 #include <QTimer>
 
 #include <KIdleTime>
@@ -34,7 +36,6 @@
 #include <KServiceTypeTrader>
 #include <KStandardAction>
 #include <KStatusNotifierItem>
-#include <KUniqueApplication>
 
 KupDaemon::KupDaemon() {
 	mWaitingToReloadConfig = false;
@@ -91,7 +92,7 @@ void KupDaemon::reloadConfig() {
 		delete mExecutors.takeFirst();
 	}
 	if(!mSettings->mBackupsEnabled)
-		kapp->quit();
+		qApp->quit();
 
 	setupExecutors();
 	setupContextMenu();
@@ -164,6 +165,10 @@ void KupDaemon::runIntegrityCheck(QString pPath) {
 			lExecutor->startIntegrityCheck();
 		}
 	}
+}
+
+void KupDaemon::disableSessionManagement(QSessionManager &pManager) {
+	pManager.setRestartHint(QSessionManager::RestartNever);
 }
 
 void KupDaemon::setupExecutors() {

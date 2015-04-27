@@ -21,29 +21,29 @@
 #include "kupdaemon.h"
 
 #include <KStartupInfo>
-#include <KUniqueApplication>
 #include <KAboutData>
+#include <KDBusService>
 #include <KLocalizedString>
-#include <KCmdLineArgs>
 
+#include <QApplication>
 #include <QDebug>
+#include <QCommandLineParser>
 
-extern "C" int KDE_EXPORT kdemain(int argc, char **argv) {
+extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
 	QString lVersion = QStringLiteral("0.5.1");
 	KupDaemon *lDaemon = new KupDaemon();
 	if(!lDaemon->shouldStart()) {
-		qWarning() <<ki18n("Kup is not enabled, enable it from the system settings module. "
-		                   "You can do that by running 'kcmshell4 kup'").toString();
+		qCritical() <<ki18n("Kup is not enabled, enable it from the system settings module. "
+		                    "You can do that by running 'kcmshell5 kup'").toString();
 		return 0;
 	}
-	KCmdLineArgs::init(argc, argv, &lAbout);
+	QApplication lApp(argc, argv);
+	lApp.setApplicationName(QStringLiteral("kup-daemon"));
+	lApp.setApplicationVersion(lVersion);
+	lApp.setOrganizationDomain(QStringLiteral("kde.org"));
 
-	KUniqueApplication::addCmdLineOptions();
-	if (!KUniqueApplication::start()) {
-		qWarning() <<ki18n("Kup is already running!").toString();
-		return 0;
-	}
-	KUniqueApplication lApp;
+	QCommandLineParser lParser;
+
 	KAboutData lAbout(QStringLiteral("kup-daemon"), QStringLiteral("kup"), lVersion,
 	                  i18n("Kup is a flexible backup solution using the backup storage system 'bup'. "
 	                       "This allows it to quickly perform incremental backups, only saving the "
@@ -54,16 +54,27 @@ extern "C" int KDE_EXPORT kdemain(int argc, char **argv) {
 	lAbout.addAuthor(i18n("Simon Persson"), QString(), "simonpersson1@gmail.com");
 	lAbout.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	KAboutData::setApplicationData(lAbout);
+	lParser.addVersionOption();
+	lParser.addHelpOption();
+	lAbout.setupCommandLine(&lParser);
+	lParser.process(lApp);
+	lAbout.processCommandLine(&lParser);
 
-	// Use for debugging...
-//	KApplication lApp;
+	// This call will exit() if an instance is already running
+	KDBusService lService(KDBusService::Unique);
 
 	lApp.setQuitOnLastWindowClosed(false);
-	lApp.disableSessionManagement();
 
 	KStartupInfo::appStarted(); //make startup notification go away.
 
 	lDaemon->setupGuiStuff();
+
+	// these calls will make session management not try (and fail because of KDBusService) to start
+	// this daemon. We have autostart for the purpose of launching this daemon instead.
+	lDaemon->connect(&lApp, SIGNAL(commitDataRequest(QSessionManager&)), lDaemon,
+	                 SLOT(disableSessionManagement(QSessionManager&)));
+	lDaemon->connect(&lApp, SIGNAL(saveStateRequest(QSessionManager&)), lDaemon,
+	                 SLOT(disableSessionManagement(QSessionManager&)));
 
 	return lApp.exec();
 }
