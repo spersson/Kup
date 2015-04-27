@@ -24,13 +24,13 @@
 #include "driveselection.h"
 
 #include <KButtonGroup>
-#include <KInputDialog>
 #include <KNumInput>
 #include <KIO/RenameDialog>
 
 #include <QBoxLayout>
 #include <QCheckBox>
 #include <QIcon>
+#include <QInputDialog>
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
@@ -176,9 +176,9 @@ void DirDialog::createNewFolder() {
 		lNameSuggestion = KIO::RenameDialog::suggestName(url(), lNameSuggestion);
 	}
 
-	QString lSelectedName = KInputDialog::getText(i18nc("@title:window", "New Folder" ),
+	QString lSelectedName = QInputDialog::getText(this, i18nc("@title:window", "New Folder" ),
 	                                              i18nc("@label:textbox", "Create new folder in:\n%1", url().path()),
-	                                              lNameSuggestion, &lUserAccepted, this);
+	                                              QLineEdit::Normal, lNameSuggestion, &lUserAccepted);
 	if (!lUserAccepted)
 		return;
 
