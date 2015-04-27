@@ -259,10 +259,10 @@ bool BupSlave::checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepo
 	// make this slave accept most URLs.. even incorrect ones. (no slash (wrong),
 	// one slash (correct), two slashes (wrong), three slashes (correct))
 	QString lPath;
-	if(pUrl.hasHost()) {
-		lPath = QLatin1String("/") + pUrl.host() + pUrl.path(QUrl::AddTrailingSlash);
+	if(!pUrl.host().isEmpty()) {
+		lPath = QLatin1String("/") + pUrl.host() + pUrl.adjusted(QUrl::StripTrailingSlash).path() + '/';
 	} else {
-		lPath = pUrl.path(QUrl::AddTrailingSlash);
+		lPath = pUrl.adjusted(QUrl::StripTrailingSlash).path() + '/';
 		if(!lPath.startsWith(QLatin1Char('/'))) {
 			lPath.prepend(QLatin1Char('/'));
 		}
