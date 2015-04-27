@@ -21,9 +21,9 @@
 #include "backupplan.h"
 
 #include <QDir>
+#include <QStandardPaths>
 #include <QString>
 
-#include <KGlobalSettings>
 #include <KLocalizedString>
 
 BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent)
@@ -38,8 +38,8 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	lDefaultIncludeList << QDir::homePath();
 	addItemStringList(QLatin1String("Paths included"), mPathsIncluded, lDefaultIncludeList);
 	QStringList lDefaultExcludeList;
-	lDefaultExcludeList << KGlobalSettings::musicPath();
-	lDefaultExcludeList << KGlobalSettings::videosPath();
+	lDefaultExcludeList << QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+	lDefaultExcludeList << QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
 	lDefaultExcludeList << QDir::homePath() + QLatin1String("/.cache");
 	lDefaultExcludeList << QDir::homePath() + QLatin1String("/.bup");
 	lDefaultExcludeList << QDir::homePath() + QLatin1String("/.thumbnails");
