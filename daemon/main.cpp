@@ -28,24 +28,14 @@
 
 #include <QDebug>
 
-static const char description[] = I18N_NOOP("Kup is a flexible backup solution using the backup storage system 'bup'. "
-                                            "This allows it to quickly perform incremental backups, only saving the "
-                                            "parts of files that has actually changed since last backup was taken.");
-
-static const char version[] = "0.5.1";
-
 extern "C" int KDE_EXPORT kdemain(int argc, char **argv) {
+	QString lVersion = QStringLiteral("0.5.1");
 	KupDaemon *lDaemon = new KupDaemon();
 	if(!lDaemon->shouldStart()) {
 		qWarning() <<ki18n("Kup is not enabled, enable it from the system settings module. "
 		                   "You can do that by running 'kcmshell4 kup'").toString();
 		return 0;
 	}
-	KAboutData lAbout("kup-daemon", "kup", ki18nc("@title", "Kup Daemon"), version, ki18n(description),
-	                  KAboutData::License_GPL, ki18n("Copyright (C) 2011 Simon Persson"),
-	                  KLocalizedString(), 0, "simonpersson1@gmail.com");
-	lAbout.addAuthor(ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com");
-	lAbout.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	KCmdLineArgs::init(argc, argv, &lAbout);
 
 	KUniqueApplication::addCmdLineOptions();
@@ -54,6 +44,16 @@ extern "C" int KDE_EXPORT kdemain(int argc, char **argv) {
 		return 0;
 	}
 	KUniqueApplication lApp;
+	KAboutData lAbout(QStringLiteral("kup-daemon"), QStringLiteral("kup"), lVersion,
+	                  i18n("Kup is a flexible backup solution using the backup storage system 'bup'. "
+	                       "This allows it to quickly perform incremental backups, only saving the "
+	                       "parts of files that has actually changed since last backup was taken."),
+	                  KAboutLicense::GPL,
+	                  i18n("Copyright (C) 2011 Simon Persson"),
+	                  QString(), QString(), "simonpersson1@gmail.com");
+	lAbout.addAuthor(i18n("Simon Persson"), QString(), "simonpersson1@gmail.com");
+	lAbout.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
+	KAboutData::setApplicationData(lAbout);
 
 	// Use for debugging...
 //	KApplication lApp;
