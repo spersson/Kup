@@ -16,5 +16,4 @@ git24kup
 install(TARGETS kio_bup DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES bup.protocol DESTINATION ${SERVICES_INSTALL_DIR})
 
-
 add_definitions(-fexceptions)
