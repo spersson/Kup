@@ -41,10 +41,9 @@
 #include <KProcess>
 
 K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
-K_EXPORT_PLUGIN(KupKcmFactory("kcm_kup", "kup"))
 
-KupKcm::KupKcm(QWidget *pParent, const QList<QVariant> &pArgs)
-   : KCModule(KupKcmFactory::componentData(), pParent, pArgs)
+KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
+   : KCModule(pParent, pArgs)
 {
 	QString lVersion = QStringLiteral("0.5.1");
 	KAboutData *lAboutData = new KAboutData(QStringLiteral("kcm_kup"), QStringLiteral("kup"),
@@ -299,3 +298,4 @@ void KupKcm::partiallyRemovePlan(int pIndex) {
 	mPlanWidgets[pIndex] = NULL;
 }
 
+#include "kupkcm.moc"
