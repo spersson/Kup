@@ -6,8 +6,7 @@
 #include <sys/stat.h>
 
 #include <QDebug>
-
-#include <KMimeType>
+#include <QMimeDatabase>
 
 git_revwalk *Node::mRevisionWalker = NULL;
 git_repository *Node::mRepository = NULL;
@@ -113,10 +112,11 @@ int File::readMetadata(VintStream &pMetadataStream) {
 		lContent.append(lNextData);
 	}
 	seek(0);
+	QMimeDatabase db;
 	if(!lContent.isEmpty()) {
-		mMimeType = KMimeType::findByNameAndContent(objectName(), lContent, mMode)->name();
+		mMimeType = db.mimeTypeForFileNameAndData(objectName(), lContent).name();
 	} else {
-		mMimeType = KMimeType::findByPath(objectName(), mMode)->name();
+		mMimeType = db.mimeTypeForFile(objectName()).name();
 	}
 	return lRetVal;
 }

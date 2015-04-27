@@ -8,8 +8,6 @@
 #include <KIO/SlaveBase>
 using namespace KIO;
 #include <KLocalizedString>
-
-#include <KMimeType>
 #include <KProcess>
 
 #include <grp.h>
