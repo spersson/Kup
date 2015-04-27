@@ -24,7 +24,6 @@
 #include "driveselection.h"
 
 #include <KButtonGroup>
-#include <KNumInput>
 #include <KIO/RenameDialog>
 
 #include <QBoxLayout>
@@ -34,6 +33,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QSpinBox>
 #include <QTimer>
 
 #include <KComboBox>
@@ -313,7 +313,7 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
 	lPage->setName(i18nc("@title", "Backup Type"));
 	lPage->setHeader(i18nc("@label", "Select what type of backup you want"));
-	lPage->setIcon(KIcon(QLatin1String("chronometer")));
+	lPage->setIcon(QIcon::fromTheme(QLatin1String("chronometer")));
 	return lPage;
 }
 
@@ -322,7 +322,7 @@ KPageWidgetItem *BackupPlanWidget::createSourcePage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(mSourceSelectionWidget);
 	lPage->setName(i18nc("@title", "Sources"));
 	lPage->setHeader(i18nc("@label", "Select which folders to include in backup"));
-	lPage->setIcon(KIcon(QLatin1String("folder-important")));
+	lPage->setIcon(QIcon::fromTheme(QLatin1String("folder-important")));
 	return lPage;
 }
 
@@ -459,7 +459,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lIntervalVertLayout->addWidget(lIntervalLabel, 0, 1);
 	QHBoxLayout *lIntervalLayout = new QHBoxLayout;
 	lIntervalLayout->setContentsMargins(0, 0, 0, 0);
-	KIntSpinBox *lIntervalSpinBox = new KIntSpinBox;
+	QSpinBox *lIntervalSpinBox = new QSpinBox;
 	lIntervalSpinBox->setObjectName(QLatin1String("kcfg_Schedule interval"));
 	lIntervalSpinBox->setMinimum(1);
 	lIntervalLayout->addWidget(lIntervalSpinBox);
@@ -488,7 +488,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lUsageVertLayout->addWidget(lUsageLabel, 0, 1);
 	QHBoxLayout *lUsageLayout = new QHBoxLayout;
 	lUsageLayout->setContentsMargins(0, 0, 0, 0);
-	KIntSpinBox *lUsageSpinBox = new KIntSpinBox;
+	QSpinBox *lUsageSpinBox = new QSpinBox;
 	lUsageSpinBox->setObjectName(QLatin1String("kcfg_Usage limit"));
 	lUsageSpinBox->setMinimum(1);
 	lUsageLayout->addWidget(lUsageSpinBox);
