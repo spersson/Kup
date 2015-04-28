@@ -39,6 +39,8 @@
 
 #include <KComboBox>
 #include <KConfigDialogManager>
+#include <KDirLister>
+#include <KDirModel>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -154,29 +156,34 @@ DirDialog::DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget 
 	lOkButton->setDefault(true);
 	lOkButton->setShortcut(Qt::Key_Return);
 
-	mTreeView = new KFileTreeView(this);
-	mTreeView->setDirOnlyMode(true);
+
+	mTreeView = new QTreeView(this);
+	mDirModel = new KDirModel(this);
+	mDirModel->dirLister()->setDirOnlyMode(true);
+	mTreeView->setModel(mDirModel);
 	mTreeView->setContextMenuPolicy(Qt::CustomContextMenu);
-	for (int i = 1; i < mTreeView->model()->columnCount(); ++i) {
+	for (int i = 1; i < mDirModel->columnCount(); ++i) {
 		mTreeView->hideColumn(i);
 	}
 	mTreeView->setHeaderHidden(true);
-
-	mTreeView->setRootUrl(pRootDir);
-	QUrl lSubUrl(pRootDir);
-	lSubUrl = lSubUrl.adjusted(QUrl::StripTrailingSlash);
-	lSubUrl.setPath(lSubUrl.path() + '/' + (pStartSubDir));
-	mTreeView->setCurrentUrl(lSubUrl);
+	connect(mDirModel, SIGNAL(expand(QModelIndex)), mTreeView, SLOT(expand(QModelIndex)));
+	connect(mDirModel, SIGNAL(expand(QModelIndex)), SLOT(selectEntry(QModelIndex)));
 
 	QVBoxLayout *lMainLayout = new QVBoxLayout;
 	lMainLayout->addWidget(mTreeView);
 	lMainLayout->addWidget(lButtonBox);
 	setLayout(lMainLayout);
+
+	mDirModel->dirLister()->openUrl(pRootDir);
+	QUrl lSubUrl = QUrl::fromLocalFile(pRootDir.adjusted(QUrl::StripTrailingSlash).path() + '/' +
+	                                    pStartSubDir);
+	mDirModel->expandToUrl(lSubUrl);
 	mTreeView->setFocus();
 }
 
 QUrl DirDialog::url() const {
-	return mTreeView->currentUrl();
+	const KFileItem lFileItem = mDirModel->itemForIndex(mTreeView->currentIndex());
+	return !lFileItem.isNull() ? lFileItem.url() : QUrl();
 }
 
 void DirDialog::createNewFolder() {
@@ -211,7 +218,13 @@ void DirDialog::createNewFolder() {
 		lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
 		lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
 	}
-	mTreeView->setCurrentUrl(lPartialUrl);
+	mDirModel->expandToUrl(lPartialUrl);
+}
+
+void DirDialog::selectEntry(QModelIndex pIndex) {
+	mTreeView->selectionModel()->clearSelection();
+	mTreeView->selectionModel()->setCurrentIndex(pIndex, QItemSelectionModel::SelectCurrent);
+	mTreeView->scrollTo(pIndex);
 }
 
 BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion,

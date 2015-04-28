@@ -22,15 +22,14 @@
 #define BACKUPPLANWIDGET_H
 
 #include <QDialog>
+#include <QTreeView>
 #include <QWidget>
-
-#include <KFileTreeView>
 
 class BackupPlan;
 class DriveSelection;
 class FolderSelectionModel;
 
-class KFileTreeView;
+class KDirModel;
 class KLineEdit;
 class KPageWidget;
 class KPageWidgetItem;
@@ -86,9 +85,11 @@ public:
 
 public slots:
 	void createNewFolder();
+	void selectEntry(QModelIndex pIndex);
 
 protected:
-	KFileTreeView *mTreeView;
+	QTreeView *mTreeView;
+	KDirModel *mDirModel;
 };
 
 class BackupPlanWidget : public QWidget
