@@ -280,7 +280,8 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	lVersionedWidget->setVisible(false);
 	QObject::connect(mVersionedRadio, SIGNAL(toggled(bool)), lVersionedWidget, SLOT(setVisible(bool)));
 	if(pBupVersion.isEmpty()) {
-		mVersionedRadio->setText(i18nc("@option:radio", "Versioned Backup (not available because \"bup\" is not installed)"));
+		mVersionedRadio->setText(i18nc("@option:radio", "Versioned Backup (not available "
+		                                                "because \"bup\" is not installed)"));
 		mVersionedRadio->setEnabled(false);
 		lVersionedWidget->setEnabled(false);
 	} else {
@@ -288,25 +289,27 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	}
 
 	mSyncedRadio = new QRadioButton;
-	QString lSyncedInfo = i18nc("@label", "This type of backup is a folder which is synchronized with your "
-	                            "selected source folders. Taking a backup simply means making the backup destination "
-	                            "contain an exact copy of your source folders as they are now and nothing else. "
-	                            "If a file has been deleted in a source folder it will get deleted from the "
-	                            "backup folder.<br>This type of backup can protect you against data loss due to a "
-	                            "broken hard drive but it does not help you to recover from your own mistakes.");
+	QString lSyncedInfo = i18nc("@label",
+	                            "This type of backup is a folder which is synchronized with your "
+	                            "selected source folders. Taking a backup simply means making the "
+	                            "backup destination contain an exact copy of your source folders as "
+	                            "they are now and nothing else. If a file has been deleted in a "
+	                            "source folder it will get deleted from the backup folder.<br>This "
+	                            "type of backup can protect you against data loss due to a broken "
+	                            "hard drive but it does not help you to recover from your own mistakes.");
 	QLabel *lSyncedInfoLabel = new QLabel(lSyncedInfo);
 	lSyncedInfoLabel->setWordWrap(true);
 	QWidget *lSyncedWidget = new QWidget;
 	lSyncedWidget->setVisible(false);
 	QObject::connect(mSyncedRadio, SIGNAL(toggled(bool)), lSyncedWidget, SLOT(setVisible(bool)));
 	if(pRsyncVersion.isEmpty()) {
-		mSyncedRadio->setText(i18nc("@option:radio", "Synchronized Backup (not available because \"rsync\" is not installed)"));
+		mSyncedRadio->setText(i18nc("@option:radio", "Synchronized Backup (not available "
+		                                             "because \"rsync\" is not installed)"));
 		mSyncedRadio->setEnabled(false);
 		lSyncedWidget->setEnabled(false);
 	} else {
 		mSyncedRadio->setText(i18nc("@option:radio", "Synchronized Backup"));
 	}
-
 	KButtonGroup *lButtonGroup = new KButtonGroup;
 	lButtonGroup->setObjectName(QLatin1String("kcfg_Backup type"));
 	lButtonGroup->setFlat(true);
@@ -363,11 +366,13 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QWidget *lFileSystemWidget = new QWidget;
 	lFileSystemWidget->setVisible(false);
 	QObject::connect(lFileSystemRadio, SIGNAL(toggled(bool)), lFileSystemWidget, SLOT(setVisible(bool)));
-	QLabel *lFileSystemInfoLabel = new QLabel(i18nc("@label", "You can use this option for backing up to a secondary internal "
-	                                                "harddrive, an external eSATA drive or networked storage. The requirement "
-	                                                "is just that you always mount it at the same path in the filesystem. "
-	                                                "The path specified here does not need to exist at all times, its "
-	                                                "existance will be monitored."));
+	QLabel *lFileSystemInfoLabel = new QLabel(i18nc("@label",
+	                                        "You can use this option for backing up to a secondary "
+	                                        "internal harddrive, an external eSATA drive or networked "
+	                                        "storage. The requirement is just that you always mount "
+	                                        "it at the same path in the filesystem. The path "
+	                                        "specified here does not need to exist at all times, its "
+	                                        "existance will be monitored."));
 	lFileSystemInfoLabel->setWordWrap(true);
 	QLabel *lFileSystemLabel = new QLabel(i18nc("@label:textbox", "Destination Path for Backup:"));
 	KUrlRequester *lFileSystemUrlEdit = new KUrlRequester;
@@ -387,18 +392,22 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QWidget *lDriveWidget = new QWidget;
 	lDriveWidget->setVisible(false);
 	QObject::connect(lDriveRadio, SIGNAL(toggled(bool)), lDriveWidget, SLOT(setVisible(bool)));
-	QLabel *lDriveInfoLabel = new QLabel(i18nc("@label", "Use this option if you want to backup your files on an external "
-	                                           "storage that can be plugged in to this computer, such as a USB hard drive "
-	                                           "or memory stick."));
+	QLabel *lDriveInfoLabel = new QLabel(i18nc("@label",
+	                                           "Use this option if you want to backup your "
+	                                           "files on an external storage that can be plugged in "
+	                                           "to this computer, such as a USB hard drive or memory "
+	                                           "stick."));
 	lDriveInfoLabel->setWordWrap(true);
 	mDriveSelection = new DriveSelection(mBackupPlan);
 	mDriveSelection->setObjectName(QLatin1String("kcfg_External drive UUID"));
 	mDriveDestEdit = new KLineEdit;
 	mDriveDestEdit->setObjectName(QLatin1String("kcfg_External drive destination path"));
-	mDriveDestEdit->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
+	mDriveDestEdit->setToolTip(i18nc("@info:tooltip",
+	                                 "The specified folder will be created if it does not exist."));
 	mDriveDestEdit->setClearButtonShown(true);
 	QLabel *lDriveDestLabel = new QLabel(i18nc("@label:textbox", "Folder on Destination Drive:"));
-	lDriveDestLabel->setToolTip(i18nc("@info:tooltip", "The specified folder will be created if it does not exist."));
+	lDriveDestLabel->setToolTip(i18nc("@info:tooltip",
+	                                  "The specified folder will be created if it does not exist."));
 	lDriveDestLabel->setBuddy(mDriveDestEdit);
 	QPushButton *lDriveDestButton = new QPushButton;
 	lDriveDestButton->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
@@ -499,10 +508,11 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	QWidget *lUsageWidget = new QWidget;
 	lUsageWidget->setVisible(false);
 	connect(lUsageRadio, SIGNAL(toggled(bool)), lUsageWidget, SLOT(setVisible(bool)));
-	QLabel *lUsageLabel = new QLabel(i18nc("@info", "New backup will be triggered when backup destination "
-	                                      "becomes available and you have been using your "
-	                                      "computer actively for more than the configured "
-	                                      "time limit since the last backup was taken."));
+	QLabel *lUsageLabel = new QLabel(i18nc("@info",
+	                                       "New backup will be triggered when backup destination "
+	                                       "becomes available and you have been using your "
+	                                       "computer actively for more than the configured "
+	                                       "time limit since the last backup was taken."));
 	lUsageLabel->setWordWrap(true);
 	QGridLayout *lUsageVertLayout = new QGridLayout;
 	lUsageVertLayout->setColumnMinimumWidth(0, lIndentation);
@@ -519,7 +529,8 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lUsageVertLayout->addLayout(lUsageLayout, 1, 1);
 	lUsageWidget->setLayout(lUsageVertLayout);
 
-	QCheckBox *lAskFirstCheckBox = new QCheckBox(i18nc("@option:check", "Ask for confirmation before taking backup"));
+	QCheckBox *lAskFirstCheckBox = new QCheckBox(i18nc("@option:check",
+	                                                   "Ask for confirmation before taking backup"));
 	lAskFirstCheckBox->setObjectName(QLatin1String("kcfg_Ask first"));
 	connect(lManualRadio, SIGNAL(toggled(bool)), lAskFirstCheckBox, SLOT(setHidden(bool)));
 
@@ -551,14 +562,19 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	int lIndentation = lAdvancedWidget->style()->pixelMetric(QStyle::PM_IndicatorWidth) +
 	                   lAdvancedWidget->style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing);
 
-	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check", "Show hidden folders in source selection"));
+	QCheckBox *lShowHiddenCheckBox = new QCheckBox(i18nc("@option:check",
+	                                                     "Show hidden folders in source selection"));
 	lShowHiddenCheckBox->setObjectName(QLatin1String("kcfg_Show hidden folders"));
-	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)), mSourceSelectionWidget, SLOT(setHiddenFoldersVisible(bool)));
+	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)),
+	        mSourceSelectionWidget, SLOT(setHiddenFoldersVisible(bool)));
 
-	QLabel *lShowHiddenLabel = new QLabel(i18nc("@info", "This makes it possible to explicitly include or exclude hidden "
-	                                            "folders in the backup source selection. Hidden folders have a name that "
-	                                            "starts with a dot. They are typically located in your home folder and "
-	                                            "are used to store settings and temporary files for your applications."));
+	QLabel *lShowHiddenLabel = new QLabel(i18nc("@info",
+	                                            "This makes it possible to explicitly include or "
+	                                            "exclude hidden folders in the backup source "
+	                                            "selection. Hidden folders have a name that starts "
+	                                            "with a dot. They are typically located in your home "
+	                                            "folder and are used to store settings and temporary "
+	                                            "files for your applications."));
 	lShowHiddenLabel->setWordWrap(true);
 	QGridLayout *lShowHiddenLayout = new QGridLayout;
 	lShowHiddenLayout->setContentsMargins(0, 0, 0, 0);
@@ -577,7 +593,8 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	if(pPar2Available) {
 		lRecoveryCheckBox->setText(i18nc("@option:check", "Generate recovery information"));
 	} else {
-		lRecoveryCheckBox->setText(i18nc("@option:check", "Generate recovery information (not available because \"par2\" is not installed)"));
+		lRecoveryCheckBox->setText(i18nc("@option:check", "Generate recovery information (not available "
+		                                                  "because \"par2\" is not installed)"));
 		lRecoveryCheckBox->setEnabled(false);
 		lRecoveryLabel->setEnabled(false);
 	}
