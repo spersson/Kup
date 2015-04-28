@@ -21,9 +21,9 @@
 #ifndef BACKUPPLANWIDGET_H
 #define BACKUPPLANWIDGET_H
 
+#include <QDialog>
 #include <QWidget>
 
-#include <KDialog>
 #include <KFileTreeView>
 
 class BackupPlan;
@@ -77,7 +77,7 @@ public:
 	FolderSelectionWidget *mTreeView;
 };
 
-class DirDialog: public KDialog
+class DirDialog: public QDialog
 {
 	Q_OBJECT
 public:

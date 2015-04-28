@@ -28,6 +28,7 @@
 
 #include <QBoxLayout>
 #include <QCheckBox>
+#include <QDialogButtonBox>
 #include <QIcon>
 #include <QInputDialog>
 #include <QLabel>
@@ -140,13 +141,18 @@ void FolderSelectionWidget::expandToShowSelections() {
 }
 
 DirDialog::DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent)
-   : KDialog(pParent)
+   : QDialog(pParent)
 {
-	setCaption(i18nc("@title:window","Select Folder"));
-	setButtons(Ok | Cancel | User1);
-	setButtonGuiItem(User1, KGuiItem(i18nc("@action:button","New Folder..."), QLatin1String("folder-new")));
-	connect(this, SIGNAL(user1Clicked()), this, SLOT(createNewFolder()));
-	setDefaultButton(Ok);
+	setWindowTitle(i18nc("@title:window","Select Folder"));
+	QDialogButtonBox *lButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	connect(lButtonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(lButtonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	QPushButton *lNewFolderButton = new QPushButton(i18nc("@action:button", "New Folder..."));
+	connect(lNewFolderButton, SIGNAL(clicked()), this, SLOT(createNewFolder()));
+	lButtonBox->addButton(lNewFolderButton, QDialogButtonBox::ActionRole);
+	QPushButton *lOkButton = lButtonBox->button(QDialogButtonBox::Ok);
+	lOkButton->setDefault(true);
+	lOkButton->setShortcut(Qt::Key_Return);
 
 	mTreeView = new KFileTreeView(this);
 	mTreeView->setDirOnlyMode(true);
@@ -155,13 +161,17 @@ DirDialog::DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget 
 		mTreeView->hideColumn(i);
 	}
 	mTreeView->setHeaderHidden(true);
-	setMainWidget(mTreeView);
 
 	mTreeView->setRootUrl(pRootDir);
 	QUrl lSubUrl(pRootDir);
 	lSubUrl = lSubUrl.adjusted(QUrl::StripTrailingSlash);
 	lSubUrl.setPath(lSubUrl.path() + '/' + (pStartSubDir));
 	mTreeView->setCurrentUrl(lSubUrl);
+
+	QVBoxLayout *lMainLayout = new QVBoxLayout;
+	lMainLayout->addWidget(mTreeView);
+	lMainLayout->addWidget(lButtonBox);
+	setLayout(lMainLayout);
 	mTreeView->setFocus();
 }
 
