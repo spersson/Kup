@@ -22,8 +22,8 @@
 #include "backupplan.h"
 #include "folderselectionmodel.h"
 #include "driveselection.h"
+#include "kbuttongroup.h"
 
-#include <KButtonGroup>
 #include <KIO/RenameDialog>
 
 #include <QBoxLayout>

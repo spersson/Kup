@@ -9,6 +9,7 @@ driveselectiondelegate.cpp
 folderselectionmodel.cpp
 kupkcm.cpp
 planstatuswidget.cpp
+kbuttongroup.cpp
 ../settings/backupplan.cpp
 ../settings/kupsettings.cpp
 )
