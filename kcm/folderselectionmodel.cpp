@@ -64,9 +64,9 @@ QString ensureTrailingSlash(const QString &pPath) {
 bool isForbiddenPath(const QString& pPath) {
 	const QString lPathWithSlash = ensureTrailingSlash(pPath);
 	QFileInfo lFileInfo(lPathWithSlash);
-	return (lPathWithSlash.startsWith(QLatin1String("/proc/")) ||
-	        lPathWithSlash.startsWith(QLatin1String("/dev/")) ||
-	        lPathWithSlash.startsWith(QLatin1String("/sys/")) ||
+	return (lPathWithSlash.startsWith(QStringLiteral("/proc/")) ||
+	        lPathWithSlash.startsWith(QStringLiteral("/dev/")) ||
+	        lPathWithSlash.startsWith(QStringLiteral("/sys/")) ||
 	        !lFileInfo.isReadable() ||
 	        !lFileInfo.isExecutable()
 	        );
@@ -168,7 +168,7 @@ QVariant FolderSelectionModel::data(const QModelIndex& pIndex, int pRole) const 
 	}
 	case Qt::DecorationRole:
 		if(lPath == QDir::homePath()) {
-			return QIcon::fromTheme(QLatin1String("user-home"));
+			return QIcon::fromTheme(QStringLiteral("user-home"));
 		}
 		break;
 	}

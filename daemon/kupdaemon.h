@@ -23,8 +23,8 @@
 
 #include <KSharedConfig>
 
-#define KUP_DBUS_SERVICE_NAME QLatin1String("org.kde.kup-daemon")
-#define KUP_DBUS_OBJECT_PATH QLatin1String("/DaemonControl")
+#define KUP_DBUS_SERVICE_NAME QStringLiteral("org.kde.kup-daemon")
+#define KUP_DBUS_OBJECT_PATH QStringLiteral("/DaemonControl")
 
 
 class KupSettings;

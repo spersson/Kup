@@ -34,9 +34,9 @@ Node *Node::resolve(const QString &pPath, bool pFollowLinks) {
 Node *Node::resolve(const QStringList &pPathList, bool pFollowLinks) {
 	Node *lNode = this;
 	foreach(QString lPathComponent, pPathList) {
-		if(lPathComponent == QLatin1String(".")) {
+		if(lPathComponent == QStringLiteral(".")) {
 			continue;
-		} else if(lPathComponent == QLatin1String("..")) {
+		} else if(lPathComponent == QStringLiteral("..")) {
 			lNode = qobject_cast<Node *>(lNode->parent());
 		} else {
 			Directory *lDir = qobject_cast<Directory *>(lNode);
@@ -66,7 +66,7 @@ QString Node::completePath() {
 			lCompletePath.prepend(lObjectName);
 		} else {
 			lCompletePath.prepend(lNode->objectName());
-			lCompletePath.prepend(QLatin1String("/"));
+			lCompletePath.prepend(QStringLiteral("/"));
 		}
 		lNode = lNewNode;
 	}
@@ -360,7 +360,7 @@ void ArchivedDirectory::generateSubNodes() {
 		bool lChunked;
 		const git_tree_entry *lTreeEntry = git_tree_entry_byindex(mTree, i);
 		getEntryAttributes(lTreeEntry, lMode, lChunked, lOid, lName);
-		if(lName == QLatin1String(".bupm")) {
+		if(lName == QStringLiteral(".bupm")) {
 			continue;
 		}
 
@@ -447,7 +447,7 @@ Repository::Repository(QObject *pParent, const QString &pRepositoryPath)
 	git_reference_list(&lBranchNames, mRepository);
 	for(uint i = 0; i < lBranchNames.count; ++i) {
 		QString lRefName = QString::fromLocal8Bit(lBranchNames.strings[i]);
-		if(lRefName.startsWith(QLatin1String("refs/heads/"))) {
+		if(lRefName.startsWith(QStringLiteral("refs/heads/"))) {
 			QString lPath = objectName();
 			lPath.append(lRefName);
 			struct stat lStat;
@@ -483,7 +483,7 @@ void Repository::generateSubNodes() {
 	git_reference_list(&lBranchNames, mRepository);
 	for(uint i = 0; i < lBranchNames.count; ++i) {
 		QString lRefName = QString::fromLocal8Bit(lBranchNames.strings[i]);
-		if(lRefName.startsWith(QLatin1String("refs/heads/"))) {
+		if(lRefName.startsWith(QStringLiteral("refs/heads/"))) {
 			Branch *lBranch = new Branch(this, lBranchNames.strings[i]);
 			mSubNodes->insert(lBranch->objectName(), lBranch);
 		}

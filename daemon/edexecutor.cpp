@@ -67,7 +67,7 @@ void EDExecutor::deviceAdded(const QString &pUdi) {
 			lDriveDevice = lDevice.parent();
 		}
 		lUUID += lDriveDevice.description();
-		lUUID += QLatin1String("|");
+		lUUID += QStringLiteral("|");
 		lUUID += lVolume->label();
 	}
 	if(mPlan->mExternalUUID == lUUID) {
@@ -102,7 +102,7 @@ void EDExecutor::startBackup() {
 	if(mStorageAccess->isAccessible()) {
 		if(!mStorageAccess->filePath().isEmpty()) {
 			mDestinationPath = mStorageAccess->filePath();
-			mDestinationPath += QLatin1String("/");
+			mDestinationPath += QStringLiteral("/");
 			mDestinationPath += mPlan->mExternalDestinationPath;
 			QDir lDir(mDestinationPath);
 			if(!lDir.exists()) {
@@ -166,7 +166,7 @@ void EDExecutor::showFilesClicked() {
 	if(mStorageAccess->isAccessible()) {
 		if(!mStorageAccess->filePath().isEmpty()) {
 			mDestinationPath = mStorageAccess->filePath();
-			mDestinationPath += QLatin1String("/");
+			mDestinationPath += QStringLiteral("/");
 			mDestinationPath += mPlan->mExternalDestinationPath;
 			QFileInfo lDestinationInfo(mDestinationPath);
 			if(lDestinationInfo.exists() && lDestinationInfo.isDir()) {

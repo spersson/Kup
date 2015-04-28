@@ -31,19 +31,19 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 {
 	setCurrentGroup(QString::fromLatin1("Plan/%1").arg(mPlanNumber));
 
-	addItemString(QLatin1String("Description"), mDescription,
+	addItemString(QStringLiteral("Description"), mDescription,
 	              i18nc("@label Default name for a new backup plan, %1 is the number of the plan in order",
 	                    "Backup plan %1", pPlanNumber));
 	QStringList lDefaultIncludeList;
 	lDefaultIncludeList << QDir::homePath();
-	addItemStringList(QLatin1String("Paths included"), mPathsIncluded, lDefaultIncludeList);
+	addItemStringList(QStringLiteral("Paths included"), mPathsIncluded, lDefaultIncludeList);
 	QStringList lDefaultExcludeList;
 	lDefaultExcludeList << QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
 	lDefaultExcludeList << QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
-	lDefaultExcludeList << QDir::homePath() + QLatin1String("/.cache");
-	lDefaultExcludeList << QDir::homePath() + QLatin1String("/.bup");
-	lDefaultExcludeList << QDir::homePath() + QLatin1String("/.thumbnails");
-	lDefaultExcludeList << QDir::homePath() + QLatin1String("/.local/share/Trash");
+	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.cache");
+	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.bup");
+	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.thumbnails");
+	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.local/share/Trash");
 	QMutableListIterator<QString> i(lDefaultExcludeList);
 	while(i.hasNext()) {
 		QString &lPath = i.next();
@@ -51,36 +51,36 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 			lPath.chop(1);
 	}
 
-	addItemStringList(QLatin1String("Paths excluded"), mPathsExcluded, lDefaultExcludeList);
-	addItemInt(QLatin1String("Backup type"), mBackupType);
+	addItemStringList(QStringLiteral("Paths excluded"), mPathsExcluded, lDefaultExcludeList);
+	addItemInt(QStringLiteral("Backup type"), mBackupType);
 
-	addItemInt(QLatin1String("Schedule type"), mScheduleType, 2);
-	addItemInt(QLatin1String("Schedule interval"), mScheduleInterval, 1);
-	addItemInt(QLatin1String("Schedule interval unit"), mScheduleIntervalUnit, 3);
-	addItemInt(QLatin1String("Usage limit"), mUsageLimit, 25);
-	addItemBool(QLatin1String("Ask first"), mAskBeforeTakingBackup, true);
+	addItemInt(QStringLiteral("Schedule type"), mScheduleType, 2);
+	addItemInt(QStringLiteral("Schedule interval"), mScheduleInterval, 1);
+	addItemInt(QStringLiteral("Schedule interval unit"), mScheduleIntervalUnit, 3);
+	addItemInt(QStringLiteral("Usage limit"), mUsageLimit, 25);
+	addItemBool(QStringLiteral("Ask first"), mAskBeforeTakingBackup, true);
 
-	addItemInt(QLatin1String("Destination type"), mDestinationType, 1);
+	addItemInt(QStringLiteral("Destination type"), mDestinationType, 1);
 	addItem(new KCoreConfigSkeleton::ItemUrl(currentGroup(),
-	                                         QLatin1String("Filesystem destination path"),
+	                                         QStringLiteral("Filesystem destination path"),
 	                                         mFilesystemDestinationPath,
-	                                         QUrl::fromLocalFile(QDir::homePath() + QLatin1String("/.bup"))));
-	addItemString(QLatin1String("External drive UUID"), mExternalUUID);
-	addItemPath(QLatin1String("External drive destination path"), mExternalDestinationPath, i18n("Backups"));
-	addItemString(QLatin1String("External volume label"), mExternalVolumeLabel);
-	addItemULongLong(QLatin1String("External volume capacity"), mExternalVolumeCapacity);
-	addItemString(QLatin1String("External device description"), mExternalDeviceDescription);
-	addItemInt(QLatin1String("External partition number"), mExternalPartitionNumber);
-	addItemInt(QLatin1String("External partitions count"), mExternalPartitionsOnDrive);
+	                                         QUrl::fromLocalFile(QDir::homePath() + QStringLiteral("/.bup"))));
+	addItemString(QStringLiteral("External drive UUID"), mExternalUUID);
+	addItemPath(QStringLiteral("External drive destination path"), mExternalDestinationPath, i18n("Backups"));
+	addItemString(QStringLiteral("External volume label"), mExternalVolumeLabel);
+	addItemULongLong(QStringLiteral("External volume capacity"), mExternalVolumeCapacity);
+	addItemString(QStringLiteral("External device description"), mExternalDeviceDescription);
+	addItemInt(QStringLiteral("External partition number"), mExternalPartitionNumber);
+	addItemInt(QStringLiteral("External partitions count"), mExternalPartitionsOnDrive);
 
-	addItemBool(QLatin1String("Show hidden folders"), mShowHiddenFolders);
-	addItemBool(QLatin1String("Generate recovery info"), mGenerateRecoveryInfo);
-	addItemBool(QLatin1String("Check backups"), mCheckBackups);
+	addItemBool(QStringLiteral("Show hidden folders"), mShowHiddenFolders);
+	addItemBool(QStringLiteral("Generate recovery info"), mGenerateRecoveryInfo);
+	addItemBool(QStringLiteral("Check backups"), mCheckBackups);
 
-	addItemDateTime(QLatin1String("Last complete backup"), mLastCompleteBackup);
-	addItemDouble(QLatin1String("Last backup size"), mLastBackupSize);
-	addItemDouble(QLatin1String("Last available space"), mLastAvailableSpace);
-	addItemUInt(QLatin1String("Accumulated usage time"), mAccumulatedUsageTime);
+	addItemDateTime(QStringLiteral("Last complete backup"), mLastCompleteBackup);
+	addItemDouble(QStringLiteral("Last backup size"), mLastBackupSize);
+	addItemDouble(QStringLiteral("Last available space"), mLastAvailableSpace);
+	addItemUInt(QStringLiteral("Accumulated usage time"), mAccumulatedUsageTime);
 	load();
 }
 
@@ -154,13 +154,13 @@ BackupPlan::Status BackupPlan::backupStatus() {
 QString BackupPlan::iconName(Status pStatus) {
 	switch(pStatus) {
 	case GOOD:
-		return QLatin1String("security-high");
+		return QStringLiteral("security-high");
 	case MEDIUM:
-		return QLatin1String("security-medium");
+		return QStringLiteral("security-medium");
 	case BAD:
-		return QLatin1String("security-low");
+		return QStringLiteral("security-low");
 	}
-	return QLatin1String("unknown");
+	return QStringLiteral("unknown");
 }
 
 void BackupPlan::usrReadConfig() {

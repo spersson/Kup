@@ -41,19 +41,19 @@ PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
 	QString lCachePath = QString::fromLocal8Bit(qgetenv("XDG_CACHE_HOME").constData());
 	if(lCachePath.isEmpty()) {
 		lCachePath = QDir::homePath();
-		lCachePath.append(QLatin1String("/.cache"));
+		lCachePath.append(QStringLiteral("/.cache"));
 	}
-	lCachePath.append(QLatin1String("/kup"));
+	lCachePath.append(QStringLiteral("/kup"));
 	QDir lCacheDir(lCachePath);
 	if(!lCacheDir.exists()) {
 		if(!lCacheDir.mkpath(lCachePath)) {
-			lCachePath = QLatin1String("/tmp");
+			lCachePath = QStringLiteral("/tmp");
 		}
 	}
 	mLogFilePath = lCachePath;
-	mLogFilePath.append(QLatin1String("/kup_plan"));
+	mLogFilePath.append(QStringLiteral("/kup_plan"));
 	mLogFilePath.append(QString::number(mPlan->planNumber()));
-	mLogFilePath.append(QLatin1String(".log"));
+	mLogFilePath.append(QStringLiteral(".log"));
 
 	mRunBackupAction = new QAction(i18nc("@action:inmenu", "Take Backup Now"), this);
 	mRunBackupAction->setEnabled(false);
@@ -164,7 +164,7 @@ void PlanExecutor::enterNotAvailableState() {
 
 void PlanExecutor::askUser(const QString &pQuestion) {
 	discardUserQuestion();
-	mQuestion = new KNotification(QLatin1String("StartBackup"), KNotification::Persistent);
+	mQuestion = new KNotification(QStringLiteral("StartBackup"), KNotification::Persistent);
 	mQuestion->setTitle(i18nc("@title:window", "Backup Device Available - %1", mPlan->mDescription));
 	mQuestion->setText(pQuestion);
 	QStringList lAnswers;
@@ -189,7 +189,7 @@ void PlanExecutor::discardUserQuestion() {
 
 void PlanExecutor::notifyBackupFailed(KJob *pFailedJob) {
 	discardFailNotification();
-	mFailNotification = new KNotification(QLatin1String("BackupFailed"), KNotification::Persistent);
+	mFailNotification = new KNotification(QStringLiteral("BackupFailed"), KNotification::Persistent);
 	mFailNotification->setTitle(i18nc("@title:window", "Saving of Backup Failed"));
 	mFailNotification->setText(pFailedJob->errorText());
 
@@ -218,7 +218,7 @@ void PlanExecutor::discardFailNotification() {
 }
 
 void PlanExecutor::showLog() {
-	KRun::runUrl(QUrl::fromLocalFile(mLogFilePath), QLatin1String("text/x-log"), NULL);
+	KRun::runUrl(QUrl::fromLocalFile(mLogFilePath), QStringLiteral("text/x-log"), NULL);
 }
 
 void PlanExecutor::startIntegrityCheck() {
@@ -249,7 +249,7 @@ void PlanExecutor::startRepairJob() {
 
 void PlanExecutor::integrityCheckFinished(KJob *pJob) {
 	discardIntegrityNotification();
-	mIntegrityNotification = new KNotification(QLatin1String("IntegrityCheckCompleted"), KNotification::Persistent);
+	mIntegrityNotification = new KNotification(QStringLiteral("IntegrityCheckCompleted"), KNotification::Persistent);
 	mIntegrityNotification->setTitle(i18nc("@title:window", "Integrity Check Completed"));
 	mIntegrityNotification->setText(pJob->errorText());
 	QStringList lAnswers;
@@ -284,7 +284,7 @@ void PlanExecutor::discardIntegrityNotification() {
 
 void PlanExecutor::repairFinished(KJob *pJob) {
 	discardRepairNotification();
-	mRepairNotification = new KNotification(QLatin1String("RepairCompleted"), KNotification::Persistent);
+	mRepairNotification = new KNotification(QStringLiteral("RepairCompleted"), KNotification::Persistent);
 	mRepairNotification->setTitle(i18nc("@title:window", "Repair Completed"));
 	mRepairNotification->setText(pJob->errorText());
 	QStringList lAnswers;
@@ -368,12 +368,12 @@ void PlanExecutor::showFilesClicked() {
 	if(mPlan->mBackupType == BackupPlan::BupType) {
 		QString lCommandLine = QString::fromLatin1("kup-filedigger --title \"");
 		lCommandLine.append(mPlan->mDescription);
-		lCommandLine.append(QLatin1String("\" \""));
+		lCommandLine.append(QStringLiteral("\" \""));
 		lCommandLine.append(mDestinationPath);
-		lCommandLine.append(QLatin1String("\""));
+		lCommandLine.append(QStringLiteral("\""));
 		KRun::runCommand(lCommandLine, NULL);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
-		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QLatin1String("inode/directory"), NULL);
+		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QStringLiteral("inode/directory"), NULL);
 	}
 }
 

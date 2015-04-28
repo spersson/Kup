@@ -193,9 +193,9 @@ void getEntryAttributes(const git_tree_entry *pTreeEntry, uint &pMode, bool &pCh
 	pOid = git_tree_entry_id(pTreeEntry);
 	pName = QString::fromUtf8(git_tree_entry_name(pTreeEntry));
 	pChunked = false;
-	if(pName.endsWith(QLatin1String(".bupl"))) {
+	if(pName.endsWith(QStringLiteral(".bupl"))) {
 		pName.chop(5);
-	} else if(pName.endsWith(QLatin1String(".bup"))) {
+	} else if(pName.endsWith(QStringLiteral(".bup"))) {
 		pName.chop(4);
 		pMode = DEFAULT_MODE_FILE;
 		pChunked = true;
@@ -206,5 +206,5 @@ void getEntryAttributes(const git_tree_entry *pTreeEntry, uint &pMode, bool &pCh
 QString vfsTimeToString(git_time_t pTime) {
 	QDateTime lDateTime;
 	lDateTime.setTime_t(pTime);
-	return lDateTime.toLocalTime().toString(QLatin1String("yyyy-MM-dd hh:mm"));
+	return lDateTime.toLocalTime().toString(QStringLiteral("yyyy-MM-dd hh:mm"));
 }

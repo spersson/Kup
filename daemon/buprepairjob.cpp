@@ -37,7 +37,7 @@ void BupRepairJob::start() {
 void BupRepairJob::startJob() {
 	KProcess lPar2Process;
 	lPar2Process.setOutputChannelMode(KProcess::SeparateChannels);
-	lPar2Process << QLatin1String("bup") << QLatin1String("fsck") << QLatin1String("--par2-ok");
+	lPar2Process << QStringLiteral("bup") << QStringLiteral("fsck") << QStringLiteral("--par2-ok");
 	int lExitCode = lPar2Process.execute();
 	if(lExitCode < 0) {
 		setError(ErrorWithoutLog);
@@ -53,17 +53,17 @@ void BupRepairJob::startJob() {
 		return;
 	}
 
-	mLogStream << QLatin1String("Kup is starting bup repair job at ")
+	mLogStream << QStringLiteral("Kup is starting bup repair job at ")
 	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl << endl;
 
-	mFsckProcess << QLatin1String("bup");
-	mFsckProcess << QLatin1String("-d") << mDestinationPath;
-	mFsckProcess << QLatin1String("fsck") << QLatin1String("-r");
+	mFsckProcess << QStringLiteral("bup");
+	mFsckProcess << QStringLiteral("-d") << mDestinationPath;
+	mFsckProcess << QStringLiteral("fsck") << QStringLiteral("-r");
 
 	connect(&mFsckProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotRepairDone(int,QProcess::ExitStatus)));
 	connect(&mFsckProcess, SIGNAL(started()), SLOT(slotRepairStarted()));
-	mLogStream << mFsckProcess.program().join(QLatin1String(" ")) << endl;
+	mLogStream << mFsckProcess.program().join(QStringLiteral(" ")) << endl;
 	mFsckProcess.start();
 }
 
@@ -75,19 +75,19 @@ void BupRepairJob::slotRepairDone(int pExitCode, QProcess::ExitStatus pExitStatu
 	mLogStream << QString::fromUtf8(mFsckProcess.readAllStandardError());
 	setError(ErrorWithLog);
 	if(pExitStatus != QProcess::NormalExit) {
-		mLogStream << endl << QLatin1String("Repair failed (the repair process crashed). Your backups could be "
+		mLogStream << endl << QStringLiteral("Repair failed (the repair process crashed). Your backups could be "
 		                                    "corrupted! See above for details.") << endl;
 		setErrorText(i18nc("notification", "Backup repair failed. Your backups could be corrupted! "
 		                                   "See log file for more details."));
 	} else if(pExitCode == 100) {
-		mLogStream << endl << QLatin1String("Repair succeded. See above for details.") << endl;
+		mLogStream << endl << QStringLiteral("Repair succeded. See above for details.") << endl;
 		setErrorText(i18nc("notification", "Success! Backup repair worked. See log file for more details."));
 	} else if(pExitCode == 0) {
-		mLogStream << endl << QLatin1String("Repair was not necessary. Your backups are fine. See above for details.") << endl;
+		mLogStream << endl << QStringLiteral("Repair was not necessary. Your backups are fine. See above for details.") << endl;
 		setErrorText(i18nc("notification", "Backup repair was not necessary. Your backups are not corrupted."
 		                                   "See log file for more details."));
 	} else {
-		mLogStream << endl << QLatin1String("Repair failed. Your backups could still be "
+		mLogStream << endl << QStringLiteral("Repair failed. Your backups could still be "
 		                                    "corrupted! See above for details.") << endl;
 		setErrorText(i18nc("notification", "Backup repair failed. Your backups could still be corrupted! "
 		                                   "See log file for more details."));

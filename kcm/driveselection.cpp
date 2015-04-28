@@ -45,7 +45,7 @@ bool deviceLessThan(const Solid::Device &a, const Solid::Device &b) {
 DriveSelection::DriveSelection(BackupPlan *pBackupPlan, QWidget *parent)
    : QListView(parent), mBackupPlan(pBackupPlan), mSelectedAndAccessible(false), mSyncedBackupType(false)
 {
-	KConfigDialogManager::changedMap()->insert(QLatin1String("DriveSelection"),
+	KConfigDialogManager::changedMap()->insert(QStringLiteral("DriveSelection"),
 	                                           SIGNAL(selectedDriveChanged(QString)));
 
 	mDrivesModel = new QStandardItemModel(this);
@@ -141,7 +141,7 @@ void DriveSelection::delayedDeviceAdded() {
 		QString lUuid = lVolume->uuid();
 		if(lUuid.isEmpty()) { //seems to happen for vfat partitions
 			lUuid += lParentDevice.description();
-			lUuid += QLatin1String("|");
+			lUuid += QStringLiteral("|");
 			lUuid += lVolume->label();
 		}
 		QStandardItem *lItem;
@@ -161,10 +161,10 @@ void DriveSelection::delayedDeviceAdded() {
 		lItem->setData(lPartitionNumber, DriveSelection::PartitionNumber);
 		lItem->setData(lVolumeDeviceList.count(), DriveSelection::PartitionsOnDrive);
 		lItem->setData(lVolume->fsType(), DriveSelection::FileSystem);
-		lItem->setData(mSyncedBackupType && (lVolume->fsType() == QLatin1String("vfat") ||
-		                                     lVolume->fsType() == QLatin1String("ntfs")),
+		lItem->setData(mSyncedBackupType && (lVolume->fsType() == QStringLiteral("vfat") ||
+		                                     lVolume->fsType() == QStringLiteral("ntfs")),
 		               DriveSelection::PermissionLossWarning);
-		lItem->setData(mSyncedBackupType && lVolume->fsType() == QLatin1String("vfat"),
+		lItem->setData(mSyncedBackupType && lVolume->fsType() == QStringLiteral("vfat"),
 		               DriveSelection::SymlinkLossWarning);
 
 		Solid::StorageAccess *lAccess = lVolumeDevice.as<Solid::StorageAccess>();
@@ -307,10 +307,10 @@ void DriveSelection::updateSyncWarning(bool pSyncBackupSelected) {
 	mSyncedBackupType = pSyncBackupSelected;
 	for(int i = 0; i < mDrivesModel->rowCount(); ++i) {
 		QString lFsType = mDrivesModel->item(i)->data(DriveSelection::FileSystem).toString();
-		mDrivesModel->item(i)->setData(mSyncedBackupType && (lFsType == QLatin1String("vfat") ||
-		                                                     lFsType == QLatin1String("ntfs")),
+		mDrivesModel->item(i)->setData(mSyncedBackupType && (lFsType == QStringLiteral("vfat") ||
+		                                                     lFsType == QStringLiteral("ntfs")),
 		                               DriveSelection::PermissionLossWarning);
-		mDrivesModel->item(i)->setData(mSyncedBackupType && lFsType == QLatin1String("vfat"),
+		mDrivesModel->item(i)->setData(mSyncedBackupType && lFsType == QStringLiteral("vfat"),
 		                               DriveSelection::SymlinkLossWarning);
 	}
 }

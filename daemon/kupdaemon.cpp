@@ -39,7 +39,7 @@
 
 KupDaemon::KupDaemon() {
 	mWaitingToReloadConfig = false;
-	mConfig = KSharedConfig::openConfig(QLatin1String("kuprc"));
+	mConfig = KSharedConfig::openConfig(QStringLiteral("kuprc"));
 	mSettings = new KupSettings(mConfig, this);
 }
 
@@ -100,7 +100,7 @@ void KupDaemon::reloadConfig() {
 }
 
 void KupDaemon::showConfig() {
-	KService::List lServices = KServiceTypeTrader::self()->query(QLatin1String("KCModule"), QLatin1String("Library == 'kcm_kup'"));
+	KService::List lServices = KServiceTypeTrader::self()->query(QStringLiteral("KCModule"), QStringLiteral("Library == 'kcm_kup'"));
 	if (!lServices.isEmpty()) {
 		KService::Ptr lService = lServices.first();
 		KRun::runService(*lService, QList<QUrl>(), 0);
@@ -109,7 +109,7 @@ void KupDaemon::showConfig() {
 
 void KupDaemon::updateTrayIcon() {
 	KStatusNotifierItem::ItemStatus lStatus = KStatusNotifierItem::Passive;
-	QString lIconName = QLatin1String("kup");
+	QString lIconName = QStringLiteral("kup");
 	QString lToolTipTitle = i18nc("@info:tooltip", "Backup destination unavailable");
 	QString lToolTipSubTitle = i18nc("@info:tooltip", "Backup status OK");
 	QString lToolTipIconName = BackupPlan::iconName(BackupPlan::GOOD);
@@ -141,7 +141,7 @@ void KupDaemon::updateTrayIcon() {
 	foreach(PlanExecutor *lExecutor, mExecutors) {
 		if(lExecutor->busy()) {
 			lStatus = KStatusNotifierItem::NeedsAttention;
-			lToolTipIconName = QLatin1String("kup");
+			lToolTipIconName = QStringLiteral("kup");
 			lToolTipTitle = lExecutor->currentActivityTitle();
 			lToolTipSubTitle = lExecutor->mPlan->mDescription; // TODO: show percentage etc.
 		}
@@ -199,7 +199,7 @@ void KupDaemon::setupTrayIcon() {
 	mStatusNotifier->setCategory(KStatusNotifierItem::SystemServices);
 	mStatusNotifier->setStandardActionsEnabled(false);
 	mStatusNotifier->setTitle(i18nc("@title:window", "Backups"));
-	mStatusNotifier->setAttentionMovieByName(QLatin1String("kuprunning"));
+	mStatusNotifier->setAttentionMovieByName(QStringLiteral("kuprunning"));
 }
 
 void KupDaemon::setupContextMenu() {

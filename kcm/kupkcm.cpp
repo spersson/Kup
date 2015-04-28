@@ -53,24 +53,24 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 	lAboutData->addAuthor(i18n("Simon Persson"), i18n("Maintainer"), "simonpersson1@gmail.com");
 	lAboutData->setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	setAboutData(lAboutData);
-	setObjectName(QLatin1String("kcm_kup")); //needed for the kconfigdialogmanager magic
+	setObjectName(QStringLiteral("kcm_kup")); //needed for the kconfigdialogmanager magic
 	setButtons((Apply | buttons()) & ~Default);
 
 	KProcess lBupProcess;
-	lBupProcess << QLatin1String("bup") << QLatin1String("version");
+	lBupProcess << QStringLiteral("bup") << QStringLiteral("version");
 	lBupProcess.setOutputChannelMode(KProcess::MergedChannels);
 	int lExitCode = lBupProcess.execute();
 	if(lExitCode >= 0) {
 		mBupVersion = QString::fromUtf8(lBupProcess.readAllStandardOutput());
 		KProcess lPar2Process;
-		lPar2Process << QLatin1String("bup") << QLatin1String("fsck") << QLatin1String("--par2-ok");
+		lPar2Process << QStringLiteral("bup") << QStringLiteral("fsck") << QStringLiteral("--par2-ok");
 		mPar2Available = lPar2Process.execute() == 0;
 	} else {
 		mPar2Available = false;
 	}
 
 	KProcess lRsyncProcess;
-	lRsyncProcess << QLatin1String("rsync") << QLatin1String("--version");
+	lRsyncProcess << QStringLiteral("rsync") << QStringLiteral("--version");
 	lRsyncProcess.setOutputChannelMode(KProcess::MergedChannels);
 	lExitCode = lRsyncProcess.execute();
 	if(lExitCode >= 0) {
@@ -80,7 +80,7 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 
 	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
 		QLabel *lSorryIcon = new QLabel;
-		lSorryIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-error")).pixmap(64, 64));
+		lSorryIcon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-error")).pixmap(64, 64));
 		QString lInstallMessage = i18nc("@info", "<h2>Backup programs are missing</h2><p>Before you can activate "
 		                                "any backup plan you need to install either of</p><ul>"
 		                                "<li>bup, for versioned backups</li>"
@@ -92,7 +92,7 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 		lHLayout->addWidget(lSorryText, 1);
 		setLayout(lHLayout);
 	} else {
-		mConfig = KSharedConfig::openConfig(QLatin1String("kuprc"));
+		mConfig = KSharedConfig::openConfig(QStringLiteral("kuprc"));
 		mSettings = new KupSettings(mConfig, this);
 		for(int i = 0; i < mSettings->mNumberOfPlans; ++i) {
 			mPlans.append(new BackupPlan(i+1, mConfig, this));
@@ -172,9 +172,9 @@ void KupKcm::save() {
 
 	QDBusInterface lInterface(KUP_DBUS_SERVICE_NAME, KUP_DBUS_OBJECT_PATH);
 	if(lInterface.isValid()) {
-		lInterface.call(QLatin1String("reloadConfig"));
+		lInterface.call(QStringLiteral("reloadConfig"));
 	} else {
-		KProcess::execute(QLatin1String("kup-daemon")); // kuniqueapplication, should exit very quickly.
+		KProcess::execute(QStringLiteral("kup-daemon")); // kuniqueapplication, should exit very quickly.
 	}
 }
 
@@ -240,11 +240,11 @@ void KupKcm::createSettingsFrontPage() {
 	lScrollArea->setWidgetResizable(true);
 	lScrollArea->setFrameStyle(QFrame::NoFrame);
 
-	mAddPlanButton = new QPushButton(QIcon::fromTheme(QLatin1String("list-add")), i18nc("@action:button", "Add New Plan"));
+	mAddPlanButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-add")), i18nc("@action:button", "Add New Plan"));
 	connect(mAddPlanButton, SIGNAL(clicked()), this, SLOT(addPlan()));
 
 	mEnableCheckBox = new QCheckBox(i18nc("@option:check", "Backups Enabled"));
-	mEnableCheckBox->setObjectName(QLatin1String("kcfg_Backups enabled"));
+	mEnableCheckBox->setObjectName(QStringLiteral("kcfg_Backups enabled"));
 	connect(mEnableCheckBox, SIGNAL(toggled(bool)), mAddPlanButton, SLOT(setEnabled(bool)));
 
 	lHLayout->addWidget(mEnableCheckBox);

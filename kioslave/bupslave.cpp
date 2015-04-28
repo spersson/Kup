@@ -72,12 +72,12 @@ void BupSlave::get(const QUrl &pUrl) {
 	// target it already got from calling stat() on this one.
 	Node *lNode = mRepository->resolve(lPathInRepo, true);
 	if(lNode == NULL) {
-		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QLatin1String("/")));
+		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 	File *lFile = qobject_cast<File *>(lNode);
 	if(lFile == NULL) {
-		emit error(KIO::ERR_IS_DIRECTORY, lPathInRepo.join(QLatin1String("/")));
+		emit error(KIO::ERR_IS_DIRECTORY, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 
@@ -88,7 +88,7 @@ void BupSlave::get(const QUrl &pUrl) {
 	//make sure file is at the beginning
 	lFile->seek(0);
 	KIO::filesize_t lProcessedSize = 0;
-	const QString lResumeOffset = metaData(QLatin1String("resume"));
+	const QString lResumeOffset = metaData(QStringLiteral("resume"));
 	if(!lResumeOffset.isEmpty()) {
 		bool ok;
 		KIO::fileoffset_t lOffset = lResumeOffset.toLongLong(&ok);
@@ -112,7 +112,7 @@ void BupSlave::get(const QUrl &pUrl) {
 		emit processedSize(lProcessedSize);
 		emit finished();
 	} else {
-		emit error(lRetVal, lPathInRepo.join(QLatin1String("/")));
+		emit error(lRetVal, lPathInRepo.join(QStringLiteral("/")));
 	}
 }
 
@@ -124,19 +124,19 @@ void BupSlave::listDir(const QUrl &pUrl) {
 	}
 	Node *lNode = mRepository->resolve(lPathInRepo, true);
 	if(lNode == NULL) {
-		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QLatin1String("/")));
+		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 	Directory *lDir = qobject_cast<Directory *>(lNode);
 	if(lDir == NULL) {
-		emit error(KIO::ERR_IS_FILE, lPathInRepo.join(QLatin1String("/")));
+		emit error(KIO::ERR_IS_FILE, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 
 	// give the directory a chance to reload if necessary.
 	lDir->reload();
 
-	const QString sDetails = metaData(QLatin1String("details"));
+	const QString sDetails = metaData(QStringLiteral("details"));
 	const int lDetails = sDetails.isEmpty() ? 2 : sDetails.toInt();
 
 	NodeMapIterator i(lDir->subNodes());
@@ -162,13 +162,13 @@ void BupSlave::open(const QUrl &pUrl, QIODevice::OpenMode pMode) {
 
 	Node *lNode = mRepository->resolve(lPathInRepo, true);
 	if(lNode == NULL) {
-		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QLatin1String("/")));
+		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 
 	File *lFile = qobject_cast<File *>(lNode);
 	if(lFile == NULL) {
-		emit error(KIO::ERR_IS_DIRECTORY, lPathInRepo.join(QLatin1String("/")));
+		emit error(KIO::ERR_IS_DIRECTORY, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 
@@ -225,11 +225,11 @@ void BupSlave::stat(const QUrl &pUrl) {
 
 	Node *lNode = mRepository->resolve(lPathInRepo);
 	if(lNode == NULL) {
-		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QLatin1String("/")));
+		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 
-	const QString sDetails = metaData(QLatin1String("details"));
+	const QString sDetails = metaData(QStringLiteral("details"));
 	const int lDetails = sDetails.isEmpty() ? 2 : sDetails.toInt();
 
 	UDSEntry lUDSEntry;
@@ -247,7 +247,7 @@ void BupSlave::mimetype(const QUrl &pUrl) {
 
 	Node *lNode = mRepository->resolve(lPathInRepo);
 	if(lNode == NULL) {
-		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QLatin1String("/")));
+		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 
@@ -260,7 +260,7 @@ bool BupSlave::checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepo
 	// one slash (correct), two slashes (wrong), three slashes (correct))
 	QString lPath;
 	if(!pUrl.host().isEmpty()) {
-		lPath = QLatin1String("/") + pUrl.host() + pUrl.adjusted(QUrl::StripTrailingSlash).path() + '/';
+		lPath = QStringLiteral("/") + pUrl.host() + pUrl.adjusted(QUrl::StripTrailingSlash).path() + '/';
 	} else {
 		lPath = pUrl.adjusted(QUrl::StripTrailingSlash).path() + '/';
 		if(!lPath.startsWith(QLatin1Char('/'))) {
@@ -285,11 +285,11 @@ bool BupSlave::checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepo
 	while(!pPathInRepository.isEmpty()) {
 		// make sure the repo path will end with a slash
 		lRepoPath += pPathInRepository.takeFirst();
-		lRepoPath += QLatin1String("/");
-		if((QFile::exists(lRepoPath + QLatin1String("objects")) &&
-		    QFile::exists(lRepoPath + QLatin1String("refs"))) ||
-		      (QFile::exists(lRepoPath + QLatin1String(".git/objects")) &&
-		       QFile::exists(lRepoPath + QLatin1String(".git/refs")))) {
+		lRepoPath += QStringLiteral("/");
+		if((QFile::exists(lRepoPath + QStringLiteral("objects")) &&
+		    QFile::exists(lRepoPath + QStringLiteral("refs"))) ||
+		      (QFile::exists(lRepoPath + QStringLiteral(".git/objects")) &&
+		       QFile::exists(lRepoPath + QStringLiteral(".git/refs")))) {
 			mRepository = new Repository(NULL, lRepoPath);
 			return mRepository->isValid();
 		}

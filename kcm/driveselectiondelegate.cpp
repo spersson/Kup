@@ -111,7 +111,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	int lIconSize = 48;
 	QRect lWarningRect = warningRect(pOption.rect.adjusted(lIconSize + cMargin, 0, 0, 0), pIndex);
 	if(!lWarningRect.isEmpty()) {
-		QIcon lIcon = QIcon::fromTheme(QLatin1String("dialog-warning"));
+		QIcon lIcon = QIcon::fromTheme(QStringLiteral("dialog-warning"));
 		lIcon.paint(pPainter, lWarningRect.left() - cMargin - lIconSize, lWarningRect.top(), lIconSize, lIconSize);
 		pPainter->drawText(lWarningRect, Qt::AlignVCenter | Qt::TextWordWrap, warningText(pIndex));
 	}

@@ -37,7 +37,7 @@ void BupVerificationJob::start() {
 void BupVerificationJob::startJob() {
 	KProcess lVersionProcess;
 	lVersionProcess.setOutputChannelMode(KProcess::SeparateChannels);
-	lVersionProcess << QLatin1String("bup") << QLatin1String("version");
+	lVersionProcess << QStringLiteral("bup") << QStringLiteral("version");
 	if(lVersionProcess.execute() < 0) {
 		setError(ErrorWithoutLog);
 		setErrorText(i18nc("notification", "The \"bup\" program is needed but could not be found, "
@@ -46,17 +46,17 @@ void BupVerificationJob::startJob() {
 		return;
 	}
 
-	mLogStream << QLatin1String("Kup is starting bup verification job at ")
+	mLogStream << QStringLiteral("Kup is starting bup verification job at ")
 	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl << endl;
 
-	mFsckProcess << QLatin1String("bup");
-	mFsckProcess << QLatin1String("-d") << mDestinationPath;
-	mFsckProcess << QLatin1String("fsck") << QLatin1String("--quick");
+	mFsckProcess << QStringLiteral("bup");
+	mFsckProcess << QStringLiteral("-d") << mDestinationPath;
+	mFsckProcess << QStringLiteral("fsck") << QStringLiteral("--quick");
 
 	connect(&mFsckProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotCheckingDone(int,QProcess::ExitStatus)));
 	connect(&mFsckProcess, SIGNAL(started()), SLOT(slotCheckingStarted()));
-	mLogStream << mFsckProcess.program().join(QLatin1String(" ")) << endl;
+	mLogStream << mFsckProcess.program().join(QStringLiteral(" ")) << endl;
 	mFsckProcess.start();
 }
 
@@ -68,7 +68,7 @@ void BupVerificationJob::slotCheckingDone(int pExitCode, QProcess::ExitStatus pE
 	mLogStream << QString::fromUtf8(mFsckProcess.readAllStandardError());
 	setError(ErrorWithLog);
 	if(pExitStatus != QProcess::NormalExit) {
-		mLogStream << endl << QLatin1String("Integrity check failed (the process crashed). Your backups could be "
+		mLogStream << endl << QStringLiteral("Integrity check failed (the process crashed). Your backups could be "
 		                                    "corrupted! See above for details.") << endl;
 		if(mBackupPlan.mGenerateRecoveryInfo) {
 			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
@@ -79,12 +79,12 @@ void BupVerificationJob::slotCheckingDone(int pExitCode, QProcess::ExitStatus pE
 			                                   "See log file for more details."));
 		}
 	} else if(pExitCode == 0) {
-		mLogStream << endl << QLatin1String("Backup integrity test was successful. "
+		mLogStream << endl << QStringLiteral("Backup integrity test was successful. "
 		                                    "Your backups are fine. See above for details.") << endl;
 		setErrorText(i18nc("notification", "Backup integrity test was successful, "
 		                                   "Your backups are fine."));
 	} else {
-		mLogStream << endl << QLatin1String("Integrity check failed. Your backups are "
+		mLogStream << endl << QStringLiteral("Integrity check failed. Your backups are "
 		                                    "corrupted! See above for details.") << endl;
 		if(mBackupPlan.mGenerateRecoveryInfo) {
 			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups are corrupted! "

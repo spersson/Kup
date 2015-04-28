@@ -24,9 +24,9 @@
 KupSettings::KupSettings(KSharedConfigPtr pConfig, QObject *pParent)
    : KConfigSkeleton(pConfig, pParent)
 {
-	setCurrentGroup(QLatin1String("Kup settings"));
-	addItemBool(QLatin1String("Backups enabled"), mBackupsEnabled);
-	addItemInt(QLatin1String("Number of backups"), mNumberOfPlans, 0);
+	setCurrentGroup(QStringLiteral("Kup settings"));
+	addItemBool(QStringLiteral("Backups enabled"), mBackupsEnabled);
+	addItemInt(QStringLiteral("Number of backups"), mNumberOfPlans, 0);
 }
 
 

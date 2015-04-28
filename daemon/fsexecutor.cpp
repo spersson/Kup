@@ -66,7 +66,7 @@ void FSExecutor::checkStatus() {
 
 		QString lExisting = mDestinationPath;
 		do {
-			lExisting += QLatin1String("/..");
+			lExisting += QStringLiteral("/..");
 			lDir = QDir(QDir::cleanPath(lExisting));
 		} while(!lDir.exists());
 		lExisting = lDir.canonicalPath();
@@ -146,7 +146,7 @@ void FSExecutor::slotBackupSizeDone(KJob *pJob) {
 }
 
 void FSExecutor::checkMountPoints() {
-	QFile lMountsFile(QLatin1String("/proc/mounts"));
+	QFile lMountsFile(QStringLiteral("/proc/mounts"));
 	if(!lMountsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		return;
 	}
