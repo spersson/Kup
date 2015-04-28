@@ -15,6 +15,8 @@ else()
   add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif()
 
+add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
+
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)

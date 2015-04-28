@@ -127,7 +127,7 @@ void FSExecutor::slotBackupDone(KJob *pJob) {
 		else
 			mPlan->mLastAvailableSpace = -1.0; //unknown size
 
-		KIO::DirectorySizeJob *lSizeJob = KIO::directorySize(mDestinationPath);
+		KIO::DirectorySizeJob *lSizeJob = KIO::directorySize(QUrl::fromLocalFile(mDestinationPath));
 		connect(lSizeJob, SIGNAL(result(KJob*)), SLOT(slotBackupSizeDone(KJob*)));
 		lSizeJob->start();
 	}

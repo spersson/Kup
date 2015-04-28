@@ -625,7 +625,7 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 void BackupPlanWidget::openDriveDestDialog() {
 	QString lMountPoint = mDriveSelection->mountPathOfSelectedDrive();
 	QString lSelectedPath;
-	DirDialog lDirDialog(lMountPoint, mDriveDestEdit->text(), this);
+	DirDialog lDirDialog(QUrl::fromLocalFile(lMountPoint), mDriveDestEdit->text(), this);
 	if(lDirDialog.exec() == QDialog::Accepted) {
 		lSelectedPath = lDirDialog.url().path();
 		lSelectedPath.remove(0, lMountPoint.length());

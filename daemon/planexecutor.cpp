@@ -218,7 +218,7 @@ void PlanExecutor::discardFailNotification() {
 }
 
 void PlanExecutor::showLog() {
-	KRun::runUrl(mLogFilePath, QLatin1String("text/x-log"), NULL);
+	KRun::runUrl(QUrl::fromLocalFile(mLogFilePath), QLatin1String("text/x-log"), NULL);
 }
 
 void PlanExecutor::startIntegrityCheck() {
@@ -373,7 +373,7 @@ void PlanExecutor::showFilesClicked() {
 		lCommandLine.append(QLatin1String("\""));
 		KRun::runCommand(lCommandLine, NULL);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
-		KRun::runUrl(mDestinationPath, QLatin1String("inode/directory"), NULL);
+		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QLatin1String("inode/directory"), NULL);
 	}
 }
 

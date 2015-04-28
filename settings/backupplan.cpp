@@ -64,7 +64,7 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	addItem(new KCoreConfigSkeleton::ItemUrl(currentGroup(),
 	                                         QLatin1String("Filesystem destination path"),
 	                                         mFilesystemDestinationPath,
-	                                         QDir::homePath() + QLatin1String("/.bup")));
+	                                         QUrl::fromLocalFile(QDir::homePath() + QLatin1String("/.bup"))));
 	addItemString(QLatin1String("External drive UUID"), mExternalUUID);
 	addItemPath(QLatin1String("External drive destination path"), mExternalDestinationPath, i18n("Backups"));
 	addItemString(QLatin1String("External volume label"), mExternalVolumeLabel);
