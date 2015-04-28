@@ -24,8 +24,6 @@
 #include "driveselection.h"
 #include "kbuttongroup.h"
 
-#include <KIO/RenameDialog>
-
 #include <QBoxLayout>
 #include <QCheckBox>
 #include <QDialogButtonBox>
@@ -39,6 +37,7 @@
 
 #include <KComboBox>
 #include <KConfigDialogManager>
+#include <KConfigGroup>
 #include <KDirLister>
 #include <KDirModel>
 #include <KLineEdit>
@@ -189,8 +188,8 @@ QUrl DirDialog::url() const {
 void DirDialog::createNewFolder() {
 	bool lUserAccepted;
 	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
-	if(QFileInfo(url().path(QUrl::AddTrailingSlash) + lNameSuggestion).exists()) {
-		lNameSuggestion = KIO::RenameDialog::suggestName(url(), lNameSuggestion);
+	if(QFileInfo(url().adjusted(QUrl::StripTrailingSlash).path() + '/' + lNameSuggestion).exists()) {
+		lNameSuggestion = KIO::suggestName(url(), lNameSuggestion);
 	}
 
 	QString lSelectedName = QInputDialog::getText(this, i18nc("@title:window", "New Folder" ),
