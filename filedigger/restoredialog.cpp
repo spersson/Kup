@@ -272,7 +272,7 @@ void RestoreDialog::completePrechecks() {
 		mMessageWidget->animatedShow();
 	} else if(mUI->mFileConflictList->count() > 0) {
 		if(mSourceInfo.mIsDirectory) {
-			QString lDateString = KGlobal::locale()->formatDateTime(QDateTime::fromTime_t(mSourceInfo.mCommitTime).toLocalTime());
+			QString lDateString = QLocale().toString(QDateTime::fromTime_t(mSourceInfo.mCommitTime).toLocalTime());
 			lDateString.replace(QLatin1Char('/'), QLatin1Char('-')); // make sure no slashes in suggested folder name
 			mUI->mNewFolderNameEdit->setText(mSourceFileName +
 			                                 i18nc("added to the suggested filename when restoring, %1 is the time when backup was taken",

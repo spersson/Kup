@@ -21,9 +21,11 @@
 #include "versionlistmodel.h"
 #include "vfshelpers.h"
 
+#include <KFormat>
 #include <KLocalizedString>
 #include <KMimeType>
 #include <QDateTime>
+#include <QLocale>
 
 VersionListModel::VersionListModel(QObject *parent) :
    QAbstractListModel(parent)
@@ -50,11 +52,11 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 	if(!pIndex.isValid() || mVersionList == NULL) {
 		return QVariant();
 	}
-
+	KFormat lFormat;
 	VersionData *lData = mVersionList->at(pIndex.row());
 	switch (pRole) {
 	case Qt::DisplayRole:
-		return KGlobal::locale()->formatDateTime(QDateTime::fromTime_t(lData->mModifiedDate), KLocale::FancyLongDate);
+		return lFormat.formatRelativeDateTime(QDateTime::fromTime_t(lData->mModifiedDate), QLocale::LongFormat);
 	case VersionBupUrlRole: {
 		QUrl lUrl;
 		mNode->getBupUrl(pIndex.row(), &lUrl);

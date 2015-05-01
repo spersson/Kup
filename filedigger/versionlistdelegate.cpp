@@ -21,8 +21,9 @@
 #include "versionlistdelegate.h"
 #include "versionlistmodel.h"
 
-#include <KGlobal>
+#include <KFormat>
 #include <KLocalizedString>
+
 #include <QAbstractItemView>
 #include <QAbstractItemModel>
 #include <QApplication>
@@ -203,7 +204,7 @@ void VersionListDelegate::paint(QPainter *pPainter, const QStyleOptionViewItem &
 
 	QRect lSizeDisplayBounds;
 	if(!pIndex.data(VersionIsDirectoryRole).toBool()) {
-		QString lSizeText = KGlobal::locale()->formatByteSize((double)pIndex.data(VersionSizeRole).toULongLong(), 1);
+		QString lSizeText = KFormat().formatByteSize((double)pIndex.data(VersionSizeRole).toULongLong());
 		pPainter->drawText(lMarginRect, Qt::AlignRight | Qt::AlignTop, lSizeText, &lSizeDisplayBounds);
 	}
 	QString lDateText = pOption.fontMetrics.elidedText(pIndex.data().toString(), Qt::ElideRight,
