@@ -5,7 +5,7 @@ Type=Service
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=kcm_kup
 X-KDE-ParentApp=kcontrol
-X-KDE-System-Settings-Parent-Category=system-administration
+X-KDE-System-Settings-Parent-Category=personalization
 
 _Name=Backups
 _Comment=Configure backup plans
