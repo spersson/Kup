@@ -77,7 +77,6 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 		mRsyncVersion = QString::fromLocal8Bit(lRsyncProcess.readLine()).split(QLatin1Char(' '), QString::SkipEmptyParts).at(2);
 	}
 
-
 	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
 		QLabel *lSorryIcon = new QLabel;
 		lSorryIcon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-error")).pixmap(64, 64));
@@ -107,7 +106,6 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 		setLayout(mStackedLayout);
 	}
 }
-
 
 void KupKcm::load() {
 	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
@@ -174,7 +172,7 @@ void KupKcm::save() {
 	if(lInterface.isValid()) {
 		lInterface.call(QStringLiteral("reloadConfig"));
 	} else {
-		KProcess::execute(QStringLiteral("kup-daemon")); // kuniqueapplication, should exit very quickly.
+		KProcess::startDetached(QStringLiteral("kup-daemon"));
 	}
 }
 
