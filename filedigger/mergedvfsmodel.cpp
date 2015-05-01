@@ -22,7 +22,7 @@
 #include "mergedvfs.h"
 #include "vfshelpers.h"
 
-#include <KMimeType>
+#include <KIO/Global>
 #include <KIconLoader>
 #include <QPixmap>
 
@@ -45,9 +45,9 @@ QVariant MergedVfsModel::data(const QModelIndex &pIndex, int pRole) const {
 	case Qt::DisplayRole:
 		return lNode->objectName();
 	case Qt::DecorationRole:
-			return KIconLoader::global()->loadMimeTypeIcon(
-			         KMimeType::iconNameForUrl(lNode->objectName(), lNode->mode()),
-			         KIconLoader::Small);
+		return KIconLoader::global()->loadMimeTypeIcon(
+		         KIO::iconNameForUrl(QUrl::fromLocalFile(lNode->objectName())),
+		         KIconLoader::Small);
 	default:
 		return QVariant();
 	}

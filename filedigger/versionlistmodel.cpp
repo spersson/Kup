@@ -23,9 +23,11 @@
 
 #include <KFormat>
 #include <KLocalizedString>
-#include <KMimeType>
+
 #include <QDateTime>
 #include <QLocale>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 VersionListModel::VersionListModel(QObject *parent) :
    QAbstractListModel(parent)
@@ -52,6 +54,7 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 	if(!pIndex.isValid() || mVersionList == NULL) {
 		return QVariant();
 	}
+	QMimeDatabase db;
 	KFormat lFormat;
 	VersionData *lData = mVersionList->at(pIndex.row());
 	switch (pRole) {
@@ -63,7 +66,7 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 		return lUrl;
 	}
 	case VersionMimeTypeRole:
-		return KMimeType::findByUrl(mNode->objectName(), mNode->mode())->name();
+		return db.mimeTypeForUrl(QUrl::fromLocalFile(mNode->objectName())).name();
 	case VersionSizeRole:
 		return lData->size();
 	case VersionSourceInfoRole: {
