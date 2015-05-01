@@ -21,6 +21,7 @@
 #include "backupplanwidget.h"
 #include "backupplan.h"
 #include "folderselectionmodel.h"
+#include "dirselector.h"
 #include "driveselection.h"
 #include "kbuttongroup.h"
 
@@ -28,7 +29,6 @@
 #include <QCheckBox>
 #include <QDialogButtonBox>
 #include <QIcon>
-#include <QInputDialog>
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
@@ -38,11 +38,8 @@
 #include <KComboBox>
 #include <KConfigDialogManager>
 #include <KConfigGroup>
-#include <KDirLister>
-#include <KDirModel>
 #include <KLineEdit>
 #include <KLocalizedString>
-#include <KMessageBox>
 #include <KPageWidget>
 #include <KUrlRequester>
 
@@ -145,86 +142,35 @@ DirDialog::DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget 
    : QDialog(pParent)
 {
 	setWindowTitle(i18nc("@title:window","Select Folder"));
+
+	mDirSelector = new DirSelector(this);
+	mDirSelector->setRootUrl(pRootDir);
+	QUrl lSubUrl = QUrl::fromLocalFile(pRootDir.adjusted(QUrl::StripTrailingSlash).path() + '/' +
+	                                    pStartSubDir);
+	mDirSelector->expandToUrl(lSubUrl);
+
 	QDialogButtonBox *lButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
 	connect(lButtonBox, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(lButtonBox, SIGNAL(rejected()), this, SLOT(reject()));
 	QPushButton *lNewFolderButton = new QPushButton(i18nc("@action:button", "New Folder..."));
-	connect(lNewFolderButton, SIGNAL(clicked()), this, SLOT(createNewFolder()));
+	connect(lNewFolderButton, SIGNAL(clicked()), mDirSelector, SLOT(createNewFolder()));
 	lButtonBox->addButton(lNewFolderButton, QDialogButtonBox::ActionRole);
 	QPushButton *lOkButton = lButtonBox->button(QDialogButtonBox::Ok);
 	lOkButton->setDefault(true);
 	lOkButton->setShortcut(Qt::Key_Return);
 
-
-	mTreeView = new QTreeView(this);
-	mDirModel = new KDirModel(this);
-	mDirModel->dirLister()->setDirOnlyMode(true);
-	mTreeView->setModel(mDirModel);
-	mTreeView->setContextMenuPolicy(Qt::CustomContextMenu);
-	for (int i = 1; i < mDirModel->columnCount(); ++i) {
-		mTreeView->hideColumn(i);
-	}
-	mTreeView->setHeaderHidden(true);
-	connect(mDirModel, SIGNAL(expand(QModelIndex)), mTreeView, SLOT(expand(QModelIndex)));
-	connect(mDirModel, SIGNAL(expand(QModelIndex)), SLOT(selectEntry(QModelIndex)));
-
 	QVBoxLayout *lMainLayout = new QVBoxLayout;
-	lMainLayout->addWidget(mTreeView);
+	lMainLayout->addWidget(mDirSelector);
 	lMainLayout->addWidget(lButtonBox);
 	setLayout(lMainLayout);
 
-	mDirModel->dirLister()->openUrl(pRootDir);
-	QUrl lSubUrl = QUrl::fromLocalFile(pRootDir.adjusted(QUrl::StripTrailingSlash).path() + '/' +
-	                                    pStartSubDir);
-	mDirModel->expandToUrl(lSubUrl);
-	mTreeView->setFocus();
+	mDirSelector->setFocus();
 }
 
 QUrl DirDialog::url() const {
-	const KFileItem lFileItem = mDirModel->itemForIndex(mTreeView->currentIndex());
-	return !lFileItem.isNull() ? lFileItem.url() : QUrl();
+	return mDirSelector->url();
 }
 
-void DirDialog::createNewFolder() {
-	bool lUserAccepted;
-	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
-	if(QFileInfo(url().adjusted(QUrl::StripTrailingSlash).path() + '/' + lNameSuggestion).exists()) {
-		lNameSuggestion = KIO::suggestName(url(), lNameSuggestion);
-	}
-
-	QString lSelectedName = QInputDialog::getText(this, i18nc("@title:window", "New Folder" ),
-	                                              i18nc("@label:textbox", "Create new folder in:\n%1", url().path()),
-	                                              QLineEdit::Normal, lNameSuggestion, &lUserAccepted);
-	if (!lUserAccepted)
-		return;
-
-	QUrl lPartialUrl(url());
-	const QStringList lDirectories = lSelectedName.split(QLatin1Char('/'), QString::SkipEmptyParts);
-	foreach(QString lSubDirectory, lDirectories) {
-		QDir lDir(lPartialUrl.path());
-		if(lDir.exists(lSubDirectory)) {
-			lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
-			lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
-			KMessageBox::sorry(this, i18n("A folder named %1 already exists.", lPartialUrl.path()));
-			return;
-		}
-		if(!lDir.mkdir(lSubDirectory)) {
-			lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
-			lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
-			KMessageBox::sorry(this, i18n("You do not have permission to create %1.", lPartialUrl.path()));
-			return;
-		}
-		lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
-		lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
-	}
-	mDirModel->expandToUrl(lPartialUrl);
-}
-
-void DirDialog::selectEntry(QModelIndex pIndex) {
-	mTreeView->selectionModel()->clearSelection();
-	mTreeView->selectionModel()->setCurrentIndex(pIndex, QItemSelectionModel::SelectCurrent);
-	mTreeView->scrollTo(pIndex);
-}
 
 BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion,
                                    const QString &pRsyncVersion, bool pPar2Available)

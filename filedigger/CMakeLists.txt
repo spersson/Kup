@@ -11,6 +11,7 @@ restorejob.cpp
 versionlistdelegate.cpp
 versionlistmodel.cpp
 ../kioslave/vfshelpers.cpp
+../kcm/dirselector.cpp
 )
 
 add_definitions(-fexceptions)

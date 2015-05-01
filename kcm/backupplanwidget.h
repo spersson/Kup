@@ -26,10 +26,10 @@
 #include <QWidget>
 
 class BackupPlan;
+class DirSelector;
 class DriveSelection;
 class FolderSelectionModel;
 
-class KDirModel;
 class KLineEdit;
 class KPageWidget;
 class KPageWidgetItem;
@@ -82,14 +82,8 @@ class DirDialog: public QDialog
 public:
 	explicit DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent = NULL);
 	QUrl url() const;
-
-public slots:
-	void createNewFolder();
-	void selectEntry(QModelIndex pIndex);
-
-protected:
-	QTreeView *mTreeView;
-	KDirModel *mDirModel;
+private:
+	DirSelector *mDirSelector;
 };
 
 class BackupPlanWidget : public QWidget

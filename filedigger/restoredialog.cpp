@@ -21,10 +21,10 @@
 #include "restoredialog.h"
 #include "ui_restoredialog.h"
 #include "restorejob.h"
+#include "../kcm/dirselector.h"
 
 #include <KIO/RenameDialog>
 #include <KIO/CopyJob>
-#include <KDirSelectDialog>
 #include <KDiskFreeSpaceInfo>
 #include <KFilePlacesModel>
 #include <KFilePlacesView>
@@ -55,7 +55,7 @@ RestoreDialog::RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent)
 	mUI->setupUi(this);
 
 	mFileWidget = NULL;
-	mDirDialog = NULL;
+	mDirSelector = NULL;
 	mJobTracker = NULL;
 
 	mUI->mRestoreOriginalButton->setMinimumHeight(mUI->mRestoreOriginalButton->sizeHint().height() * 2);
@@ -107,10 +107,13 @@ void RestoreDialog::setOriginalDestination() {
 }
 
 void RestoreDialog::setCustomDestination() {
-	if(mSourceInfo.mIsDirectory && mDirDialog == NULL) {
-		mDirDialog = new KDirSelectDialog(mSourceInfo.mPathInRepo, true, this);
-		mDirDialog->setButtons(0);
-		mUI->mDestinationVLayout->insertWidget(0, mDirDialog);
+	if(mSourceInfo.mIsDirectory && mDirSelector == NULL) {
+		mDirSelector = new DirSelector(this);
+		mDirSelector->setRootUrl(QUrl::fromLocalFile(QStringLiteral("/")));
+		QString lDirPath = mSourceInfo.mPathInRepo.section(QDir::separator(), 0, -2);
+		mDirSelector->expandToUrl(QUrl::fromLocalFile(lDirPath));
+		mUI->mDestinationVLayout->insertWidget(0, mDirSelector);
+
 		QPushButton *lNewFolderButton = new QPushButton(QIcon::fromTheme(QLatin1String("folder-new")),
 		                                                i18nc("@action:button","New Folder..."));
 		connect(lNewFolderButton, SIGNAL(clicked()), SLOT(createNewFolder()));
@@ -134,7 +137,7 @@ void RestoreDialog::setCustomDestination() {
 
 void RestoreDialog::checkDestinationSelection() {
 	if(mSourceInfo.mIsDirectory) {
-		QUrl lUrl = mDirDialog->url();
+		QUrl lUrl = mDirSelector->url();
 		if(!lUrl.isEmpty()) {
 			mDestination.setFile(lUrl.path());
 			startPrechecks();
@@ -369,7 +372,7 @@ void RestoreDialog::folderMoveCompleted(KJob *pJob) {
 
 void RestoreDialog::createNewFolder() {
 	bool lUserAccepted;
-	QUrl lUrl = mDirDialog->url();
+	QUrl lUrl = mDirSelector->url();
 	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
 	if(QFileInfo(lUrl.path(QUrl::AddTrailingSlash) + lNameSuggestion).exists()) {
 		lNameSuggestion = KIO::RenameDialog::suggestName(lUrl, lNameSuggestion);
@@ -400,7 +403,7 @@ void RestoreDialog::createNewFolder() {
 		lPartialUrl = lPartialUrl.adjusted(QUrl::StripTrailingSlash);
 		lPartialUrl.setPath(lPartialUrl.path() + '/' + (lSubDirectory));
 	}
-	mDirDialog->setCurrentUrl(lPartialUrl);
+	mDirSelector->expandToUrl(lPartialUrl);
 }
 
 void RestoreDialog::openDestinationFolder() {

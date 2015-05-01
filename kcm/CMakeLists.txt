@@ -4,6 +4,7 @@ include_directories("../daemon")
 
 set(kcm_kup_SRCS
 backupplanwidget.cpp
+dirselector.cpp
 driveselection.cpp
 driveselectiondelegate.cpp
 folderselectionmodel.cpp

@@ -31,8 +31,7 @@ namespace Ui {
 class RestoreDialog;
 }
 
-//class KFileTreeView;
-class KDirSelectDialog;
+class DirSelector;
 class KFileWidget;
 class KMessageWidget;
 class KWidgetJobTracker;
@@ -72,7 +71,7 @@ private:
 	void moveFolder();
 	Ui::RestoreDialog *mUI;
 	KFileWidget *mFileWidget;
-	KDirSelectDialog *mDirDialog;
+	DirSelector *mDirSelector;
 	QFileInfo mDestination;
 	QFileInfo mFolderToCreate;
 	QString mRestorationPath; // not neccesarily same as destination
