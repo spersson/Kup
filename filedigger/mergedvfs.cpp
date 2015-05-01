@@ -66,10 +66,8 @@ void MergedNode::getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPat
 	}
 	const MergedRepository *lRepo = qobject_cast<const MergedRepository *>(lStack.takeLast());
 	if(pComplete) {
-		pComplete->setProtocol(QLatin1String("bup"));
-		pComplete->addPath(lRepo->objectName());
-		pComplete->addPath(lRepo->mBranchName);
-		pComplete->addPath(vfsTimeToString(mVersionList.at(pVersionIndex)->mCommitTime));
+		pComplete->setUrl("bup://" + lRepo->objectName() + '/' + lRepo->mBranchName + '/' +
+		                  vfsTimeToString(mVersionList.at(pVersionIndex)->mCommitTime));
 	}
 	if(pRepoPath) {
 		*pRepoPath = lRepo->objectName();
@@ -86,7 +84,7 @@ void MergedNode::getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPat
 	while(!lStack.isEmpty()) {
 		QString lPathComponent = lStack.takeLast()->objectName();
 		if(pComplete) {
-			pComplete->addPath(lPathComponent);
+			pComplete->setPath(pComplete->path() + '/' + lPathComponent);
 		}
 		if(pPathInRepo) {
 			pPathInRepo->append(QLatin1Char('/'));

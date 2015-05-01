@@ -23,25 +23,19 @@
 #include "restorejob.h"
 #include "../kcm/dirselector.h"
 
-#include <KIO/RenameDialog>
 #include <KIO/CopyJob>
 #include <KDiskFreeSpaceInfo>
-#include <KFilePlacesModel>
-#include <KFilePlacesView>
 #include <KFileWidget>
-#include <KFileTreeView>
-#include <KHistoryComboBox>
-#include <KInputDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMessageWidget>
-#include <QPushButton>
 #include <KProcess>
 #include <KRun>
-#include <KUrlCompletion>
-#include <KUrlPixmapProvider>
-#include <kwidgetjobtracker.h>
+#include <KWidgetJobTracker>
+
 #include <QDir>
+#include <QInputDialog>
+#include <QPushButton>
 #include <QSignalMapper>
 #include <QTimer>
 
@@ -123,9 +117,7 @@ void RestoreDialog::setCustomDestination() {
 		do {
 			lFileInfo.setFile(lFileInfo.absolutePath()); // check the file's directory first, not the file.
 		} while(!lFileInfo.exists());
-		QString lStartSelection = lFileInfo.absoluteFilePath();
-		lStartSelection.append(QDir::separator());
-		lStartSelection.append(mSourceFileName);
+		QUrl lStartSelection = QUrl::fromLocalFile(lFileInfo.absoluteFilePath() + '/' + mSourceFileName);
 		mFileWidget = new KFileWidget(lStartSelection, this);
 		mFileWidget->setOperationMode(KFileWidget::Saving);
 		mFileWidget->setMode(KFile::File | KFile::LocalOnly);
@@ -340,9 +332,9 @@ void RestoreDialog::restoringCompleted(KJob *pJob) {
 		mUI->mCloseButton->show();
 	} else {
 		if(!mSourceInfo.mIsDirectory && mSourceFileName != mDestination.fileName()) {
-			KIO::CopyJob *lFileMoveJob = KIO::move(mRestorationPath + QDir::separator() + mSourceFileName,
-			                                   mRestorationPath + QDir::separator() + mDestination.fileName(),
-			                                   KIO::HideProgressInfo);
+			KIO::CopyJob *lFileMoveJob = KIO::move(QUrl::fromLocalFile(mRestorationPath + '/' + mSourceFileName),
+			                                       QUrl::fromLocalFile(mRestorationPath + '/' + mDestination.fileName()),
+			                                       KIO::HideProgressInfo);
 			connect(lFileMoveJob, SIGNAL(result(KJob*)), SLOT(fileMoveCompleted(KJob*)));
 			lFileMoveJob->start();
 		} else {
@@ -374,13 +366,14 @@ void RestoreDialog::createNewFolder() {
 	bool lUserAccepted;
 	QUrl lUrl = mDirSelector->url();
 	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
-	if(QFileInfo(lUrl.path(QUrl::AddTrailingSlash) + lNameSuggestion).exists()) {
-		lNameSuggestion = KIO::RenameDialog::suggestName(lUrl, lNameSuggestion);
+	if(QFileInfo(lUrl.adjusted(QUrl::StripTrailingSlash).path() + '/' + lNameSuggestion).exists()) {
+		lNameSuggestion = KIO::suggestName(lUrl, lNameSuggestion);
 	}
 
-	QString lSelectedName = KInputDialog::getText(i18nc("@title:window", "New Folder" ),
+	QString lSelectedName = QInputDialog::getText(this, i18nc("@title:window", "New Folder" ),
 	                                              i18nc("@label:textbox", "Create new folder in:\n%1", lUrl.path()),
-	                                              lNameSuggestion, &lUserAccepted, this);
+	                                              QLineEdit::Normal, lNameSuggestion, &lUserAccepted);
+
 	if (!lUserAccepted)
 		return;
 
@@ -407,7 +400,9 @@ void RestoreDialog::createNewFolder() {
 }
 
 void RestoreDialog::openDestinationFolder() {
-	KRun::runUrl(mSourceInfo.mIsDirectory ? mFolderToCreate.absoluteFilePath() : mDestination.absolutePath(),
+	KRun::runUrl(QUrl::fromLocalFile(mSourceInfo.mIsDirectory ?
+	                                    mFolderToCreate.absoluteFilePath() :
+	                                    mDestination.absolutePath()),
 	             QLatin1String("inode/directory"), NULL);
 }
 
@@ -417,8 +412,8 @@ void RestoreDialog::moveFolder() {
 		mUI->mCloseButton->show();
 		return;
 	}
-	KIO::CopyJob *lFolderMoveJob = KIO::moveAs(mRestorationPath,
-	                                     mRestorationPath.section(QDir::separator(), 0, -2),
+	KIO::CopyJob *lFolderMoveJob = KIO::moveAs(QUrl::fromLocalFile(mRestorationPath),
+	                                     QUrl::fromLocalFile(mRestorationPath.section(QDir::separator(), 0, -2)),
 	                                     KIO::Overwrite | KIO::HideProgressInfo);
 	connect(lFolderMoveJob, SIGNAL(result(KJob*)), SLOT(folderMoveCompleted(KJob*)));
 	mJobTracker->registerJob(lFolderMoveJob);

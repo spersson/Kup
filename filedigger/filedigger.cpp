@@ -24,10 +24,10 @@
 #include "versionlistmodel.h"
 #include "versionlistdelegate.h"
 
-#include <KAction>
 #include <KRun>
 #include <KStandardAction>
 #include <KToolBar>
+
 #include <QListView>
 #include <QSplitter>
 #include <QTreeView>
