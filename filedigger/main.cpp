@@ -25,44 +25,57 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
-#include <KApplication>
-#include <KCmdLineArgs>
 #include <KMessageBox>
 
-static const char version[] = "0.5.1";
-static const char description[] = I18N_NOOP("Browser for bup archives.");
+#include <QApplication>
+#include <QDebug>
+#include <QCommandLineOption>
+#include <QCommandLineParser>
 #include <QFile>
 #include <QTextStream>
 
 int main(int pArgCount, char **pArgArray) {
-	KAboutData lAbout("kup-filedigger", "kup", ki18n("File Digger"), version, ki18n(description),
-	                  KAboutData::License_GPL, ki18n("Copyright (C) 2013 Simon Persson"),
-	                  KLocalizedString(), 0, "simonpersson1@gmail.com");
-	lAbout.addAuthor(ki18n("Simon Persson"), KLocalizedString(), "simonpersson1@gmail.com");
-	lAbout.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"));
-	KCmdLineArgs::init(pArgCount, pArgArray, &lAbout);
+	QString lVersion = QStringLiteral("0.5.1");
+	QApplication lApp(pArgCount, pArgArray);
+	lApp.setApplicationName(QStringLiteral("kupfiledigger"));
+	lApp.setApplicationVersion(lVersion);
+	lApp.setOrganizationDomain(QStringLiteral("kde.org"));
 
-	KCmdLineOptions lOptions;
-	lOptions.add("b").add("branch <branch name>", ki18n("Name of the branch to be opened."), "kup");
-	lOptions.add("+<repository path>", ki18n("Path to the bup repository to be opened."));
-	KCmdLineArgs::addCmdLineOptions(lOptions);
+	QCommandLineParser lParser;
 
-	KApplication lApp;
-	KCmdLineArgs *lParsedArguments = KCmdLineArgs::parsedArgs();
-	if(lParsedArguments->count() != 1) {
-		KCmdLineArgs::usageError(ki18nc("Error message at startup",
-		                                "You must supply the path to a bup or git repository that "
-		                                "you wish to open for viewing.").toString());
+	KAboutData lAbout(QStringLiteral("kupfiledigger"), QStringLiteral("kup"), lVersion,
+	                  i18n("Browser for bup archives."),
+	                  KAboutLicense::GPL, i18n("Copyright (C) 2013-2015 Simon Persson"),
+	                  QString(), QString(), "simonpersson1@gmail.com");
+	lAbout.addAuthor(i18n("Simon Persson"), QString(), "simonpersson1@gmail.com");
+	lAbout.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
+	KAboutData::setApplicationData(lAbout);
+	lParser.addVersionOption();
+	lParser.addHelpOption();
+	lParser.addOption(QCommandLineOption(QStringList() << QLatin1String("b") << QLatin1String("branch"),
+	                                     i18n("Name of the branch to be opened."),
+	                                     QLatin1String("branch name"), QLatin1String("kup")));
+	lParser.addPositionalArgument(QLatin1String("<repository path>"), i18n("Path to the bup repository to be opened."));
+
+	lAbout.setupCommandLine(&lParser);
+	lParser.process(lApp);
+	lAbout.processCommandLine(&lParser);
+
+	if(lParser.positionalArguments().count() != 1) {
+		qCritical() << i18nc("Error message at startup",
+		                     "You must supply the path to a bup or git repository that "
+		                     "you wish to open for viewing.");
+		return -1;
 	}
 
 	// This needs to be called first thing, before any other calls to libgit2.
 	git_threads_init();
-	MergedRepository *lRepository = new MergedRepository(NULL, lParsedArguments->arg(0),
-	                                                     lParsedArguments->getOption("branch"));
+	MergedRepository *lRepository = new MergedRepository(NULL, lParser.positionalArguments().first(),
+	                                                     lParser.value("branch"));
 	if(!lRepository->open()) {
 		KMessageBox::sorry(NULL, i18nc("@info:label messagebox, %1 is a folder path",
 		                               "The backup archive \"%1\" could not be opened. Check if the backups really are located there.",
-		                               lParsedArguments->arg(0)));
+		                               lParser.positionalArguments().first()));
 		return 1;
 	}
 	if(!lRepository->readBranch()) {
