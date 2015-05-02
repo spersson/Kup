@@ -39,6 +39,7 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
 
 	QApplication lApp(argc, argv);
 	lApp.setQuitOnLastWindowClosed(false);
+	lApp.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
 	KLocalizedString::setApplicationDomain("kup");
 
