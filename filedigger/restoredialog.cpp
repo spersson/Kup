@@ -92,7 +92,11 @@ void RestoreDialog::changeEvent(QEvent *pEvent) {
 
 void RestoreDialog::setOriginalDestination() {
 	if(mSourceInfo.mIsDirectory) {
-		//select parent dir of dir to be restored
+		// the path in repo could have had slashes appended below, we are back here because user clicked "back"
+		while(mSourceInfo.mPathInRepo.endsWith(QDir::separator())) {
+			mSourceInfo.mPathInRepo.chop(1);
+		}
+		//select parent of folder to be restored
 		mDestination.setFile(mSourceInfo.mPathInRepo.section(QDir::separator(), 0, -2));
 	} else {
 		mDestination.setFile(mSourceInfo.mPathInRepo);
