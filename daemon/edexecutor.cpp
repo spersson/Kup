@@ -112,8 +112,8 @@ void EDExecutor::startBackup() {
 			if(lInfo.isWritable()) {
 				BackupJob *lJob = createBackupJob();
 				if(lJob == NULL) {
-					KNotification::event(KNotification::Error, i18nc("@title", "Problem"),
-					                     i18nc("notification", "Invalid type of backup in configuration."));
+					KNotification::event(KNotification::Error, xi18nc("@title", "Problem"),
+					                     xi18nc("notification", "Invalid type of backup in configuration."));
 					exitBackupRunningState(false);
 					return;
 				}
@@ -149,7 +149,7 @@ void EDExecutor::slotBackupDone(KJob *pJob) {
 
 void EDExecutor::slotBackupSizeDone(KJob *pJob) {
 	if(pJob->error()) {
-		KNotification::event(KNotification::Error, i18nc("@title", "Problem"), pJob->errorText());
+		KNotification::event(KNotification::Error, xi18nc("@title", "Problem"), pJob->errorText());
 		mPlan->mLastBackupSize = -1.0; //unknown size
 	} else {
 		KIO::DirectorySizeJob *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);

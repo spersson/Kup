@@ -40,7 +40,7 @@ void BupVerificationJob::startJob() {
 	lVersionProcess << QStringLiteral("bup") << QStringLiteral("version");
 	if(lVersionProcess.execute() < 0) {
 		setError(ErrorWithoutLog);
-		setErrorText(i18nc("notification", "The \"bup\" program is needed but could not be found, "
+		setErrorText(xi18nc("notification", "The \"bup\" program is needed but could not be found, "
 		                   "maybe it is not installed?"));
 		emitResult();
 		return;
@@ -71,27 +71,27 @@ void BupVerificationJob::slotCheckingDone(int pExitCode, QProcess::ExitStatus pE
 		mLogStream << endl << QStringLiteral("Integrity check failed (the process crashed). Your backups could be "
 		                                    "corrupted! See above for details.") << endl;
 		if(mBackupPlan.mGenerateRecoveryInfo) {
-			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
+			setErrorText(xi18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
 			                                   "See log file for more details. Do you want to try repairing the backup files?"));
 			setError(ErrorSuggestRepair);
 		} else {
-			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups are corrupted! "
+			setErrorText(xi18nc("notification", "Failed backup integrity check. Your backups are corrupted! "
 			                                   "See log file for more details."));
 		}
 	} else if(pExitCode == 0) {
 		mLogStream << endl << QStringLiteral("Backup integrity test was successful. "
 		                                    "Your backups are fine. See above for details.") << endl;
-		setErrorText(i18nc("notification", "Backup integrity test was successful, "
+		setErrorText(xi18nc("notification", "Backup integrity test was successful, "
 		                                   "Your backups are fine."));
 	} else {
 		mLogStream << endl << QStringLiteral("Integrity check failed. Your backups are "
 		                                    "corrupted! See above for details.") << endl;
 		if(mBackupPlan.mGenerateRecoveryInfo) {
-			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups are corrupted! "
+			setErrorText(xi18nc("notification", "Failed backup integrity check. Your backups are corrupted! "
 			                                   "See log file for more details. Do you want to try repairing the backup files?"));
 			setError(ErrorSuggestRepair);
 		} else {
-			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups are corrupted! "
+			setErrorText(xi18nc("notification", "Failed backup integrity check. Your backups are corrupted! "
 			                                   "See log file for more details."));
 		}
 	}

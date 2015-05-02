@@ -104,7 +104,7 @@ MergedNodeList &MergedNode::subNodes() {
 }
 
 void MergedNode::askForIntegrityCheck() {
-	int lAnswer = KMessageBox::questionYesNo(NULL, i18nc("@info:label messagebox",
+	int lAnswer = KMessageBox::questionYesNo(NULL, xi18nc("@info:label messagebox",
 	                                                     "Could not read this backup archive. Perhaps some files "
 	                                                     "have become corrupted. Do you want to run an integrity "
 	                                                     "check to test this?"));
@@ -153,11 +153,11 @@ void MergedNode::generateSubNodes() {
 				mSubNodes->append(lSubNode);
 			} else if((S_IFMT & lMode) != (S_IFMT & lSubNode->mMode)) {
 				if(S_ISDIR(lMode)) {
-					lName.append(i18nc("added after folder name in some cases", " (folder)"));
+					lName.append(xi18nc("added after folder name in some cases", " (folder)"));
 				} else if(S_ISLNK(lMode)) {
-					lName.append(i18nc("added after file name in some cases", " (symlink)"));
+					lName.append(xi18nc("added after file name in some cases", " (symlink)"));
 				} else {
-					lName.append(i18nc("added after file name in some cases", " (file)"));
+					lName.append(xi18nc("added after file name in some cases", " (file)"));
 				}
 				lSubNode = lSubNodeMap.value(lName, NULL);
 				if(lSubNode == NULL) {

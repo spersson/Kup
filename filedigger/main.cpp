@@ -40,12 +40,12 @@ int main(int pArgCount, char **pArgArray) {
 
 	KLocalizedString::setApplicationDomain("kup");
 
-	KAboutData lAbout(QStringLiteral("kupfiledigger"), i18nc("@title", "File Digger"), QStringLiteral("0.5.1"),
+	KAboutData lAbout(QStringLiteral("kupfiledigger"), xi18nc("@title", "File Digger"), QStringLiteral("0.5.1"),
 	                  i18n("Browser for bup archives."),
 	                  KAboutLicense::GPL, i18n("Copyright (C) 2013-2015 Simon Persson"),
 	                  QString(), QString(), "simonpersson1@gmail.com");
 	lAbout.addAuthor(i18n("Simon Persson"), QString(), "simonpersson1@gmail.com");
-	lAbout.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
+	lAbout.setTranslator(xi18nc("NAME OF TRANSLATORS", "Your names"), xi18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	KAboutData::setApplicationData(lAbout); //this calls qApp.setApplicationName, setVersion, etc.
 
 	QCommandLineParser lParser;
@@ -61,7 +61,7 @@ int main(int pArgCount, char **pArgArray) {
 	lAbout.processCommandLine(&lParser);
 
 	if(lParser.positionalArguments().count() != 1) {
-		qCritical() << i18nc("Error message at startup",
+		qCritical() << xi18nc("Error message at startup",
 		                     "You must supply the path to a bup or git repository that "
 		                     "you wish to open for viewing.");
 		return -1;
@@ -72,14 +72,14 @@ int main(int pArgCount, char **pArgArray) {
 	MergedRepository *lRepository = new MergedRepository(NULL, lParser.positionalArguments().first(),
 	                                                     lParser.value("branch"));
 	if(!lRepository->open()) {
-		KMessageBox::sorry(NULL, i18nc("@info:label messagebox, %1 is a folder path",
+		KMessageBox::sorry(NULL, xi18nc("@info:label messagebox, %1 is a folder path",
 		                               "The backup archive \"%1\" could not be opened. Check if the backups really are located there.",
 		                               lParser.positionalArguments().first()));
 		return 1;
 	}
 	if(!lRepository->readBranch()) {
 		if(!lRepository->permissionsOk()) {
-			KMessageBox::sorry(NULL, i18nc("@info:label messagebox",
+			KMessageBox::sorry(NULL, xi18nc("@info:label messagebox",
 			                               "You do not have permission needed to read this backup archive."));
 			return 2;
 		} else {

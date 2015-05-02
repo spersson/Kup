@@ -47,13 +47,13 @@ QUrl DirSelector::url() const {
 
 void DirSelector::createNewFolder() {
 	bool lUserAccepted;
-	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
+	QString lNameSuggestion = xi18nc("default folder name when creating a new folder", "New Folder");
 	if(QFileInfo(url().adjusted(QUrl::StripTrailingSlash).path() + '/' + lNameSuggestion).exists()) {
 		lNameSuggestion = KIO::suggestName(url(), lNameSuggestion);
 	}
 
-	QString lSelectedName = QInputDialog::getText(this, i18nc("@title:window", "New Folder" ),
-	                                              i18nc("@label:textbox", "Create new folder in:\n%1", url().path()),
+	QString lSelectedName = QInputDialog::getText(this, xi18nc("@title:window", "New Folder" ),
+	                                              xi18nc("@label:textbox", "Create new folder in:\n%1", url().path()),
 	                                              QLineEdit::Normal, lNameSuggestion, &lUserAccepted);
 	if (!lUserAccepted)
 		return;

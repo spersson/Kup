@@ -272,7 +272,7 @@ void DriveSelection::paintEvent(QPaintEvent *pPaintEvent) {
 	if(mDrivesModel->rowCount() == 0) {
 		QPainter lPainter(viewport());
 		style()->drawItemText(&lPainter, rect(), Qt::AlignCenter, palette(), false,
-		                      i18nc("@label Only shown if no drives are detected", "Plug in the external "
+		                      xi18nc("@label Only shown if no drives are detected", "Plug in the external "
 		                            "storage you wish to use, then select it in this list."), QPalette::Text);
 	}
 }

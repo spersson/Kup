@@ -45,13 +45,13 @@ void BupJob::startJob() {
 	int lExitCode = lPar2Process.execute();
 	if(lExitCode < 0) {
 		setError(ErrorWithoutLog);
-		setErrorText(i18nc("notification", "The \"bup\" program is needed but could not be found, "
+		setErrorText(xi18nc("notification", "The \"bup\" program is needed but could not be found, "
 		                   "maybe it is not installed?"));
 		emitResult();
 		return;
 	} else if(mBackupPlan.mGenerateRecoveryInfo && lExitCode != 0) {
 		setError(ErrorWithoutLog);
-		setErrorText(i18nc("notification", "The \"par2\" program is needed but could not be found, "
+		setErrorText(xi18nc("notification", "The \"par2\" program is needed but could not be found, "
 		                   "maybe it is not installed?"));
 		emitResult();
 		return;
@@ -72,7 +72,7 @@ void BupJob::startJob() {
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the bup backup job: "
 		                                    "failed to initialize backup destination.") << endl;
 		setError(ErrorWithLog);
-		setErrorText(i18nc("notification", "Backup destination could not be initialised. "
+		setErrorText(xi18nc("notification", "Backup destination could not be initialised. "
 		                   "See log file for more details."));
 		emitResult();
 		return;
@@ -103,11 +103,11 @@ void BupJob::slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		                            "failed integrity check. Your backups could be "
 		                            "corrupted! See above for details.") << endl;
 		if(mBackupPlan.mGenerateRecoveryInfo) {
-			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
+			setErrorText(xi18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
 			                                   "See log file for more details. Do you want to try repairing the backup files?"));
 			setError(ErrorSuggestRepair);
 		} else {
-			setErrorText(i18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
+			setErrorText(xi18nc("notification", "Failed backup integrity check. Your backups could be corrupted! "
 			                                   "See log file for more details."));
 			setError(ErrorWithLog);
 		}
@@ -138,7 +138,7 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mLogStream << QString::fromUtf8(mIndexProcess.readAllStandardError());
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the bup backup job: failed to index everything.") << endl;
-		setErrorText(i18nc("notification", "Failed to index the file system. "
+		setErrorText(xi18nc("notification", "Failed to index the file system. "
 		                   "See log file for more details."));
 		setError(ErrorWithLog);
 		emitResult();
@@ -165,7 +165,7 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mLogStream << QString::fromUtf8(mSaveProcess.readAllStandardError());
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the bup backup job: failed to save everything.") << endl;
-		setErrorText(i18nc("notification", "Failed to save the complete backup. "
+		setErrorText(xi18nc("notification", "Failed to save the complete backup. "
 		                   "See log file for more details."));
 		setError(ErrorWithLog);
 		emitResult();
@@ -195,7 +195,7 @@ void BupJob::slotRecoveryInfoDone(int pExitCode, QProcess::ExitStatus pExitStatu
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the bup backup job: "
 		                                    "failed to generate recovery info.") << endl;
-		setErrorText(i18nc("notification", "Failed to generate recovery info for the backup. "
+		setErrorText(xi18nc("notification", "Failed to generate recovery info for the backup. "
 		                   "See log file for more details."));
 		setError(ErrorWithLog);
 	} else {

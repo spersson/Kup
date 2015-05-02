@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-03-20 10:46+0800\n"
+"POT-Creation-Date: 2015-05-02 15:14+0800\n"
 "PO-Revision-Date: 2015-03-20 02:40+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kup/language/"
@@ -32,88 +32,90 @@ msgstr ""
 "Требуется программа bup, но она не найдена. Похоже, она не установлена."
 
 #: daemon/bupjob.cpp:54 daemon/buprepairjob.cpp:50
+#, fuzzy
 msgctxt "notification"
 msgid ""
 "The \"par2\" program is needed but could not be found, maybe it is not "
 "installed?"
 msgstr ""
+"Требуется программа bup, но она не найдена. Похоже, она не установлена."
 
-#: daemon/bupjob.cpp:76
+#: daemon/bupjob.cpp:75
 msgctxt "notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:107 daemon/bupverificationjob.cpp:75
+#: daemon/bupjob.cpp:106 daemon/bupverificationjob.cpp:74
 msgctxt "notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details. Do you want to try repairing the backup files?"
 msgstr ""
 
-#: daemon/bupjob.cpp:111
+#: daemon/bupjob.cpp:110
 msgctxt "notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:142
+#: daemon/bupjob.cpp:141
 msgctxt "notification"
 msgid "Failed to index the file system. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:169
+#: daemon/bupjob.cpp:168
 msgctxt "notification"
 msgid "Failed to save the complete backup. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:199
+#: daemon/bupjob.cpp:198
 msgctxt "notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
 "details."
 msgstr ""
 
-#: daemon/buprepairjob.cpp:81
+#: daemon/buprepairjob.cpp:80
 msgctxt "notification"
 msgid ""
 "Backup repair failed. Your backups could be corrupted! See log file for more "
 "details."
 msgstr ""
 
-#: daemon/buprepairjob.cpp:85
+#: daemon/buprepairjob.cpp:84
 msgctxt "notification"
 msgid "Success! Backup repair worked. See log file for more details."
 msgstr ""
 
-#: daemon/buprepairjob.cpp:88
+#: daemon/buprepairjob.cpp:87
 msgctxt "notification"
 msgid ""
 "Backup repair was not necessary. Your backups are not corrupted.See log file "
 "for more details."
 msgstr ""
 
-#: daemon/buprepairjob.cpp:93
+#: daemon/buprepairjob.cpp:92
 msgctxt "notification"
 msgid ""
 "Backup repair failed. Your backups could still be corrupted! See log file "
 "for more details."
 msgstr ""
 
-#: daemon/bupverificationjob.cpp:79 daemon/bupverificationjob.cpp:95
+#: daemon/bupverificationjob.cpp:78 daemon/bupverificationjob.cpp:94
 msgctxt "notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details."
 msgstr ""
 
-#: daemon/bupverificationjob.cpp:85
+#: daemon/bupverificationjob.cpp:84
 msgctxt "notification"
 msgid "Backup integrity test was successful, Your backups are fine."
 msgstr ""
 
-#: daemon/bupverificationjob.cpp:91
+#: daemon/bupverificationjob.cpp:90
 msgctxt "notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
@@ -121,57 +123,68 @@ msgid ""
 msgstr ""
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:152
-#: daemon/fsexecutor.cpp:110 daemon/fsexecutor.cpp:139
+#: daemon/fsexecutor.cpp:109 daemon/fsexecutor.cpp:138
 msgctxt "@title"
 msgid "Problem"
 msgstr "Проблема"
 
-#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:111
+#: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
 msgstr "Неверно сконфигурирован тип резервного копирования."
 
-#: daemon/kupdaemon.cpp:112
+#: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
 msgid "Backup destination unavailable"
 msgstr "Место под хранение резервной копии недоступно"
 
-#: daemon/kupdaemon.cpp:113
+#: daemon/kupdaemon.cpp:114
 msgctxt "@info:tooltip"
 msgid "Backup status OK"
 msgstr "Резервное копирование настроено"
 
-#: daemon/kupdaemon.cpp:119
+#: daemon/kupdaemon.cpp:120
 msgctxt "@info:tooltip"
 msgid "Backup destination available"
 msgstr "Место под хранение резервной копии доступно"
 
-#: daemon/kupdaemon.cpp:126
+#: daemon/kupdaemon.cpp:127
 msgctxt "@info:tooltip"
 msgid "New backup suggested"
 msgstr "Рекомендуется создать новую резервную копию"
 
-#: daemon/kupdaemon.cpp:137
+#: daemon/kupdaemon.cpp:138
 msgctxt "@info:tooltip"
 msgid "New backup neeeded"
 msgstr "Необходимо создать новую резервную копию"
 
-#: daemon/kupdaemon.cpp:196
+#: daemon/kupdaemon.cpp:201
 msgctxt "@title:window"
 msgid "Backups"
 msgstr "Резервные копии"
 
-#: daemon/kupdaemon.cpp:201
+#: daemon/kupdaemon.cpp:206
 msgctxt "@title:menu"
 msgid "Backups"
 msgstr "Резервные копии"
 
-#: daemon/kupdaemon.cpp:202
+#: daemon/kupdaemon.cpp:207
 msgctxt "@action:inmenu"
 msgid "Configure Backups"
 msgstr "Настройка резервного копирования"
 
-#: daemon/main.cpp:30
+#: daemon/main.cpp:35
+msgid ""
+"Kup is not enabled, enable it from the system settings module. You can do "
+"that by running 'kcmshell5 kup'"
+msgstr ""
+
+#: daemon/main.cpp:46
+msgctxt "@title"
+msgid "Kup Daemon"
+msgstr "Демон Kup"
+
+#: daemon/main.cpp:47
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
 "This allows it to quickly perform incremental backups, only saving the parts "
@@ -182,38 +195,24 @@ msgstr ""
 "копирование с сохранением только тех частей файлов, которые изменились с "
 "момента прошлого резервного копирования."
 
-#: daemon/main.cpp:39
-msgid ""
-"Kup is not enabled, enable it from the system settings module. You can do "
-"that by running 'kcmshell4 kup'"
-msgstr ""
-
-#: daemon/main.cpp:43
-msgctxt "@title"
-msgid "Kup Daemon"
-msgstr "Демон Kup"
-
-#: daemon/main.cpp:44
-msgid "Copyright (C) 2011 Simon Persson"
+#: daemon/main.cpp:50 kcm/kupkcm.cpp:50
+#, fuzzy
+msgid "Copyright (C) 2011-2015 Simon Persson"
 msgstr "Copyright (C) 2011 Simon Persson"
 
-#: daemon/main.cpp:46 filedigger/main.cpp:40 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:52 filedigger/main.cpp:47 kcm/kupkcm.cpp:52
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
-#: daemon/main.cpp:47 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
+#: daemon/main.cpp:53 filedigger/main.cpp:48 kcm/kupkcm.cpp:53
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Jacobtey"
 
-#: daemon/main.cpp:47 filedigger/main.cpp:41 kcm/kupkcm.cpp:55
+#: daemon/main.cpp:53 filedigger/main.cpp:48 kcm/kupkcm.cpp:53
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "jacobtey@gmail.com"
-
-#: daemon/main.cpp:52
-msgid "Kup is already running!"
-msgstr "Kup уже запущен!"
 
 #: daemon/planexecutor.cpp:58
 msgctxt "@action:inmenu"
@@ -226,9 +225,10 @@ msgid "Show Files"
 msgstr "Показать файлы"
 
 #: daemon/planexecutor.cpp:66
+#, fuzzy
 msgctxt "@action:inmenu"
 msgid "Show Log File"
-msgstr ""
+msgstr "Показать файлы"
 
 #: daemon/planexecutor.cpp:86
 msgctxt "@info:tooltip"
@@ -241,9 +241,10 @@ msgid "Checking backup integrity"
 msgstr ""
 
 #: daemon/planexecutor.cpp:90
+#, fuzzy
 msgctxt "@info:tooltip"
 msgid "Repairing backups"
-msgstr ""
+msgstr "Создание новой резервной копии"
 
 #: daemon/planexecutor.cpp:119 daemon/planexecutor.cpp:134
 msgctxt "@info"
@@ -292,9 +293,10 @@ msgstr ""
 
 #: daemon/planexecutor.cpp:198 daemon/planexecutor.cpp:257
 #: daemon/planexecutor.cpp:291
+#, fuzzy
 msgctxt "@action:button"
 msgid "Show log file"
-msgstr ""
+msgstr "Показать файлы"
 
 #: daemon/planexecutor.cpp:253
 msgctxt "@title:window"
@@ -313,33 +315,36 @@ msgid ""
 "installed?"
 msgstr "Нужна программа rsync, но она не найдена. Похоже, она не установлена."
 
-#: daemon/rsyncjob.cpp:76
+#: daemon/rsyncjob.cpp:75
 msgctxt "notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr ""
 
-#: filedigger/main.cpp:34
-msgid "Browser for bup archives."
-msgstr "Браузер bup-архивов."
-
-#: filedigger/main.cpp:37
+#: filedigger/main.cpp:43
+#, fuzzy
+msgctxt "@title"
 msgid "File Digger"
 msgstr "Анализ файлов"
 
-#: filedigger/main.cpp:38
-msgid "Copyright (C) 2013 Simon Persson"
-msgstr "Copyright (C) 2013 Simon Persson"
+#: filedigger/main.cpp:44
+msgid "Browser for bup archives."
+msgstr "Браузер bup-архивов."
 
 #: filedigger/main.cpp:45
+#, fuzzy
+msgid "Copyright (C) 2013-2015 Simon Persson"
+msgstr "Copyright (C) 2011 Simon Persson"
+
+#: filedigger/main.cpp:55
 msgid "Name of the branch to be opened."
 msgstr "Имя открываемой ветки."
 
-#: filedigger/main.cpp:46
+#: filedigger/main.cpp:57
 msgid "Path to the bup repository to be opened."
 msgstr "Путь к открываемому репозиторию bup."
 
-#: filedigger/main.cpp:53
+#: filedigger/main.cpp:65
 msgctxt "Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
@@ -348,56 +353,57 @@ msgstr ""
 "Необходимо указать путь к репозиторию bup или git, который вы хотите открыть "
 "для просмотра."
 
-#: filedigger/main.cpp:63
+#: filedigger/main.cpp:76
 msgctxt "@info:label messagebox, %1 is a folder path"
 msgid ""
 "The backup archive \"%1\" could not be opened. Check if the backups really "
 "are located there."
 msgstr ""
 
-#: filedigger/main.cpp:70
+#: filedigger/main.cpp:83
+#, fuzzy
 msgctxt "@info:label messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr ""
+msgstr "Недостаточно прав для создания %1."
 
-#: filedigger/mergedvfs.cpp:110
+#: filedigger/mergedvfs.cpp:108
 msgctxt "@info:label messagebox"
 msgid ""
 "Could not read this backup archive. Perhaps some files have become "
 "corrupted. Do you want to run an integrity check to test this?"
 msgstr ""
 
-#: filedigger/mergedvfs.cpp:158
+#: filedigger/mergedvfs.cpp:156
 msgctxt "added after folder name in some cases"
 msgid " (folder)"
 msgstr "(папка)"
 
-#: filedigger/mergedvfs.cpp:160
+#: filedigger/mergedvfs.cpp:158
 msgctxt "added after file name in some cases"
 msgid " (symlink)"
 msgstr "(ссылка)"
 
-#: filedigger/mergedvfs.cpp:162
+#: filedigger/mergedvfs.cpp:160
 msgctxt "added after file name in some cases"
 msgid " (file)"
 msgstr "(файл)"
 
-#: filedigger/restoredialog.cpp:115 kcm/backupplanwidget.cpp:150
+#: filedigger/restoredialog.cpp:112 kcm/backupplanwidget.cpp:155
 msgctxt "@action:button"
 msgid "New Folder..."
 msgstr "Новая папка..."
 
-#: filedigger/restoredialog.cpp:143 filedigger/restoredialog.cpp:162
+#: filedigger/restoredialog.cpp:138 filedigger/restoredialog.cpp:157
 msgctxt "@info message bar appearing on top"
 msgid "No destination was selected, please select one."
 msgstr "Ни одного места под хранение не выбрано. Сделайте выбор."
 
-#: filedigger/restoredialog.cpp:253
+#: filedigger/restoredialog.cpp:248
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
 msgstr ""
 
-#: filedigger/restoredialog.cpp:266
+#: filedigger/restoredialog.cpp:261
 msgctxt "@info message bar appearing on top"
 msgid ""
 "The destination does not have enough space available. Please choose a "
@@ -406,50 +412,50 @@ msgstr ""
 "Недостаточно места для размещения резервной копии. Выберите другое место или "
 "освободите больше места здесь."
 
-#: filedigger/restoredialog.cpp:276
+#: filedigger/restoredialog.cpp:271
 msgctxt ""
 "added to the suggested filename when restoring, %1 is the time when backup "
 "was taken"
 msgid " - saved at %1"
 msgstr "- сохранено в %1"
 
-#: filedigger/restoredialog.cpp:277
+#: filedigger/restoredialog.cpp:272
 msgctxt "@info"
 msgid "Folder already exists, please choose a solution"
 msgstr "Папка с таким именем уже существует. Пожалуйста, выберите решение"
 
-#: filedigger/restoredialog.cpp:283
+#: filedigger/restoredialog.cpp:278
 msgctxt "@info"
 msgid "File already exists"
 msgstr "Файл уже существует"
 
-#: filedigger/restoredialog.cpp:296
+#: filedigger/restoredialog.cpp:291
 msgctxt "@info message bar appearing on top"
 msgid "The new name entered already exists, please enter a different one."
 msgstr "Введенное имя уже существует. Нужно выбрать другое."
 
-#: filedigger/restoredialog.cpp:373 kcm/backupplanwidget.cpp:176
+#: filedigger/restoredialog.cpp:368 kcm/dirselector.cpp:50
 msgctxt "default folder name when creating a new folder"
 msgid "New Folder"
 msgstr "Новая папка"
 
-#: filedigger/restoredialog.cpp:378 kcm/backupplanwidget.cpp:181
+#: filedigger/restoredialog.cpp:373 kcm/dirselector.cpp:55
 msgctxt "@title:window"
 msgid "New Folder"
 msgstr "Новая папка"
 
-#: filedigger/restoredialog.cpp:379 kcm/backupplanwidget.cpp:182
+#: filedigger/restoredialog.cpp:374 kcm/dirselector.cpp:56
 msgctxt "@label:textbox"
 msgid ""
 "Create new folder in:\n"
 "%1"
 msgstr "Создать новую папку в: %1"
 
-#: filedigger/restoredialog.cpp:390 kcm/backupplanwidget.cpp:193
+#: filedigger/restoredialog.cpp:387 kcm/dirselector.cpp:68
 msgid "A folder named %1 already exists."
 msgstr "Папка с именем %1 уже существует."
 
-#: filedigger/restoredialog.cpp:395 kcm/backupplanwidget.cpp:198
+#: filedigger/restoredialog.cpp:393 kcm/dirselector.cpp:74
 msgid "You do not have permission to create %1."
 msgstr "Недостаточно прав для создания %1."
 
@@ -463,32 +469,32 @@ msgctxt "progress report, label"
 msgid "File:"
 msgstr "Файл:"
 
-#: filedigger/versionlistdelegate.cpp:134
+#: filedigger/versionlistdelegate.cpp:135
 msgctxt "@action:button"
 msgid "Open"
 msgstr "Открыть"
 
-#: filedigger/versionlistdelegate.cpp:136
+#: filedigger/versionlistdelegate.cpp:137
 msgctxt "@action:button"
 msgid "Restore"
 msgstr "Восстановить"
 
-#: kcm/backupplanwidget.cpp:148
+#: kcm/backupplanwidget.cpp:144
 msgctxt "@title:window"
 msgid "Select Folder"
 msgstr "Выбрать папку"
 
-#: kcm/backupplanwidget.cpp:213
+#: kcm/backupplanwidget.cpp:182
 msgctxt "@label"
 msgid "Description:"
 msgstr "Описание:"
 
-#: kcm/backupplanwidget.cpp:216
+#: kcm/backupplanwidget.cpp:185
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr "Назад к обзору"
 
-#: kcm/backupplanwidget.cpp:245
+#: kcm/backupplanwidget.cpp:214
 msgctxt "@label"
 msgid ""
 "This type of backup is an <em>archive</em>. It contains both the latest "
@@ -511,17 +517,17 @@ msgstr ""
 "знать,  что файлы в архиве невозможно открыть обычным файловым менеджером. "
 "Для этого нужна специальная программа."
 
-#: kcm/backupplanwidget.cpp:260
+#: kcm/backupplanwidget.cpp:229
 msgctxt "@option:radio"
 msgid "Versioned Backup (not available because \"bup\" is not installed)"
 msgstr "Версионное резервное копирование (недоступно, т.к. bup не установлен)"
 
-#: kcm/backupplanwidget.cpp:264
+#: kcm/backupplanwidget.cpp:234
 msgctxt "@option:radio"
 msgid "Versioned Backup (recommended)"
 msgstr "Версионное резервное копирование (рекомендовано)"
 
-#: kcm/backupplanwidget.cpp:268
+#: kcm/backupplanwidget.cpp:239
 msgctxt "@label"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -541,48 +547,48 @@ msgstr ""
 "жесткого диска, но бесполезен, если восстановить предыдущее состояние "
 "потребуется для исправления допущенных вами ошибок."
 
-#: kcm/backupplanwidget.cpp:280
+#: kcm/backupplanwidget.cpp:252
 msgctxt "@option:radio"
 msgid "Synchronized Backup (not available because \"rsync\" is not installed)"
 msgstr ""
 "Синхронное резервное копирование (недоступно, т.к. rsync не установлен)"
 
-#: kcm/backupplanwidget.cpp:284
+#: kcm/backupplanwidget.cpp:257
 msgctxt "@option:radio"
 msgid "Synchronized Backup"
 msgstr "Синхронное резервное копирование"
 
-#: kcm/backupplanwidget.cpp:313
+#: kcm/backupplanwidget.cpp:285
 msgctxt "@title"
 msgid "Backup Type"
 msgstr "Тип резервного копирования"
 
-#: kcm/backupplanwidget.cpp:314
+#: kcm/backupplanwidget.cpp:286
 msgctxt "@label"
 msgid "Select what type of backup you want"
 msgstr "Выберите тип резервного копирования"
 
-#: kcm/backupplanwidget.cpp:322
+#: kcm/backupplanwidget.cpp:294
 msgctxt "@title"
 msgid "Sources"
 msgstr "Источники"
 
-#: kcm/backupplanwidget.cpp:323
+#: kcm/backupplanwidget.cpp:295
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr "Выберите папки для резервного копирования"
 
-#: kcm/backupplanwidget.cpp:337
+#: kcm/backupplanwidget.cpp:309
 msgctxt "@option:radio"
 msgid "Filesystem Path"
 msgstr "Путь файловой системы"
 
-#: kcm/backupplanwidget.cpp:338
+#: kcm/backupplanwidget.cpp:310
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr "Внешнее хранилище"
 
-#: kcm/backupplanwidget.cpp:343
+#: kcm/backupplanwidget.cpp:316
 msgctxt "@label"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -591,12 +597,12 @@ msgid ""
 "does not need to exist at all times, its existance will be monitored."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:349
+#: kcm/backupplanwidget.cpp:323
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
 msgstr "Путь к месту хранения резервных копий:"
 
-#: kcm/backupplanwidget.cpp:367
+#: kcm/backupplanwidget.cpp:342
 msgctxt "@label"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -606,47 +612,47 @@ msgstr ""
 "устройства хранения, которые могут быть подключены к этому компьютеру, такие "
 "как жесткий диск USB или карта памяти."
 
-#: kcm/backupplanwidget.cpp:375 kcm/backupplanwidget.cpp:378
+#: kcm/backupplanwidget.cpp:352 kcm/backupplanwidget.cpp:356
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr "Указанная папка будет создана, если она еще не существует."
 
-#: kcm/backupplanwidget.cpp:377
+#: kcm/backupplanwidget.cpp:354
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr "Папка на диске хранилища:"
 
-#: kcm/backupplanwidget.cpp:384
+#: kcm/backupplanwidget.cpp:362
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
 msgstr "Открыть диалог выбора папки"
 
-#: kcm/backupplanwidget.cpp:414
+#: kcm/backupplanwidget.cpp:392
 msgctxt "@title"
 msgid "Destination"
 msgstr "Место хранения"
 
-#: kcm/backupplanwidget.cpp:415
+#: kcm/backupplanwidget.cpp:393
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr "Выбрать место хранения резервной копии"
 
-#: kcm/backupplanwidget.cpp:432
+#: kcm/backupplanwidget.cpp:410
 msgctxt "@option:radio"
 msgid "Manual Activation"
 msgstr "Запуск вручную"
 
-#: kcm/backupplanwidget.cpp:433
+#: kcm/backupplanwidget.cpp:411
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr "Интервал"
 
-#: kcm/backupplanwidget.cpp:434
+#: kcm/backupplanwidget.cpp:412
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr "Длительность работы"
 
-#: kcm/backupplanwidget.cpp:436
+#: kcm/backupplanwidget.cpp:414
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
@@ -655,7 +661,7 @@ msgstr ""
 "Резервное копирование начнется только после активации вручную. Это можно "
 "сделано в контекстном меню значка системы резервного копирования в трее."
 
-#: kcm/backupplanwidget.cpp:450
+#: kcm/backupplanwidget.cpp:428
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -665,27 +671,27 @@ msgstr ""
 "но не раньше, чем истечет заданный интервал времени с момента создания "
 "последней резервной копии."
 
-#: kcm/backupplanwidget.cpp:467
+#: kcm/backupplanwidget.cpp:445
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr "Минуты"
 
-#: kcm/backupplanwidget.cpp:468 kcm/backupplanwidget.cpp:494
+#: kcm/backupplanwidget.cpp:446 kcm/backupplanwidget.cpp:473
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr "Часы"
 
-#: kcm/backupplanwidget.cpp:469
+#: kcm/backupplanwidget.cpp:447
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr "Дни"
 
-#: kcm/backupplanwidget.cpp:470
+#: kcm/backupplanwidget.cpp:448
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr "Недели"
 
-#: kcm/backupplanwidget.cpp:479
+#: kcm/backupplanwidget.cpp:458
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -696,27 +702,27 @@ msgstr ""
 "назначенное место хранения, при этом время работы компьютера с момента "
 "последнего резервного копирования будет превышать заданное значение."
 
-#: kcm/backupplanwidget.cpp:499
+#: kcm/backupplanwidget.cpp:479
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr "Запрашивать подтверждение резервного копирования"
 
-#: kcm/backupplanwidget.cpp:518
+#: kcm/backupplanwidget.cpp:498
 msgctxt "@title"
 msgid "Schedule"
 msgstr "Расписание"
 
-#: kcm/backupplanwidget.cpp:519
+#: kcm/backupplanwidget.cpp:499
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "Составить план резервного копирования"
 
-#: kcm/backupplanwidget.cpp:531
+#: kcm/backupplanwidget.cpp:512
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:535
+#: kcm/backupplanwidget.cpp:518
 msgctxt "@info"
 msgid ""
 "This makes it possible to explicitly include or exclude hidden folders in "
@@ -725,7 +731,7 @@ msgid ""
 "settings and temporary files for your applications."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:549
+#: kcm/backupplanwidget.cpp:534
 #, c-format
 msgctxt "@info"
 msgid ""
@@ -734,24 +740,25 @@ msgid ""
 "recover from a partially corrupted backup."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:555
+#: kcm/backupplanwidget.cpp:540
 msgctxt "@option:check"
 msgid "Generate recovery information"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:557
+#: kcm/backupplanwidget.cpp:542
+#, fuzzy
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because \"par2\" is not "
 "installed)"
-msgstr ""
+msgstr "Версионное резервное копирование (недоступно, т.к. bup не установлен)"
 
-#: kcm/backupplanwidget.cpp:571
+#: kcm/backupplanwidget.cpp:557
 msgctxt "@option:check"
 msgid "Verify integrity of backups"
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:574
+#: kcm/backupplanwidget.cpp:560
 msgctxt "@info"
 msgid ""
 "Checks the whole backup archive for corruption every time you save new data. "
@@ -760,17 +767,17 @@ msgid ""
 "that time it could be too late."
 msgstr ""
 
-#: kcm/backupplanwidget.cpp:596
+#: kcm/backupplanwidget.cpp:582
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Дополнительно"
 
-#: kcm/backupplanwidget.cpp:597
+#: kcm/backupplanwidget.cpp:583
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Расширенные настройки для продвинутых пользователей"
 
-#: kcm/driveselection.cpp:274
+#: kcm/driveselection.cpp:275
 msgctxt "@label Only shown if no drives are detected"
 msgid ""
 "Plug in the external storage you wish to use, then select it in this list."
@@ -813,7 +820,7 @@ msgctxt "@item:inlistbox %1 is drive(partition) label, %2 is storage capacity"
 msgid "%1: %2 total capacity"
 msgstr "%1: %2 общего объема"
 
-#: kcm/driveselectiondelegate.cpp:151
+#: kcm/driveselectiondelegate.cpp:153
 msgctxt "@item:inlistbox"
 msgid ""
 "Warning: Symbolic links and file permissions can not be saved to this file "
@@ -821,7 +828,7 @@ msgid ""
 "computer or if you are backing up executable program files."
 msgstr ""
 
-#: kcm/driveselectiondelegate.cpp:155
+#: kcm/driveselectiondelegate.cpp:157
 msgctxt "@item:inlistbox"
 msgid ""
 "Warning: File permissions can not be saved to this file system. File "
@@ -829,26 +836,30 @@ msgid ""
 "if you are backing up executable program files."
 msgstr ""
 
-#: kcm/folderselectionmodel.cpp:154
+#: kcm/folderselectionmodel.cpp:153
+#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
-msgstr ""
+msgstr "<filename>%1</filename><nl/>будет включено в резервную копию"
 
-#: kcm/folderselectionmodel.cpp:158
+#: kcm/folderselectionmodel.cpp:157
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
 msgstr "<filename>%1</filename><nl/>будет включено в резервную копию"
 
-#: kcm/folderselectionmodel.cpp:162
+#: kcm/folderselectionmodel.cpp:161
+#, fuzzy
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
+"<filename>%1</filename><nl/><emphasis>не</emphasis> будет включено в "
+"резервную копию"
 
-#: kcm/folderselectionmodel.cpp:166
+#: kcm/folderselectionmodel.cpp:165
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
@@ -857,23 +868,19 @@ msgstr ""
 "<filename>%1</filename><nl/><emphasis>не</emphasis> будет включено в "
 "резервную копию"
 
-#: kcm/kupkcm.cpp:51
+#: kcm/kupkcm.cpp:48
 msgid "Kup Configuration Module"
 msgstr "Модуль настройки Kup"
 
-#: kcm/kupkcm.cpp:52
+#: kcm/kupkcm.cpp:49
 msgid "Configuration of backup plans for the Kup backup system"
 msgstr "Настройка расписания плана резервного копирования системы Kup"
 
-#: kcm/kupkcm.cpp:53
-msgid "Copyright 2011 Simon Persson"
-msgstr "Copyright 2011 Simon Persson"
-
-#: kcm/kupkcm.cpp:54
+#: kcm/kupkcm.cpp:52
 msgid "Maintainer"
 msgstr "Мэйнтейнер"
 
-#: kcm/kupkcm.cpp:86
+#: kcm/kupkcm.cpp:83
 msgctxt "@info"
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
@@ -885,12 +892,12 @@ msgstr ""
 "или</p><ul><li>bup для версионого резервного копирования</li><li> или rsync, "
 "для синхронного</li></ul>"
 
-#: kcm/kupkcm.cpp:154
+#: kcm/kupkcm.cpp:150
 msgctxt "@title:dialog"
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: kcm/kupkcm.cpp:156
+#: kcm/kupkcm.cpp:152
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<br>No backups will be saved by this plan."
@@ -898,49 +905,49 @@ msgstr ""
 "Для %1 не определено место хранения<br>Резервных копий по этому плану "
 "создано не будет."
 
-#: kcm/kupkcm.cpp:245
+#: kcm/kupkcm.cpp:241
 msgctxt "@action:button"
 msgid "Add New Plan"
 msgstr "Добавить новый план"
 
-#: kcm/kupkcm.cpp:248
+#: kcm/kupkcm.cpp:244
 msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr "Доступно резервное копирование"
 
-#: kcm/planstatuswidget.cpp:46
+#: kcm/planstatuswidget.cpp:47
 msgctxt "@action:button"
 msgid "Configure"
 msgstr "Настроить"
 
-#: kcm/planstatuswidget.cpp:48
+#: kcm/planstatuswidget.cpp:49
 msgctxt "@action:button"
 msgid "Remove"
 msgstr "Удалить"
 
-#: kcm/planstatuswidget.cpp:71
+#: kcm/planstatuswidget.cpp:73
 msgctxt "@label %1 is fancy formatted date, %2 is time of day"
 msgid "Last backup was taken %1 at %2.\n"
 msgstr "Последнее резервное копирование было сделано %1 в %2. \n"
 
-#: kcm/planstatuswidget.cpp:76
+#: kcm/planstatuswidget.cpp:78
 msgctxt "@label %1 is storage size of archive"
 msgid "The size of the backup archive was %1.\n"
 msgstr "Размер архива резервного копирования составлял %1.\n"
 
-#: kcm/planstatuswidget.cpp:80
+#: kcm/planstatuswidget.cpp:82
 msgctxt "@label %1 is free storage space"
 msgid "The destination still had %1 available.\n"
 msgstr "В области хранения доступно %1.\n"
 
-#: kcm/planstatuswidget.cpp:83
+#: kcm/planstatuswidget.cpp:85
 msgctxt "@label"
 msgid "This backup plan has never been run."
 msgstr "Этот план резервного копирования еще не запускался."
 
-#: kioslave/bupslave.cpp:67 kioslave/bupslave.cpp:124
-#: kioslave/bupslave.cpp:162 kioslave/bupslave.cpp:225
-#: kioslave/bupslave.cpp:247
+#: kioslave/bupslave.cpp:65 kioslave/bupslave.cpp:122
+#: kioslave/bupslave.cpp:159 kioslave/bupslave.cpp:222
+#: kioslave/bupslave.cpp:244
 msgid ""
 "No bup repository found.\n"
 "%1"
@@ -1035,7 +1042,7 @@ msgid "Restoration completed sucessfully!"
 msgstr "Восстановление прошло успешно!"
 
 #. i18n: file: filedigger/restoredialog.ui:413
-#. i18n: ectx: property (text), widget (KPushButton, mOpenDestinationButton)
+#. i18n: ectx: property (text), widget (QPushButton, mOpenDestinationButton)
 #: po/rc.cpp:39 rc.cpp:39
 msgid "Open Destination"
 msgstr "Открыть место хранения"
@@ -1047,7 +1054,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr "Закрыть"
 
-#: po/rc.cpp:43 settings/backupplan.cpp:70 rc.cpp:43
+#: po/rc.cpp:43 settings/backupplan.cpp:69 rc.cpp:43
 msgid "Backups"
 msgstr "Резервные копии"
 
@@ -1099,9 +1106,21 @@ msgstr ""
 msgid "Finished repairing backup archive"
 msgstr ""
 
-#: settings/backupplan.cpp:37
+#: settings/backupplan.cpp:36
 msgctxt ""
 "@label Default name for a new backup plan, %1 is the number of the plan in "
 "order"
 msgid "Backup plan %1"
 msgstr "План резервного копирования %1"
+
+#~ msgid "Copyright (C) 2011 Simon Persson"
+#~ msgstr "Copyright (C) 2011 Simon Persson"
+
+#~ msgid "Copyright (C) 2013 Simon Persson"
+#~ msgstr "Copyright (C) 2013 Simon Persson"
+
+#~ msgid "Kup is already running!"
+#~ msgstr "Kup уже запущен!"
+
+#~ msgid "Copyright 2011 Simon Persson"
+#~ msgstr "Copyright 2011 Simon Persson"

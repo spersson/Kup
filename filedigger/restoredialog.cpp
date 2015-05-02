@@ -109,7 +109,7 @@ void RestoreDialog::setCustomDestination() {
 		mUI->mDestinationVLayout->insertWidget(0, mDirSelector);
 
 		QPushButton *lNewFolderButton = new QPushButton(QIcon::fromTheme(QStringLiteral("folder-new")),
-		                                                i18nc("@action:button","New Folder..."));
+		                                                xi18nc("@action:button","New Folder..."));
 		connect(lNewFolderButton, SIGNAL(clicked()), SLOT(createNewFolder()));
 		mUI->mDestinationHLayout->insertWidget(0, lNewFolderButton);
 	} else if(!mSourceInfo.mIsDirectory && mFileWidget == NULL) {
@@ -134,7 +134,7 @@ void RestoreDialog::checkDestinationSelection() {
 			mDestination.setFile(lUrl.path());
 			startPrechecks();
 		} else {
-			mMessageWidget->setText(i18nc("@info message bar appearing on top",
+			mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 			                              "No destination was selected, please select one."));
 			mMessageWidget->setMessageType(KMessageWidget::Error);
 			mMessageWidget->animatedShow();
@@ -153,7 +153,7 @@ void RestoreDialog::checkDestinationSelection2() {
 		mDestination.setFile(lFilePath);
 		startPrechecks();
 	} else {
-		mMessageWidget->setText(i18nc("@info message bar appearing on top",
+		mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 		                              "No destination was selected, please select one."));
 		mMessageWidget->setMessageType(KMessageWidget::Error);
 		mMessageWidget->animatedShow();
@@ -244,7 +244,7 @@ void RestoreDialog::sourceListingCompleted(KJob *pJob) {
 		QDir::setCurrent(mSavedWorkingDirectory);
 	}
 	if(pJob->error() != 0) {
-		mMessageWidget->setText(i18nc("@info message bar appearing on top",
+		mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 		                              "There was a problem while getting a list of all files to restore: %1",
 		                              pJob->errorString()));
 		mMessageWidget->setMessageType(KMessageWidget::Error);
@@ -257,7 +257,7 @@ void RestoreDialog::sourceListingCompleted(KJob *pJob) {
 void RestoreDialog::completePrechecks() {
 	KDiskFreeSpaceInfo lSpaceInfo = KDiskFreeSpaceInfo::freeSpaceInfo(mDestination.absolutePath());
 	if(lSpaceInfo.isValid() && lSpaceInfo.available() < mSourceSize) {
-		mMessageWidget->setText(i18nc("@info message bar appearing on top",
+		mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 		                              "The destination does not have enough space available. "
 		                              "Please choose a different destination or free some space."));
 		mMessageWidget->setMessageType(KMessageWidget::Error);
@@ -267,15 +267,15 @@ void RestoreDialog::completePrechecks() {
 			QString lDateString = QLocale().toString(QDateTime::fromTime_t(mSourceInfo.mCommitTime).toLocalTime());
 			lDateString.replace(QLatin1Char('/'), QLatin1Char('-')); // make sure no slashes in suggested folder name
 			mUI->mNewFolderNameEdit->setText(mSourceFileName +
-			                                 i18nc("added to the suggested filename when restoring, %1 is the time when backup was taken",
+			                                 xi18nc("added to the suggested filename when restoring, %1 is the time when backup was taken",
 			                                       " - saved at %1", lDateString));
-			mUI->mConflictTitleLabel->setText(i18nc("@info", "Folder already exists, please choose a solution"));
+			mUI->mConflictTitleLabel->setText(xi18nc("@info", "Folder already exists, please choose a solution"));
 		} else {
 			mUI->mOverwriteRadioButton->setChecked(true);
 			mUI->mOverwriteRadioButton->hide();
 			mUI->mNewNameRadioButton->hide();
 			mUI->mNewFolderNameEdit->hide();
-			mUI->mConflictTitleLabel->setText(i18nc("@info", "File already exists"));
+			mUI->mConflictTitleLabel->setText(xi18nc("@info", "File already exists"));
 		}
 		mUI->mStackedWidget->setCurrentIndex(2);
 	} else {
@@ -287,7 +287,7 @@ void RestoreDialog::fileOverwriteConfirmed() {
 	if(mSourceInfo.mIsDirectory && mUI->mNewNameRadioButton->isChecked()) {
 		QFileInfo lNewFolderInfo(mDestination.absoluteFilePath() + QDir::separator() + mUI->mNewFolderNameEdit->text());
 		if(lNewFolderInfo.exists()) {
-			mMessageWidget->setText(i18nc("@info message bar appearing on top",
+			mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 			                              "The new name entered already exists, please enter a different one."));
 			mMessageWidget->setMessageType(KMessageWidget::Error);
 			mMessageWidget->animatedShow();
@@ -365,13 +365,13 @@ void RestoreDialog::folderMoveCompleted(KJob *pJob) {
 void RestoreDialog::createNewFolder() {
 	bool lUserAccepted;
 	QUrl lUrl = mDirSelector->url();
-	QString lNameSuggestion = i18nc("default folder name when creating a new folder", "New Folder");
+	QString lNameSuggestion = xi18nc("default folder name when creating a new folder", "New Folder");
 	if(QFileInfo(lUrl.adjusted(QUrl::StripTrailingSlash).path() + '/' + lNameSuggestion).exists()) {
 		lNameSuggestion = KIO::suggestName(lUrl, lNameSuggestion);
 	}
 
-	QString lSelectedName = QInputDialog::getText(this, i18nc("@title:window", "New Folder" ),
-	                                              i18nc("@label:textbox", "Create new folder in:\n%1", lUrl.path()),
+	QString lSelectedName = QInputDialog::getText(this, xi18nc("@title:window", "New Folder" ),
+	                                              xi18nc("@label:textbox", "Create new folder in:\n%1", lUrl.path()),
 	                                              QLineEdit::Normal, lNameSuggestion, &lUserAccepted);
 
 	if (!lUserAccepted)

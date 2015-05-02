@@ -50,7 +50,7 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 	                  KAboutLicense::GPL, i18n("Copyright (C) 2011-2015 Simon Persson"),
 	                  QString(), QString(), "simonpersson1@gmail.com");
 	lAbout.addAuthor(i18n("Simon Persson"), i18n("Maintainer"), "simonpersson1@gmail.com");
-	lAbout.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
+	lAbout.setTranslator(xi18nc("NAME OF TRANSLATORS", "Your names"), xi18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	setAboutData(new KAboutData(lAbout));
 
 	setObjectName(QStringLiteral("kcm_kup")); //needed for the kconfigdialogmanager magic
@@ -80,7 +80,7 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
 		QLabel *lSorryIcon = new QLabel;
 		lSorryIcon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-error")).pixmap(64, 64));
-		QString lInstallMessage = i18nc("@info", "<h2>Backup programs are missing</h2><p>Before you can activate "
+		QString lInstallMessage = xi18nc("@info", "<h2>Backup programs are missing</h2><p>Before you can activate "
 		                                "any backup plan you need to install either of</p><ul>"
 		                                "<li>bup, for versioned backups</li>"
 		                                "<li>rsync, for synchronized backups</li></ul>");
@@ -147,8 +147,8 @@ void KupKcm::save() {
 			lManager->updateSettings();
 			mStatusWidgets.at(i)->updateIcon();
 			if(lPlan->mDestinationType == 1 && lPlan->mExternalUUID.isEmpty()) {
-				QMessageBox::warning(this, i18nc("@title:dialog", "Warning"),
-				                     i18nc("@info %1 is the name of the backup plan",
+				QMessageBox::warning(this, xi18nc("@title:dialog", "Warning"),
+				                     xi18nc("@info %1 is the name of the backup plan",
 				                           "%1 does not have a destination!<br>"
 				                           "No backups will be saved by this plan.", lPlan->mDescription));
 			}
@@ -238,10 +238,10 @@ void KupKcm::createSettingsFrontPage() {
 	lScrollArea->setWidgetResizable(true);
 	lScrollArea->setFrameStyle(QFrame::NoFrame);
 
-	mAddPlanButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-add")), i18nc("@action:button", "Add New Plan"));
+	mAddPlanButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-add")), xi18nc("@action:button", "Add New Plan"));
 	connect(mAddPlanButton, SIGNAL(clicked()), this, SLOT(addPlan()));
 
-	mEnableCheckBox = new QCheckBox(i18nc("@option:check", "Backups Enabled"));
+	mEnableCheckBox = new QCheckBox(xi18nc("@option:check", "Backups Enabled"));
 	mEnableCheckBox->setObjectName(QStringLiteral("kcfg_Backups enabled"));
 	connect(mEnableCheckBox, SIGNAL(toggled(bool)), mAddPlanButton, SLOT(setEnabled(bool)));
 

@@ -55,15 +55,15 @@ PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
 	mLogFilePath.append(QString::number(mPlan->planNumber()));
 	mLogFilePath.append(QStringLiteral(".log"));
 
-	mRunBackupAction = new QAction(i18nc("@action:inmenu", "Take Backup Now"), this);
+	mRunBackupAction = new QAction(xi18nc("@action:inmenu", "Take Backup Now"), this);
 	mRunBackupAction->setEnabled(false);
 	connect(mRunBackupAction, SIGNAL(triggered()), SLOT(enterBackupRunningState()));
 
-	mShowFilesAction = new QAction(i18nc("@action:inmenu", "Show Files"), this);
+	mShowFilesAction = new QAction(xi18nc("@action:inmenu", "Show Files"), this);
 	mShowFilesAction->setEnabled(false);
 	connect(mShowFilesAction, SIGNAL(triggered()), SLOT(showFilesClicked()));
 
-	mShowLogFileAction = new QAction(i18nc("@action:inmenu", "Show Log File"), this);
+	mShowLogFileAction = new QAction(xi18nc("@action:inmenu", "Show Log File"), this);
 	mShowLogFileAction->setEnabled(QFileInfo(mLogFilePath).exists());
 	connect(mShowLogFileAction, SIGNAL(triggered()), SLOT(showLog()));
 
@@ -83,11 +83,11 @@ PlanExecutor::~PlanExecutor() {
 QString PlanExecutor::currentActivityTitle() {
 	switch(mState) {
 	case BACKUP_RUNNING:
-		return i18nc("@info:tooltip", "Taking new backup");
+		return xi18nc("@info:tooltip", "Taking new backup");
 	case INTEGRITY_TESTING:
-		return i18nc("@info:tooltip", "Checking backup integrity");
+		return xi18nc("@info:tooltip", "Checking backup integrity");
 	case REPAIRING:
-		return i18nc("@info:tooltip", "Repairing backups");
+		return xi18nc("@info:tooltip", "Repairing backups");
 	default:
 		return QString();
 	}
@@ -116,10 +116,10 @@ void PlanExecutor::enterAvailableState() {
 		if(!lNextTime.isValid() || lNextTime < lNow) {
 			lShouldBeTakenNow = true;
 			if(!mPlan->mLastCompleteBackup.isValid())
-				lUserQuestion = i18nc("@info", "Do you want to take a first backup now?");
+				lUserQuestion = xi18nc("@info", "Do you want to take a first backup now?");
 			else {
 				QString t = KFormat().formatSpelloutDuration(mPlan->mLastCompleteBackup.secsTo(lNow) * 1000);
-				lUserQuestion = i18nc("@info", "It's been %1 since the last backup was taken, "
+				lUserQuestion = xi18nc("@info", "It's been %1 since the last backup was taken, "
 				                     "do you want to take a backup now?", t);
 			}
 		} else {
@@ -131,11 +131,11 @@ void PlanExecutor::enterAvailableState() {
 	case BackupPlan::USAGE:
 		if(!mPlan->mLastCompleteBackup.isValid()) {
 			lShouldBeTakenNow = true;
-			lUserQuestion = i18nc("@info", "Do you want to take a first backup now?");
+			lUserQuestion = xi18nc("@info", "Do you want to take a first backup now?");
 		} else if(mPlan->mAccumulatedUsageTime > (quint32)mPlan->mUsageLimit * 3600) {
 			lShouldBeTakenNow = true;
 			QString t = KFormat().formatSpelloutDuration(mPlan->mAccumulatedUsageTime * 1000);
-			lUserQuestion = i18nc("@info", "You've been active with this computer for %1 since the last backup was taken, "
+			lUserQuestion = xi18nc("@info", "You've been active with this computer for %1 since the last backup was taken, "
 			                     "do you want to take a backup now?", t);
 		}
 		break;
@@ -165,10 +165,10 @@ void PlanExecutor::enterNotAvailableState() {
 void PlanExecutor::askUser(const QString &pQuestion) {
 	discardUserQuestion();
 	mQuestion = new KNotification(QStringLiteral("StartBackup"), KNotification::Persistent);
-	mQuestion->setTitle(i18nc("@title:window", "Backup Device Available - %1", mPlan->mDescription));
+	mQuestion->setTitle(xi18nc("@title:window", "Backup Device Available - %1", mPlan->mDescription));
 	mQuestion->setText(pQuestion);
 	QStringList lAnswers;
-	lAnswers << i18nc("@action:button", "Yes") << i18nc("@action:button", "No");
+	lAnswers << xi18nc("@action:button", "Yes") << xi18nc("@action:button", "No");
 	mQuestion->setActions(lAnswers);
 	connect(mQuestion, SIGNAL(action1Activated()), SLOT(enterBackupRunningState()));
 	connect(mQuestion, SIGNAL(action2Activated()), SLOT(discardUserQuestion()));
@@ -190,16 +190,16 @@ void PlanExecutor::discardUserQuestion() {
 void PlanExecutor::notifyBackupFailed(KJob *pFailedJob) {
 	discardFailNotification();
 	mFailNotification = new KNotification(QStringLiteral("BackupFailed"), KNotification::Persistent);
-	mFailNotification->setTitle(i18nc("@title:window", "Saving of Backup Failed"));
+	mFailNotification->setTitle(xi18nc("@title:window", "Saving of Backup Failed"));
 	mFailNotification->setText(pFailedJob->errorText());
 
 	QStringList lAnswers;
 	if(pFailedJob->error() == BackupJob::ErrorWithLog) {
-		lAnswers << i18nc("@action:button", "Show log file");
+		lAnswers << xi18nc("@action:button", "Show log file");
 		connect(mFailNotification, SIGNAL(action1Activated()), SLOT(showLog()));
 	} else if(pFailedJob->error() == BackupJob::ErrorSuggestRepair) {
-		lAnswers << i18nc("@action:button", "Yes");
-		lAnswers << i18nc("@action:button", "No");
+		lAnswers << xi18nc("@action:button", "Yes");
+		lAnswers << xi18nc("@action:button", "No");
 		connect(mFailNotification, SIGNAL(action1Activated()), SLOT(startRepairJob()));
 	}
 	mFailNotification->setActions(lAnswers);
@@ -250,15 +250,15 @@ void PlanExecutor::startRepairJob() {
 void PlanExecutor::integrityCheckFinished(KJob *pJob) {
 	discardIntegrityNotification();
 	mIntegrityNotification = new KNotification(QStringLiteral("IntegrityCheckCompleted"), KNotification::Persistent);
-	mIntegrityNotification->setTitle(i18nc("@title:window", "Integrity Check Completed"));
+	mIntegrityNotification->setTitle(xi18nc("@title:window", "Integrity Check Completed"));
 	mIntegrityNotification->setText(pJob->errorText());
 	QStringList lAnswers;
 	if(pJob->error() == BackupJob::ErrorWithLog) {
-		lAnswers << i18nc("@action:button", "Show log file");
+		lAnswers << xi18nc("@action:button", "Show log file");
 		connect(mIntegrityNotification, SIGNAL(action1Activated()), SLOT(showLog()));
 	} else if(pJob->error() == BackupJob::ErrorSuggestRepair) {
-		lAnswers << i18nc("@action:button", "Yes");
-		lAnswers << i18nc("@action:button", "No");
+		lAnswers << xi18nc("@action:button", "Yes");
+		lAnswers << xi18nc("@action:button", "No");
 		connect(mIntegrityNotification, SIGNAL(action1Activated()), SLOT(startRepairJob()));
 	}
 	mIntegrityNotification->setActions(lAnswers);
@@ -285,10 +285,10 @@ void PlanExecutor::discardIntegrityNotification() {
 void PlanExecutor::repairFinished(KJob *pJob) {
 	discardRepairNotification();
 	mRepairNotification = new KNotification(QStringLiteral("RepairCompleted"), KNotification::Persistent);
-	mRepairNotification->setTitle(i18nc("@title:window", "Repair Completed"));
+	mRepairNotification->setTitle(xi18nc("@title:window", "Repair Completed"));
 	mRepairNotification->setText(pJob->errorText());
 	QStringList lAnswers;
-	lAnswers << i18nc("@action:button", "Show log file");
+	lAnswers << xi18nc("@action:button", "Show log file");
 	mRepairNotification->setActions(lAnswers);
 	connect(mRepairNotification, SIGNAL(action1Activated()), SLOT(showLog()));
 	connect(mRepairNotification, SIGNAL(closed()), SLOT(discardRepairNotification()));

@@ -72,10 +72,10 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	QString lDisplayLabel, lPartitionLabel, lDisconnectedLabel;
 	int lTextEnd = pOption.rect.right() - cMargin;
 	if(lIsDisconnected) {
-		lDisconnectedLabel = i18nc("@item:inlistbox this text is added if selected drive is disconnected", " (disconnected)");
+		lDisconnectedLabel = xi18nc("@item:inlistbox this text is added if selected drive is disconnected", " (disconnected)");
 	} else {
 		lDisconnectedLabel = QString();
-		QString lFreeSpace = i18nc("@label %1 is amount of free storage space of hard drive","%1 free",
+		QString lFreeSpace = xi18nc("@label %1 is amount of free storage space of hard drive","%1 free",
 		                           lFormat.formatByteSize(lTotalSize - lUsedSize));
 		int lTextWidth = QApplication::fontMetrics().width(lFreeSpace);
 		lTextEnd -= lTextWidth + cMargin;
@@ -88,21 +88,21 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 	int lPartitionNumber = pIndex.data(DriveSelection::PartitionNumber).toInt();
 	if(lLabel.isEmpty() || lLabel == lDeviceDescription) {
 		if(pIndex.data(DriveSelection::PartitionsOnDrive).toInt() > 1) {
-			lPartitionLabel = i18nc("@item:inlistbox used for unnamed filesystems, more than one filesystem on device. %1 is partition number, %2 is device description, %3 is either empty or the \" (disconnected)\" text",
+			lPartitionLabel = xi18nc("@item:inlistbox used for unnamed filesystems, more than one filesystem on device. %1 is partition number, %2 is device description, %3 is either empty or the \" (disconnected)\" text",
 			                        "Partition %1 on %2%3", lPartitionNumber, lDeviceDescription, lDisconnectedLabel);
 		} else {
-			lPartitionLabel = i18nc("@item:inlistbox used when there is only one unnamed filesystem on device. %1 is device description, %2 is either empty or the \" (disconnected)\" text",
+			lPartitionLabel = xi18nc("@item:inlistbox used when there is only one unnamed filesystem on device. %1 is device description, %2 is either empty or the \" (disconnected)\" text",
 			                        "%1%2", lDeviceDescription, lDisconnectedLabel);
 		}
 	} else {
-		lPartitionLabel = i18nc("@item:inlistbox %1 is filesystem label, %2 is the device description, %3 is either empty or the \" (disconnected)\" text",
+		lPartitionLabel = xi18nc("@item:inlistbox %1 is filesystem label, %2 is the device description, %3 is either empty or the \" (disconnected)\" text",
 		                        "%1 on %2%3", lLabel, lDeviceDescription, lDisconnectedLabel);
 	}
 
 	if(lTotalSize == 0) {
 		lDisplayLabel = lPartitionLabel;
 	} else {
-		lDisplayLabel = i18nc("@item:inlistbox %1 is drive(partition) label, %2 is storage capacity",
+		lDisplayLabel = xi18nc("@item:inlistbox %1 is drive(partition) label, %2 is storage capacity",
 		                      "%1: %2 total capacity", lPartitionLabel, lFormat.formatByteSize(lTotalSize));
 	}
 	lDisplayLabel = QApplication::fontMetrics().elidedText(lDisplayLabel, Qt::ElideMiddle, lTextEnd - pOption.rect.left() - cMargin);
@@ -150,11 +150,11 @@ QString DriveSelectionDelegate::warningText(const QModelIndex &pIndex) const {
 	bool lPermissionWarning = pIndex.data(DriveSelection::PermissionLossWarning).toBool();
 	bool lSymlinkWarning = pIndex.data(DriveSelection::SymlinkLossWarning).toBool();
 	if(lPermissionWarning && lSymlinkWarning) {
-		return i18nc("@item:inlistbox", "Warning: Symbolic links and file permissions can not be saved "
+		return xi18nc("@item:inlistbox", "Warning: Symbolic links and file permissions can not be saved "
 		             "to this file system. File permissions only matters if there is more than one "
 		             "user of this computer or if you are backing up executable program files.");
 	} else if(lPermissionWarning) {
-		return i18nc("@item:inlistbox", "Warning: File permissions can not be saved to this file "
+		return xi18nc("@item:inlistbox", "Warning: File permissions can not be saved to this file "
 		             "system. File permissions only matters if there is more than one "
 		             "user of this computer or if you are backing up executable program files.");
 	}

@@ -110,21 +110,21 @@ void KupDaemon::showConfig() {
 void KupDaemon::updateTrayIcon() {
 	KStatusNotifierItem::ItemStatus lStatus = KStatusNotifierItem::Passive;
 	QString lIconName = QStringLiteral("kup");
-	QString lToolTipTitle = i18nc("@info:tooltip", "Backup destination unavailable");
-	QString lToolTipSubTitle = i18nc("@info:tooltip", "Backup status OK");
+	QString lToolTipTitle = xi18nc("@info:tooltip", "Backup destination unavailable");
+	QString lToolTipSubTitle = xi18nc("@info:tooltip", "Backup status OK");
 	QString lToolTipIconName = BackupPlan::iconName(BackupPlan::GOOD);
 
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->mState != PlanExecutor::NOT_AVAILABLE) {
 			lStatus = KStatusNotifierItem::Active;
-			lToolTipTitle = i18nc("@info:tooltip", "Backup destination available");
+			lToolTipTitle = xi18nc("@info:tooltip", "Backup destination available");
 		}
 	}
 
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->mPlan->backupStatus() == BackupPlan::MEDIUM) {
 			lToolTipIconName = BackupPlan::iconName(BackupPlan::MEDIUM);
-			lToolTipSubTitle = i18nc("@info:tooltip", "New backup suggested");
+			lToolTipSubTitle = xi18nc("@info:tooltip", "New backup suggested");
 		}
 	}
 
@@ -135,7 +135,7 @@ void KupDaemon::updateTrayIcon() {
 			}
 			lIconName = BackupPlan::iconName(BackupPlan::BAD);
 			lToolTipIconName = BackupPlan::iconName(BackupPlan::BAD);
-			lToolTipSubTitle = i18nc("@info:tooltip", "New backup neeeded");
+			lToolTipSubTitle = xi18nc("@info:tooltip", "New backup neeeded");
 		}
 	}
 	foreach(PlanExecutor *lExecutor, mExecutors) {
@@ -198,13 +198,13 @@ void KupDaemon::setupTrayIcon() {
 	mStatusNotifier = new KStatusNotifierItem(this);
 	mStatusNotifier->setCategory(KStatusNotifierItem::SystemServices);
 	mStatusNotifier->setStandardActionsEnabled(false);
-	mStatusNotifier->setTitle(i18nc("@title:window", "Backups"));
+	mStatusNotifier->setTitle(xi18nc("@title:window", "Backups"));
 	mStatusNotifier->setAttentionMovieByName(QStringLiteral("kuprunning"));
 }
 
 void KupDaemon::setupContextMenu() {
-	mContextMenu = new QMenu(i18nc("@title:menu", "Backups"));
-	mContextMenu->addAction(i18nc("@action:inmenu", "Configure Backups"), this, SLOT(showConfig()));
+	mContextMenu = new QMenu(xi18nc("@title:menu", "Backups"));
+	mContextMenu->addAction(xi18nc("@action:inmenu", "Configure Backups"), this, SLOT(showConfig()));
 	foreach(PlanExecutor *lExec, mExecutors) {
 		mContextMenu->addMenu(lExec->mActionMenu);
 	}

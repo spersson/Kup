@@ -44,9 +44,9 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	mDescriptionLabel->setFont(lDescriptionFont);
 	mStatusIconLabel = new QLabel();
 	mStatusTextLabel = new QLabel(statusText()); //TODO: add dbus interface to be notified from daemon when this is updated.
-	mConfigureButton = new QPushButton(QIcon::fromTheme(QStringLiteral("configure")), i18nc("@action:button", "Configure"));
+	mConfigureButton = new QPushButton(QIcon::fromTheme(QStringLiteral("configure")), xi18nc("@action:button", "Configure"));
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(configureMe()));
-	mRemoveButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-remove")), i18nc("@action:button", "Remove"));
+	mRemoveButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-remove")), xi18nc("@action:button", "Remove"));
 	connect(mRemoveButton, SIGNAL(clicked()), this, SIGNAL(removeMe()));
 
 	lVLayout1->addWidget(mDescriptionLabel);
@@ -70,19 +70,19 @@ QString PlanStatusWidget::statusText() {
 	if(mPlan->mLastCompleteBackup.isValid()) {
 		QDateTime lLocalTime = mPlan->mLastCompleteBackup.toLocalTime();
 
-		lStatus += i18nc("@label %1 is fancy formatted date, %2 is time of day", "Last backup was taken %1 at %2.\n",
+		lStatus += xi18nc("@label %1 is fancy formatted date, %2 is time of day", "Last backup was taken %1 at %2.\n",
 		                lFormat.formatRelativeDate(lLocalTime.date(), QLocale::LongFormat),
 		                lLocale.toString(lLocalTime.time()));
 		if(mPlan->mLastBackupSize > 0.0)
-			lStatus += i18nc("@label %1 is storage size of archive" ,
+			lStatus += xi18nc("@label %1 is storage size of archive" ,
 			                 "The size of the backup archive was %1.\n",
 			                 lFormat.formatByteSize(mPlan->mLastBackupSize));
 		if(mPlan->mLastAvailableSpace > 0.0)
-			lStatus += i18nc("@label %1 is free storage space",
+			lStatus += xi18nc("@label %1 is free storage space",
 			                 "The destination still had %1 available.\n",
 			                 lFormat.formatByteSize(mPlan->mLastAvailableSpace));
 	} else {
-		lStatus = i18nc("@label", "This backup plan has never been run.");
+		lStatus = xi18nc("@label", "This backup plan has never been run.");
 	}
 	return lStatus;
 }

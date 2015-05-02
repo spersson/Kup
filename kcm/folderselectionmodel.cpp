@@ -149,19 +149,19 @@ QVariant FolderSelectionModel::data(const QModelIndex& pIndex, int pRole) const 
 		case StateIncluded:
 		case StateIncludeInherited:
 			if(setContainsSubdir(mExcludedFolderList, lPath)) {
-				return i18nc("@info:tooltip %1 is the path of the folder in a listview",
+				return xi18nc("@info:tooltip %1 is the path of the folder in a listview",
 				             "<filename>%1</filename><nl/>will be included in the backup, except "
 				             "for unchecked subfolders", filePath(pIndex));
 			}
-			return i18nc("@info:tooltip %1 is the path of the folder in a listview",
+			return xi18nc("@info:tooltip %1 is the path of the folder in a listview",
 			             "<filename>%1</filename><nl/>will be included in the backup", filePath(pIndex));
 		default:
 			if(setContainsSubdir(mIncludedFolderList, lPath)) {
-				return i18nc("@info:tooltip %1 is the path of the folder in a listview",
+				return xi18nc("@info:tooltip %1 is the path of the folder in a listview",
 				             "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included "
 				             "in the backup but contains folders that will", filePath(pIndex));
 			}
-			return i18nc("@info:tooltip %1 is the path of the folder in a listview",
+			return xi18nc("@info:tooltip %1 is the path of the folder in a listview",
 			             "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included "
 			             "in the backup", filePath(pIndex));
 		}
