@@ -35,21 +35,19 @@
 #include <QTextStream>
 
 int main(int pArgCount, char **pArgArray) {
-	QString lVersion = QStringLiteral("0.5.1");
 	QApplication lApp(pArgCount, pArgArray);
-	lApp.setApplicationName(QStringLiteral("kupfiledigger"));
-	lApp.setApplicationVersion(lVersion);
-	lApp.setOrganizationDomain(QStringLiteral("kde.org"));
 
-	QCommandLineParser lParser;
+	KLocalizedString::setApplicationDomain("kup");
 
-	KAboutData lAbout(QStringLiteral("kupfiledigger"), QStringLiteral("kup"), lVersion,
+	KAboutData lAbout(QStringLiteral("kupfiledigger"), i18nc("@title", "File Digger"), QStringLiteral("0.5.1"),
 	                  i18n("Browser for bup archives."),
 	                  KAboutLicense::GPL, i18n("Copyright (C) 2013-2015 Simon Persson"),
 	                  QString(), QString(), "simonpersson1@gmail.com");
 	lAbout.addAuthor(i18n("Simon Persson"), QString(), "simonpersson1@gmail.com");
 	lAbout.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
-	KAboutData::setApplicationData(lAbout);
+	KAboutData::setApplicationData(lAbout); //this calls qApp.setApplicationName, setVersion, etc.
+
+	QCommandLineParser lParser;
 	lParser.addVersionOption();
 	lParser.addHelpOption();
 	lParser.addOption(QCommandLineOption(QStringList() << QLatin1String("b") << QLatin1String("branch"),

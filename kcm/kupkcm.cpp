@@ -45,14 +45,14 @@ K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
 KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
    : KCModule(pParent, pArgs)
 {
-	QString lVersion = QStringLiteral("0.5.1");
-	KAboutData *lAboutData = new KAboutData(QStringLiteral("kcm_kup"), QStringLiteral("kup"),
-	                                        lVersion, i18n("Configuration of backup plans for the Kup backup system"),
-	                                        KAboutLicense::GPL, i18n("Copyright (C) 2011-2015 Simon Persson"),
-	                                        QString(), QString(), "simonpersson1@gmail.com");
-	lAboutData->addAuthor(i18n("Simon Persson"), i18n("Maintainer"), "simonpersson1@gmail.com");
-	lAboutData->setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
-	setAboutData(lAboutData);
+	KAboutData lAbout(QStringLiteral("kcm_kup"), QStringLiteral("kup"), QStringLiteral("0.5.1"),
+	                  i18n("Configuration of backup plans for the Kup backup system"),
+	                  KAboutLicense::GPL, i18n("Copyright (C) 2011-2015 Simon Persson"),
+	                  QString(), QString(), "simonpersson1@gmail.com");
+	lAbout.addAuthor(i18n("Simon Persson"), i18n("Maintainer"), "simonpersson1@gmail.com");
+	lAbout.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
+	setAboutData(&lAbout);
+
 	setObjectName(QStringLiteral("kcm_kup")); //needed for the kconfigdialogmanager magic
 	setButtons((Apply | buttons()) & ~Default);
 

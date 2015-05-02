@@ -30,30 +30,29 @@
 #include <QCommandLineParser>
 
 extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
-	QString lVersion = QStringLiteral("0.5.1");
 	KupDaemon *lDaemon = new KupDaemon();
 	if(!lDaemon->shouldStart()) {
 		qCritical() <<ki18n("Kup is not enabled, enable it from the system settings module. "
 		                    "You can do that by running 'kcmshell5 kup'").toString();
 		return 0;
 	}
+
 	QApplication lApp(argc, argv);
-	lApp.setApplicationName(QStringLiteral("kup-daemon"));
-	lApp.setApplicationVersion(lVersion);
-	lApp.setOrganizationDomain(QStringLiteral("kde.org"));
+	lApp.setQuitOnLastWindowClosed(false);
 
-	QCommandLineParser lParser;
+	KLocalizedString::setApplicationDomain("kup");
 
-	KAboutData lAbout(QStringLiteral("kup-daemon"), QStringLiteral("kup"), lVersion,
+	KAboutData lAbout(QStringLiteral("kupdaemon"), i18nc("@title", "Kup Daemon"), QStringLiteral("0.5.1"),
 	                  i18n("Kup is a flexible backup solution using the backup storage system 'bup'. "
 	                       "This allows it to quickly perform incremental backups, only saving the "
 	                       "parts of files that has actually changed since last backup was taken."),
-	                  KAboutLicense::GPL,
-	                  i18n("Copyright (C) 2011 Simon Persson"),
+	                  KAboutLicense::GPL, i18n("Copyright (C) 2011-2015 Simon Persson"),
 	                  QString(), QString(), "simonpersson1@gmail.com");
 	lAbout.addAuthor(i18n("Simon Persson"), QString(), "simonpersson1@gmail.com");
 	lAbout.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	KAboutData::setApplicationData(lAbout);
+
+	QCommandLineParser lParser;
 	lParser.addVersionOption();
 	lParser.addHelpOption();
 	lAbout.setupCommandLine(&lParser);
@@ -62,8 +61,6 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
 
 	// This call will exit() if an instance is already running
 	KDBusService lService(KDBusService::Unique);
-
-	lApp.setQuitOnLastWindowClosed(false);
 
 	KStartupInfo::appStarted(); //make startup notification go away.
 

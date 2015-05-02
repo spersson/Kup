@@ -23,7 +23,7 @@
 
 #include <KSharedConfig>
 
-#define KUP_DBUS_SERVICE_NAME QStringLiteral("org.kde.kup-daemon")
+#define KUP_DBUS_SERVICE_NAME QStringLiteral("org.kde.kupdaemon")
 #define KUP_DBUS_OBJECT_PATH QStringLiteral("/DaemonControl")
 
 
@@ -39,9 +39,6 @@ class QTimer;
 class KupDaemon : public QObject
 {
 	Q_OBJECT
-	// interface names are not allowed to have hyphens. set name here without hyphen, otherwise the
-	// name gets taken from KAboutData combined with the QMetaData of this class.
-	Q_CLASSINFO("D-Bus Interface", "org.kde.kupdaemon")
 
 public:
 	KupDaemon();
