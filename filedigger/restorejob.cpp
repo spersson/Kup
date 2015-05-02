@@ -49,10 +49,10 @@ void RestoreJob::start() {
 	setTotalAmount(Directories, mTotalDirCount);
 	setProcessedAmount(Directories, 0);
 	setPercent(0);
-	mRestoreProcess << QLatin1String("bup");
-	mRestoreProcess << QLatin1String("-d") << mRepositoryPath;
-	mRestoreProcess << QLatin1String("restore") << QLatin1String("-vv");
-	mRestoreProcess << QLatin1String("-C") << mRestorationPath;
+	mRestoreProcess << QStringLiteral("bup");
+	mRestoreProcess << QStringLiteral("-d") << mRepositoryPath;
+	mRestoreProcess << QStringLiteral("restore") << QStringLiteral("-vv");
+	mRestoreProcess << QStringLiteral("-C") << mRestorationPath;
 	mRestoreProcess << mSourcePath;
 	connect(&mRestoreProcess, SIGNAL(started()), SLOT(slotRestoringStarted()));
 	connect(&mRestoreProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotRestoringDone(int,QProcess::ExitStatus)));

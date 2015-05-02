@@ -51,10 +51,10 @@ int main(int pArgCount, char **pArgArray) {
 	QCommandLineParser lParser;
 	lParser.addVersionOption();
 	lParser.addHelpOption();
-	lParser.addOption(QCommandLineOption(QStringList() << QLatin1String("b") << QLatin1String("branch"),
+	lParser.addOption(QCommandLineOption(QStringList() << QStringLiteral("b") << QStringLiteral("branch"),
 	                                     i18n("Name of the branch to be opened."),
-	                                     QLatin1String("branch name"), QLatin1String("kup")));
-	lParser.addPositionalArgument(QLatin1String("<repository path>"), i18n("Path to the bup repository to be opened."));
+	                                     QStringLiteral("branch name"), QStringLiteral("kup")));
+	lParser.addPositionalArgument(QStringLiteral("<repository path>"), i18n("Path to the bup repository to be opened."));
 
 	lAbout.setupCommandLine(&lParser);
 	lParser.process(lApp);

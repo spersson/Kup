@@ -39,7 +39,7 @@
 #include <QSignalMapper>
 #include <QTimer>
 
-#define KUP_TMP_RESTORE_FOLDER QLatin1String("_kup_temporary_restore_folder_")
+#define KUP_TMP_RESTORE_FOLDER QStringLiteral("_kup_temporary_restore_folder_")
 
 RestoreDialog::RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent)
    : QDialog(parent), mUI(new Ui::RestoreDialog), mSourceInfo(pPathInfo)
@@ -108,7 +108,7 @@ void RestoreDialog::setCustomDestination() {
 		mDirSelector->expandToUrl(QUrl::fromLocalFile(lDirPath));
 		mUI->mDestinationVLayout->insertWidget(0, mDirSelector);
 
-		QPushButton *lNewFolderButton = new QPushButton(QIcon::fromTheme(QLatin1String("folder-new")),
+		QPushButton *lNewFolderButton = new QPushButton(QIcon::fromTheme(QStringLiteral("folder-new")),
 		                                                i18nc("@action:button","New Folder..."));
 		connect(lNewFolderButton, SIGNAL(clicked()), SLOT(createNewFolder()));
 		mUI->mDestinationHLayout->insertWidget(0, lNewFolderButton);
@@ -220,7 +220,7 @@ void RestoreDialog::collectSourceListing(KIO::Job *pJob, const KIO::UDSEntryList
 	for(; it != end; ++it) {
 		QString lEntryName = it->stringValue(KIO::UDSEntry::UDS_NAME);
 		if(it->isDir()) {
-			if(lEntryName != QLatin1String(".") && lEntryName != QLatin1String("..")) {
+			if(lEntryName != QStringLiteral(".") && lEntryName != QStringLiteral("..")) {
 				mDirectoriesCount++;
 			}
 		} else {
@@ -308,7 +308,7 @@ void RestoreDialog::startRestoring() {
 	lSourcePath.append(mSourceInfo.mBranchName);
 	lSourcePath.append(QDir::separator());
 	QDateTime lCommitTime = QDateTime::fromTime_t(mSourceInfo.mCommitTime);
-	lSourcePath.append(lCommitTime.toString(QLatin1String("yyyy-MM-dd-hhmmss")));
+	lSourcePath.append(lCommitTime.toString(QStringLiteral("yyyy-MM-dd-hhmmss")));
 	lSourcePath.append(mSourceInfo.mPathInRepo);
 	RestoreJob *lRestoreJob = new RestoreJob(mSourceInfo.mRepoPath, lSourcePath, mRestorationPath,
 	                                         mDirectoriesCount, mSourceSize, mFileSizes);
@@ -403,7 +403,7 @@ void RestoreDialog::openDestinationFolder() {
 	KRun::runUrl(QUrl::fromLocalFile(mSourceInfo.mIsDirectory ?
 	                                    mFolderToCreate.absoluteFilePath() :
 	                                    mDestination.absolutePath()),
-	             QLatin1String("inode/directory"), NULL);
+	             QStringLiteral("inode/directory"), NULL);
 }
 
 void RestoreDialog::moveFolder() {

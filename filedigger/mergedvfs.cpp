@@ -111,7 +111,7 @@ void MergedNode::askForIntegrityCheck() {
 	if(lAnswer == KMessageBox::Yes) {
 		QDBusInterface lInterface(KUP_DBUS_SERVICE_NAME, KUP_DBUS_OBJECT_PATH);
 		if(lInterface.isValid()) {
-			lInterface.call(QLatin1String("runIntegrityCheck"),
+			lInterface.call(QStringLiteral("runIntegrityCheck"),
 			                QDir::cleanPath(QString::fromLocal8Bit(git_repository_path(mRepository))));
 		}
 	}
@@ -142,7 +142,7 @@ void MergedNode::generateSubNodes() {
 			bool lChunked;
 			const git_tree_entry *lTreeEntry = git_tree_entry_byindex(lTree, i);
 			getEntryAttributes(lTreeEntry, lMode, lChunked, lOid, lName);
-			if(lName == QLatin1String(".bupm")) {
+			if(lName == QStringLiteral(".bupm")) {
 				continue;
 			}
 
