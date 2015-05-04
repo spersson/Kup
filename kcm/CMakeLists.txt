@@ -17,6 +17,9 @@ kbuttongroup.cpp
 
 add_library(kcm_kup MODULE ${kcm_kup_SRCS})
 
+#this is a library so it needs to enforce it's translation domain, not use the application's domain.
+add_definitions(-DTRANSLATION_DOMAIN="kup")
+
 target_link_libraries(kcm_kup
 Qt5::Core
 Qt5::DBus

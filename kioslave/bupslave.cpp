@@ -355,6 +355,9 @@ void BupSlave::createUDSEntry(Node *pNode, UDSEntry &pUDSEntry, int pDetails) {
 extern "C" int Q_DECL_EXPORT kdemain(int pArgc, char **pArgv) {
 	QCoreApplication lApp(pArgc, pArgv);
 	lApp.setApplicationName(QStringLiteral("kio_bup"));
+
+	KLocalizedString::setApplicationDomain("kup");
+
 	if(pArgc != 4) {
 		fprintf(stderr, "Usage: kio_bup protocol domain-socket1 domain-socket2\n");
 		exit(-1);
