@@ -104,7 +104,7 @@ MergedNodeList &MergedNode::subNodes() {
 }
 
 void MergedNode::askForIntegrityCheck() {
-	int lAnswer = KMessageBox::questionYesNo(NULL, xi18nc("@info:label messagebox",
+	int lAnswer = KMessageBox::questionYesNo(NULL, xi18nc("@info messagebox",
 	                                                     "Could not read this backup archive. Perhaps some files "
 	                                                     "have become corrupted. Do you want to run an integrity "
 	                                                     "check to test this?"));
@@ -241,7 +241,7 @@ bool MergedRepository::readBranch() {
 	QString lCompleteBranchName = QString::fromLatin1("refs/heads/");
 	lCompleteBranchName.append(mBranchName);
 	if(0 != git_revwalk_push_ref(lRevisionWalker, lCompleteBranchName.toLocal8Bit())) {
-		qWarning() << "Unable to read branch \"" << mBranchName << "\" in repository " << objectName();
+		qWarning() << "Unable to read branch " << mBranchName << " in repository " << objectName();
 		git_revwalk_free(lRevisionWalker);
 		return false;
 	}

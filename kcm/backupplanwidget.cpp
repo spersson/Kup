@@ -211,13 +211,13 @@ void BackupPlanWidget::saveExtraData() {
 
 KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, const QString &pRsyncVersion) {
 	mVersionedRadio = new QRadioButton;
-	QString lVersionedInfo = xi18nc("@label", "This type of backup is an <em>archive</em>. It contains both "
+	QString lVersionedInfo = xi18nc("@info", "This type of backup is an <emphasis>archive</emphasis>. It contains both "
 	                               "the latest version of your files and earlier backed up versions. "
 	                               "Using this type of backup allows you to recover older versions of your "
 	                               "files, or files which were deleted on your computer at a later time. "
 	                               "The storage space needed is minimized by looking for common parts of "
 	                               "your files between versions and only storing those parts once. "
-	                               "Nevertheless, the backup archive will keep growing in size as time goes by.<br>"
+	                               "Nevertheless, the backup archive will keep growing in size as time goes by.<nl/>"
 	                               "Also important to know is that the files in the archive can not be accessed "
 	                               "directly with a general file manager, a special program is needed.");
 	QLabel *lVersionedInfoLabel = new QLabel(lVersionedInfo);
@@ -227,7 +227,7 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	QObject::connect(mVersionedRadio, SIGNAL(toggled(bool)), lVersionedWidget, SLOT(setVisible(bool)));
 	if(pBupVersion.isEmpty()) {
 		mVersionedRadio->setText(xi18nc("@option:radio", "Versioned Backup (not available "
-		                                                "because \"bup\" is not installed)"));
+		                                                 "because <application>bup</application> is not installed)"));
 		mVersionedRadio->setEnabled(false);
 		lVersionedWidget->setEnabled(false);
 	} else {
@@ -235,13 +235,13 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	}
 
 	mSyncedRadio = new QRadioButton;
-	QString lSyncedInfo = xi18nc("@label",
+	QString lSyncedInfo = xi18nc("@info",
 	                            "This type of backup is a folder which is synchronized with your "
 	                            "selected source folders. Taking a backup simply means making the "
 	                            "backup destination contain an exact copy of your source folders as "
 	                            "they are now and nothing else. If a file has been deleted in a "
-	                            "source folder it will get deleted from the backup folder.<br>This "
-	                            "type of backup can protect you against data loss due to a broken "
+	                            "source folder it will get deleted from the backup folder.<nl/>"
+	                            "This type of backup can protect you against data loss due to a broken "
 	                            "hard drive but it does not help you to recover from your own mistakes.");
 	QLabel *lSyncedInfoLabel = new QLabel(lSyncedInfo);
 	lSyncedInfoLabel->setWordWrap(true);
@@ -250,7 +250,7 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	QObject::connect(mSyncedRadio, SIGNAL(toggled(bool)), lSyncedWidget, SLOT(setVisible(bool)));
 	if(pRsyncVersion.isEmpty()) {
 		mSyncedRadio->setText(xi18nc("@option:radio", "Synchronized Backup (not available "
-		                                             "because \"rsync\" is not installed)"));
+		                                              "because <application>rsync</application> is not installed)"));
 		mSyncedRadio->setEnabled(false);
 		lSyncedWidget->setEnabled(false);
 	} else {
@@ -312,13 +312,13 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QWidget *lFileSystemWidget = new QWidget;
 	lFileSystemWidget->setVisible(false);
 	QObject::connect(lFileSystemRadio, SIGNAL(toggled(bool)), lFileSystemWidget, SLOT(setVisible(bool)));
-	QLabel *lFileSystemInfoLabel = new QLabel(xi18nc("@label",
-	                                        "You can use this option for backing up to a secondary "
-	                                        "internal harddrive, an external eSATA drive or networked "
-	                                        "storage. The requirement is just that you always mount "
-	                                        "it at the same path in the filesystem. The path "
-	                                        "specified here does not need to exist at all times, its "
-	                                        "existance will be monitored."));
+	QLabel *lFileSystemInfoLabel = new QLabel(xi18nc("@info",
+	                                                 "You can use this option for backing up to a secondary "
+	                                                 "internal harddrive, an external eSATA drive or networked "
+	                                                 "storage. The requirement is just that you always mount "
+	                                                 "it at the same path in the filesystem. The path "
+	                                                 "specified here does not need to exist at all times, its "
+	                                                 "existance will be monitored."));
 	lFileSystemInfoLabel->setWordWrap(true);
 	QLabel *lFileSystemLabel = new QLabel(xi18nc("@label:textbox", "Destination Path for Backup:"));
 	KUrlRequester *lFileSystemUrlEdit = new KUrlRequester;
@@ -338,7 +338,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	QWidget *lDriveWidget = new QWidget;
 	lDriveWidget->setVisible(false);
 	QObject::connect(lDriveRadio, SIGNAL(toggled(bool)), lDriveWidget, SLOT(setVisible(bool)));
-	QLabel *lDriveInfoLabel = new QLabel(xi18nc("@label",
+	QLabel *lDriveInfoLabel = new QLabel(xi18nc("@info",
 	                                           "Use this option if you want to backup your "
 	                                           "files on an external storage that can be plugged in "
 	                                           "to this computer, such as a USB hard drive or memory "
@@ -349,11 +349,11 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	mDriveDestEdit = new KLineEdit;
 	mDriveDestEdit->setObjectName(QStringLiteral("kcfg_External drive destination path"));
 	mDriveDestEdit->setToolTip(xi18nc("@info:tooltip",
-	                                 "The specified folder will be created if it does not exist."));
+	                                  "The specified folder will be created if it does not exist."));
 	mDriveDestEdit->setClearButtonShown(true);
 	QLabel *lDriveDestLabel = new QLabel(xi18nc("@label:textbox", "Folder on Destination Drive:"));
 	lDriveDestLabel->setToolTip(xi18nc("@info:tooltip",
-	                                  "The specified folder will be created if it does not exist."));
+	                                   "The specified folder will be created if it does not exist."));
 	lDriveDestLabel->setBuddy(mDriveDestEdit);
 	QPushButton *lDriveDestButton = new QPushButton;
 	lDriveDestButton->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
@@ -412,8 +412,8 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	QRadioButton *lUsageRadio = new QRadioButton(xi18nc("@option:radio", "Active Usage Time"));
 
 	QLabel *lManualLabel = new QLabel(xi18nc("@info", "Backups are only taken when manually requested. "
-	                                       "This can be done by using the popup menu from "
-	                                       "the backup system tray icon."));
+	                                                  "This can be done by using the popup menu from "
+	                                                  "the backup system tray icon."));
 	lManualLabel->setVisible(false);
 	lManualLabel->setWordWrap(true);
 	connect(lManualRadio, SIGNAL(toggled(bool)), lManualLabel, SLOT(setVisible(bool)));
@@ -426,9 +426,9 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lIntervalWidget->setVisible(false);
 	connect(lIntervalRadio, SIGNAL(toggled(bool)), lIntervalWidget, SLOT(setVisible(bool)));
 	QLabel *lIntervalLabel = new QLabel(xi18nc("@info", "New backup will be triggered when backup "
-	                                         "destination becomes available and more than "
-	                                         "the configured interval has passed since the "
-	                                         "last backup was taken."));
+	                                                    "destination becomes available and more than "
+	                                                    "the configured interval has passed since the "
+	                                                    "last backup was taken."));
 	lIntervalLabel->setWordWrap(true);
 	QGridLayout *lIntervalVertLayout = new QGridLayout;
 	lIntervalVertLayout->setColumnMinimumWidth(0, lIndentation);
@@ -455,10 +455,10 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lUsageWidget->setVisible(false);
 	connect(lUsageRadio, SIGNAL(toggled(bool)), lUsageWidget, SLOT(setVisible(bool)));
 	QLabel *lUsageLabel = new QLabel(xi18nc("@info",
-	                                       "New backup will be triggered when backup destination "
-	                                       "becomes available and you have been using your "
-	                                       "computer actively for more than the configured "
-	                                       "time limit since the last backup was taken."));
+	                                        "New backup will be triggered when backup destination "
+	                                        "becomes available and you have been using your "
+	                                        "computer actively for more than the configured "
+	                                        "time limit since the last backup was taken."));
 	lUsageLabel->setWordWrap(true);
 	QGridLayout *lUsageVertLayout = new QGridLayout;
 	lUsageVertLayout->setColumnMinimumWidth(0, lIndentation);
@@ -476,7 +476,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	lUsageWidget->setLayout(lUsageVertLayout);
 
 	QCheckBox *lAskFirstCheckBox = new QCheckBox(xi18nc("@option:check",
-	                                                   "Ask for confirmation before taking backup"));
+	                                                    "Ask for confirmation before taking backup"));
 	lAskFirstCheckBox->setObjectName(QStringLiteral("kcfg_Ask first"));
 	connect(lManualRadio, SIGNAL(toggled(bool)), lAskFirstCheckBox, SLOT(setHidden(bool)));
 
@@ -509,18 +509,18 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	                   lAdvancedWidget->style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing);
 
 	QCheckBox *lShowHiddenCheckBox = new QCheckBox(xi18nc("@option:check",
-	                                                     "Show hidden folders in source selection"));
+	                                                      "Show hidden folders in source selection"));
 	lShowHiddenCheckBox->setObjectName(QStringLiteral("kcfg_Show hidden folders"));
 	connect(lShowHiddenCheckBox, SIGNAL(toggled(bool)),
 	        mSourceSelectionWidget, SLOT(setHiddenFoldersVisible(bool)));
 
 	QLabel *lShowHiddenLabel = new QLabel(xi18nc("@info",
-	                                            "This makes it possible to explicitly include or "
-	                                            "exclude hidden folders in the backup source "
-	                                            "selection. Hidden folders have a name that starts "
-	                                            "with a dot. They are typically located in your home "
-	                                            "folder and are used to store settings and temporary "
-	                                            "files for your applications."));
+	                                             "This makes it possible to explicitly include or "
+	                                             "exclude hidden folders in the backup source "
+	                                             "selection. Hidden folders have a name that starts "
+	                                             "with a dot. They are typically located in your home "
+	                                             "folder and are used to store settings and temporary "
+	                                             "files for your applications."));
 	lShowHiddenLabel->setWordWrap(true);
 	QGridLayout *lShowHiddenLayout = new QGridLayout;
 	lShowHiddenLayout->setContentsMargins(0, 0, 0, 0);
@@ -531,16 +531,17 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	QCheckBox *lRecoveryCheckBox = new QCheckBox;
 	lRecoveryCheckBox->setObjectName(QStringLiteral("kcfg_Generate recovery info"));
 
-	QLabel *lRecoveryLabel = new QLabel(xi18nc("@info", "This will make your backups use around 10% more storage "
-	                                          "space and saving backups will take slightly longer time. In "
-	                                          "return it will be possible to recover from a partially corrupted "
-	                                          "backup."));
+	QLabel *lRecoveryLabel = new QLabel(xi18nc("@info",
+	                                           "This will make your backups use around 10% more storage "
+	                                           "space and saving backups will take slightly longer time. In "
+	                                           "return it will be possible to recover from a partially corrupted "
+	                                           "backup."));
 	lRecoveryLabel->setWordWrap(true);
 	if(pPar2Available) {
 		lRecoveryCheckBox->setText(xi18nc("@option:check", "Generate recovery information"));
 	} else {
 		lRecoveryCheckBox->setText(xi18nc("@option:check", "Generate recovery information (not available "
-		                                                  "because \"par2\" is not installed)"));
+		                                                   "because <application>par2</application> is not installed)"));
 		lRecoveryCheckBox->setEnabled(false);
 		lRecoveryLabel->setEnabled(false);
 	}
@@ -557,11 +558,12 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	QCheckBox *lVerificationCheckBox = new QCheckBox(xi18nc("@option:check", "Verify integrity of backups"));
 	lVerificationCheckBox->setObjectName(QStringLiteral("kcfg_Check backups"));
 
-	QLabel *lVerificationLabel = new QLabel(xi18nc("@info", "Checks the whole backup archive for corruption "
-	                                              "every time you save new data. Saving backups will take a "
-	                                              "little bit longer time but it allows you to catch corruption "
-	                                              "problems sooner than at the time you need to use a backup, "
-	                                              "at that time it could be too late."));
+	QLabel *lVerificationLabel = new QLabel(xi18nc("@info",
+	                                               "Checks the whole backup archive for corruption "
+	                                               "every time you save new data. Saving backups will take a "
+	                                               "little bit longer time but it allows you to catch corruption "
+	                                               "problems sooner than at the time you need to use a backup, "
+	                                               "at that time it could be too late."));
 	lVerificationLabel->setWordWrap(true);
 	QGridLayout *lVerificationLayout = new QGridLayout;
 	lVerificationLayout->setContentsMargins(0, 0, 0, 0);

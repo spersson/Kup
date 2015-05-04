@@ -30,18 +30,20 @@
 #include <QCommandLineParser>
 
 extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
-	KupDaemon *lDaemon = new KupDaemon();
-	if(!lDaemon->shouldStart()) {
-		qCritical() <<ki18n("Kup is not enabled, enable it from the system settings module. "
-		                    "You can do that by running 'kcmshell5 kup'").toString();
-		return 0;
-	}
-
 	QApplication lApp(argc, argv);
 	lApp.setQuitOnLastWindowClosed(false);
 	lApp.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
 	KLocalizedString::setApplicationDomain("kup");
+
+	KupDaemon *lDaemon = new KupDaemon();
+	if(!lDaemon->shouldStart()) {
+		qCritical("%s", xi18nc("@info:shell Error message at startup",
+		                       "Kup is not enabled, enable it from the "
+		                       "system settings module. You can do that by running "
+		                       "<command>kcmshell5 kup</command>").toLocal8Bit().constData());
+		return 0;
+	}
 
 	KAboutData lAbout(QStringLiteral("kupdaemon"), xi18nc("@title", "Kup Daemon"), QStringLiteral("0.5.1"),
 	                  i18n("Kup is a flexible backup solution using the backup storage system 'bup'. "

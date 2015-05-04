@@ -61,9 +61,10 @@ int main(int pArgCount, char **pArgArray) {
 	lAbout.processCommandLine(&lParser);
 
 	if(lParser.positionalArguments().count() != 1) {
-		qCritical() << xi18nc("Error message at startup",
+		// this very convoluted call is just to stop Qt from adding quotation marks around the text output
+		qCritical("%s", i18nc("@info:shell Error message at startup",
 		                     "You must supply the path to a bup or git repository that "
-		                     "you wish to open for viewing.");
+		                     "you wish to open for viewing.").toLocal8Bit().constData());
 		return -1;
 	}
 
@@ -72,14 +73,14 @@ int main(int pArgCount, char **pArgArray) {
 	MergedRepository *lRepository = new MergedRepository(NULL, lParser.positionalArguments().first(),
 	                                                     lParser.value("branch"));
 	if(!lRepository->open()) {
-		KMessageBox::sorry(NULL, xi18nc("@info:label messagebox, %1 is a folder path",
-		                               "The backup archive \"%1\" could not be opened. Check if the backups really are located there.",
+		KMessageBox::sorry(NULL, xi18nc("@info messagebox, %1 is a folder path",
+		                               "The backup archive <filename>%1</filename> could not be opened. Check if the backups really are located there.",
 		                               lParser.positionalArguments().first()));
 		return 1;
 	}
 	if(!lRepository->readBranch()) {
 		if(!lRepository->permissionsOk()) {
-			KMessageBox::sorry(NULL, xi18nc("@info:label messagebox",
+			KMessageBox::sorry(NULL, xi18nc("@info messagebox",
 			                               "You do not have permission needed to read this backup archive."));
 			return 2;
 		} else {

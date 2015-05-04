@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string comment="@title: window">Restore Guide</string>
+   <string comment="@title:window">Restore Guide</string>
   </property>
   <layout class="QVBoxLayout" name="mTopLevelVLayout">
    <item>

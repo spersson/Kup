@@ -80,10 +80,11 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
 		QLabel *lSorryIcon = new QLabel;
 		lSorryIcon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-error")).pixmap(64, 64));
-		QString lInstallMessage = xi18nc("@info", "<h2>Backup programs are missing</h2><p>Before you can activate "
-		                                "any backup plan you need to install either of</p><ul>"
-		                                "<li>bup, for versioned backups</li>"
-		                                "<li>rsync, for synchronized backups</li></ul>");
+		QString lInstallMessage = i18n("<h2>Backup programs are missing</h2>"
+		                               "<p>Before you can activate any backup plan you need to "
+		                               "install either of</p>"
+		                               "<ul><li>bup, for versioned backups</li>"
+		                               "<li>rsync, for synchronized backups</li></ul>");
 		QLabel *lSorryText = new QLabel(lInstallMessage);
 		lSorryText->setWordWrap(true);
 		QHBoxLayout *lHLayout = new QHBoxLayout;
@@ -147,10 +148,10 @@ void KupKcm::save() {
 			lManager->updateSettings();
 			mStatusWidgets.at(i)->updateIcon();
 			if(lPlan->mDestinationType == 1 && lPlan->mExternalUUID.isEmpty()) {
-				QMessageBox::warning(this, xi18nc("@title:dialog", "Warning"),
+				QMessageBox::warning(this, xi18nc("@title:window", "Warning"),
 				                     xi18nc("@info %1 is the name of the backup plan",
-				                           "%1 does not have a destination!<br>"
-				                           "No backups will be saved by this plan.", lPlan->mDescription));
+				                            "%1 does not have a destination!<nl/>"
+				                            "No backups will be saved by this plan.", lPlan->mDescription));
 			}
 		}
 		else {

@@ -106,7 +106,7 @@ void FSExecutor::checkStatus() {
 void FSExecutor::startBackup() {
 	BackupJob *lJob = createBackupJob();
 	if(lJob == NULL) {
-		KNotification::event(KNotification::Error, xi18nc("@title", "Problem"),
+		KNotification::event(KNotification::Error, xi18nc("@title:window", "Problem"),
 		                     xi18nc("notification", "Invalid type of backup in configuration."));
 		exitBackupRunningState(false);
 		return;
@@ -135,7 +135,7 @@ void FSExecutor::slotBackupDone(KJob *pJob) {
 
 void FSExecutor::slotBackupSizeDone(KJob *pJob) {
 	if(pJob->error()) {
-		KNotification::event(KNotification::Error, xi18nc("@title", "Problem"), pJob->errorText());
+		KNotification::event(KNotification::Error, xi18nc("@title:window", "Problem"), pJob->errorText());
 		mPlan->mLastBackupSize = -1.0; //unknown size
 	} else {
 		KIO::DirectorySizeJob *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);
