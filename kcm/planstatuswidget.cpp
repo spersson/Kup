@@ -72,7 +72,7 @@ QString PlanStatusWidget::statusText() {
 
 		lStatus += xi18nc("@label %1 is fancy formatted date, %2 is time of day", "Last backup was taken %1 at %2.\n",
 		                lFormat.formatRelativeDate(lLocalTime.date(), QLocale::LongFormat),
-		                lLocale.toString(lLocalTime.time()));
+		                lLocale.toString(lLocalTime.time(), QLocale::ShortFormat));
 		if(mPlan->mLastBackupSize > 0.0)
 			lStatus += xi18nc("@label %1 is storage size of archive" ,
 			                 "The size of the backup archive was %1.\n",
