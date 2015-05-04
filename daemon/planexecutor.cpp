@@ -366,12 +366,10 @@ void PlanExecutor::showFilesClicked() {
 	if(mState == NOT_AVAILABLE)
 		return;
 	if(mPlan->mBackupType == BackupPlan::BupType) {
-		QString lCommandLine = QString::fromLatin1("kup-filedigger --title \"");
-		lCommandLine.append(mPlan->mDescription);
-		lCommandLine.append(QStringLiteral("\" \""));
-		lCommandLine.append(mDestinationPath);
-		lCommandLine.append(QStringLiteral("\""));
-		KRun::runCommand(lCommandLine, NULL);
+		QStringList lArgs;
+		lArgs << QStringLiteral("--title") << mPlan->mDescription;
+		lArgs << mDestinationPath;
+		KProcess::startDetached(QStringLiteral("kup-filedigger"), lArgs);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
 		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QStringLiteral("inode/directory"), NULL);
 	}

@@ -93,7 +93,7 @@ Directory::Directory(QObject *pParent, const QString &pName, quint64 pMode)
    :Node(pParent, pName, pMode)
 {
 	mSubNodes = NULL;
-	mMimeType = QString::fromLatin1("inode/directory");
+	mMimeType = QStringLiteral("inode/directory");
 }
 
 NodeMap Directory::subNodes() {

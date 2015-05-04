@@ -53,7 +53,7 @@ void RsyncJob::startRsync() {
 	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-aR");
 	mRsyncProcess << QStringLiteral("--delete") << QStringLiteral("--delete-excluded");
 	foreach(QString lExclude, mBackupPlan.mPathsExcluded) {
-		mRsyncProcess << QString::fromLatin1("--exclude=%1").arg(lExclude);
+		mRsyncProcess << QString(QStringLiteral("--exclude=%1")).arg(lExclude);
 	}
 	mRsyncProcess << mBackupPlan.mPathsIncluded;
 	mRsyncProcess << mDestinationPath;

@@ -281,7 +281,7 @@ bool BupSlave::checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepo
 	}
 
 	pPathInRepository = lPath.split(QLatin1Char('/'), QString::SkipEmptyParts);
-	QString lRepoPath = QString::fromLatin1("/");
+	QString lRepoPath = QStringLiteral("/");
 	while(!pPathInRepository.isEmpty()) {
 		// make sure the repo path will end with a slash
 		lRepoPath += pPathInRepository.takeFirst();

@@ -238,7 +238,7 @@ bool MergedRepository::readBranch() {
 		return false;
 	}
 
-	QString lCompleteBranchName = QString::fromLatin1("refs/heads/");
+	QString lCompleteBranchName = QStringLiteral("refs/heads/");
 	lCompleteBranchName.append(mBranchName);
 	if(0 != git_revwalk_push_ref(lRevisionWalker, lCompleteBranchName.toLocal8Bit())) {
 		qWarning() << "Unable to read branch " << mBranchName << " in repository " << objectName();
