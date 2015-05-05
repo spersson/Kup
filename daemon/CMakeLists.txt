@@ -36,5 +36,5 @@ KF5::DBusAddons
 install(TARGETS kup-daemon ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kup-daemon ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kup-daemon.desktop DESTINATION ${AUTOSTART_INSTALL_DIR})
-install(FILES kup-daemon.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
+install(FILES kupdaemon.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
 
