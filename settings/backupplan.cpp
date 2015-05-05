@@ -29,7 +29,7 @@
 BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent)
    :KConfigSkeleton(pConfig, pParent), mPlanNumber(pPlanNumber)
 {
-	setCurrentGroup(QString::fromLatin1("Plan/%1").arg(mPlanNumber));
+	setCurrentGroup(QString(QStringLiteral("Plan/%1")).arg(mPlanNumber));
 
 	addItemString(QStringLiteral("Description"), mDescription,
 	              xi18nc("@label Default name for a new backup plan, %1 is the number of the plan in order",
@@ -86,14 +86,14 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 
 void BackupPlan::setPlanNumber(int pPlanNumber) {
 	mPlanNumber = pPlanNumber;
-	QString lGroupName = QString::fromLatin1("Plan/%1").arg(mPlanNumber);
+	QString lGroupName = QString(QStringLiteral("Plan/%1")).arg(mPlanNumber);
 	foreach(KConfigSkeletonItem *lItem, items()) {
 		lItem->setGroup(lGroupName);
 	}
 }
 
 void BackupPlan::removePlanFromConfig() {
-	config()->deleteGroup(QString::fromLatin1("Plan/%1").arg(mPlanNumber));
+	config()->deleteGroup(QString(QStringLiteral("Plan/%1")).arg(mPlanNumber));
 }
 
 QDateTime BackupPlan::nextScheduledTime() {
