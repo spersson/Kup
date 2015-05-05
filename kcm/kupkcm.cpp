@@ -35,6 +35,7 @@
 
 #include <KAboutData>
 #include <KConfigDialogManager>
+#include <Kdelibs4ConfigMigrator>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KPluginFactory>
@@ -92,6 +93,10 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 		lHLayout->addWidget(lSorryText, 1);
 		setLayout(lHLayout);
 	} else {
+		Kdelibs4ConfigMigrator lMigrator(QStringLiteral("kup"));
+		lMigrator.setConfigFiles(QStringList() << QStringLiteral("kuprc"));
+		lMigrator.migrate();
+
 		mConfig = KSharedConfig::openConfig(QStringLiteral("kuprc"));
 		mSettings = new KupSettings(mConfig, this);
 		for(int i = 0; i < mSettings->mNumberOfPlans; ++i) {

@@ -20,10 +20,10 @@
 
 #include "kupdaemon.h"
 
-#include <KStartupInfo>
 #include <KAboutData>
 #include <KDBusService>
 #include <KLocalizedString>
+#include <KStartupInfo>
 
 #include <QApplication>
 #include <QDebug>
