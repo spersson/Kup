@@ -66,7 +66,10 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 		return lUrl;
 	}
 	case VersionMimeTypeRole:
-		return db.mimeTypeForUrl(QUrl::fromLocalFile(mNode->objectName())).name();
+		if(mNode->isDirectory()) {
+			return QString(QStringLiteral("inode/directory"));
+		}
+		return db.mimeTypeForFile(mNode->objectName(), QMimeDatabase::MatchExtension).name();
 	case VersionSizeRole:
 		return lData->size();
 	case VersionSourceInfoRole: {
