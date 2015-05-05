@@ -15,14 +15,14 @@ xargs --arg-file=${WDIR}/rcfiles.list extractrc > ${WDIR}/rc.cpp
 intltool-extract --quiet --type=gettext/ini kcm/kcm_kup.desktop.template
 cat kcm/kcm_kup.desktop.template.h >> ${WDIR}/rc.cpp
 rm kcm/kcm_kup.desktop.template.h
-intltool-extract --quiet --type=gettext/ini daemon/kup-daemon.notifyrc.template
-cat daemon/kup-daemon.notifyrc.template.h >> ${WDIR}/rc.cpp
-rm daemon/kup-daemon.notifyrc.template.h
+intltool-extract --quiet --type=gettext/ini daemon/kupdaemon.notifyrc.template
+cat daemon/kupdaemon.notifyrc.template.h >> ${WDIR}/rc.cpp
+rm daemon/kupdaemon.notifyrc.template.h
 
 cd ${WDIR}
 echo "Done preparing rc files"
- 
- 
+
+
 echo "Extracting messages"
 cd ${BASEDIR}
 # see above on sorting
@@ -34,8 +34,8 @@ xgettext --from-code=UTF-8 -C -kde -ci18n -ki18n:1 -ki18nc:1c,2 -ki18np:1,2 -ki1
 	-kN_:1 -kxi18nc:1c,2 -kxi18ncp:1c,2,3 --msgid-bugs-address="${BUGADDR}" \
 	--files-from=infiles.list -D ${BASEDIR} -D ${WDIR} -o ${PROJECT}.pot || { echo "error while calling xgettext. aborting."; exit 1; }
 echo "Done extracting messages"
- 
- 
+
+
 echo "Merging translations"
 catalogs=`find . -name '*.po'`
 for cat in $catalogs; do
@@ -45,10 +45,10 @@ for cat in $catalogs; do
 done
 cd ${WDIR}
 intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/kcm/kcm_kup.desktop.template ${BASEDIR}/kcm/kcm_kup.desktop
-intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/daemon/kup-daemon.notifyrc.template ${BASEDIR}/daemon/kup-daemon.notifyrc
+intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/daemon/kupdaemon.notifyrc.template ${BASEDIR}/daemon/kupdaemon.notifyrc
 echo "Done merging translations"
- 
- 
+
+
 echo "Cleaning up"
 cd ${WDIR}
 rm rcfiles.list
