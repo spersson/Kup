@@ -129,6 +129,9 @@ void KupKcm::load() {
 		completelyRemovePlan(i);
 	}
 	KCModule::load();
+	// this call is needed because it could have been set true before, now load() is called because user
+	// pressed reset button. need to manually reset the "changed" state to false in this case.
+	unmanagedWidgetChangeState(false);
 }
 
 void KupKcm::save() {
