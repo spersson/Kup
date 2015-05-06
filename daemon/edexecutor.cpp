@@ -120,6 +120,11 @@ void EDExecutor::startBackup() {
 				connect(lJob, SIGNAL(result(KJob*)), SLOT(slotBackupDone(KJob*)));
 				lJob->start();
 				mWantsToRunBackup = false; //reset, only used to retrigger this state-entering if drive wasn't already mounted
+			} else {
+				KNotification::event(KNotification::Error, xi18nc("@title:window", "Problem"),
+				                     xi18nc("notification", "You don't have write permission to backup destination."));
+				exitBackupRunningState(false);
+				return;
 			}
 		}
 	} else { //not mounted yet. trigger mount and come back to this startBackup again later
