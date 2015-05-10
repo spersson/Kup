@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-06 16:31+0800\n"
+"POT-Creation-Date: 2015-05-07 23:19+0800\n"
 "PO-Revision-Date: 2015-03-16 14:33+0000\n"
 "Last-Translator: dgvirtual <dgvirtual@akl.lt>\n"
 "Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/"
@@ -22,32 +22,35 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: daemon/bupjob.cpp:48 daemon/buprepairjob.cpp:44
-#: daemon/bupverificationjob.cpp:43
-msgctxt "notification"
+#: daemon/bupjob.cpp:49 daemon/buprepairjob.cpp:45
+#: daemon/bupverificationjob.cpp:44
+msgctxt "@info notification"
 msgid ""
-"The \"bup\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>bup</application> program is needed but could not be found, "
+"maybe it is not installed?"
 msgstr ""
-"Reikalinga „bup“ programa, tačiau jos rasti nepavyko. Gal ji neįdiegta?"
+"Reikalinga <application>bup</application> programa, tačiau jos rasti "
+"nepavyko. Gal ji neįdiegta?"
 
-#: daemon/bupjob.cpp:54 daemon/buprepairjob.cpp:50
-msgctxt "notification"
+#: daemon/bupjob.cpp:56 daemon/buprepairjob.cpp:52
+msgctxt "@info notification"
 msgid ""
-"The \"par2\" program is needed but could not be found, maybe it is not "
-"installed?"
-msgstr "Reikalinga „par2“ programa, bet jos rasti nepavyko, gal ji neįdiegta?"
+"The <application>par2</application> program is needed but could not be "
+"found, maybe it is not installed?"
+msgstr ""
+"Reikalinga <application>par2</application> programa, bet jos rasti nepavyko, "
+"gal ji neįdiegta?"
 
-#: daemon/bupjob.cpp:75
-msgctxt "notification"
+#: daemon/bupjob.cpp:77
+msgctxt "@info notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
 "Nepavyko nuskaityti atsarginių kopijų kūrimo vietos failų. Daugiau detalių "
 "rasite žurnalo faile. "
 
-#: daemon/bupjob.cpp:106 daemon/bupverificationjob.cpp:74
-msgctxt "notification"
+#: daemon/bupjob.cpp:109 daemon/bupverificationjob.cpp:76
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details. Do you want to try repairing the backup files?"
@@ -56,8 +59,8 @@ msgstr ""
 "Daugiau informacijos ieškokite žurnalo faile. Ar norite pamėginti sutaisyti "
 "atsarginių kopijų failus?"
 
-#: daemon/bupjob.cpp:110
-msgctxt "notification"
+#: daemon/bupjob.cpp:114
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details."
@@ -65,22 +68,22 @@ msgstr ""
 "Atsarginių kopijų integralumo patikra rodo, kad jūsų atsarginės kopijos gali "
 "būti sugadintos! Daugiau informacijos ieškokite žurnalo faile."
 
-#: daemon/bupjob.cpp:141
-msgctxt "notification"
+#: daemon/bupjob.cpp:145
+msgctxt "@info notification"
 msgid "Failed to index the file system. See log file for more details."
 msgstr ""
 "Nepavyko indeksuoti failų sistemos. Daugiau informacijos ieškokite žurnalo "
 "faile."
 
-#: daemon/bupjob.cpp:168
-msgctxt "notification"
+#: daemon/bupjob.cpp:173
+msgctxt "@info notification"
 msgid "Failed to save the complete backup. See log file for more details."
 msgstr ""
 "Nepavyko įrašyti padarytos atsarginės kopijos. Daugiau informacijos "
 "ieškokite žurnalo faile."
 
-#: daemon/bupjob.cpp:198
-msgctxt "notification"
+#: daemon/bupjob.cpp:203
+msgctxt "@info notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
 "details."
@@ -88,8 +91,8 @@ msgstr ""
 "Nepavyko sukurti atkūrimo informacijos šiai atsarginei kopijai. Daugiau "
 "informacijos ieškokite žurnalo faile."
 
-#: daemon/buprepairjob.cpp:80
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:82
+msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could be corrupted! See log file for more "
 "details."
@@ -97,15 +100,15 @@ msgstr ""
 "Atsarginės kopijos sukurti nepavyko. Jūsų atsarginės kopijos gali būti "
 "sugadintos! Daugiau informacijos ieškokite žurnalo faile."
 
-#: daemon/buprepairjob.cpp:84
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:86
+msgctxt "@info notification"
 msgid "Success! Backup repair worked. See log file for more details."
 msgstr ""
 "Pavyko! Atsarginė kopija sutaisyta. Daugiau informacijos ieškokite žurnalo "
 "faile."
 
-#: daemon/buprepairjob.cpp:87
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:90
+msgctxt "@info notification"
 msgid ""
 "Backup repair was not necessary. Your backups are not corrupted.See log file "
 "for more details."
@@ -113,8 +116,8 @@ msgstr ""
 "Atsarginės kopijos taisyti nereikėjo. Jūsų atsarginės kopijos nėra "
 "sugadintos. Daugiau informacijos ieškokite žurnalo faile."
 
-#: daemon/buprepairjob.cpp:92
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:95
+msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could still be corrupted! See log file "
 "for more details."
@@ -122,8 +125,8 @@ msgstr ""
 "Atsarginės kopijos sutaisyti nepavyko. Jūsų atsarginės kopijos gali būti "
 "sugadintos! Daugiau informacijos ieškokite žurnalo faile."
 
-#: daemon/bupverificationjob.cpp:78 daemon/bupverificationjob.cpp:94
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:80 daemon/bupverificationjob.cpp:97
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details."
@@ -131,15 +134,15 @@ msgstr ""
 "Atsarginių kopijų integralumo patikros rezultatas neigiamas. Jūsų atsarginės "
 "kopijos yra sugadintos! Daugiau informacijos ieškokite žurnalo faile."
 
-#: daemon/bupverificationjob.cpp:84
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:86
+msgctxt "@info notification"
 msgid "Backup integrity test was successful, Your backups are fine."
 msgstr ""
 "Atsarginės kopijos integralumo patikros rezultatas teigiamas. Viskas gerai "
 "su jūsų atsarginėmis kopijomis."
 
-#: daemon/bupverificationjob.cpp:90
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:93
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details. Do you want to try repairing the backup files?"
@@ -149,9 +152,8 @@ msgstr ""
 "norite pamėginti pataisyti atsarginių kopijų failus?"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:124
-#: daemon/edexecutor.cpp:158 daemon/fsexecutor.cpp:109
+#: daemon/edexecutor.cpp:157 daemon/fsexecutor.cpp:109
 #: daemon/fsexecutor.cpp:138
-#, fuzzy
 msgctxt "@title:window"
 msgid "Problem"
 msgstr "Problema"
@@ -162,10 +164,9 @@ msgid "Invalid type of backup in configuration."
 msgstr "Netinkamas tipas atsarginių kopijų konfigūracijoje."
 
 #: daemon/edexecutor.cpp:125
-#, fuzzy
 msgctxt "notification"
 msgid "You don't have write permission to backup destination."
-msgstr "Neturite leidimų sukurti %1."
+msgstr ""
 
 #: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
@@ -208,14 +209,13 @@ msgid "Configure Backups"
 msgstr "Konfigūruoti atsargines kopijas"
 
 #: daemon/main.cpp:42
-#, fuzzy
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running <command>kcmshell5 kup</command>"
 msgstr ""
 "Kup nėra įgalinta. Įgalinkite šią programą sistemos nustatymų modulyje. Tai "
-"galite atlikti ir paleisdami komandą „kcmshell4 kup“"
+"galite atlikti ir paleisdami komandą <command>kcmshell5 kup</command>"
 
 #: daemon/main.cpp:48
 msgctxt "@title"
@@ -234,9 +234,8 @@ msgstr ""
 "su paskutine atsargine kopija."
 
 #: daemon/main.cpp:52 kcm/kupkcm.cpp:51
-#, fuzzy
 msgid "Copyright (C) 2011-2015 Simon Persson"
-msgstr "Autorinės teisės (C) 2011 Simon Persson"
+msgstr "Autorinės teisės (C) 2011-2015 Simon Persson"
 
 #: daemon/main.cpp:54 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
@@ -343,16 +342,17 @@ msgctxt "@title:window"
 msgid "Repair Completed"
 msgstr "Taisymas atliktas"
 
-#: daemon/rsyncjob.cpp:43
-msgctxt "notification"
+#: daemon/rsyncjob.cpp:44
+msgctxt "@info notification"
 msgid ""
-"The \"rsync\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>rsync</application> program is needed but could not be "
+"found, maybe it is not installed?"
 msgstr ""
-"Reikia „rsync“ programos, tačiau jos rasti nepavyko; gal ji nėra įdiegta?"
+"Reikia <application>rsync</application> programos, tačiau jos rasti "
+"nepavyko; gal ji nėra įdiegta?"
 
-#: daemon/rsyncjob.cpp:75
-msgctxt "notification"
+#: daemon/rsyncjob.cpp:76
+msgctxt "@info notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr ""
@@ -360,7 +360,6 @@ msgstr ""
 "faile."
 
 #: filedigger/main.cpp:43
-#, fuzzy
 msgctxt "@title"
 msgid "File Digger"
 msgstr "File Digger"
@@ -370,9 +369,8 @@ msgid "Browser for bup archives."
 msgstr "Bup archyvų naršyklė."
 
 #: filedigger/main.cpp:45
-#, fuzzy
 msgid "Copyright (C) 2013-2015 Simon Persson"
-msgstr "Autorinės teisės (C) 2011 Simon Persson"
+msgstr "Autorinės teisės (C) 2013-2015 Simon Persson"
 
 #: filedigger/main.cpp:55
 msgid "Name of the branch to be opened."
@@ -383,7 +381,6 @@ msgid "Path to the bup repository to be opened."
 msgstr "Kelias iki norimos atverti pub repozitorijos."
 
 #: filedigger/main.cpp:66
-#, fuzzy
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
@@ -393,24 +390,21 @@ msgstr ""
 "peržiūrai."
 
 #: filedigger/main.cpp:77
-#, fuzzy
 msgctxt "@info messagebox, %1 is a folder path"
 msgid ""
 "The backup archive <filename>%1</filename> could not be opened. Check if the "
 "backups really are located there."
 msgstr ""
-"Atsarginių kopijų archyvo „%1“ atverti nepavyko. Patikrinkite, ar atsarginės "
-"kopijos iš tiesų ten yra."
+"Atsarginių kopijų archyvo <filename>%1</filename> atverti nepavyko. "
+"Patikrinkite, ar atsarginės kopijos iš tiesų ten yra."
 
 #: filedigger/main.cpp:84
-#, fuzzy
 msgctxt "@info messagebox"
 msgid "You do not have permission needed to read this backup archive."
 msgstr ""
 "Jūs neturi leidimų, kurių reikia norint atverti šį atsarginių kopijų archyvą."
 
 #: filedigger/mergedvfs.cpp:108
-#, fuzzy
 msgctxt "@info messagebox"
 msgid ""
 "Could not read this backup archive. Perhaps some files have become "
@@ -545,7 +539,6 @@ msgid "Back to overview"
 msgstr "Grįžti prie apžvalgos"
 
 #: kcm/backupplanwidget.cpp:214
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This type of backup is an <emphasis>archive</emphasis>. It contains both the "
@@ -558,24 +551,25 @@ msgid ""
 "files in the archive can not be accessed directly with a general file "
 "manager, a special program is needed."
 msgstr ""
-"Šios atsarginės kopijos tipas - <em>archyvas</em>. Jame bus ir vėliausia "
-"jūsų failų versija, ir anksčiau padarytų atsarginių kopijų versijos. "
-"Naudojant šį atsarginių kopijų tipą bus galima atkurti senesnes failų "
-"versijas ar failus, kurie buvo anksčiau ištrinti iš jūsų kompiuterio. "
+"Šios atsarginės kopijos tipas - <emphasis>archyvas</emphasis>. Jame bus ir "
+"vėliausia jūsų failų versija, ir anksčiau padarytų atsarginių kopijų "
+"versijos. Naudojant šį atsarginių kopijų tipą bus galima atkurti senesnes "
+"failų versijas ar failus, kurie buvo anksčiau ištrinti iš jūsų kompiuterio. "
 "Reikiama saugojimui vieta yra taupoma, nes programa randa tarp skirtingų "
 "atsarginių kopijų nepasikeitusius failus ar nepasikeitusias failų dalis ir "
 "įrašo tuos failus ar jų dalis tik vieną kartą. Tačiau atsarginių kopijų "
-"archyvas vis tiek pamažu augs laikui bėgant.<br>Taip pat svarbu žinoti, kad "
+"archyvas vis tiek pamažu augs laikui bėgant.<nl/>Taip pat svarbu žinoti, kad "
 "failai tokiame archyve nebus pasiekiami naudojant paprastą failų naršyklę. "
 "Tuo tikslu reikės naudoti specialią programą."
 
 #: kcm/backupplanwidget.cpp:229
-#, fuzzy
 msgctxt "@option:radio"
 msgid ""
 "Versioned Backup (not available because <application>bup</application> is "
 "not installed)"
-msgstr "Atsarginės kopijos su versijomis (neprieinama, nes „bup“ nėra įdiegta)"
+msgstr ""
+"Atsarginės kopijos su versijomis (neprieinama, nes <application>bup</"
+"application> nėra įdiegta)"
 
 #: kcm/backupplanwidget.cpp:234
 msgctxt "@option:radio"
@@ -583,7 +577,6 @@ msgid "Versioned Backup (recommended)"
 msgstr "Atsarginės kopijos su versijomis (rekomenduojama)"
 
 #: kcm/backupplanwidget.cpp:239
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -598,18 +591,18 @@ msgstr ""
 "nurodytais šaltinių aplankais. Atsarginės kopijos padarymas reiškia, kad "
 "atsarginės kopijos tikslas turės tikslią kopiją šaltinio aplankų, tokių, "
 "kokie jie yra dabar, ir - nieko daugiau. Jei failas bus ištrintas šaltinio "
-"aplanke, jis bus ištrintas iš atsarginės kopijos aplanke.<br>Tokia atsarginė "
-"kopija gali apsaugoti nuo duomenų praradimo dėl sugedusio kietojo disko, "
-"tačiau ji neapsaugos nuo Jūsų pačių klaidų. "
+"aplanke, jis bus ištrintas iš atsarginės kopijos aplanke.<nl/>Tokia "
+"atsarginė kopija gali apsaugoti nuo duomenų praradimo dėl sugedusio kietojo "
+"disko, tačiau ji neapsaugos nuo Jūsų pačių klaidų. "
 
 #: kcm/backupplanwidget.cpp:252
-#, fuzzy
 msgctxt "@option:radio"
 msgid ""
 "Synchronized Backup (not available because <application>rsync</application> "
 "is not installed)"
 msgstr ""
-"Sinchruonizuojama atsarginė kopija (neprieinama, nes „rsync“ nėra įdiegta)"
+"Sinchruonizuojama atsarginė kopija (neprieinama, nes <application>rsync</"
+"application> nėra įdiegta)"
 
 #: kcm/backupplanwidget.cpp:257
 msgctxt "@option:radio"
@@ -648,7 +641,6 @@ msgid "External Storage"
 msgstr "Išorinė saugykla"
 
 #: kcm/backupplanwidget.cpp:316
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -668,7 +660,6 @@ msgid "Destination Path for Backup:"
 msgstr "Kelias iki vietos, kur bus saugomos atsarginės kopijos: "
 
 #: kcm/backupplanwidget.cpp:342
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -818,14 +809,13 @@ msgid "Generate recovery information"
 msgstr "Atkūrimo informacijos generavimas"
 
 #: kcm/backupplanwidget.cpp:543
-#, fuzzy
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because <application>par2</"
 "application> is not installed)"
 msgstr ""
-"Atkūrimo informacijos generavimas (neprieinama nes „par2“ programa nėra "
-"įdiegta)"
+"Atkūrimo informacijos generavimas (neprieinama nes <application>par2</"
+"application> programa nėra įdiegta)"
 
 #: kcm/backupplanwidget.cpp:558
 msgctxt "@option:check"
@@ -968,7 +958,6 @@ msgid "Maintainer"
 msgstr "Palaikytojas"
 
 #: kcm/kupkcm.cpp:84
-#, fuzzy
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
 "plan you need to install either of</p><ul><li>bup, for versioned backups</"
@@ -980,18 +969,16 @@ msgstr ""
 "kopijai</li></ul>"
 
 #: kcm/kupkcm.cpp:159
-#, fuzzy
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Perspėjimas"
 
 #: kcm/kupkcm.cpp:161
-#, fuzzy
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<nl/>No backups will be saved by this plan."
 msgstr ""
-"%1 nėra atsarginių kopijų aplanko!<br>Pagal šį planą nebus išsaugota "
+"%1 nėra atsarginių kopijų aplanko!<nl/>Pagal šį planą nebus išsaugota "
 "atsarginių kopijų."
 
 #: kcm/kupkcm.cpp:250
@@ -1047,7 +1034,6 @@ msgstr ""
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
 #: po/rc.cpp:3 rc.cpp:3
-#, fuzzy
 msgctxt "@title:window"
 msgid "Restore Guide"
 msgstr "Atkūrimo vadovas"
@@ -1206,6 +1192,15 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Atsarginių kopijų planas %1"
+
+#~ msgctxt "notification"
+#~ msgid ""
+#~ "Failed backup integrity check. Your backups are corrupted! See log file "
+#~ "for more details."
+#~ msgstr ""
+#~ "Atsarginių kopijų integralumo patikros rezultatas neigiamas. Jūsų "
+#~ "atsarginės kopijos yra sugadintos! Daugiau informacijos ieškokite žurnalo "
+#~ "faile."
 
 #~ msgid "Copyright (C) 2011 Simon Persson"
 #~ msgstr "Autorinės teisės (C) 2011 Simon Persson"

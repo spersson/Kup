@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alex <lehaemail@yandex.ru>, 2015
 # Ilya Ostapenko <jacobtey@gmail.com>, 2014
 # Simon Persson <simon.persson@mykolab.com>, 2014-2015
 msgid ""
@@ -10,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-06 16:31+0800\n"
+"POT-Creation-Date: 2015-05-07 23:19+0800\n"
 "PO-Revision-Date: 2015-03-20 02:40+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kup/language/"
@@ -19,113 +20,143 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: daemon/bupjob.cpp:48 daemon/buprepairjob.cpp:44
-#: daemon/bupverificationjob.cpp:43
-msgctxt "notification"
+#: daemon/bupjob.cpp:49 daemon/buprepairjob.cpp:45
+#: daemon/bupverificationjob.cpp:44
+msgctxt "@info notification"
 msgid ""
-"The \"bup\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>bup</application> program is needed but could not be found, "
+"maybe it is not installed?"
 msgstr ""
-"Требуется программа bup, но она не найдена. Похоже, она не установлена."
+"Требуется программа <application>bup</application>, но она не найдена. "
+"Похоже, она не установлена."
 
-#: daemon/bupjob.cpp:54 daemon/buprepairjob.cpp:50
-#, fuzzy
-msgctxt "notification"
+#: daemon/bupjob.cpp:56 daemon/buprepairjob.cpp:52
+msgctxt "@info notification"
 msgid ""
-"The \"par2\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>par2</application> program is needed but could not be "
+"found, maybe it is not installed?"
 msgstr ""
-"Требуется программа bup, но она не найдена. Похоже, она не установлена."
+"Требуется программа <application>par2</application>, но она не найдена. "
+"Похоже, она не установлена."
 
-#: daemon/bupjob.cpp:75
-msgctxt "notification"
+#: daemon/bupjob.cpp:77
+msgctxt "@info notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/bupjob.cpp:106 daemon/bupverificationjob.cpp:74
-msgctxt "notification"
+#: daemon/bupjob.cpp:109 daemon/bupverificationjob.cpp:76
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details. Do you want to try repairing the backup files?"
 msgstr ""
 
-#: daemon/bupjob.cpp:110
-msgctxt "notification"
+#: daemon/bupjob.cpp:114
+#, fuzzy
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/bupjob.cpp:141
-msgctxt "notification"
+#: daemon/bupjob.cpp:145
+#, fuzzy
+msgctxt "@info notification"
 msgid "Failed to index the file system. See log file for more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/bupjob.cpp:168
-msgctxt "notification"
+#: daemon/bupjob.cpp:173
+#, fuzzy
+msgctxt "@info notification"
 msgid "Failed to save the complete backup. See log file for more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/bupjob.cpp:198
-msgctxt "notification"
+#: daemon/bupjob.cpp:203
+#, fuzzy
+msgctxt "@info notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
 "details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/buprepairjob.cpp:80
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:82
+#, fuzzy
+msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could be corrupted! See log file for more "
 "details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/buprepairjob.cpp:84
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:86
+#, fuzzy
+msgctxt "@info notification"
 msgid "Success! Backup repair worked. See log file for more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/buprepairjob.cpp:87
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:90
+#, fuzzy
+msgctxt "@info notification"
 msgid ""
 "Backup repair was not necessary. Your backups are not corrupted.See log file "
 "for more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/buprepairjob.cpp:92
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:95
+#, fuzzy
+msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could still be corrupted! See log file "
 "for more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/bupverificationjob.cpp:78 daemon/bupverificationjob.cpp:94
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:80 daemon/bupverificationjob.cpp:97
+#, fuzzy
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
-#: daemon/bupverificationjob.cpp:84
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:86
+msgctxt "@info notification"
 msgid "Backup integrity test was successful, Your backups are fine."
 msgstr ""
 
-#: daemon/bupverificationjob.cpp:90
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:93
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details. Do you want to try repairing the backup files?"
 msgstr ""
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:124
-#: daemon/edexecutor.cpp:158 daemon/fsexecutor.cpp:109
+#: daemon/edexecutor.cpp:157 daemon/fsexecutor.cpp:109
 #: daemon/fsexecutor.cpp:138
-#, fuzzy
 msgctxt "@title:window"
 msgid "Problem"
 msgstr "Проблема"
@@ -136,10 +167,9 @@ msgid "Invalid type of backup in configuration."
 msgstr "Неверно сконфигурирован тип резервного копирования."
 
 #: daemon/edexecutor.cpp:125
-#, fuzzy
 msgctxt "notification"
 msgid "You don't have write permission to backup destination."
-msgstr "Недостаточно прав для создания %1."
+msgstr ""
 
 #: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
@@ -205,9 +235,8 @@ msgstr ""
 "момента прошлого резервного копирования."
 
 #: daemon/main.cpp:52 kcm/kupkcm.cpp:51
-#, fuzzy
 msgid "Copyright (C) 2011-2015 Simon Persson"
-msgstr "Copyright (C) 2011 Simon Persson"
+msgstr "Copyright (C) 2011-2015 Simon Persson"
 
 #: daemon/main.cpp:54 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
@@ -216,12 +245,12 @@ msgstr "Simon Persson"
 #: daemon/main.cpp:55 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Jacobtey"
+msgstr "Jacobtey, Alex"
 
 #: daemon/main.cpp:55 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "jacobtey@gmail.com"
+msgstr "jacobtey@gmail.com, lehaemail@yandex.ru"
 
 #: daemon/planexecutor.cpp:58
 msgctxt "@action:inmenu"
@@ -234,7 +263,6 @@ msgid "Show Files"
 msgstr "Показать файлы"
 
 #: daemon/planexecutor.cpp:66
-#, fuzzy
 msgctxt "@action:inmenu"
 msgid "Show Log File"
 msgstr "Показать файлы"
@@ -250,7 +278,6 @@ msgid "Checking backup integrity"
 msgstr ""
 
 #: daemon/planexecutor.cpp:90
-#, fuzzy
 msgctxt "@info:tooltip"
 msgid "Repairing backups"
 msgstr "Создание новой резервной копии"
@@ -302,7 +329,6 @@ msgstr ""
 
 #: daemon/planexecutor.cpp:198 daemon/planexecutor.cpp:257
 #: daemon/planexecutor.cpp:291
-#, fuzzy
 msgctxt "@action:button"
 msgid "Show log file"
 msgstr "Показать файлы"
@@ -317,21 +343,25 @@ msgctxt "@title:window"
 msgid "Repair Completed"
 msgstr ""
 
-#: daemon/rsyncjob.cpp:43
-msgctxt "notification"
+#: daemon/rsyncjob.cpp:44
+msgctxt "@info notification"
 msgid ""
-"The \"rsync\" program is needed but could not be found, maybe it is not "
-"installed?"
-msgstr "Нужна программа rsync, но она не найдена. Похоже, она не установлена."
+"The <application>rsync</application> program is needed but could not be "
+"found, maybe it is not installed?"
+msgstr ""
+"Нужна программа <application>rsync</application>, но она не найдена. Похоже, "
+"она не установлена."
 
-#: daemon/rsyncjob.cpp:75
-msgctxt "notification"
+#: daemon/rsyncjob.cpp:76
+#, fuzzy
+msgctxt "@info notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr ""
+"Назначение резервной копии не может быть установлено. Смотрите лог-файл для "
+"более детального отчёта."
 
 #: filedigger/main.cpp:43
-#, fuzzy
 msgctxt "@title"
 msgid "File Digger"
 msgstr "Анализ файлов"
@@ -341,9 +371,8 @@ msgid "Browser for bup archives."
 msgstr "Браузер bup-архивов."
 
 #: filedigger/main.cpp:45
-#, fuzzy
 msgid "Copyright (C) 2013-2015 Simon Persson"
-msgstr "Copyright (C) 2011 Simon Persson"
+msgstr "Copyright (C) 2013-2015 Simon Persson"
 
 #: filedigger/main.cpp:55
 msgid "Name of the branch to be opened."
@@ -354,7 +383,6 @@ msgid "Path to the bup repository to be opened."
 msgstr "Путь к открываемому репозиторию bup."
 
 #: filedigger/main.cpp:66
-#, fuzzy
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
@@ -371,10 +399,9 @@ msgid ""
 msgstr ""
 
 #: filedigger/main.cpp:84
-#, fuzzy
 msgctxt "@info messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr "Недостаточно прав для создания %1."
+msgstr ""
 
 #: filedigger/mergedvfs.cpp:108
 msgctxt "@info messagebox"
@@ -505,7 +532,6 @@ msgid "Back to overview"
 msgstr "Назад к обзору"
 
 #: kcm/backupplanwidget.cpp:214
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This type of backup is an <emphasis>archive</emphasis>. It contains both the "
@@ -518,23 +544,24 @@ msgid ""
 "files in the archive can not be accessed directly with a general file "
 "manager, a special program is needed."
 msgstr ""
-"Этот тип резервного копирования является <em>архивом</em>. Он содержит как "
-"последнюю версию файлов, так и предыдущие версии резервных копий. "
-"Использование этого типа резервного копирования позволяет восстанавливать "
-"старые версии файлов или файлы, которые впоследствии были удалены на "
-"компьютере. Требуется меньше места для хранения за счет поиска в версиях "
-"файлов одинаковых частей и сохранения их только один раз. Тем не менее, "
-"архив резервных копий со временем будет расти в размерах.<br>Также важно "
-"знать,  что файлы в архиве невозможно открыть обычным файловым менеджером. "
-"Для этого нужна специальная программа."
+"Этот тип резервного копирования является <emphasis>архивом</emphasis>. Он "
+"содержит как последнюю версию файлов, так и предыдущие версии резервных "
+"копий. Использование этого типа резервного копирования позволяет "
+"восстанавливать старые версии файлов или файлы, которые впоследствии были "
+"удалены на компьютере. Требуется меньше места для хранения за счет поиска в "
+"версиях файлов одинаковых частей и сохранения их только один раз. Тем не "
+"менее, архив резервных копий со временем будет расти в размерах.<nl/>Также "
+"важно знать,  что файлы в архиве невозможно открыть обычным файловым "
+"менеджером. Для этого нужна специальная программа."
 
 #: kcm/backupplanwidget.cpp:229
-#, fuzzy
 msgctxt "@option:radio"
 msgid ""
 "Versioned Backup (not available because <application>bup</application> is "
 "not installed)"
-msgstr "Версионное резервное копирование (недоступно, т.к. bup не установлен)"
+msgstr ""
+"Версионное резервное копирование (недоступно, т.к. <application>bup</"
+"application> не установлен)"
 
 #: kcm/backupplanwidget.cpp:234
 msgctxt "@option:radio"
@@ -542,7 +569,6 @@ msgid "Versioned Backup (recommended)"
 msgstr "Версионное резервное копирование (рекомендовано)"
 
 #: kcm/backupplanwidget.cpp:239
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -557,19 +583,19 @@ msgstr ""
 "синхронизируется с папками, подлежащими резервному копированию. Резервное "
 "копирование при этом означает, что просто создается точная копия исходных "
 "данных, и больше ничего. Если файл был удален в исходной папке он будет "
-"удален и из папки резервного копирования.<br>Данный тип резервного "
+"удален и из папки резервного копирования.<nl/>Данный тип резервного "
 "копирования может защитить вас от потери данных в случае выхода из строя "
 "жесткого диска, но бесполезен, если восстановить предыдущее состояние "
 "потребуется для исправления допущенных вами ошибок."
 
 #: kcm/backupplanwidget.cpp:252
-#, fuzzy
 msgctxt "@option:radio"
 msgid ""
 "Synchronized Backup (not available because <application>rsync</application> "
 "is not installed)"
 msgstr ""
-"Синхронное резервное копирование (недоступно, т.к. rsync не установлен)"
+"Синхронное резервное копирование (недоступно, т.к. <application>rsync</"
+"application> не установлен)"
 
 #: kcm/backupplanwidget.cpp:257
 msgctxt "@option:radio"
@@ -621,7 +647,6 @@ msgid "Destination Path for Backup:"
 msgstr "Путь к месту хранения резервных копий:"
 
 #: kcm/backupplanwidget.cpp:342
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -900,7 +925,6 @@ msgid "Maintainer"
 msgstr "Мэйнтейнер"
 
 #: kcm/kupkcm.cpp:84
-#, fuzzy
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
 "plan you need to install either of</p><ul><li>bup, for versioned backups</"
@@ -912,18 +936,16 @@ msgstr ""
 "для синхронного</li></ul>"
 
 #: kcm/kupkcm.cpp:159
-#, fuzzy
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Предупреждение"
 
 #: kcm/kupkcm.cpp:161
-#, fuzzy
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<nl/>No backups will be saved by this plan."
 msgstr ""
-"Для %1 не определено место хранения<br>Резервных копий по этому плану "
+"Для %1 не определено место хранения<nl/>Резервных копий по этому плану "
 "создано не будет."
 
 #: kcm/kupkcm.cpp:250
@@ -979,7 +1001,6 @@ msgstr ""
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
 #: po/rc.cpp:3 rc.cpp:3
-#, fuzzy
 msgctxt "@title:window"
 msgid "Restore Guide"
 msgstr "Инструкция по восстановлению"

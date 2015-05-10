@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-06 16:31+0800\n"
+"POT-Creation-Date: 2015-05-07 23:19+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,105 +18,105 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: daemon/bupjob.cpp:48 daemon/buprepairjob.cpp:44
-#: daemon/bupverificationjob.cpp:43
-msgctxt "notification"
+#: daemon/bupjob.cpp:49 daemon/buprepairjob.cpp:45
+#: daemon/bupverificationjob.cpp:44
+msgctxt "@info notification"
 msgid ""
-"The \"bup\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>bup</application> program is needed but could not be found, "
+"maybe it is not installed?"
 msgstr ""
 
-#: daemon/bupjob.cpp:54 daemon/buprepairjob.cpp:50
-msgctxt "notification"
+#: daemon/bupjob.cpp:56 daemon/buprepairjob.cpp:52
+msgctxt "@info notification"
 msgid ""
-"The \"par2\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>par2</application> program is needed but could not be "
+"found, maybe it is not installed?"
 msgstr ""
 
-#: daemon/bupjob.cpp:75
-msgctxt "notification"
+#: daemon/bupjob.cpp:77
+msgctxt "@info notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:106 daemon/bupverificationjob.cpp:74
-msgctxt "notification"
+#: daemon/bupjob.cpp:109 daemon/bupverificationjob.cpp:76
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details. Do you want to try repairing the backup files?"
 msgstr ""
 
-#: daemon/bupjob.cpp:110
-msgctxt "notification"
+#: daemon/bupjob.cpp:114
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:141
-msgctxt "notification"
+#: daemon/bupjob.cpp:145
+msgctxt "@info notification"
 msgid "Failed to index the file system. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:168
-msgctxt "notification"
+#: daemon/bupjob.cpp:173
+msgctxt "@info notification"
 msgid "Failed to save the complete backup. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:198
-msgctxt "notification"
+#: daemon/bupjob.cpp:203
+msgctxt "@info notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
 "details."
 msgstr ""
 
-#: daemon/buprepairjob.cpp:80
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:82
+msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could be corrupted! See log file for more "
 "details."
 msgstr ""
 
-#: daemon/buprepairjob.cpp:84
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:86
+msgctxt "@info notification"
 msgid "Success! Backup repair worked. See log file for more details."
 msgstr ""
 
-#: daemon/buprepairjob.cpp:87
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:90
+msgctxt "@info notification"
 msgid ""
 "Backup repair was not necessary. Your backups are not corrupted.See log file "
 "for more details."
 msgstr ""
 
-#: daemon/buprepairjob.cpp:92
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:95
+msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could still be corrupted! See log file "
 "for more details."
 msgstr ""
 
-#: daemon/bupverificationjob.cpp:78 daemon/bupverificationjob.cpp:94
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:80 daemon/bupverificationjob.cpp:97
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details."
 msgstr ""
 
-#: daemon/bupverificationjob.cpp:84
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:86
+msgctxt "@info notification"
 msgid "Backup integrity test was successful, Your backups are fine."
 msgstr ""
 
-#: daemon/bupverificationjob.cpp:90
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:93
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details. Do you want to try repairing the backup files?"
 msgstr ""
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:124
-#: daemon/edexecutor.cpp:158 daemon/fsexecutor.cpp:109
+#: daemon/edexecutor.cpp:157 daemon/fsexecutor.cpp:109
 #: daemon/fsexecutor.cpp:138
 msgctxt "@title:window"
 msgid "Problem"
@@ -296,15 +296,15 @@ msgctxt "@title:window"
 msgid "Repair Completed"
 msgstr ""
 
-#: daemon/rsyncjob.cpp:43
-msgctxt "notification"
+#: daemon/rsyncjob.cpp:44
+msgctxt "@info notification"
 msgid ""
-"The \"rsync\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>rsync</application> program is needed but could not be "
+"found, maybe it is not installed?"
 msgstr ""
 
-#: daemon/rsyncjob.cpp:75
-msgctxt "notification"
+#: daemon/rsyncjob.cpp:76
+msgctxt "@info notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr ""

@@ -4,15 +4,13 @@
 #
 # Translators:
 # carlo giusepe tadei valente sasaki <carlo.gt.valente@gmail.com>, 2014-2015
-# carlo giusepe tadei valente sasaki <carlo.gt.valente@gmail.com>, 2014
-# Simon Persson <simon.persson@mykolab.com>, 2014
 # Simon Persson <simon.persson@mykolab.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-06 16:31+0800\n"
+"POT-Creation-Date: 2015-05-07 23:19+0800\n"
 "PO-Revision-Date: 2015-03-15 19:55+0000\n"
 "Last-Translator: carlo giusepe tadei valente sasaki <carlo.gt.valente@gmail."
 "com>\n"
@@ -24,35 +22,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: daemon/bupjob.cpp:48 daemon/buprepairjob.cpp:44
-#: daemon/bupverificationjob.cpp:43
-msgctxt "notification"
+#: daemon/bupjob.cpp:49 daemon/buprepairjob.cpp:45
+#: daemon/bupverificationjob.cpp:44
+msgctxt "@info notification"
 msgid ""
-"The \"bup\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>bup</application> program is needed but could not be found, "
+"maybe it is not installed?"
 msgstr ""
-"O programa \"bup\" é necessário mas não pôde ser encontrado, talvez não "
-"esteja instalado?"
+"O programa <application>bup</application> é necessário mas não pôde ser "
+"encontrado, talvez não esteja instalado?"
 
-#: daemon/bupjob.cpp:54 daemon/buprepairjob.cpp:50
-msgctxt "notification"
+#: daemon/bupjob.cpp:56 daemon/buprepairjob.cpp:52
+msgctxt "@info notification"
 msgid ""
-"The \"par2\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>par2</application> program is needed but could not be "
+"found, maybe it is not installed?"
 msgstr ""
-"O programa \"par2\" é necessário mas não pôde ser encontrado, talvez não "
-"esteja instalado?"
+"O programa <application>par2</application> é necessário mas não pôde ser "
+"encontrado, talvez não esteja instalado?"
 
-#: daemon/bupjob.cpp:75
-msgctxt "notification"
+#: daemon/bupjob.cpp:77
+msgctxt "@info notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
 "O destino do backup não pôde ser iniciado. Veja o arquivo de log para mais "
 "detalhes."
 
-#: daemon/bupjob.cpp:106 daemon/bupverificationjob.cpp:74
-msgctxt "notification"
+#: daemon/bupjob.cpp:109 daemon/bupverificationjob.cpp:76
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details. Do you want to try repairing the backup files?"
@@ -61,8 +59,8 @@ msgstr ""
 "corrompidos! Veja o arquivo de log para mais detalhes. Deseja tentar reparar "
 "os arquivos de backup?"
 
-#: daemon/bupjob.cpp:110
-msgctxt "notification"
+#: daemon/bupjob.cpp:114
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details."
@@ -70,21 +68,21 @@ msgstr ""
 "A verificação da integridade do backup falhou. Seus backups podem estar "
 "corrompidos! Veja o arquivo de log para mais detalhes."
 
-#: daemon/bupjob.cpp:141
-msgctxt "notification"
+#: daemon/bupjob.cpp:145
+msgctxt "@info notification"
 msgid "Failed to index the file system. See log file for more details."
 msgstr ""
 "Falha na indexação do sistema de arquivos. Veja o arquivo de log para mais "
 "detalhes."
 
-#: daemon/bupjob.cpp:168
-msgctxt "notification"
+#: daemon/bupjob.cpp:173
+msgctxt "@info notification"
 msgid "Failed to save the complete backup. See log file for more details."
 msgstr ""
 "Falha ao salvar o backup completo. Veja o arquivo de log para mais detalhes."
 
-#: daemon/bupjob.cpp:198
-msgctxt "notification"
+#: daemon/bupjob.cpp:203
+msgctxt "@info notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
 "details."
@@ -92,8 +90,8 @@ msgstr ""
 "Falha ao gerar informações de recuperação para o backup. Veja o arquivo de "
 "log para mais detalhes."
 
-#: daemon/buprepairjob.cpp:80
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:82
+msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could be corrupted! See log file for more "
 "details."
@@ -101,13 +99,13 @@ msgstr ""
 "Falha ao reparar o backup. Seus backups podem estar corrompidos! Veja o "
 "arquivo de log para mais detalhes."
 
-#: daemon/buprepairjob.cpp:84
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:86
+msgctxt "@info notification"
 msgid "Success! Backup repair worked. See log file for more details."
 msgstr "Sucesso no reparo do backup! Veja o arquivo de log para mais detalhes."
 
-#: daemon/buprepairjob.cpp:87
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:90
+msgctxt "@info notification"
 msgid ""
 "Backup repair was not necessary. Your backups are not corrupted.See log file "
 "for more details."
@@ -115,8 +113,8 @@ msgstr ""
 "O reparo do backup não foi necessário. Seus backups não estão corrompidos. "
 "Veja o arquivo de log para mais detalhes."
 
-#: daemon/buprepairjob.cpp:92
-msgctxt "notification"
+#: daemon/buprepairjob.cpp:95
+msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could still be corrupted! See log file "
 "for more details."
@@ -124,8 +122,8 @@ msgstr ""
 "Falha ao reparar o backup. Seus backups ainda podem estar corrompidos! Veja "
 "o arquivo de log para mais detalhes."
 
-#: daemon/bupverificationjob.cpp:78 daemon/bupverificationjob.cpp:94
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:80 daemon/bupverificationjob.cpp:97
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details."
@@ -133,14 +131,14 @@ msgstr ""
 "A verificação da integridade do backup falhou. Seus backups estão "
 "corrompidos! Veja o arquivo de log para mais detalhes."
 
-#: daemon/bupverificationjob.cpp:84
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:86
+msgctxt "@info notification"
 msgid "Backup integrity test was successful, Your backups are fine."
 msgstr ""
 "Sucesso ao testar a integridade do backup! Tudo certo com seus backups."
 
-#: daemon/bupverificationjob.cpp:90
-msgctxt "notification"
+#: daemon/bupverificationjob.cpp:93
+msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details. Do you want to try repairing the backup files?"
@@ -150,9 +148,8 @@ msgstr ""
 "os arquivos de backup?"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:124
-#: daemon/edexecutor.cpp:158 daemon/fsexecutor.cpp:109
+#: daemon/edexecutor.cpp:157 daemon/fsexecutor.cpp:109
 #: daemon/fsexecutor.cpp:138
-#, fuzzy
 msgctxt "@title:window"
 msgid "Problem"
 msgstr "Problema"
@@ -163,10 +160,9 @@ msgid "Invalid type of backup in configuration."
 msgstr "Tipo inválido de backup na configuração."
 
 #: daemon/edexecutor.cpp:125
-#, fuzzy
 msgctxt "notification"
 msgid "You don't have write permission to backup destination."
-msgstr "Você não possui permissão para criar %1."
+msgstr ""
 
 #: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
@@ -209,14 +205,13 @@ msgid "Configure Backups"
 msgstr "Configurar Backups"
 
 #: daemon/main.cpp:42
-#, fuzzy
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running <command>kcmshell5 kup</command>"
 msgstr ""
 "O kup não está habilitado, habilite-o no módulo de configurações do sistema. "
-"Você pode fazê-lo executando 'kcmshell4 kup'"
+"Você pode fazê-lo executando <command>kcmshell5 kup</command>"
 
 #: daemon/main.cpp:48
 msgctxt "@title"
@@ -235,9 +230,8 @@ msgstr ""
 "backup."
 
 #: daemon/main.cpp:52 kcm/kupkcm.cpp:51
-#, fuzzy
 msgid "Copyright (C) 2011-2015 Simon Persson"
-msgstr "Copyright (C) 2011 Simon Persson"
+msgstr "Copyright (C) 2011-2015 Simon Persson"
 
 #: daemon/main.cpp:54 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
@@ -342,23 +336,22 @@ msgctxt "@title:window"
 msgid "Repair Completed"
 msgstr "Reparo completado"
 
-#: daemon/rsyncjob.cpp:43
-msgctxt "notification"
+#: daemon/rsyncjob.cpp:44
+msgctxt "@info notification"
 msgid ""
-"The \"rsync\" program is needed but could not be found, maybe it is not "
-"installed?"
+"The <application>rsync</application> program is needed but could not be "
+"found, maybe it is not installed?"
 msgstr ""
-"O programa \"rsync\" é necessário mas não pôde ser encontrado, talvez não "
-"esteja instalado?"
+"O programa <application>rsync</application> é necessário mas não pôde ser "
+"encontrado, talvez não esteja instalado?"
 
-#: daemon/rsyncjob.cpp:75
-msgctxt "notification"
+#: daemon/rsyncjob.cpp:76
+msgctxt "@info notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr "Falha ao salvar o backup. Veja o arquivo de log para mais detalhes."
 
 #: filedigger/main.cpp:43
-#, fuzzy
 msgctxt "@title"
 msgid "File Digger"
 msgstr "Buscador de arquivo"
@@ -368,9 +361,8 @@ msgid "Browser for bup archives."
 msgstr "Navegador para arquivos do bup."
 
 #: filedigger/main.cpp:45
-#, fuzzy
 msgid "Copyright (C) 2013-2015 Simon Persson"
-msgstr "Copyright (C) 2011 Simon Persson"
+msgstr "Copyright (C) 2013-2015 Simon Persson"
 
 #: filedigger/main.cpp:55
 msgid "Name of the branch to be opened."
@@ -381,7 +373,6 @@ msgid "Path to the bup repository to be opened."
 msgstr "Caminho ao repositório do bup a ser aberto."
 
 #: filedigger/main.cpp:66
-#, fuzzy
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
@@ -391,24 +382,21 @@ msgstr ""
 "para visualização."
 
 #: filedigger/main.cpp:77
-#, fuzzy
 msgctxt "@info messagebox, %1 is a folder path"
 msgid ""
 "The backup archive <filename>%1</filename> could not be opened. Check if the "
 "backups really are located there."
 msgstr ""
-"O arquivo de backup \"%1\" não pôde ser aberto. Verifique se os backups "
-"estão realmente nesse local."
+"O arquivo de backup <filename>%1</filename> não pôde ser aberto. Verifique "
+"se os backups estão realmente nesse local."
 
 #: filedigger/main.cpp:84
-#, fuzzy
 msgctxt "@info messagebox"
 msgid "You do not have permission needed to read this backup archive."
 msgstr ""
 "Você não possui a permissão necessária para ler esse arquivo de backup."
 
 #: filedigger/mergedvfs.cpp:108
-#, fuzzy
 msgctxt "@info messagebox"
 msgid ""
 "Could not read this backup archive. Perhaps some files have become "
@@ -543,7 +531,6 @@ msgid "Back to overview"
 msgstr "Retornar à visão geral"
 
 #: kcm/backupplanwidget.cpp:214
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This type of backup is an <emphasis>archive</emphasis>. It contains both the "
@@ -556,24 +543,25 @@ msgid ""
 "files in the archive can not be accessed directly with a general file "
 "manager, a special program is needed."
 msgstr ""
-"Esse tipo de backup é um <em>arquivo</em>. Ele contém tanto a última versão "
-"de seus arquivos quanto as versões anteriores. Usar esse tipo de backup lhe "
-"permite recuperar versões antigas de seus arquivos, ou arquivos que foram "
-"deletados do seu computador recentemente. O espaço de armazenamento "
-"necessário é reduzido ao se verificar as partes comuns de seus arquivos "
-"entre as versões e armazenando essas partes só uma vez. Apesar disso, o "
-"arquivo de backup crescerá em tamanho com o passar do tempo.<br>Também é "
-"importante saber que os arquivos internos não poderão ser acessados "
-"diretamente por um gerenciador de arquivos comum, será necessário um "
-"programa especial."
+"Esse tipo de backup é um <emphasis>arquivo</emphasis>. Ele contém tanto a "
+"última versão de seus arquivos quanto as versões anteriores. Usar esse tipo "
+"de backup lhe permite recuperar versões antigas de seus arquivos, ou "
+"arquivos que foram deletados do seu computador recentemente. O espaço de "
+"armazenamento necessário é reduzido ao se verificar as partes comuns de seus "
+"arquivos entre as versões e armazenando essas partes só uma vez. Apesar "
+"disso, o arquivo de backup crescerá em tamanho com o passar do tempo.<nl/"
+">Também é importante saber que os arquivos internos não poderão ser "
+"acessados diretamente por um gerenciador de arquivos comum, será necessário "
+"um programa especial."
 
 #: kcm/backupplanwidget.cpp:229
-#, fuzzy
 msgctxt "@option:radio"
 msgid ""
 "Versioned Backup (not available because <application>bup</application> is "
 "not installed)"
-msgstr "Backup de versões (indisponível porque o \"bup\" não está instalado)"
+msgstr ""
+"Backup de versões (indisponível porque o <application>bup</application> não "
+"está instalado)"
 
 #: kcm/backupplanwidget.cpp:234
 msgctxt "@option:radio"
@@ -581,7 +569,6 @@ msgid "Versioned Backup (recommended)"
 msgstr "Backup de versões (recomendado)"
 
 #: kcm/backupplanwidget.cpp:239
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -596,18 +583,18 @@ msgstr ""
 "selecionadas. Realizar um backup é simplesmente fazer com que a pasta "
 "destino contenha uma cópia exata de suas pastas fonte da forma que são agora "
 "e nada mais. Se um arquivo foi deletado na pasta fonte ele será deletado na "
-"pasta de backup.<br>Esse tipo de backup pode protegê-lo contra perda de "
+"pasta de backup.<nl/>Esse tipo de backup pode protegê-lo contra perda de "
 "dados devida a um HD defeituoso, mas não lhe ajuda a corrigir seus próprios "
 "erros."
 
 #: kcm/backupplanwidget.cpp:252
-#, fuzzy
 msgctxt "@option:radio"
 msgid ""
 "Synchronized Backup (not available because <application>rsync</application> "
 "is not installed)"
 msgstr ""
-"Backup sincronizado (indisponível porque o \"rsync\" não está instalado)"
+"Backup sincronizado (indisponível porque o <application>rsync</application> "
+"não está instalado)"
 
 #: kcm/backupplanwidget.cpp:257
 msgctxt "@option:radio"
@@ -645,7 +632,6 @@ msgid "External Storage"
 msgstr "Armazenamento externo"
 
 #: kcm/backupplanwidget.cpp:316
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -664,7 +650,6 @@ msgid "Destination Path for Backup:"
 msgstr "Caminho de destino para o backup:"
 
 #: kcm/backupplanwidget.cpp:342
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -815,14 +800,13 @@ msgid "Generate recovery information"
 msgstr "Gerar informação de recuperação"
 
 #: kcm/backupplanwidget.cpp:543
-#, fuzzy
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because <application>par2</"
 "application> is not installed)"
 msgstr ""
-"Gerar informação de recuperação (indisponível porque o \"par2\" não está "
-"instalado)"
+"Gerar informação de recuperação (indisponível porque o <application>par2</"
+"application> não está instalado)"
 
 #: kcm/backupplanwidget.cpp:558
 msgctxt "@option:check"
@@ -963,7 +947,6 @@ msgid "Maintainer"
 msgstr "Mantenedor"
 
 #: kcm/kupkcm.cpp:84
-#, fuzzy
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
 "plan you need to install either of</p><ul><li>bup, for versioned backups</"
@@ -974,17 +957,15 @@ msgstr ""
 "backups de versões</li><li>rsync, para backups sincronizados</li></ul>"
 
 #: kcm/kupkcm.cpp:159
-#, fuzzy
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Aviso"
 
 #: kcm/kupkcm.cpp:161
-#, fuzzy
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<nl/>No backups will be saved by this plan."
-msgstr "%1 não possui um destino!<br>Nenhum backup será salvo por esse plano."
+msgstr "%1 não possui um destino!<nl/>Nenhum backup será salvo por esse plano."
 
 #: kcm/kupkcm.cpp:250
 msgctxt "@action:button"
@@ -1039,7 +1020,6 @@ msgstr ""
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
 #: po/rc.cpp:3 rc.cpp:3
-#, fuzzy
 msgctxt "@title:window"
 msgid "Restore Guide"
 msgstr "Guia de restauração"
@@ -1196,6 +1176,14 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Plano de backup %1"
+
+#~ msgctxt "notification"
+#~ msgid ""
+#~ "Failed backup integrity check. Your backups are corrupted! See log file "
+#~ "for more details."
+#~ msgstr ""
+#~ "A verificação da integridade do backup falhou. Seus backups estão "
+#~ "corrompidos! Veja o arquivo de log para mais detalhes."
 
 #~ msgid "Copyright (C) 2011 Simon Persson"
 #~ msgstr "Copyright (C) 2011 Simon Persson"
