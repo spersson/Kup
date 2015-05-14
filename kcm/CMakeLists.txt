@@ -25,6 +25,7 @@ Qt5::Core
 Qt5::DBus
 Qt5::Gui
 KF5::CoreAddons
+KF5::ConfigCore
 KF5::KIOCore
 KF5::KIOFileWidgets
 KF5::Solid

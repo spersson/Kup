@@ -21,12 +21,12 @@ target_link_libraries(kdeinit_kup-daemon
 Qt5::Core
 Qt5::DBus
 Qt5::Gui
+KF5::ConfigCore
 KF5::KIOCore
 KF5::KIOFileWidgets
 KF5::IdleTime
 KF5::I18n
 KF5::Solid
-KF5::WindowSystem
 KF5::Notifications
 KF5::CoreAddons
 KF5::DBusAddons

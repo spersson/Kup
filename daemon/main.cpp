@@ -23,7 +23,6 @@
 #include <KAboutData>
 #include <KDBusService>
 #include <KLocalizedString>
-#include <KStartupInfo>
 
 #include <QApplication>
 #include <QDebug>
@@ -64,8 +63,6 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
 
 	// This call will exit() if an instance is already running
 	KDBusService lService(KDBusService::Unique);
-
-	KStartupInfo::appStarted(); //make startup notification go away.
 
 	lDaemon->setupGuiStuff();
 
