@@ -33,11 +33,19 @@ provide the implementations for the two different types of backups that Kup supp
 ## Compiling from source ##
 To compile you need:
 - CMake
-- Development headers for
-  - libqt4
-  - libkdeui
-  - libkfile
-  - libsolid
+- extra-cmake-modules
+- The following libraries (including their development headers):
+  - qt5-base
+  - kcoreaddons
+  - kdbusaddons
+  - ki18n
+  - kio
+  - solid
+  - kidletime
+  - knotifications
+  - kiconthemes
+  - kconfig
+  - kinit
 
 Run from the source directory:
 ```
