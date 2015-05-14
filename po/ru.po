@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-07 23:19+0800\n"
+"POT-Creation-Date: 2015-05-14 15:54+0800\n"
 "PO-Revision-Date: 2015-03-20 02:40+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/kup/language/"
@@ -211,19 +211,19 @@ msgctxt "@action:inmenu"
 msgid "Configure Backups"
 msgstr "Настройка резервного копирования"
 
-#: daemon/main.cpp:42
+#: daemon/main.cpp:41
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running <command>kcmshell5 kup</command>"
 msgstr ""
 
-#: daemon/main.cpp:48
+#: daemon/main.cpp:47
 msgctxt "@title"
 msgid "Kup Daemon"
 msgstr "Демон Kup"
 
-#: daemon/main.cpp:49
+#: daemon/main.cpp:48
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
 "This allows it to quickly perform incremental backups, only saving the parts "
@@ -234,20 +234,20 @@ msgstr ""
 "копирование с сохранением только тех частей файлов, которые изменились с "
 "момента прошлого резервного копирования."
 
-#: daemon/main.cpp:52 kcm/kupkcm.cpp:51
+#: daemon/main.cpp:51 kcm/kupkcm.cpp:51
 msgid "Copyright (C) 2011-2015 Simon Persson"
 msgstr "Copyright (C) 2011-2015 Simon Persson"
 
-#: daemon/main.cpp:54 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
+#: daemon/main.cpp:53 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
-#: daemon/main.cpp:55 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:54 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Jacobtey, Alex"
 
-#: daemon/main.cpp:55 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:54 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "jacobtey@gmail.com, lehaemail@yandex.ru"

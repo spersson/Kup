@@ -3,15 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Simon Persson <simon.persson@mykolab.com>, 2014
 # Simon Persson <simon.persson@mykolab.com>, 2014-2015
-# Wendy, 2014-2015
+# Wendy, 2015
+# Wendy, 2014
+# Wendy Pungtilan <faye_333@yahoo.com.sg>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-07 23:19+0800\n"
-"PO-Revision-Date: 2015-03-20 02:41+0000\n"
+"POT-Creation-Date: 2015-05-14 15:54+0800\n"
+"PO-Revision-Date: 2015-05-14 07:52+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Tagalog (http://www.transifex.com/projects/p/kup/language/"
 "tl/)\n"
@@ -207,19 +210,22 @@ msgctxt "@action:inmenu"
 msgid "Configure Backups"
 msgstr "Kompigurasyon para sa seguridad na kopya"
 
-#: daemon/main.cpp:42
+#: daemon/main.cpp:41
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running <command>kcmshell5 kup</command>"
 msgstr ""
+"Ang Kup ay hindi gumagana. Pwede itong paganahin mula sa tagapangasiwa ng "
+"nilalaman ng sistema sa pamamagitan ng pagbukas ng <command>kcmshell5 kup</"
+"command>"
 
-#: daemon/main.cpp:48
+#: daemon/main.cpp:47
 msgctxt "@title"
 msgid "Kup Daemon"
 msgstr "Kup Daemon"
 
-#: daemon/main.cpp:49
+#: daemon/main.cpp:48
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
 "This allows it to quickly perform incremental backups, only saving the parts "
@@ -231,20 +237,20 @@ msgstr ""
 "imbak lamang ng mga talaksan na may aktwal na pagbabago mula noong huling "
 "kinunan ang seguridad na kopya."
 
-#: daemon/main.cpp:52 kcm/kupkcm.cpp:51
+#: daemon/main.cpp:51 kcm/kupkcm.cpp:51
 msgid "Copyright (C) 2011-2015 Simon Persson"
 msgstr "Karapatang-ari (C) 2011-2015 ni Simon Persson"
 
-#: daemon/main.cpp:54 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
+#: daemon/main.cpp:53 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
-#: daemon/main.cpp:55 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:54 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Wendy Faye"
 
-#: daemon/main.cpp:55 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:54 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "faye_333@yahoo.com.sg"
@@ -360,7 +366,7 @@ msgstr ""
 #: filedigger/main.cpp:43
 msgctxt "@title"
 msgid "File Digger"
-msgstr ""
+msgstr "File Digger"
 
 #: filedigger/main.cpp:44
 msgid "Browser for bup archives."
@@ -393,12 +399,15 @@ msgid ""
 "The backup archive <filename>%1</filename> could not be opened. Check if the "
 "backups really are located there."
 msgstr ""
+"Ang arkibo ng seguridad na kopa <filename>%1</filename> ay hindi mabuksan. "
+"Siyasatin kung ang mga seguridad na kopya na ito ay talagang naka-impok sa "
+"lokasyon na ito."
 
 #: filedigger/main.cpp:84
-#, fuzzy
 msgctxt "@info messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr "Wala kang pahintulot na lumikha %1."
+msgstr ""
+"Wala kang pahintulot para basahin ang mga arkibo ng seguridad na kopya."
 
 #: filedigger/mergedvfs.cpp:108
 msgctxt "@info messagebox"
@@ -406,6 +415,8 @@ msgid ""
 "Could not read this backup archive. Perhaps some files have become "
 "corrupted. Do you want to run an integrity check to test this?"
 msgstr ""
+"Itong arkibo ng seguridad na kopya ay hindi mabasa. Baka ito ay may sira. "
+"Gusto mo bang siyasatin ang integridad nito?"
 
 #: filedigger/mergedvfs.cpp:156
 msgctxt "added after folder name in some cases"
@@ -648,6 +659,9 @@ msgid ""
 "always mount it at the same path in the filesystem. The path specified here "
 "does not need to exist at all times, its existance will be monitored."
 msgstr ""
+"Maari mo itong piliin kung gusto mong ilagay ang iyong seguridad na kopya sa "
+"pangalawang panloob na hard drive, eSATA o imbakan sa network. Kinakailangan "
+"lang na palagi itong konektado sa iisang landas sa sistemang pangtalaksan."
 
 #: kcm/backupplanwidget.cpp:323
 msgctxt "@label:textbox"
@@ -805,14 +819,13 @@ msgid "Generate recovery information"
 msgstr "Gumawa ng inpormasyon tungkol sa pagbawi"
 
 #: kcm/backupplanwidget.cpp:543
-#, fuzzy
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because <application>par2</"
 "application> is not installed)"
 msgstr ""
-"May salin na seduridad na kopya (hindi magagamit dahil ang \"bup\" ay hindi "
-"pa nakalagay sa kompyuter na ito)"
+"Gumawa ng inpormasyon tungkol sa pagbawi (hindi ito maisagawa dahil ang "
+"<application>par2</application> ay hindi nakalagay)"
 
 #: kcm/backupplanwidget.cpp:558
 msgctxt "@option:check"
@@ -895,6 +908,10 @@ msgid ""
 "system. File permissions only matters if there is more than one user of this "
 "computer or if you are backing up executable program files."
 msgstr ""
+"Babala: Ang mga pahintulot para sa mga talaksan ay hindi maaaring mailagay "
+"sa sistemang pangtalaksan. Ang mga pahintulot na ito ay kinakailangan lamang "
+"kapag may dalawa o higit pang taga- gamit ng kompyuter o kung ikaw ay "
+"naglalagay ng mga seguridad na kopya sa isang executable program files."
 
 #: kcm/driveselectiondelegate.cpp:157
 msgctxt "@item:inlistbox"
@@ -1190,23 +1207,3 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Plano ng seguridad na kopya %1"
-
-#~ msgctxt "notification"
-#~ msgid ""
-#~ "Failed backup integrity check. Your backups are corrupted! See log file "
-#~ "for more details."
-#~ msgstr ""
-#~ "Nabigo ang pagsisiyasat integridad. Ang iyong mga seguridad na kopya ay "
-#~ "sira! Tingnan ang karagdagang detalye."
-
-#~ msgid "Copyright (C) 2011 Simon Persson"
-#~ msgstr "Karapatang-ari (C) 2011 ni Simon Persson"
-
-#~ msgid "Copyright (C) 2013 Simon Persson"
-#~ msgstr "Karapatang-ari (C) 2013 ni Simon Persson"
-
-#~ msgid "Kup is already running!"
-#~ msgstr "Ang Kup ay kasalukuyang ginagamit"
-
-#~ msgid "Copyright 2011 Simon Persson"
-#~ msgstr "Karapatang-ari (C) 2011 ni Simon Persson"

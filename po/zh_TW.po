@@ -4,14 +4,14 @@
 #
 # Translators:
 # Jeff Huang <s8321414@gmail.com>, 2014-2015
-# Simon Persson <simon.persson@mykolab.com>, 2014
+# Simon Persson <simon.persson@mykolab.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-07 23:19+0800\n"
-"PO-Revision-Date: 2015-03-15 03:24+0000\n"
+"POT-Creation-Date: 2015-05-14 15:54+0800\n"
+"PO-Revision-Date: 2015-05-10 09:05+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/kup/"
 "language/zh_TW/)\n"
@@ -23,30 +23,26 @@ msgstr ""
 
 #: daemon/bupjob.cpp:49 daemon/buprepairjob.cpp:45
 #: daemon/bupverificationjob.cpp:44
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "The <application>bup</application> program is needed but could not be found, "
 "maybe it is not installed?"
-msgstr "必需的「bup」程式找不到，也許它尚未被安裝？"
+msgstr "必須的 <application>bup<application> 程式找不到，也許它尚未被安裝？"
 
 #: daemon/bupjob.cpp:56 daemon/buprepairjob.cpp:52
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "The <application>par2</application> program is needed but could not be "
 "found, maybe it is not installed?"
-msgstr "必需的「par2」程式找不到，也許它尚未被安裝？"
+msgstr "必須的 <application>par2<application> 程式找不到，也許它尚未被安裝？"
 
 #: daemon/bupjob.cpp:77
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
-msgstr "備份目標無法被初始化。參見記錄檔以取得更多詳細資訊。"
+msgstr "備份目的地無法被初始化。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupjob.cpp:109 daemon/bupverificationjob.cpp:76
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
@@ -56,7 +52,6 @@ msgstr ""
 "嘗試修復備份檔案嗎？"
 
 #: daemon/bupjob.cpp:114
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
@@ -64,19 +59,16 @@ msgid ""
 msgstr "備份完整性校驗失敗。您的備份可能已損毀！參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupjob.cpp:145
-#, fuzzy
 msgctxt "@info notification"
 msgid "Failed to index the file system. See log file for more details."
 msgstr "檔案系統索引失敗。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupjob.cpp:173
-#, fuzzy
 msgctxt "@info notification"
 msgid "Failed to save the complete backup. See log file for more details."
 msgstr "儲存完整備份失敗。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupjob.cpp:203
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
@@ -84,7 +76,6 @@ msgid ""
 msgstr "產生備份的復原資訊失敗。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/buprepairjob.cpp:82
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could be corrupted! See log file for more "
@@ -92,13 +83,11 @@ msgid ""
 msgstr "備份修復失敗。您的備份可能已損毀！參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/buprepairjob.cpp:86
-#, fuzzy
 msgctxt "@info notification"
 msgid "Success! Backup repair worked. See log file for more details."
 msgstr "成功！備份修復完成。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/buprepairjob.cpp:90
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Backup repair was not necessary. Your backups are not corrupted.See log file "
@@ -106,7 +95,6 @@ msgid ""
 msgstr "不需要修復備份。您的備份並無損毀。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/buprepairjob.cpp:95
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could still be corrupted! See log file "
@@ -115,7 +103,6 @@ msgstr ""
 "備份修復失敗。您的備份可能仍處於損毀狀態！參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupverificationjob.cpp:80 daemon/bupverificationjob.cpp:97
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
@@ -123,13 +110,11 @@ msgid ""
 msgstr "備份完整性校驗失敗。您的備份已損毀！參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupverificationjob.cpp:86
-#, fuzzy
 msgctxt "@info notification"
 msgid "Backup integrity test was successful, Your backups are fine."
 msgstr "備份完整性測試成功。您的備份狀態良好。"
 
 #: daemon/bupverificationjob.cpp:93
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
@@ -141,7 +126,6 @@ msgstr ""
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:124
 #: daemon/edexecutor.cpp:157 daemon/fsexecutor.cpp:109
 #: daemon/fsexecutor.cpp:138
-#, fuzzy
 msgctxt "@title:window"
 msgid "Problem"
 msgstr "問題"
@@ -152,10 +136,9 @@ msgid "Invalid type of backup in configuration."
 msgstr "在組態設定中無效的備份類型。"
 
 #: daemon/edexecutor.cpp:125
-#, fuzzy
 msgctxt "notification"
 msgid "You don't have write permission to backup destination."
-msgstr "您沒有權限新增 %1 。"
+msgstr "您並沒有備份目的地的寫入權限。"
 
 #: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
@@ -197,22 +180,21 @@ msgctxt "@action:inmenu"
 msgid "Configure Backups"
 msgstr "設定備份"
 
-#: daemon/main.cpp:42
-#, fuzzy
+#: daemon/main.cpp:41
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running <command>kcmshell5 kup</command>"
 msgstr ""
-"Kup 未啟用，在系統設定模組中啟用它。您也可以利用執行「kcmshell4 kup」來做到這"
+"Kup 未啟用，在系統設定模組中啟用它。您也可以利用執行「kcmshell5 kup」來做到這"
 "件事。"
 
-#: daemon/main.cpp:48
+#: daemon/main.cpp:47
 msgctxt "@title"
 msgid "Kup Daemon"
 msgstr "Kup 守護進程"
 
-#: daemon/main.cpp:49
+#: daemon/main.cpp:48
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
 "This allows it to quickly perform incremental backups, only saving the parts "
@@ -221,21 +203,20 @@ msgstr ""
 "Kup 是一個使用備份儲存系統「bup」的靈活的備份解決方案。讓您可以快速的進行增量"
 "備份，只儲存在您最後一次備份之後所變更的檔案部份。"
 
-#: daemon/main.cpp:52 kcm/kupkcm.cpp:51
-#, fuzzy
+#: daemon/main.cpp:51 kcm/kupkcm.cpp:51
 msgid "Copyright (C) 2011-2015 Simon Persson"
-msgstr "Copyright (C) 2011 Simon Persson"
+msgstr "Copyright (C) 2011-2015 Simon Persson"
 
-#: daemon/main.cpp:54 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
+#: daemon/main.cpp:53 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
-#: daemon/main.cpp:55 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:54 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "黃柏諺"
 
-#: daemon/main.cpp:55 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:54 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "s8321414@yahoo.com.tw "
@@ -328,22 +309,19 @@ msgid "Repair Completed"
 msgstr "修復完成"
 
 #: daemon/rsyncjob.cpp:44
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "The <application>rsync</application> program is needed but could not be "
 "found, maybe it is not installed?"
-msgstr "必需的「rsync」程式找不到，也許它尚未被安裝？"
+msgstr "必需的 <application>rsync<application> 程式找不到，也許它尚未被安裝？"
 
 #: daemon/rsyncjob.cpp:76
-#, fuzzy
 msgctxt "@info notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr "備份儲存並未成功完成。參見記錄檔以取得更多詳細資訊。"
 
 #: filedigger/main.cpp:43
-#, fuzzy
 msgctxt "@title"
 msgid "File Digger"
 msgstr "檔案挖掘者"
@@ -353,9 +331,8 @@ msgid "Browser for bup archives."
 msgstr "bup 檔案的瀏覽程式。"
 
 #: filedigger/main.cpp:45
-#, fuzzy
 msgid "Copyright (C) 2013-2015 Simon Persson"
-msgstr "Copyright (C) 2011 Simon Persson"
+msgstr "Copyright (C) 2013-2015 Simon Persson"
 
 #: filedigger/main.cpp:55
 msgid "Name of the branch to be opened."
@@ -366,35 +343,33 @@ msgid "Path to the bup repository to be opened."
 msgstr "所要開啟 bup 儲存庫的路徑。"
 
 #: filedigger/main.cpp:66
-#, fuzzy
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
 "for viewing."
-msgstr "您必須提供您想要開啟並檢視的 bup 或 git 儲存庫的路徑。"
+msgstr "您必須提供 bup 或 git 儲存庫的路徑以供開啟檢視。"
 
 #: filedigger/main.cpp:77
-#, fuzzy
 msgctxt "@info messagebox, %1 is a folder path"
 msgid ""
 "The backup archive <filename>%1</filename> could not be opened. Check if the "
 "backups really are located there."
-msgstr "備份壓縮檔 \"%1\" 無法開啟。請檢查備份是否真的位於那裡。"
+msgstr ""
+"備份壓縮檔 <filename>%1</filename> 無法開啟。請檢查備份是否真的位於那裡。"
 
 #: filedigger/main.cpp:84
-#, fuzzy
 msgctxt "@info messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr "您沒有讀取這個備份壓縮檔所需的權限。"
+msgstr "您沒有讀取這個備份封存檔的必須權限。"
 
 #: filedigger/mergedvfs.cpp:108
-#, fuzzy
 msgctxt "@info messagebox"
 msgid ""
 "Could not read this backup archive. Perhaps some files have become "
 "corrupted. Do you want to run an integrity check to test this?"
 msgstr ""
-"無法讀取這個備份壓縮檔。或許有一些檔案已損毀。您想要執行完整性校驗來測試嗎？"
+"無法讀取這個備份封存檔。也許某些檔案已損毀。您想要執行完整性檢查來測試這個"
+"嗎？"
 
 #: filedigger/mergedvfs.cpp:156
 msgctxt "added after folder name in some cases"
@@ -518,7 +493,6 @@ msgid "Back to overview"
 msgstr "回到概覽"
 
 #: kcm/backupplanwidget.cpp:214
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This type of backup is an <emphasis>archive</emphasis>. It contains both the "
@@ -531,19 +505,19 @@ msgid ""
 "files in the archive can not be accessed directly with a general file "
 "manager, a special program is needed."
 msgstr ""
-"這種類型的備份是一份 <em>壓縮檔</em> 。它包含了您檔案的最新版本及早先備份的版"
-"本。使用此類型的備份可以讓您還原到較舊的檔案版本，或是稍後在您電腦上刪除的檔"
-"案。所需的儲存空間的最小值是由您不同版本的檔案的共通之處所決定的。儘管如此，"
-"備份檔案仍會隨著時間越來越大。<br>同樣重要且您必須要知道的是，在備份檔中的檔"
-"案無法直接由一般的檔案管理員開啟，必須使用特殊的程式才能開啟。"
+"這種類型的備份是一個 <emphasis>封存檔</emphasis>。它同時包含了您檔案的最新版"
+"本及較早的備份版本。使用這個類型的備份讓您可以將您的檔案恢復到舊版本，或是救"
+"回在稍後從您的電腦中刪除的檔案。儲存空間是最小的，因為其只儲存您檔案每的版本"
+"間的差異。然而，備份檔會隨著時間的過去而逐漸增大。<nl/>同時有一些重點必須知"
+"道，在封存檔裡的檔案是無法使用一般的檔案管理員直接存取的，必須使用特殊的程"
+"式。"
 
 #: kcm/backupplanwidget.cpp:229
-#, fuzzy
 msgctxt "@option:radio"
 msgid ""
 "Versioned Backup (not available because <application>bup</application> is "
 "not installed)"
-msgstr "版本控制備份(因為「bup」未安裝，所以無法使用)"
+msgstr "版本備份（因為 <application>bup</application>未安裝，故不可用）"
 
 #: kcm/backupplanwidget.cpp:234
 msgctxt "@option:radio"
@@ -551,7 +525,6 @@ msgid "Versioned Backup (recommended)"
 msgstr "版本控制備份(建議)"
 
 #: kcm/backupplanwidget.cpp:239
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -562,18 +535,17 @@ msgid ""
 "due to a broken hard drive but it does not help you to recover from your own "
 "mistakes."
 msgstr ""
-"這個類型的備份是一個與您的來源資料夾同步的資料夾。正在進行備份則僅僅是表示從"
-"您的來源資料夾精確的複製一份到目的地，就只是如此而已。如果來源資料夾被刪除，"
-"那麼備份資料夾同樣也會被刪除。<br>這種類型的備份讓您可以防止因為硬碟壞軌而造"
-"成的資料遺失，但無助於還原您自己犯下的錯誤。"
+"這個類型的備份是一個與您選定的來源資料夾同步的資料夾。在這裡的備份就只是將備"
+"份目標完整的複製到目的地。如果檔案被從來源資料夾刪除，它也會從備份資料夾中刪"
+"除。<nl/>這種類型的備份可以防止因為壞掉的硬碟而損失資料，但對您復原自己造成的"
+"錯誤並沒有幫助。"
 
 #: kcm/backupplanwidget.cpp:252
-#, fuzzy
 msgctxt "@option:radio"
 msgid ""
 "Synchronized Backup (not available because <application>rsync</application> "
 "is not installed)"
-msgstr "同步備份(因為「rsync」未安裝，所以無法使用)"
+msgstr "同步備份（因為 <application>rsync</application> 未安裝，故不可用）"
 
 #: kcm/backupplanwidget.cpp:257
 msgctxt "@option:radio"
@@ -611,7 +583,6 @@ msgid "External Storage"
 msgstr "外部儲存空間"
 
 #: kcm/backupplanwidget.cpp:316
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -629,14 +600,13 @@ msgid "Destination Path for Backup:"
 msgstr "備份的目的地："
 
 #: kcm/backupplanwidget.cpp:342
-#, fuzzy
 msgctxt "@info"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
 "can be plugged in to this computer, such as a USB hard drive or memory stick."
 msgstr ""
-"如果您想要備份在一個可以插入您的電腦的外部儲存空間，像是 USB 硬碟或是記憶卡，"
-"使用這個選項。"
+"如果您想要將您的檔案備份到插入到這臺電腦上的外部儲存裝置，像是 USB 硬碟或是隨"
+"身碟的話，使用這個選項。"
 
 #: kcm/backupplanwidget.cpp:352 kcm/backupplanwidget.cpp:356
 msgctxt "@info:tooltip"
@@ -756,7 +726,7 @@ msgstr ""
 "存檔案。"
 
 #: kcm/backupplanwidget.cpp:535
-#, fuzzy, c-format
+#, c-format
 msgctxt "@info"
 msgid ""
 "This will make your backups use around 10% more storage space and saving "
@@ -772,12 +742,11 @@ msgid "Generate recovery information"
 msgstr "產生復原資訊"
 
 #: kcm/backupplanwidget.cpp:543
-#, fuzzy
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because <application>par2</"
 "application> is not installed)"
-msgstr "產生復原資訊（因為「par2」未安裝，故不可用）"
+msgstr "產生復原資訊（因為<application>par2</application>未安裝，故不可用）"
 
 #: kcm/backupplanwidget.cpp:558
 msgctxt "@option:check"
@@ -911,27 +880,24 @@ msgid "Maintainer"
 msgstr "維護者"
 
 #: kcm/kupkcm.cpp:84
-#, fuzzy
 msgid ""
 "<h2>Backup programs are missing</h2><p>Before you can activate any backup "
 "plan you need to install either of</p><ul><li>bup, for versioned backups</"
 "li><li>rsync, for synchronized backups</li></ul>"
 msgstr ""
-"<h2>備份程式遺失</h2><p>在您啟動任何備份計畫前，您應該安裝</p><ul><li>bup，版"
-"本控制備份所使用</li> 或是 <li>rsync，同步備份所使用</li> 其中之一 </ul>"
+"<h2>備份程式遺失</h2><p>在您啟動任何備份計畫之前，您需要先安裝</"
+"p><ul><li>bup，給版本備份使用</li><li>rsync，給同步備份使用</li></ul>"
 
 #: kcm/kupkcm.cpp:159
-#, fuzzy
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "警告"
 
 #: kcm/kupkcm.cpp:161
-#, fuzzy
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<nl/>No backups will be saved by this plan."
-msgstr "%1 沒有目的地！<br>這個計畫將不會有任何備份被儲存。"
+msgstr "%1 沒有目的地！<nl/>這個計畫中將不會有備份被儲存。"
 
 #: kcm/kupkcm.cpp:250
 msgctxt "@action:button"
@@ -986,10 +952,9 @@ msgstr ""
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
 #: po/rc.cpp:3 rc.cpp:3
-#, fuzzy
 msgctxt "@title:window"
 msgid "Restore Guide"
-msgstr "還原指導"
+msgstr "還原指南"
 
 #. i18n: file: filedigger/restoredialog.ui:55
 #. i18n: ectx: property (text), widget (QPushButton, mRestoreOriginalButton)
@@ -1141,21 +1106,3 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "備份計畫 %1"
-
-#~ msgctxt "notification"
-#~ msgid ""
-#~ "Failed backup integrity check. Your backups are corrupted! See log file "
-#~ "for more details."
-#~ msgstr "備份完整性校驗失敗。您的備份已損毀！參見記錄檔以取得更多詳細資訊。"
-
-#~ msgid "Copyright (C) 2011 Simon Persson"
-#~ msgstr "Copyright (C) 2011 Simon Persson"
-
-#~ msgid "Copyright (C) 2013 Simon Persson"
-#~ msgstr "Copyright (C) 2013 Simon Persson"
-
-#~ msgid "Kup is already running!"
-#~ msgstr "Kup 已在執行中！"
-
-#~ msgid "Copyright 2011 Simon Persson"
-#~ msgstr "Copyright 2011 Simon Persson"
