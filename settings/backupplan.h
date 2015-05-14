@@ -22,11 +22,11 @@
 #ifndef BACKUPPLAN_H
 #define BACKUPPLAN_H
 
-#include <kconfigskeleton.h>
+#include <KCoreConfigSkeleton>
 
 class Schedule;
 
-class BackupPlan : public KConfigSkeleton
+class BackupPlan : public KCoreConfigSkeleton
 {
 public:
 	BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent = 0);

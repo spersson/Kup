@@ -21,10 +21,10 @@
 #ifndef KUPSETTINGS_H
 #define KUPSETTINGS_H
 
-#include <KConfigSkeleton>
+#include <KCoreConfigSkeleton>
 #include <KSharedConfig>
 
-class KupSettings : public KConfigSkeleton
+class KupSettings : public KCoreConfigSkeleton
 {
 	Q_OBJECT
 public:
