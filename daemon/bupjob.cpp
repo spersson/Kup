@@ -186,7 +186,8 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 		mLogStream << mPar2Process.program().join(QStringLiteral(" ")) << endl;
 		mPar2Process.start();
 	} else {
-		mLogStream << endl << QStringLiteral("Kup successfully completed the bup backup job.") << endl;
+		mLogStream << endl << QStringLiteral("Kup successfully completed the bup backup job at ")
+		           << QLocale().toString(QDateTime::currentDateTime()) << endl;
 		emitResult();
 	}
 }

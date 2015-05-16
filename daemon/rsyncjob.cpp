@@ -77,7 +77,9 @@ void RsyncJob::slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus
 		                                          "See log file for more details."));
 		setError(ErrorWithLog);
 	} else {
-		mLogStream << endl << QStringLiteral("Kup successfully completed the rsync backup job.") << endl;
+		mLogStream << endl << QStringLiteral("Kup successfully completed the rsync backup job at ")
+		           << QLocale().toString(QDateTime::currentDateTime()) << endl;
+
 	}
 	emitResult();
 }
