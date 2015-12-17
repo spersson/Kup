@@ -61,7 +61,7 @@ void RsyncJob::startRsync() {
 
 	connect(&mRsyncProcess, SIGNAL(started()), SLOT(slotRsyncStarted()));
 	connect(&mRsyncProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotRsyncFinished(int,QProcess::ExitStatus)));
-	mLogStream << mRsyncProcess.program().join(QStringLiteral(" ")) << endl;
+	mLogStream << quoteArgs(mRsyncProcess.program()) << endl;
 	mRsyncProcess.start();
 }
 

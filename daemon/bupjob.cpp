@@ -68,7 +68,7 @@ void BupJob::startJob() {
 	lInitProcess << QStringLiteral("bup");
 	lInitProcess << QStringLiteral("-d") << mDestinationPath;
 	lInitProcess << QStringLiteral("init");
-	mLogStream << lInitProcess.program().join(QStringLiteral(" ")) << endl;
+	mLogStream << quoteArgs(lInitProcess.program()) << endl;
 	if(lInitProcess.execute() != 0) {
 		mLogStream << QString::fromUtf8(lInitProcess.readAllStandardError()) << endl;
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the bup backup job: "
@@ -87,7 +87,7 @@ void BupJob::startJob() {
 
 		connect(&mFsckProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotCheckingDone(int,QProcess::ExitStatus)));
 		connect(&mFsckProcess, SIGNAL(started()), SLOT(slotCheckingStarted()));
-		mLogStream << mFsckProcess.program().join(QStringLiteral(" ")) << endl;
+		mLogStream << quoteArgs(mFsckProcess.program()) << endl;
 		mFsckProcess.start();
 	} else {
 		slotCheckingDone(0, QProcess::NormalExit);
@@ -130,7 +130,7 @@ void BupJob::slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 
 	connect(&mIndexProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotIndexingDone(int,QProcess::ExitStatus)));
 	connect(&mIndexProcess, SIGNAL(started()), SLOT(slotIndexingStarted()));
-	mLogStream << mIndexProcess.program().join(QStringLiteral(" ")) << endl;
+	mLogStream << quoteArgs(mIndexProcess.program()) << endl;
 	mIndexProcess.start();
 }
 
@@ -157,7 +157,7 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 
 	connect(&mSaveProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotSavingDone(int,QProcess::ExitStatus)));
 	connect(&mSaveProcess, SIGNAL(started()), SLOT(slotSavingStarted()));
-	mLogStream << mSaveProcess.program().join(QStringLiteral(" ")) << endl;
+	mLogStream << quoteArgs(mSaveProcess.program()) << endl;
 	mSaveProcess.start();
 }
 
@@ -183,7 +183,7 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 
 		connect(&mPar2Process, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotRecoveryInfoDone(int,QProcess::ExitStatus)));
 		connect(&mPar2Process, SIGNAL(started()), SLOT(slotRecoveryInfoStarted()));
-		mLogStream << mPar2Process.program().join(QStringLiteral(" ")) << endl;
+		mLogStream << quoteArgs(mPar2Process.program()) << endl;
 		mPar2Process.start();
 	} else {
 		mLogStream << endl << QStringLiteral("Kup successfully completed the bup backup job at ")

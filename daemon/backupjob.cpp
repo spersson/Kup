@@ -44,3 +44,19 @@ void BackupJob::makeNice(int pPid) {
 	setpriority(PRIO_PROCESS, pPid, 19);
 }
 
+QString BackupJob::quoteArgs(const QStringList &pCommand) {
+	QString lResult;
+	bool lFirst = true;
+	foreach(const QString &lArg, pCommand) {
+		if(lFirst) {
+			lResult.append(lArg);
+			lFirst = false;
+		} else {
+			lResult.append(QStringLiteral(" \""));
+			lResult.append(lArg);
+			lResult.append(QStringLiteral("\""));
+		}
+	}
+	return lResult;
+}
+

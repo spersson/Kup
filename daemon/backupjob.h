@@ -42,6 +42,7 @@ public:
 protected:
 	BackupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
 	static void makeNice(int pPid);
+	QString quoteArgs(const QStringList &pCommand);
 	const BackupPlan &mBackupPlan;
 	QString mDestinationPath;
 	QString mLogFilePath;
