@@ -99,7 +99,7 @@ void DriveSelection::deviceAdded(const QString &pUdi) {
 		return;
 	}
 	Solid::StorageDrive *lDrive = lDevice.as<Solid::StorageDrive>();
-	if(!lDrive->isHotpluggable()) {
+	if(!lDrive->isHotpluggable() && !lDrive->isRemovable()) {
 		return;
 	}
 	if(mDrivesToAdd.contains(pUdi)) {
