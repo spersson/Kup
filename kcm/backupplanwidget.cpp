@@ -100,6 +100,7 @@ FolderSelectionWidget::FolderSelectionWidget(FolderSelectionModel *pModel, QWidg
 	ConfigExcludeDummy *lExcludeDummy = new ConfigExcludeDummy(mModel, this);
 	lExcludeDummy->setObjectName(QStringLiteral("kcfg_Paths excluded"));
 	setHeaderHidden(true);
+	expand(mModel->index(QStringLiteral("/"))); // always expand the root, prevents problem with empty include&exclude lists.
 }
 
 void FolderSelectionWidget::setHiddenFoldersVisible(bool pVisible) {
@@ -113,27 +114,21 @@ void FolderSelectionWidget::setHiddenFoldersVisible(bool pVisible) {
 
 void FolderSelectionWidget::expandToShowSelections() {
 	foreach(const QString& lFolder,  mModel->includedFolders() + mModel->excludedFolders()) {
-		if(!mModel->hiddenFoldersVisible()) {
-			QFileInfo lFolderInfo(lFolder);
-			bool lShouldAbort = false;
-			forever {
-				if(lFolderInfo.isHidden()) {
-					lShouldAbort = true; // skip if this folder should not be shown.
-					break;
-				} else if(lFolderInfo.absolutePath() == QStringLiteral("/")) {
-					break;
-				}
-				lFolderInfo = lFolderInfo.absolutePath();
+		QFileInfo lFolderInfo(lFolder);
+		bool lShouldBeShown = true;
+		while(lFolderInfo.absoluteFilePath() != QStringLiteral("/")) {
+			if(lFolderInfo.isHidden() && !mModel->hiddenFoldersVisible()) {
+				lShouldBeShown = false; // skip if this folder should not be shown.
+				break;
 			}
-			if(lShouldAbort) {
-				continue;
-			}
+			lFolderInfo = lFolderInfo.absolutePath(); // move up one level
 		}
-
-		QModelIndex lIndex = mModel->index(lFolder).parent();
-		while(lIndex.isValid()) {
-			expand(lIndex);
-			lIndex = lIndex.parent();
+		if(lShouldBeShown) {
+			QModelIndex lIndex = mModel->index(lFolder).parent();
+			while(lIndex.isValid()) {
+				expand(lIndex);
+				lIndex = lIndex.parent();
+			}
 		}
 	}
 }
