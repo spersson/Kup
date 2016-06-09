@@ -103,7 +103,7 @@ void KupDaemon::showConfig() {
 	KService::List lServices = KServiceTypeTrader::self()->query(QStringLiteral("KCModule"), QStringLiteral("Library == 'kcm_kup'"));
 	if (!lServices.isEmpty()) {
 		KService::Ptr lService = lServices.first();
-		KRun::run(*lService, QList<QUrl>(), 0);
+		KRun::runService(*lService, QList<QUrl>(), 0);
 	}
 }
 
