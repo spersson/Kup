@@ -35,6 +35,7 @@ class KMessageWidget;
 class KPageWidget;
 class KPageWidgetItem;
 class QAction;
+class QFileInfo;
 class QPushButton;
 class QRadioButton;
 class QThread;
@@ -53,12 +54,16 @@ public slots:
 
 signals:
 	void unreadablesChanged(QPair<QSet<QString>, QSet<QString>>);
+	void symlinkProblemsChanged(QHash<QString,QString>);
 
 protected slots:
 	void sendPendingUnreadables();
+	void sendPendingSymlinks();
 
 protected:
 	bool isPathIncluded(const QString &pPath);
+	void checkPathForProblems(const QFileInfo &pFileInfo);
+	bool isSymlinkProblematic(const QString &pTarget);
 	void scanFolder(const QString &pPath);
 
 	QSet<QString> mIncludedFolders;
@@ -67,6 +72,10 @@ protected:
 	QSet<QString> mUnreadableFolders;
 	QSet<QString> mUnreadableFiles;
 	QTimer *mUnreadablesTimer;
+
+	QHash<QString,QString> mSymlinksNotOk;
+	QHash<QString,QString> mSymlinksOk;
+	QTimer *mSymlinkTimer;
 };
 
 class FolderSelectionWidget : public QWidget {
@@ -79,8 +88,10 @@ public slots:
 	void setHiddenFoldersVisible(bool pVisible);
 	void expandToShowSelections();
 	void setUnreadables(QPair<QSet<QString>, QSet<QString>> pUnreadables);
+	void setSymlinks(QHash<QString,QString> pSymlinks);
 	void updateMessage();
 	void executeExcludeAction();
+	void executeIncludeAction();
 
 protected:
 	QTreeView *mTreeView;
@@ -91,6 +102,9 @@ protected:
 	QStringList mUnreadableFiles;
 	QString mExcludeActionPath;
 	QAction *mExcludeAction;
+	QHash<QString,QString> mSymlinkProblems;
+	QString mIncludeActionPath;
+	QAction *mIncludeAction;
 };
 
 class ConfigIncludeDummy : public QWidget {
