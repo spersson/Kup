@@ -3,18 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jeff Huang <s8321414@gmail.com>, 2014-2015
+# Jeff Huang <s8321414@gmail.com>, 2014-2016
 # Simon Persson <simon.persson@mykolab.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-14 15:54+0800\n"
-"PO-Revision-Date: 2015-05-10 09:05+0000\n"
+"POT-Creation-Date: 2016-06-11 22:53+0800\n"
+"PO-Revision-Date: 2016-06-11 14:11+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/kup/"
-"language/zh_TW/)\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/kup/kup/language/"
+"zh_TW/)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,14 +27,18 @@ msgctxt "@info notification"
 msgid ""
 "The <application>bup</application> program is needed but could not be found, "
 "maybe it is not installed?"
-msgstr "必須的 <application>bup<application> 程式找不到，也許它尚未被安裝？"
+msgstr ""
+"必須的 <application>bup</application> 程式是必須的但找不到，也許它尚未被安"
+"裝？"
 
 #: daemon/bupjob.cpp:56 daemon/buprepairjob.cpp:52
 msgctxt "@info notification"
 msgid ""
 "The <application>par2</application> program is needed but could not be "
 "found, maybe it is not installed?"
-msgstr "必須的 <application>par2<application> 程式找不到，也許它尚未被安裝？"
+msgstr ""
+"必須的 <application>par2</application> 程式是必須的但找不到，也許它尚未被安"
+"裝？"
 
 #: daemon/bupjob.cpp:77
 msgctxt "@info notification"
@@ -68,7 +72,7 @@ msgctxt "@info notification"
 msgid "Failed to save the complete backup. See log file for more details."
 msgstr "儲存完整備份失敗。參見記錄檔以取得更多詳細資訊。"
 
-#: daemon/bupjob.cpp:203
+#: daemon/bupjob.cpp:204
 msgctxt "@info notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
@@ -313,7 +317,9 @@ msgctxt "@info notification"
 msgid ""
 "The <application>rsync</application> program is needed but could not be "
 "found, maybe it is not installed?"
-msgstr "必需的 <application>rsync<application> 程式找不到，也許它尚未被安裝？"
+msgstr ""
+"必須的 <application>rsync</application> 程式是必須的但找不到，也許它尚未被安"
+"裝？"
 
 #: daemon/rsyncjob.cpp:76
 msgctxt "@info notification"
@@ -386,7 +392,7 @@ msgctxt "added after file name in some cases"
 msgid " (file)"
 msgstr "(檔案)"
 
-#: filedigger/restoredialog.cpp:116 kcm/backupplanwidget.cpp:155
+#: filedigger/restoredialog.cpp:116 kcm/backupplanwidget.cpp:447
 msgctxt "@action:button"
 msgid "New Folder..."
 msgstr "新資料夾..."
@@ -477,22 +483,68 @@ msgctxt "@action:button"
 msgid "Restore"
 msgstr "還原"
 
-#: kcm/backupplanwidget.cpp:144
+#: kcm/backupplanwidget.cpp:278
+msgctxt "@action:button"
+msgid "Exclude Folder"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:281
+msgctxt "@action:button"
+msgid "Include Folder"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:378
+msgctxt "@info message bar appearing on top"
+msgid ""
+"You don't have permission to read this folder: <filename>%1</filename><nl/"
+">It cannot be included in the source selection. If it does not contain "
+"anything important to you, one possible solution is to exclude the folder "
+"from the backup plan."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:389
+msgctxt "@info message bar appearing on top"
+msgid ""
+"You don't have permission to read this file: <filename>%1</filename><nl/>It "
+"cannot be included in the source selection. If the file is not important to "
+"you, one possible solution is to exclude the whole folder where the file is "
+"stored from the backup plan."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:405
+msgctxt "@info message bar appearing on top"
+msgid ""
+"The symbolic link <filename>%1</filename> is currently included but it "
+"points to a folder which is not: <filename>%2</filename>.<nl/>That is "
+"probably not what you want. One solution is to simply include the target "
+"folder in the backup plan."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:413
+msgctxt "@info message bar appearing on top"
+msgid ""
+"The symbolic link <filename>%1</filename> is currently included but it "
+"points to a file which is not: <filename>%2</filename>.<nl/>That is probably "
+"not what you want. One solution is to simply include the folder where the "
+"file is stored in the backup plan."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:436
 msgctxt "@title:window"
 msgid "Select Folder"
 msgstr "選擇資料夾"
 
-#: kcm/backupplanwidget.cpp:182
+#: kcm/backupplanwidget.cpp:474
 msgctxt "@label"
 msgid "Description:"
 msgstr "描述："
 
-#: kcm/backupplanwidget.cpp:185
+#: kcm/backupplanwidget.cpp:477
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr "回到概覽"
 
-#: kcm/backupplanwidget.cpp:214
+#: kcm/backupplanwidget.cpp:506
 msgctxt "@info"
 msgid ""
 "This type of backup is an <emphasis>archive</emphasis>. It contains both the "
@@ -512,19 +564,19 @@ msgstr ""
 "道，在封存檔裡的檔案是無法使用一般的檔案管理員直接存取的，必須使用特殊的程"
 "式。"
 
-#: kcm/backupplanwidget.cpp:229
+#: kcm/backupplanwidget.cpp:521
 msgctxt "@option:radio"
 msgid ""
 "Versioned Backup (not available because <application>bup</application> is "
 "not installed)"
 msgstr "版本備份（因為 <application>bup</application>未安裝，故不可用）"
 
-#: kcm/backupplanwidget.cpp:234
+#: kcm/backupplanwidget.cpp:526
 msgctxt "@option:radio"
 msgid "Versioned Backup (recommended)"
 msgstr "版本控制備份(建議)"
 
-#: kcm/backupplanwidget.cpp:239
+#: kcm/backupplanwidget.cpp:531
 msgctxt "@info"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -540,49 +592,49 @@ msgstr ""
 "除。<nl/>這種類型的備份可以防止因為壞掉的硬碟而損失資料，但對您復原自己造成的"
 "錯誤並沒有幫助。"
 
-#: kcm/backupplanwidget.cpp:252
+#: kcm/backupplanwidget.cpp:544
 msgctxt "@option:radio"
 msgid ""
 "Synchronized Backup (not available because <application>rsync</application> "
 "is not installed)"
 msgstr "同步備份（因為 <application>rsync</application> 未安裝，故不可用）"
 
-#: kcm/backupplanwidget.cpp:257
+#: kcm/backupplanwidget.cpp:549
 msgctxt "@option:radio"
 msgid "Synchronized Backup"
 msgstr "同步備份"
 
-#: kcm/backupplanwidget.cpp:285
+#: kcm/backupplanwidget.cpp:577
 msgctxt "@title"
 msgid "Backup Type"
 msgstr "備份類型"
 
-#: kcm/backupplanwidget.cpp:286
+#: kcm/backupplanwidget.cpp:578
 msgctxt "@label"
 msgid "Select what type of backup you want"
 msgstr "選擇您想要備份的類型"
 
-#: kcm/backupplanwidget.cpp:294
+#: kcm/backupplanwidget.cpp:586
 msgctxt "@title"
 msgid "Sources"
 msgstr "來源"
 
-#: kcm/backupplanwidget.cpp:295
+#: kcm/backupplanwidget.cpp:587
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr "選擇您想要備份的資料夾"
 
-#: kcm/backupplanwidget.cpp:309
+#: kcm/backupplanwidget.cpp:601
 msgctxt "@option:radio"
 msgid "Filesystem Path"
 msgstr "檔案系統路徑"
 
-#: kcm/backupplanwidget.cpp:310
+#: kcm/backupplanwidget.cpp:602
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr "外部儲存空間"
 
-#: kcm/backupplanwidget.cpp:316
+#: kcm/backupplanwidget.cpp:608
 msgctxt "@info"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -594,12 +646,12 @@ msgstr ""
 "份。這需要您將它一直都掛載在檔案系統中的同一個路徑。指定的路徑並不需要隨時存"
 "在，它將會被監控是否存在。"
 
-#: kcm/backupplanwidget.cpp:323
+#: kcm/backupplanwidget.cpp:615
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
 msgstr "備份的目的地："
 
-#: kcm/backupplanwidget.cpp:342
+#: kcm/backupplanwidget.cpp:634
 msgctxt "@info"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -608,54 +660,54 @@ msgstr ""
 "如果您想要將您的檔案備份到插入到這臺電腦上的外部儲存裝置，像是 USB 硬碟或是隨"
 "身碟的話，使用這個選項。"
 
-#: kcm/backupplanwidget.cpp:352 kcm/backupplanwidget.cpp:356
+#: kcm/backupplanwidget.cpp:644 kcm/backupplanwidget.cpp:648
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr "指定的資料夾將會被新增，如果它不存在的話。"
 
-#: kcm/backupplanwidget.cpp:354
+#: kcm/backupplanwidget.cpp:646
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr "目的地硬碟上的資料夾："
 
-#: kcm/backupplanwidget.cpp:362
+#: kcm/backupplanwidget.cpp:654
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
 msgstr "開啟對話框以選擇資料夾"
 
-#: kcm/backupplanwidget.cpp:392
+#: kcm/backupplanwidget.cpp:684
 msgctxt "@title"
 msgid "Destination"
 msgstr "目的地"
 
-#: kcm/backupplanwidget.cpp:393
+#: kcm/backupplanwidget.cpp:685
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr "選擇備份目的地"
 
-#: kcm/backupplanwidget.cpp:410
+#: kcm/backupplanwidget.cpp:702
 msgctxt "@option:radio"
 msgid "Manual Activation"
 msgstr "手動啟動"
 
-#: kcm/backupplanwidget.cpp:411
+#: kcm/backupplanwidget.cpp:703
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr "間隔"
 
-#: kcm/backupplanwidget.cpp:412
+#: kcm/backupplanwidget.cpp:704
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr "活躍使用時間"
 
-#: kcm/backupplanwidget.cpp:414
+#: kcm/backupplanwidget.cpp:706
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
 msgstr "備份將只會在您手動要求時進行。這可以使用備份系統匣圖示的彈出選單完成。"
 
-#: kcm/backupplanwidget.cpp:428
+#: kcm/backupplanwidget.cpp:720
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -663,27 +715,27 @@ msgid ""
 msgstr ""
 "現在備份將會在自最後一次備份後超過設定間隔，且備份目的地可用時自動啟動。"
 
-#: kcm/backupplanwidget.cpp:445
+#: kcm/backupplanwidget.cpp:737
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr "分鐘"
 
-#: kcm/backupplanwidget.cpp:446 kcm/backupplanwidget.cpp:473
+#: kcm/backupplanwidget.cpp:738 kcm/backupplanwidget.cpp:765
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr "小時"
 
-#: kcm/backupplanwidget.cpp:447
+#: kcm/backupplanwidget.cpp:739
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr "天"
 
-#: kcm/backupplanwidget.cpp:448
+#: kcm/backupplanwidget.cpp:740
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr "星期"
 
-#: kcm/backupplanwidget.cpp:458
+#: kcm/backupplanwidget.cpp:750
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -693,27 +745,27 @@ msgstr ""
 "現在備份將會在您使用您的電腦超過自最後一次備份算起設定的時間限制，且備份目的"
 "地可用時自動啟動。"
 
-#: kcm/backupplanwidget.cpp:479
+#: kcm/backupplanwidget.cpp:771
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr "在進行備份前再一次確認"
 
-#: kcm/backupplanwidget.cpp:498
+#: kcm/backupplanwidget.cpp:790
 msgctxt "@title"
 msgid "Schedule"
 msgstr "排程"
 
-#: kcm/backupplanwidget.cpp:499
+#: kcm/backupplanwidget.cpp:791
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "指定備份排程"
 
-#: kcm/backupplanwidget.cpp:512
+#: kcm/backupplanwidget.cpp:804
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
 msgstr "在選擇的來源中顯示隱藏的資料夾"
 
-#: kcm/backupplanwidget.cpp:518
+#: kcm/backupplanwidget.cpp:810
 msgctxt "@info"
 msgid ""
 "This makes it possible to explicitly include or exclude hidden folders in "
@@ -725,7 +777,7 @@ msgstr ""
 "以一個點作為開頭。它們通常位於您的家目錄，且通常用於儲存您應用程式的設定及暫"
 "存檔案。"
 
-#: kcm/backupplanwidget.cpp:535
+#: kcm/backupplanwidget.cpp:827
 #, c-format
 msgctxt "@info"
 msgid ""
@@ -736,24 +788,24 @@ msgstr ""
 "這會讓您的備份使用大約10%的額外儲存空間，且儲存備份的時候會需要稍微長一點的時"
 "間。作為回報，這樣將有可能可以從部份損毀的備份中恢復。"
 
-#: kcm/backupplanwidget.cpp:541
+#: kcm/backupplanwidget.cpp:833
 msgctxt "@option:check"
 msgid "Generate recovery information"
 msgstr "產生復原資訊"
 
-#: kcm/backupplanwidget.cpp:543
+#: kcm/backupplanwidget.cpp:835
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because <application>par2</"
 "application> is not installed)"
 msgstr "產生復原資訊（因為<application>par2</application>未安裝，故不可用）"
 
-#: kcm/backupplanwidget.cpp:558
+#: kcm/backupplanwidget.cpp:850
 msgctxt "@option:check"
 msgid "Verify integrity of backups"
 msgstr "驗證備份完整性"
 
-#: kcm/backupplanwidget.cpp:562
+#: kcm/backupplanwidget.cpp:854
 msgctxt "@info"
 msgid ""
 "Checks the whole backup archive for corruption every time you save new data. "
@@ -765,12 +817,12 @@ msgstr ""
 "時間，但可以讓您很快找到損毀的問題，總比在您需要使用備份時，才發現一切都太遲"
 "了來的好。"
 
-#: kcm/backupplanwidget.cpp:584
+#: kcm/backupplanwidget.cpp:876
 msgctxt "@title"
 msgid "Advanced"
 msgstr "進階"
 
-#: kcm/backupplanwidget.cpp:585
+#: kcm/backupplanwidget.cpp:877
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "進階使用者的額外選項"
@@ -838,19 +890,19 @@ msgstr ""
 "警告：檔案權限不會儲存到檔案系統中。檔案權限只在這臺電腦上有多於一個的使用者"
 "時需要煩惱，或是如果您備份的是可執行的程式檔。"
 
-#: kcm/folderselectionmodel.cpp:153
+#: kcm/folderselectionmodel.cpp:109
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
 msgstr "<filename>%1</filename><nl/>將會被包括在備份中，除了未勾選的子資料夾"
 
-#: kcm/folderselectionmodel.cpp:157
+#: kcm/folderselectionmodel.cpp:113
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
 msgstr "<filename>%1</filename><nl/>將會被包括在備份中"
 
-#: kcm/folderselectionmodel.cpp:161
+#: kcm/folderselectionmodel.cpp:117
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
@@ -859,7 +911,7 @@ msgstr ""
 "<filename>%1</filename><nl/>將 <emphasis>不會</emphasis> 被包括在備份中，但包"
 "含它的資料夾會"
 
-#: kcm/folderselectionmodel.cpp:165
+#: kcm/folderselectionmodel.cpp:121
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
@@ -939,9 +991,8 @@ msgctxt "@label"
 msgid "This backup plan has never been run."
 msgstr "這個備份計畫尚未執行過。"
 
-#: kioslave/bupslave.cpp:65 kioslave/bupslave.cpp:122
-#: kioslave/bupslave.cpp:159 kioslave/bupslave.cpp:222
-#: kioslave/bupslave.cpp:244
+#: kioslave/bupslave.cpp:65 kioslave/bupslave.cpp:122 kioslave/bupslave.cpp:159
+#: kioslave/bupslave.cpp:222 kioslave/bupslave.cpp:244
 msgid ""
 "No bup repository found.\n"
 "%1"

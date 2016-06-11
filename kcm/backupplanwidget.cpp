@@ -374,7 +374,7 @@ void FolderSelectionWidget::updateMessage() {
 
 	if(!mUnreadableFolders.isEmpty()) {
 		mMessageWidget->setMessageType(KMessageWidget::Error);
-		mMessageWidget->setText(xi18nc("@info:message",
+		mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 		                              "You don't have permission to read this folder: <filename>%1</filename><nl/>"
 		                              "It cannot be included in the source selection. "
 		                              "If it does not contain anything important to you, one possible "
@@ -385,7 +385,7 @@ void FolderSelectionWidget::updateMessage() {
 		mMessageWidget->animatedShow();
 	} else if(!mUnreadableFiles.isEmpty()) {
 		mMessageWidget->setMessageType(KMessageWidget::Error);
-		mMessageWidget->setText(xi18nc("@info:message",
+		mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 		                              "You don't have permission to read this file: <filename>%1</filename><nl/>"
 		                              "It cannot be included in the source selection. "
 		                              "If the file is not important to you, one possible solution is "
@@ -401,7 +401,7 @@ void FolderSelectionWidget::updateMessage() {
 		i.next();
 		QFileInfo lFileInfo =i.value();
 		if(lFileInfo.isDir()) {
-			mMessageWidget->setText(xi18nc("@info:message",
+			mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 			                              "The symbolic link <filename>%1</filename> is currently included but it points "
 			                              "to a folder which is not: <filename>%2</filename>.<nl/>That is probably not "
 			                              "what you want. One solution is to simply include the target folder in the "
@@ -409,7 +409,7 @@ void FolderSelectionWidget::updateMessage() {
 			                              i.key(), i.value()));
 			mIncludeActionPath = i.value();
 		} else {
-			mMessageWidget->setText(xi18nc("@info:message",
+			mMessageWidget->setText(xi18nc("@info message bar appearing on top",
 			                              "The symbolic link <filename>%1</filename> is currently included but it points "
 			                              "to a file which is not: <filename>%2</filename>.<nl/>That is probably not "
 			                              "what you want. One solution is to simply include the folder where the file "

@@ -3,26 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Simon Persson <simon.persson@mykolab.com>, 2014
-# Simon Persson <simon.persson@mykolab.com>, 2014-2015
-# Wendy, 2014-2015
-# Wendy, 2015
-# Wendy, 2014
-# Wendy, 2013
+# Asmer Mlaćo <asmerovski@gmail.com>, 2015
+# Asmer Mlaćo <asmerovski@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
 "POT-Creation-Date: 2016-06-11 22:53+0800\n"
-"PO-Revision-Date: 2016-06-11 14:47+0000\n"
+"PO-Revision-Date: 2016-06-11 13:33+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
-"Language-Team: Tagalog (http://www.transifex.com/kup/kup/language/tl/)\n"
-"Language: tl\n"
+"Language-Team: Bosnian (Bosnia and Herzegovina) (http://www.transifex.com/"
+"kup/kup/language/bs_BA/)\n"
+"Language: bs_BA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: daemon/bupjob.cpp:49 daemon/buprepairjob.cpp:45
 #: daemon/bupverificationjob.cpp:44
@@ -31,8 +29,6 @@ msgid ""
 "The <application>bup</application> program is needed but could not be found, "
 "maybe it is not installed?"
 msgstr ""
-"Ang programmang <application>bup</application> ay kinakailangan ngunit ito "
-"ay hindi mahanap sa sistema. Maaring hindi ito nakalagay sa sistema?"
 
 #: daemon/bupjob.cpp:56 daemon/buprepairjob.cpp:52
 msgctxt "@info notification"
@@ -40,16 +36,14 @@ msgid ""
 "The <application>par2</application> program is needed but could not be "
 "found, maybe it is not installed?"
 msgstr ""
-"Ang programang <application>par2</application> ay kinakailangan ngunit ito "
-"ay hindi mahanap sa sistema. Maaring hindi ito nakalagay sa sistema?"
 
 #: daemon/bupjob.cpp:77
 msgctxt "@info notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
-"Hindi maumpisahan ang destinasyon ng seguridad na kopya. Tingnan ang "
-"karagdagang detalye."
+"Odredište za pohranu backupa ne može biti inicijalizirano. Za detaljan info, "
+"pogledajte log datoteku"
 
 #: daemon/bupjob.cpp:109 daemon/bupverificationjob.cpp:76
 msgctxt "@info notification"
@@ -57,9 +51,9 @@ msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details. Do you want to try repairing the backup files?"
 msgstr ""
-"Nabigo ang pagsusuri ng integridad ng iyong mga seguridad na kopya. Maari "
-"itong may sira! Tingnan ang karagdagang detalye. Gusto mo bang ayusing ang "
-"iyong mga seguridad na kopya?"
+"Provjera integriteta backupa neuspješna. Vaši backupi su vjerovatno "
+"oštećeni. Pogledajte log datoteku. Da li želite pokušati popravak backup "
+"datoteka?"
 
 #: daemon/bupjob.cpp:114
 msgctxt "@info notification"
@@ -67,22 +61,21 @@ msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details."
 msgstr ""
-"Nabigo ang pagsisiyasat integridad. Ang iyong mga seguridad na kopya ay "
-"maaring may sira! Tingnan ang karagdagang detalye."
+"Provjera integriteta backupa neuspješna. Vaši backupi su vjerovatno "
+"oštećeni. Pogledajte log datoteku za detalje."
 
 #: daemon/bupjob.cpp:145
 msgctxt "@info notification"
 msgid "Failed to index the file system. See log file for more details."
 msgstr ""
-"Nabigo ang pagtataluntunan ng sistemang pangtalaksan. Tingnan ang "
-"karagdagang detalye."
+"Neuspješno indeksiranje datotečnog sistema. Za detalje, provjerite log "
+"datoteku."
 
 #: daemon/bupjob.cpp:173
 msgctxt "@info notification"
 msgid "Failed to save the complete backup. See log file for more details."
 msgstr ""
-"Nabigo ang kumpletong pag-iimpok ng seguridad na kopya. Tingnan ang "
-"karagdagang detalye."
+"Neuspješan završetak backupa. Za detaljan info, pogledajte log datoteku."
 
 #: daemon/bupjob.cpp:204
 msgctxt "@info notification"
@@ -90,8 +83,8 @@ msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
 "details."
 msgstr ""
-"Nabigo ang pagbawi ng inpormasyon ng iyong seguridad na kopya. Tingnan ang "
-"karagdagang detalye."
+"Generisanje recovery informacije nije uspjelo. Za više informacija, "
+"pogledajte log datoteku."
 
 #: daemon/buprepairjob.cpp:82
 msgctxt "@info notification"
@@ -99,15 +92,13 @@ msgid ""
 "Backup repair failed. Your backups could be corrupted! See log file for more "
 "details."
 msgstr ""
-"Nabigo ang pag-aayos ng seguridad na kopya. Ang iyong seguridad na kopya ay "
-"maaaring may sira! Tingnan ang karagdagang detalye."
+"Popravka backup arhive nije uspjela. Backupi su vjerovatno oštećeni! "
+"Provjerite log datoteku."
 
 #: daemon/buprepairjob.cpp:86
 msgctxt "@info notification"
 msgid "Success! Backup repair worked. See log file for more details."
 msgstr ""
-"Tagumpay na naayos ang iyong seguridad na kopya. Tingnan ang karagdagang "
-"detalye."
 
 #: daemon/buprepairjob.cpp:90
 msgctxt "@info notification"
@@ -115,8 +106,6 @@ msgid ""
 "Backup repair was not necessary. Your backups are not corrupted.See log file "
 "for more details."
 msgstr ""
-"Hindi kinakailangang ayusin ang iyong seguridad na kopya dahil ito ay walang "
-"sira. Tingnan ang karagdagang detalye."
 
 #: daemon/buprepairjob.cpp:95
 msgctxt "@info notification"
@@ -124,8 +113,8 @@ msgid ""
 "Backup repair failed. Your backups could still be corrupted! See log file "
 "for more details."
 msgstr ""
-"Nabigo ang pag-aayos ng iyong seguridad na kopya. Maaring sira parin. "
-"Tingnan ang karagdagang detalye."
+"Popravka backupa neuspješna. Backupi su najvjerovatnije oštećeni! Provjerite "
+"log datoteku za detalje."
 
 #: daemon/bupverificationjob.cpp:80 daemon/bupverificationjob.cpp:97
 msgctxt "@info notification"
@@ -133,15 +122,13 @@ msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details."
 msgstr ""
-"Nabigo ang pagsisiyasat integridad. Ang iyong mga seguridad na kopya ay "
-"sira! Tingnan ang karagdagang detalye."
+"Provjera integriteta backupa neuspješna. Backupi su oštećeni! Provjerite log "
+"datoteku."
 
 #: daemon/bupverificationjob.cpp:86
 msgctxt "@info notification"
 msgid "Backup integrity test was successful, Your backups are fine."
-msgstr ""
-"Matagumpay na nasuri ang integridad ng iyong mga seguridad na kopya. Ang mga "
-"ito ay walang sira."
+msgstr "Test integriteta backupa usješan. Backupi su ispravni."
 
 #: daemon/bupverificationjob.cpp:93
 msgctxt "@info notification"
@@ -149,66 +136,65 @@ msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details. Do you want to try repairing the backup files?"
 msgstr ""
-"Nabigo ang pagsusuri ng integridad ng iyong mga seguridad na kopya dahil ito "
-"ay may sira! Tingnan ang karagdagang detalye. Gusto mo bang ayusing ang "
-"iyong mga seguridad na kopya?"
+"Provjera integriteta backupa neuspješna. Vaši backupi su oštećeni. "
+"Pogledajte log datoteku. Da li želite pokušati popravak backup datoteka?"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:124
 #: daemon/edexecutor.cpp:157 daemon/fsexecutor.cpp:109
 #: daemon/fsexecutor.cpp:138
 msgctxt "@title:window"
 msgid "Problem"
-msgstr "Problema"
+msgstr "Problem"
 
 #: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:110
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
-msgstr "Hindi wastong uri ng seguridad na kopya sa kompigurasyon"
+msgstr "Tip backupa u konfiguraciji nije validan."
 
 #: daemon/edexecutor.cpp:125
 msgctxt "notification"
 msgid "You don't have write permission to backup destination."
-msgstr ""
+msgstr "Nemate permisije da pišete na backup odredište"
 
 #: daemon/kupdaemon.cpp:113
 msgctxt "@info:tooltip"
 msgid "Backup destination unavailable"
-msgstr "Walang magagamit na imbakan para sa seguridad na kopya"
+msgstr "Odredište za backup nije dostupno"
 
 #: daemon/kupdaemon.cpp:114
 msgctxt "@info:tooltip"
 msgid "Backup status OK"
-msgstr "Maayos ang katayuan ng seguridad na kopya"
+msgstr "Status backupa: OK"
 
 #: daemon/kupdaemon.cpp:120
 msgctxt "@info:tooltip"
 msgid "Backup destination available"
-msgstr "May magagamit na imbakan para sa seguridad na kopya"
+msgstr "Odredište za backup dostupno"
 
 #: daemon/kupdaemon.cpp:127
 msgctxt "@info:tooltip"
 msgid "New backup suggested"
-msgstr "Kinakailangan ng bagong seguridad na kopya"
+msgstr "Predlažem novi backup"
 
 #: daemon/kupdaemon.cpp:138
 msgctxt "@info:tooltip"
 msgid "New backup neeeded"
-msgstr "Kinakailangan ng bagong seguridad na kopya"
+msgstr "Potreban novi backup"
 
 #: daemon/kupdaemon.cpp:201
 msgctxt "@title:window"
 msgid "Backups"
-msgstr "Mga seguridad na kopya"
+msgstr "Backupi"
 
 #: daemon/kupdaemon.cpp:206
 msgctxt "@title:menu"
 msgid "Backups"
-msgstr "Mga Seguridad na kopya"
+msgstr "Backupi"
 
 #: daemon/kupdaemon.cpp:207
 msgctxt "@action:inmenu"
 msgid "Configure Backups"
-msgstr "Kompigurasyon para sa seguridad na kopya"
+msgstr "Podesite backupe"
 
 #: daemon/main.cpp:41
 msgctxt "@info:shell Error message at startup"
@@ -216,14 +202,13 @@ msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running <command>kcmshell5 kup</command>"
 msgstr ""
-"Ang Kup ay hindi gumagana. Pwede itong paganahin mula sa tagapangasiwa ng "
-"nilalaman ng sistema sa pamamagitan ng pagbukas ng <command>kcmshell5 kup</"
-"command>"
+"Kup nije omogućen, omogućite ga kroz System Setting modul. Možete to uraditi "
+"pokretanjem sljedeće komande: <command>kcmshell5 kup</command>"
 
 #: daemon/main.cpp:47
 msgctxt "@title"
 msgid "Kup Daemon"
-msgstr "Kup Daemon"
+msgstr "Kup daemon"
 
 #: daemon/main.cpp:48
 msgid ""
@@ -231,15 +216,13 @@ msgid ""
 "This allows it to quickly perform incremental backups, only saving the parts "
 "of files that has actually changed since last backup was taken."
 msgstr ""
-"Ang Kup ay isang solusyon para sa seguridad na kopya na gamit ang sistemang "
-"imbakan ng seguridad na kopya ng 'bup'. Ito ay nagbibigay daan upang "
-"mapabilis ang pagkuha ng dumadaming seguridad na kopya sa pamamagitan ng pag-"
-"imbak lamang ng mga talaksan na may aktwal na pagbabago mula noong huling "
-"kinunan ang seguridad na kopya."
+"Kup je fleksibilno backup rješenje koje koristi bup system pohrane podataka. "
+"To mu omogućava da brzo izvrši inkementalne backupe, pomoću kojih se "
+"spašavaju samo dijelovi datoteka koji su se promijenili od zadnjeg backupa."
 
 #: daemon/main.cpp:51 kcm/kupkcm.cpp:51
 msgid "Copyright (C) 2011-2015 Simon Persson"
-msgstr "Karapatang-ari (C) 2011-2015 ni Simon Persson"
+msgstr "Copyright (C) 2011-2015 Simon Persson"
 
 #: daemon/main.cpp:53 filedigger/main.cpp:47 kcm/kupkcm.cpp:53
 msgid "Simon Persson"
@@ -248,47 +231,47 @@ msgstr "Simon Persson"
 #: daemon/main.cpp:54 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Wendy Faye"
+msgstr "Vaša imena"
 
 #: daemon/main.cpp:54 filedigger/main.cpp:48 kcm/kupkcm.cpp:54
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "faye_333@yahoo.com.sg"
+msgstr "Vaši e-mailovi"
 
 #: daemon/planexecutor.cpp:58
 msgctxt "@action:inmenu"
 msgid "Take Backup Now"
-msgstr "Gumawa ng seguridad na kopya"
+msgstr "Pokreni backup sada"
 
 #: daemon/planexecutor.cpp:62
 msgctxt "@action:inmenu"
 msgid "Show Files"
-msgstr "Ipakita ang mga talaksan"
+msgstr "Prikaži datoteke"
 
 #: daemon/planexecutor.cpp:66
 msgctxt "@action:inmenu"
 msgid "Show Log File"
-msgstr "Ipakita ang listahan ng talaksan"
+msgstr "Prikaži log datoteku"
 
 #: daemon/planexecutor.cpp:86
 msgctxt "@info:tooltip"
 msgid "Taking new backup"
-msgstr "Kumukuha ng bagong seguridad na kopya"
+msgstr "Kreiram novi backup"
 
 #: daemon/planexecutor.cpp:88
 msgctxt "@info:tooltip"
 msgid "Checking backup integrity"
-msgstr "Sinisiyasat ang integridad ng seguridad na kopya."
+msgstr "Provjeravam integritet backupa"
 
 #: daemon/planexecutor.cpp:90
 msgctxt "@info:tooltip"
 msgid "Repairing backups"
-msgstr "Ina-ayos ang mga seguridad na kopya"
+msgstr "Popravljam backupe"
 
 #: daemon/planexecutor.cpp:119 daemon/planexecutor.cpp:134
 msgctxt "@info"
 msgid "Do you want to take a first backup now?"
-msgstr "Gusto mo na bang kumuha ng pangunahing seguridad na kopya?"
+msgstr "Da li želite sada pokrenuti prvi backup?"
 
 #: daemon/planexecutor.cpp:122
 msgctxt "@info"
@@ -296,8 +279,7 @@ msgid ""
 "It's been %1 since the last backup was taken, do you want to take a backup "
 "now?"
 msgstr ""
-"%1 na ang nakaraan mula noong huling gumuwa ng seguridad na kopya. Gusto mo "
-"bang gumawa ng bagong seguridad na kopya?"
+"Već je prošlo %1 od zadnjeg backupa. Da li želite pokrenuti novi backup?"
 
 #: daemon/planexecutor.cpp:138
 msgctxt "@info"
@@ -305,46 +287,46 @@ msgid ""
 "You've been active with this computer for %1 since the last backup was "
 "taken, do you want to take a backup now?"
 msgstr ""
-"%1 ka nang aktibo sa kompyuter na ito simula nung huling nakuha ang "
-"seguridad na kopya. Gusto mo na bang kumuha ng bagong seguridad na kopya?"
+"Bili ste aktivni na ovom kompjuteru %1 vremena otkako je zadnji backup "
+"urađen. Da li želite pokrenuti novi backup?"
 
 #: daemon/planexecutor.cpp:168
 msgctxt "@title:window"
 msgid "Backup Device Available - %1"
-msgstr "May imbakan na maaring gamitin para sa seguridad na kopya - %1"
+msgstr "Backup uređaj je dostupan - %1"
 
 #: daemon/planexecutor.cpp:171 daemon/planexecutor.cpp:201
 #: daemon/planexecutor.cpp:260
 msgctxt "@action:button"
 msgid "Yes"
-msgstr "Oo"
+msgstr "Da"
 
 #: daemon/planexecutor.cpp:171 daemon/planexecutor.cpp:202
 #: daemon/planexecutor.cpp:261
 msgctxt "@action:button"
 msgid "No"
-msgstr "Hindi"
+msgstr "Ne"
 
 #: daemon/planexecutor.cpp:193
 msgctxt "@title:window"
 msgid "Saving of Backup Failed"
-msgstr "Nabigo ang pag-iimpok ng seguridad na kopya"
+msgstr "Neuspješna pohrana backupa"
 
 #: daemon/planexecutor.cpp:198 daemon/planexecutor.cpp:257
 #: daemon/planexecutor.cpp:291
 msgctxt "@action:button"
 msgid "Show log file"
-msgstr "Ipakita ang listahan ng talaksan"
+msgstr "Prikaži log datoteku"
 
 #: daemon/planexecutor.cpp:253
 msgctxt "@title:window"
 msgid "Integrity Check Completed"
-msgstr "Nakumpleto na ang pagsisiyasat integridad"
+msgstr "Provjera integriteta završena"
 
 #: daemon/planexecutor.cpp:288
 msgctxt "@title:window"
 msgid "Repair Completed"
-msgstr "Nakumpleto na ang pag-aayos"
+msgstr "Popravka završena"
 
 #: daemon/rsyncjob.cpp:44
 msgctxt "@info notification"
@@ -352,16 +334,14 @@ msgid ""
 "The <application>rsync</application> program is needed but could not be "
 "found, maybe it is not installed?"
 msgstr ""
-" Kinakailangan ang programang <application>rsync</application> ngunit hindi "
-"ito matagpuan, baka hindi pa nakalagay sa kompyuter na ito?"
 
 #: daemon/rsyncjob.cpp:76
 msgctxt "@info notification"
 msgid ""
 "Saving backup did not complete successfully. See log file for more details."
 msgstr ""
-"Ang pag-iimpok ng seguridad na kopya ang hindi nakumpleto. Tingnan ang "
-"detalye sa listahan ng talaksan. "
+"Pohrana backupa nije uspješno završila. Za detaljan info, pogledajte log "
+"datoteku."
 
 #: filedigger/main.cpp:43
 msgctxt "@title"
@@ -370,28 +350,26 @@ msgstr "File Digger"
 
 #: filedigger/main.cpp:44
 msgid "Browser for bup archives."
-msgstr "Browser para sa mga arkibo ng bup."
+msgstr "Pretraživač bup arhiva"
 
 #: filedigger/main.cpp:45
 msgid "Copyright (C) 2013-2015 Simon Persson"
-msgstr "Karapatang-ari (C) 2013-2015 ni Simon Persson"
+msgstr "Copyright (C) 2013-2015 Simon Persson"
 
 #: filedigger/main.cpp:55
 msgid "Name of the branch to be opened."
-msgstr "Pangalan ng sangay na bubuksan."
+msgstr "Ime grane koju treba otvoriti."
 
 #: filedigger/main.cpp:57
 msgid "Path to the bup repository to be opened."
-msgstr "Bakas na magbubukas sa repositoryo ng bup."
+msgstr "Putanja do bup repozitorija koju treba otvoriti."
 
 #: filedigger/main.cpp:66
 msgctxt "@info:shell Error message at startup"
 msgid ""
 "You must supply the path to a bup or git repository that you wish to open "
 "for viewing."
-msgstr ""
-"Kinakailangan mong ibigay ang bakas papunta sa repositoryo ng bup o git na "
-"nais mong buksan."
+msgstr "Morate dati putanju do bup ili git repozitorija kojeg želite otvoriti."
 
 #: filedigger/main.cpp:77
 msgctxt "@info messagebox, %1 is a folder path"
@@ -399,15 +377,13 @@ msgid ""
 "The backup archive <filename>%1</filename> could not be opened. Check if the "
 "backups really are located there."
 msgstr ""
-"Ang arkibo ng seguridad na kopa <filename>%1</filename> ay hindi mabuksan. "
-"Siyasatin kung ang mga seguridad na kopya na ito ay talagang naka-impok sa "
-"lokasyon na ito."
+"Backup arhiva <filename>%1</filename> se ne može otvoriti. Provjerite da li "
+"su backupi stvarno locirani tamo."
 
 #: filedigger/main.cpp:84
 msgctxt "@info messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr ""
-"Wala kang pahintulot para basahin ang mga arkibo ng seguridad na kopya."
+msgstr "Nemate permisije potrebne za čitanje ove backup arhive."
 
 #: filedigger/mergedvfs.cpp:108
 msgctxt "@info messagebox"
@@ -415,40 +391,38 @@ msgid ""
 "Could not read this backup archive. Perhaps some files have become "
 "corrupted. Do you want to run an integrity check to test this?"
 msgstr ""
-"Itong arkibo ng seguridad na kopya ay hindi mabasa. Baka ito ay may sira. "
-"Gusto mo bang siyasatin ang integridad nito?"
+"Nije moguće pročitati ovu backup arhivu. Možda su datoteke oštećene. Da li "
+"želite pokrenuti provjeru integriteta arhive?"
 
 #: filedigger/mergedvfs.cpp:156
 msgctxt "added after folder name in some cases"
 msgid " (folder)"
-msgstr "(polder)"
+msgstr " (folder)"
 
 #: filedigger/mergedvfs.cpp:158
 msgctxt "added after file name in some cases"
 msgid " (symlink)"
-msgstr "(symlink)"
+msgstr " (simbolički link)"
 
 #: filedigger/mergedvfs.cpp:160
 msgctxt "added after file name in some cases"
 msgid " (file)"
-msgstr "(talaksan)"
+msgstr "(datoteka)"
 
 #: filedigger/restoredialog.cpp:116 kcm/backupplanwidget.cpp:447
 msgctxt "@action:button"
 msgid "New Folder..."
-msgstr "Bagong polder"
+msgstr "Novi folder..."
 
 #: filedigger/restoredialog.cpp:142 filedigger/restoredialog.cpp:161
 msgctxt "@info message bar appearing on top"
 msgid "No destination was selected, please select one."
-msgstr "Walang pang napiling destinasyon, kailangang pumili ng isa."
+msgstr "Nije odabrano odredište, molim odaberite ga."
 
 #: filedigger/restoredialog.cpp:252
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
-msgstr ""
-"Nagkaroon ng problema habang kinukuha ang listahan ng lahat ng talaksan na "
-"kailangang ipanumbalik: %1 "
+msgstr "Desio se problem kod dobavljanja liste datoteka za restore: %1"
 
 #: filedigger/restoredialog.cpp:265
 msgctxt "@info message bar appearing on top"
@@ -456,44 +430,40 @@ msgid ""
 "The destination does not have enough space available. Please choose a "
 "different destination or free some space."
 msgstr ""
-"Walang sapat na espasyo sa destinasyon na ito. Mangyaring pumili ng ibang "
-"destinasyon na may sapat na espasyo o magpalaya ng espasyo sa destinasyon na "
-"ito."
+"Odredište nema dovoljno slobodnog prostora. Molim odaberite drugo odredište, "
+"ili oslobodite prostora na trenutnom odredištu."
 
 #: filedigger/restoredialog.cpp:275
 msgctxt ""
 "added to the suggested filename when restoring, %1 is the time when backup "
 "was taken"
 msgid " - saved at %1"
-msgstr "- nakaimpok na ng %1"
+msgstr "- spašeno u %1"
 
 #: filedigger/restoredialog.cpp:276
 msgctxt "@info"
 msgid "Folder already exists, please choose a solution"
-msgstr ""
-"Ang polder na ito ay nakalagay na sa sistema, kailangan pumili ng solusyon."
+msgstr "Folder već postoji, odaberite rješenje"
 
 #: filedigger/restoredialog.cpp:282
 msgctxt "@info"
 msgid "File already exists"
-msgstr "Ang talaksan na ito ay nakalagay na sa sistema"
+msgstr "Datoteka već postoji"
 
 #: filedigger/restoredialog.cpp:295
 msgctxt "@info message bar appearing on top"
 msgid "The new name entered already exists, please enter a different one."
-msgstr ""
-"Ang bagong pangalan na ipinasok ay nakalagay na sa sistema, kailangang "
-"maglagay ng ibang pangalan."
+msgstr "Ime koje ste unijeli već postoji, molim odaberite drugo ime."
 
 #: filedigger/restoredialog.cpp:372 kcm/dirselector.cpp:50
 msgctxt "default folder name when creating a new folder"
 msgid "New Folder"
-msgstr "Bagong polder"
+msgstr "Novi folder"
 
 #: filedigger/restoredialog.cpp:377 kcm/dirselector.cpp:55
 msgctxt "@title:window"
 msgid "New Folder"
-msgstr "Bagong polder"
+msgstr "Novi folder"
 
 #: filedigger/restoredialog.cpp:378 kcm/dirselector.cpp:56
 msgctxt "@label:textbox"
@@ -501,36 +471,36 @@ msgid ""
 "Create new folder in:\n"
 "%1"
 msgstr ""
-"Gumawa ng bagong polder sa:\n"
+"Kreirajte novi folder u:\n"
 "%1"
 
 #: filedigger/restoredialog.cpp:391 kcm/dirselector.cpp:68
 msgid "A folder named %1 already exists."
-msgstr "Ang %1 na pangalan ay nagamit na."
+msgstr "Folder sa nazivom %1 već postoji."
 
 #: filedigger/restoredialog.cpp:397 kcm/dirselector.cpp:74
 msgid "You do not have permission to create %1."
-msgstr "Wala kang pahintulot na lumikha %1."
+msgstr "Nemate permisije da kreirate %1"
 
 #: filedigger/restorejob.cpp:99
 msgctxt "progress report, current operation"
 msgid "Restoring"
-msgstr "Nagpapanumbalik"
+msgstr "Vraćam"
 
 #: filedigger/restorejob.cpp:100
 msgctxt "progress report, label"
 msgid "File:"
-msgstr "Talaksan:"
+msgstr "Datoteka:"
 
 #: filedigger/versionlistdelegate.cpp:135
 msgctxt "@action:button"
 msgid "Open"
-msgstr "Buksan"
+msgstr "Otvori"
 
 #: filedigger/versionlistdelegate.cpp:137
 msgctxt "@action:button"
 msgid "Restore"
-msgstr "Ibalik"
+msgstr "Vrati"
 
 #: kcm/backupplanwidget.cpp:278
 msgctxt "@action:button"
@@ -581,17 +551,17 @@ msgstr ""
 #: kcm/backupplanwidget.cpp:436
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "Piliin ang polder"
+msgstr "Odaberi folder"
 
 #: kcm/backupplanwidget.cpp:474
 msgctxt "@label"
 msgid "Description:"
-msgstr "Paglalarawan:"
+msgstr "Opis"
 
 #: kcm/backupplanwidget.cpp:477
 msgctxt "@action:button"
 msgid "Back to overview"
-msgstr "Bumalik sa kabuudan"
+msgstr "Nazad na pregled"
 
 #: kcm/backupplanwidget.cpp:506
 msgctxt "@info"
@@ -606,16 +576,10 @@ msgid ""
 "files in the archive can not be accessed directly with a general file "
 "manager, a special program is needed."
 msgstr ""
-"Ang uri ng seguridad na kopya na ito na <emphasis>nakaimbak</emphasis>. "
-"Naglalaman ito ng pinakabagong salin at ang mga naunang salin ng iyong mga "
-"talaksan. Maaari mong kunin ang mga naunang salin ng iyong mga talaksan o "
-"kung ano man ang iyong tatanggalin balang araw ay maaari mo din ibalik sa "
-"pamamagitan nitong seguridad na kopya. Ang kabuuan ng imbakan na "
-"kinakailangan ay pinaliliit sa pamamagitan ng pagkuha lamang ng kung ano "
-"mang binago sa iyong mga talaksan. Pero habang panahon hindi maiiwasan ang "
-"pagdami ng mga pagbabagong ito na magdudulot ng paglaki ng imbakan na "
-"kinakailangan.<nl/>Importanteng iyong malaman na ang mga talaksan na "
-"nakaimbak ay maaari lamang buksan sa pamamagitan ng espesyal na programa."
+"Ovaj tip backupa je <emphasis>arhiva</emphasis>. On sadrži zadnju, i sve "
+"prethodne verzije datoteka koje ste spasili. Korištenje ovog tipa backupa "
+"dozvoljava vraćanje starijih verzija vaših datoteka, ili datoteka koje su "
+"pobrisane sa vašeg kompjutera. "
 
 #: kcm/backupplanwidget.cpp:521
 msgctxt "@option:radio"
@@ -623,13 +587,13 @@ msgid ""
 "Versioned Backup (not available because <application>bup</application> is "
 "not installed)"
 msgstr ""
-"May salin na seduridad na kopya (hindi magagamit dahil ang <application>bup</"
-"application> ay hindi pa nakalagay sa kompyuter na ito)"
+"Verzionirani backup (nije dostupan jer <application>bup</application> nije "
+"instalirana)."
 
 #: kcm/backupplanwidget.cpp:526
 msgctxt "@option:radio"
 msgid "Versioned Backup (recommended)"
-msgstr "May salin na seguridad na kopya (inirerekomenda)"
+msgstr "Backup sa verzijama (preporučeno)"
 
 #: kcm/backupplanwidget.cpp:531
 msgctxt "@info"
@@ -642,16 +606,12 @@ msgid ""
 "due to a broken hard drive but it does not help you to recover from your own "
 "mistakes."
 msgstr ""
-"Ang uri ng polder na ito na naglalaman ng seguridad na kopya ay ang "
-"nakapareha sa iyong napiling ugat ng polder o ang polder na naglalaman ng "
-"mga talaksan na gusto mong may seguridad na kopya. Ang ibig sabihin ng "
-"pagkuha ng seguridad na kopya ay pangu-ngopya ng eksaktong laman ng ugat "
-"polder na  iyong pinili para makunan ng seguridad na kopya. Kung ang isang "
-"talaksan ay sadyang tinanggal, inalis o binura sa ugat na polder, ito din ay "
-"mabubura sa polder ng seguridad na kopya.<nl/>Ang seguridad na kopya na ito "
-"ay maaring makaprotekta sa pagkawala ng mga talaksan dahilan nga pagkasira "
-"ng iyong hard drive pero hindi ito makakatulong sa pagkuha o pagbawi ng mga "
-"talaksang iyong nabura dahil sa pagkakamali."
+"Ovaj tip backupa je ustvari folder koji je sinhroniziran sa izvornim "
+"folderom kojeg želite spasiti. Odredišna datoteka sadrži identičnu kopiju "
+"izvornih foldera i ništa drugo. Ako izbrišete datoteku u izvornom folderu, "
+"datoteka će biti pobrisana i na odredištu. Ovaj tip backup-a može vas "
+"zaštititi od slučajnog gubitka podataka zbog oštećenog hard diska, ali ne "
+"može vas zaštititi od vlatitih grešaka."
 
 #: kcm/backupplanwidget.cpp:544
 msgctxt "@option:radio"
@@ -659,43 +619,43 @@ msgid ""
 "Synchronized Backup (not available because <application>rsync</application> "
 "is not installed)"
 msgstr ""
-"Magkapanabay na kopya (Hindi magagamit dahil ang <application>rsync</"
-"application> ay hindi pa nakalagay sa kompyuter na ito)"
+"Backup sa sinhronizacijom (nije dostupan, jer <application>rsync</"
+"application> nije instaliran)"
 
 #: kcm/backupplanwidget.cpp:549
 msgctxt "@option:radio"
 msgid "Synchronized Backup"
-msgstr "Magkapanabay na seguridad na kopya"
+msgstr "Sinhronizirani backup"
 
 #: kcm/backupplanwidget.cpp:577
 msgctxt "@title"
 msgid "Backup Type"
-msgstr "Uri ng seguridad na kopya"
+msgstr "Tip backup-a"
 
 #: kcm/backupplanwidget.cpp:578
 msgctxt "@label"
 msgid "Select what type of backup you want"
-msgstr "Piliin kung anong uri ng seguridad na kopya ang kinakailangan"
+msgstr "Odaberite koji tip backup-a želite"
 
 #: kcm/backupplanwidget.cpp:586
 msgctxt "@title"
 msgid "Sources"
-msgstr "Pinagmumulan"
+msgstr "Izvorišta"
 
 #: kcm/backupplanwidget.cpp:587
 msgctxt "@label"
 msgid "Select which folders to include in backup"
-msgstr "Piliin ang mga polder na kailangan isama sa seguridad na kopya"
+msgstr "Odaberite foldere koje želite uključiti u backup"
 
 #: kcm/backupplanwidget.cpp:601
 msgctxt "@option:radio"
 msgid "Filesystem Path"
-msgstr "Lokasyon ng talaksang pang-sistema"
+msgstr "Putanja na file sistemu"
 
 #: kcm/backupplanwidget.cpp:602
 msgctxt "@option:radio"
 msgid "External Storage"
-msgstr "Panlabas na imbakan"
+msgstr "Vanjska pohrana"
 
 #: kcm/backupplanwidget.cpp:608
 msgctxt "@info"
@@ -705,14 +665,15 @@ msgid ""
 "always mount it at the same path in the filesystem. The path specified here "
 "does not need to exist at all times, its existance will be monitored."
 msgstr ""
-"Maari mo itong piliin kung gusto mong ilagay ang iyong seguridad na kopya sa "
-"pangalawang panloob na hard drive, eSATA o imbakan sa network. Kinakailangan "
-"lang na palagi itong konektado sa iisang landas sa sistemang pangtalaksan."
+"Ovu opciju možete koristiti za backup na drugi hard disk, eksterni eSATA "
+"disk ili na mrežni uređaj. Jedino što je potrebno je da ga mountate uvijek "
+"na istu putanju. Putanja koju specificirate ovdje ne mora postojati, ali će "
+"biti monitorirana."
 
 #: kcm/backupplanwidget.cpp:615
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
-msgstr "Destinasyon para sa seguridad na kopya:"
+msgstr "Odredišna putanja za backup"
 
 #: kcm/backupplanwidget.cpp:634
 msgctxt "@info"
@@ -720,50 +681,48 @@ msgid ""
 "Use this option if you want to backup your files on an external storage that "
 "can be plugged in to this computer, such as a USB hard drive or memory stick."
 msgstr ""
-"Gamitin ang alternatibong ito kung gusto mo ilagay ang iyong mga seguridad "
-"na kopya sa panlabasang imbakan na pwedeng isaksak sa kompyuter na ito "
-"kagaya ng USB hard drive o memory stick."
+"Koristite ovu opciju ako želite backup na eksterni disk koji je priključen "
+"na vaš kompjuter, kao što su USB hard disk i stik."
 
 #: kcm/backupplanwidget.cpp:644 kcm/backupplanwidget.cpp:648
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
-msgstr ""
-"Ang tinutukoy na polder ay pwedeng ilikha kung ito ay hindi pa nalilikha."
+msgstr "Navedeni folder će biti kreiran ako ne postoji."
 
 #: kcm/backupplanwidget.cpp:646
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
-msgstr "Polder sa destinasyon:"
+msgstr "Folder na odredišnom disku:"
 
 #: kcm/backupplanwidget.cpp:654
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
-msgstr "Buksan ang diyalogo para pumili ng polder"
+msgstr "Otvorite dijalog da odaberete folder"
 
 #: kcm/backupplanwidget.cpp:684
 msgctxt "@title"
 msgid "Destination"
-msgstr "Destinasyon"
+msgstr "Odredište"
 
 #: kcm/backupplanwidget.cpp:685
 msgctxt "@label"
 msgid "Select the backup destination"
-msgstr "Piliin ang destinasyon ng seguridad na kopya"
+msgstr "Odaberite odredište za backup"
 
 #: kcm/backupplanwidget.cpp:702
 msgctxt "@option:radio"
 msgid "Manual Activation"
-msgstr "Manu-manong paganahin"
+msgstr "Ručna aktivacija"
 
 #: kcm/backupplanwidget.cpp:703
 msgctxt "@option:radio"
 msgid "Interval"
-msgstr "Pagitan"
+msgstr "Interval"
 
 #: kcm/backupplanwidget.cpp:704
 msgctxt "@option:radio"
 msgid "Active Usage Time"
-msgstr "Aktibong Oras ng Paggamit"
+msgstr "Aktivno vrijeme korištenja"
 
 #: kcm/backupplanwidget.cpp:706
 msgctxt "@info"
@@ -771,8 +730,8 @@ msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
 msgstr ""
-"Kinukuha lamang ang seguridad na kopya sang-ayon sa iyong kahilingan. Ito ay "
-"maaaring hilingin o piliin sa pamamagitan ng talaan sa may system tray icon. "
+"Backupi će se izvršiti samo ako je to manualno zatraženo. Za ovo možete "
+"korititi meni u ikoni sistemskih obavještenja."
 
 #: kcm/backupplanwidget.cpp:720
 msgctxt "@info"
@@ -780,29 +739,28 @@ msgid ""
 "New backup will be triggered when backup destination becomes available and "
 "more than the configured interval has passed since the last backup was taken."
 msgstr ""
-"Ang pagkuha ng bagong seguridad na kopya ay magpapakita kung may magagamit "
-"na imbakan at kung lumagpas na ang panahon na nakalagay sa kompigurasyon ng "
-"pagkuha ng seguridad na kopya mula nung huli ito ay nakuha."
+"Novi backup će se pokrenuti kada odredište postane dostupno, i ako je prošlo "
+"više od konfigurisanog intervala otkako se desio zadnji backup."
 
 #: kcm/backupplanwidget.cpp:737
 msgctxt "@item:inlistbox"
 msgid "Minutes"
-msgstr "Minuto"
+msgstr "Minuta"
 
 #: kcm/backupplanwidget.cpp:738 kcm/backupplanwidget.cpp:765
 msgctxt "@item:inlistbox"
 msgid "Hours"
-msgstr "Oras"
+msgstr "Sati"
 
 #: kcm/backupplanwidget.cpp:739
 msgctxt "@item:inlistbox"
 msgid "Days"
-msgstr "Araw"
+msgstr "Dana"
 
 #: kcm/backupplanwidget.cpp:740
 msgctxt "@item:inlistbox"
 msgid "Weeks"
-msgstr "Linggo"
+msgstr "Sedmica"
 
 #: kcm/backupplanwidget.cpp:750
 msgctxt "@info"
@@ -811,31 +769,28 @@ msgid ""
 "you have been using your computer actively for more than the configured time "
 "limit since the last backup was taken."
 msgstr ""
-"Ang pagkuha ng bagong seguridad na kopya ay magpapakita kung may magagamit "
-"na imbakan at kung  ikaw ay aktibong gumagamit sa kompyuter na ito sa "
-"humigit na oras nakalagay sa kompigurasyon sa sistema ng pagkuha ng "
-"seguridad na kopya o kung lumagpas na ang panahon na nakalagay sa "
-"kompigurasyon ng pagkuha ng seguridad na kopya mula nung huli ito ay nakuha."
+"Novi backup će se pokrenuti kada odredište postane dostupno, i ako je prošlo "
+"više od konfigurisanog intervala otkako aktivno koristite računar."
 
 #: kcm/backupplanwidget.cpp:771
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
-msgstr "Kumpirmahin bago kumuha ng seguridad na kopya"
+msgstr "Traži potvrdu prije pokretanja backup-a."
 
 #: kcm/backupplanwidget.cpp:790
 msgctxt "@title"
 msgid "Schedule"
-msgstr "Talatakdaan"
+msgstr "Raspored"
 
 #: kcm/backupplanwidget.cpp:791
 msgctxt "@label"
 msgid "Specify the backup schedule"
-msgstr "Magtakda ng iskedyul para sa seguridad na kopya"
+msgstr "Specificirajte raspored backup-a"
 
 #: kcm/backupplanwidget.cpp:804
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
-msgstr "Ipakita ang mga nakatagong polder sa piniling panggagalingan polder."
+msgstr "Prikaži skrivene foldere kod odabira izvora backup-a"
 
 #: kcm/backupplanwidget.cpp:810
 msgctxt "@info"
@@ -845,6 +800,10 @@ msgid ""
 "dot. They are typically located in your home folder and are used to store "
 "settings and temporary files for your applications."
 msgstr ""
+"Ovo omogućava da se eksplicitno uključe ili isključe skrivene datoteke kod "
+"odabira šta će ići u sigurnosnu kopiju. Skrivene mape imaju imena koja "
+"počinju sa tačkom. Obično su locirani u vašoj korisničkoj mapi, i služe da "
+"se drže postavke i privremene datateke vaših aplikacija."
 
 #: kcm/backupplanwidget.cpp:827
 #, c-format
@@ -854,15 +813,14 @@ msgid ""
 "backups will take slightly longer time. In return it will be possible to "
 "recover from a partially corrupted backup."
 msgstr ""
-"Ito ay magbibigay daan sa iyong seguridad na kopya na gumamit pa ng higit na "
-"10 porsiyento na espasyo sa imbakan at mas tatagal ng konti ang pag-iimpok. "
-"Pero ito ay magbibigay posibilidad na ayusin ang mga may bahagyang sirang "
-"seguridad na kopya."
+"Ova opcija će povećati korištenje diska za 10%, i spašavanje sigurnosnih "
+"kopija će potrajati malo duže. Zbog ovoga će biti moguće spašavanje "
+"sigurnosnih kopija iz djelimično oštećenih kopija."
 
 #: kcm/backupplanwidget.cpp:833
 msgctxt "@option:check"
 msgid "Generate recovery information"
-msgstr "Gumawa ng inpormasyon tungkol sa pagbawi"
+msgstr "Kreiraj informacije za oporavak"
 
 #: kcm/backupplanwidget.cpp:835
 msgctxt "@option:check"
@@ -870,13 +828,13 @@ msgid ""
 "Generate recovery information (not available because <application>par2</"
 "application> is not installed)"
 msgstr ""
-"Gumawa ng inpormasyon tungkol sa pagbawi (hindi ito maisagawa dahil ang "
-"<application>par2</application> ay hindi nakalagay)"
+"Generisanje inforamcija za oporavak (nije dostupno jer  <application>par2</"
+"application> nije instalirana)"
 
 #: kcm/backupplanwidget.cpp:850
 msgctxt "@option:check"
 msgid "Verify integrity of backups"
-msgstr "Beripikahin ang integridad ng seguridad na kopya"
+msgstr "Provjeri integritet backup-a"
 
 #: kcm/backupplanwidget.cpp:854
 msgctxt "@info"
@@ -886,39 +844,37 @@ msgid ""
 "corruption problems sooner than at the time you need to use a backup, at "
 "that time it could be too late."
 msgstr ""
-"Sinisiyasat kung may sira ang buong arkibo ng seguridad na kopya sa tuwing "
-"ikaw ay nag-iimpok ng bagong talaksan. Gagawin nitong mas mabagal ng konti "
-"ang pang-impok ng seguridad na kopya pero ito ay nakakatulong sa "
-"pagsisiyasat ng anumang sira sa iyong mga seguridad na kopya sa mas maagang "
-"panahon."
+"Provjerava cijelu sigurnosnu kopiju na oštećenja svaki put kada spašavate "
+"podatke. Spašavanje kopija će trajati malo duže, ali dopušta detekciju "
+"problema u slučaju oštećenja prije trenutka kada trebate vratiti sigurnosne "
+"kopije, a tada već može biti prekasno."
 
 #: kcm/backupplanwidget.cpp:876
 msgctxt "@title"
 msgid "Advanced"
-msgstr "Pauna"
+msgstr "Napredno"
 
 #: kcm/backupplanwidget.cpp:877
 msgctxt "@label"
 msgid "Extra options for advanced users"
-msgstr "Karagdagang pamilian para sa mga dalubhasa"
+msgstr "Dodatne opcije za napredne korisnike"
 
 #: kcm/driveselection.cpp:275
 msgctxt "@label Only shown if no drives are detected"
 msgid ""
 "Plug in the external storage you wish to use, then select it in this list."
 msgstr ""
-"Isaksak ang imbakan na nais mong gamitin para sa seguridad na kopya at "
-"pagkatapos ay pillin ito sa listahan."
+"Priključite vanjski disk koji želite koristiti i odaberite ga u ovoj listi"
 
 #: kcm/driveselectiondelegate.cpp:75
 msgctxt "@item:inlistbox this text is added if selected drive is disconnected"
 msgid " (disconnected)"
-msgstr "(hindi nakakabit)"
+msgstr "(odspojen)"
 
 #: kcm/driveselectiondelegate.cpp:78
 msgctxt "@label %1 is amount of free storage space of hard drive"
 msgid "%1 free"
-msgstr "May %1 na libre"
+msgstr "%1 slobodno"
 
 #: kcm/driveselectiondelegate.cpp:92
 msgctxt ""
@@ -926,7 +882,7 @@ msgctxt ""
 "device. %1 is partition number, %2 is device description, %3 is either empty "
 "or the \" (disconnected)\" text"
 msgid "Partition %1 on %2%3"
-msgstr "Partisyon %1 sa %2%3"
+msgstr "Particija %1 na %2%3"
 
 #: kcm/driveselectiondelegate.cpp:95
 msgctxt ""
@@ -940,12 +896,12 @@ msgctxt ""
 "@item:inlistbox %1 is filesystem label, %2 is the device description, %3 is "
 "either empty or the \" (disconnected)\" text"
 msgid "%1 on %2%3"
-msgstr "%1 sa %2%3"
+msgstr "%1 on %2%3"
 
 #: kcm/driveselectiondelegate.cpp:106
 msgctxt "@item:inlistbox %1 is drive(partition) label, %2 is storage capacity"
 msgid "%1: %2 total capacity"
-msgstr "%1:%2 kabuuan ng kapasidad"
+msgstr "%1: %2 ukupni kapacitet"
 
 #: kcm/driveselectiondelegate.cpp:153
 msgctxt "@item:inlistbox"
@@ -954,10 +910,9 @@ msgid ""
 "system. File permissions only matters if there is more than one user of this "
 "computer or if you are backing up executable program files."
 msgstr ""
-"Babala: Ang mga pahintulot para sa mga talaksan ay hindi maaaring mailagay "
-"sa sistemang pangtalaksan. Ang mga pahintulot na ito ay kinakailangan lamang "
-"kapag may dalawa o higit pang taga- gamit ng kompyuter o kung ikaw ay "
-"naglalagay ng mga seguridad na kopya sa isang executable program files."
+"Upozorenje: Simbolički linkovi i dozvole na datotekama ne mogu biti spašene "
+"na ovaj datotečni sistem. Dozvole na datotekama su bitne samo ako ima više "
+"korisnika ovog računara ili ako spašavate programe i izvršne datoteke."
 
 #: kcm/driveselectiondelegate.cpp:157
 msgctxt "@item:inlistbox"
@@ -966,10 +921,9 @@ msgid ""
 "permissions only matters if there is more than one user of this computer or "
 "if you are backing up executable program files."
 msgstr ""
-"Babala: Ang mga pahintulot para sa mga talaksan ay hindi maaaring mailagay "
-"sa sistemang pangtalaksan. Ang mga pahintulot na ito ay kinakailangan lamang "
-"kapag may dalawa o higit pang taga- gamit ng kompyuter o kung ikaw ay "
-"naglalagay ng mga seguridad na kopya sa isang executable program files."
+"Upozorenje: Dozvole na datotekama ne mogu biti spašene na ovaj datotečni "
+"sistem. Dozvole na datotekama su bitne samo ako ima više korisnika ovog "
+"računara ili ako spašavate programe i izvršne datoteke."
 
 #: kcm/folderselectionmodel.cpp:109
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
@@ -977,13 +931,13 @@ msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
 msgstr ""
-"<filename>%1</filename><nl/>ay maidadagdag sa seguridad na kopya, maliban sa "
-"mga hindi napiling polder na nasa loob nito"
+"<filename>%1</filename><nl/>biće uključen u backup, osim subfoldera koji "
+"nemaju kvačicu."
 
 #: kcm/folderselectionmodel.cpp:113
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>kasali sa seguridad na kopya"
+msgstr "<filename>%1</filename><nl/>će biti uključen u backup"
 
 #: kcm/folderselectionmodel.cpp:117
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
@@ -991,9 +945,8 @@ msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
-"<filename>%1</filename><nl/>ay<emphasis>hindi</emphasis> maidadagdag sa "
-"seguridad na kopya pero may mga polder na napiling maidagdag sa seguridad na "
-"kopya"
+"<filename>%1</filename><nl/> <emphasis>neće</emphasis> biti uključen u "
+"backup, ali sadrži foldere koji će biti uključeni."
 
 #: kcm/folderselectionmodel.cpp:121
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
@@ -1001,20 +954,20 @@ msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
 msgstr ""
-"<filename>%1</filename><nl/>ay <emphasis>hindi</emphasis> isasama sa "
-"seguridad na kopya"
+"<filename>%1</filename><nl/> <emphasis>neće</emphasis> biti uključen u "
+"backup."
 
 #: kcm/kupkcm.cpp:49
 msgid "Kup Configuration Module"
-msgstr "Tagapamahala ng kumpigurasyon ng Kup"
+msgstr "Konfiguracijski modul aplikacije Kup"
 
 #: kcm/kupkcm.cpp:50
 msgid "Configuration of backup plans for the Kup backup system"
-msgstr "Kompigurasyon ng seguridad na kopya para sa sistema ng Kup "
+msgstr "Postavka planova za sigurnosne kopijeza Kup backup sistem"
 
 #: kcm/kupkcm.cpp:53
 msgid "Maintainer"
-msgstr "Taga-panatili"
+msgstr "Održavatelj"
 
 #: kcm/kupkcm.cpp:84
 msgid ""
@@ -1022,63 +975,62 @@ msgid ""
 "plan you need to install either of</p><ul><li>bup, for versioned backups</"
 "li><li>rsync, for synchronized backups</li></ul>"
 msgstr ""
-"<h2>Nawawalang programa para sa seguridad na kopya</h2><p>Bago mapagana ang "
-"anumang plano para sa seguridad na kopya, kailangang ilagay ang isa sa mga</"
-"p><ul><li>bup, para sa mga isasaling seguridad na kopya</li><li>rsync, para "
-"sa mga magkasabay na seguridad na kopya</li></ul>"
+"<h2>Nedostaju programi za backup</h2><p>Prije nego možete aktivirati bilo "
+"koji plan sigurnosnih kopija, morate instalirati ili</p><ul><li>bup, za "
+"verzionirane kopije ili</li><li>rsync, za sinhronizovane kopije</li></ul>"
 
 #: kcm/kupkcm.cpp:159
 msgctxt "@title:window"
 msgid "Warning"
-msgstr "Babala"
+msgstr "Upozorenje"
 
 #: kcm/kupkcm.cpp:161
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<nl/>No backups will be saved by this plan."
 msgstr ""
-"Ang 1% ay walang destinasyon!<nl/>Walang seguridad na kopya ang magagawa sa "
-"planong ito."
+"%1 nema odredište!<nl/>Rezervne kopije iz ove specifikacije neće biti "
+"spašene."
 
 #: kcm/kupkcm.cpp:250
 msgctxt "@action:button"
 msgid "Add New Plan"
-msgstr "Magdagdag ng bagong plano"
+msgstr "Dodaj novi plan"
 
 #: kcm/kupkcm.cpp:253
 msgctxt "@option:check"
 msgid "Backups Enabled"
-msgstr "Ang mga seguridad na kopya ay gumagana"
+msgstr "Backupi uključeni"
 
 #: kcm/planstatuswidget.cpp:47
 msgctxt "@action:button"
 msgid "Configure"
-msgstr "Magkompigura"
+msgstr "Podesi"
 
 #: kcm/planstatuswidget.cpp:49
 msgctxt "@action:button"
 msgid "Remove"
-msgstr "Tanggalin"
+msgstr "Ukloni"
 
 #: kcm/planstatuswidget.cpp:73
 msgctxt "@label %1 is fancy formatted date, %2 is time of day"
 msgid "Last backup was taken %1 at %2.\n"
-msgstr "Ang huling seguridad na kopya ay kinuha noong %1 at %2.\n"
+msgstr "Posljednji backup je napravljen %1 u %2\n"
 
 #: kcm/planstatuswidget.cpp:78
 msgctxt "@label %1 is storage size of archive"
 msgid "The size of the backup archive was %1.\n"
-msgstr "Ang sukat ng seguridad na kopya na naka-arkibo ay %1.\n"
+msgstr "Veličina backup arhive je bila %1.\n"
 
 #: kcm/planstatuswidget.cpp:82
 msgctxt "@label %1 is free storage space"
 msgid "The destination still had %1 available.\n"
-msgstr "May %1 pang libre para sa destinayon na ito.\n"
+msgstr "Odredište ima dostupno još %1 \n"
 
 #: kcm/planstatuswidget.cpp:85
 msgctxt "@label"
 msgid "This backup plan has never been run."
-msgstr "Ang plano na ito ay hindi kailanman nagamit."
+msgstr "Ovaj backup plan nikad nije pokrenut."
 
 #: kioslave/bupslave.cpp:65 kioslave/bupslave.cpp:122 kioslave/bupslave.cpp:159
 #: kioslave/bupslave.cpp:222 kioslave/bupslave.cpp:244
@@ -1086,7 +1038,7 @@ msgid ""
 "No bup repository found.\n"
 "%1"
 msgstr ""
-"Walang mahanap na repositoryo ng bup.\n"
+"bup repozitorij nije pronađen.\n"
 "%1"
 
 #. i18n: file: filedigger/restoredialog.ui:14
@@ -1094,49 +1046,49 @@ msgstr ""
 #: po/rc.cpp:3 rc.cpp:3
 msgctxt "@title:window"
 msgid "Restore Guide"
-msgstr "Gabay Para sa Pagpapanumbalik"
+msgstr "Vodič za povratak podataka"
 
 #. i18n: file: filedigger/restoredialog.ui:55
 #. i18n: ectx: property (text), widget (QPushButton, mRestoreOriginalButton)
 #: po/rc.cpp:6 rc.cpp:6
 msgctxt "@action:button"
 msgid "Restore to original location"
-msgstr "Ibalik sa orihinal na lokasyon"
+msgstr "Vratite na originalnu lokaciju"
 
 #. i18n: file: filedigger/restoredialog.ui:78
 #. i18n: ectx: property (text), widget (QPushButton, mRestoreCustomButton)
 #: po/rc.cpp:9 rc.cpp:9
 msgctxt "@action:button"
 msgid "Choose where to restore"
-msgstr "Piliin kung saan mo gustong ibalik"
+msgstr "Odaberite gdje vratiti"
 
 #. i18n: file: filedigger/restoredialog.ui:132
 #. i18n: ectx: property (text), widget (QPushButton, mDestBackButton)
 #: po/rc.cpp:12 rc.cpp:12
 msgctxt "@action:button"
 msgid "Back"
-msgstr "Bumalik"
+msgstr "Nazad"
 
 #. i18n: file: filedigger/restoredialog.ui:144
 #. i18n: ectx: property (text), widget (QPushButton, mDestNextButton)
 #: po/rc.cpp:15 rc.cpp:15
 msgctxt "@action:button"
 msgid "Next"
-msgstr "Susunod"
+msgstr "Naprijed"
 
 #. i18n: file: filedigger/restoredialog.ui:175
 #. i18n: ectx: property (text), widget (QRadioButton, mNewNameRadioButton)
 #: po/rc.cpp:18 rc.cpp:18
 msgctxt "@option:radio "
 msgid "Restore the folder under a new name"
-msgstr "Ipanumbalik ang polder sa bagong pangalan"
+msgstr "Vrati folder pod novim imenom"
 
 #. i18n: file: filedigger/restoredialog.ui:208
 #. i18n: ectx: property (text), widget (QRadioButton, mOverwriteRadioButton)
 #: po/rc.cpp:21 rc.cpp:21
 msgctxt "@option:radio"
 msgid "Merge folders"
-msgstr "Pagsamahin ang mga polder"
+msgstr "Udruži foldere"
 
 #. i18n: file: filedigger/restoredialog.ui:238
 #. i18n: ectx: property (text), widget (QLabel, mConfirmOverwriteLabel)
@@ -1146,61 +1098,60 @@ msgid ""
 "The following files would be overwritten, please confirm that you wish to "
 "continue."
 msgstr ""
-"Ang mga sumusunod na talaksan ay mapapalitan, mangyaring kumpirmahin kung "
-"nais mong ipagpatuloy."
+"Navedene datoteke će biti prepisane, molim potvrdite da želite nastaviti."
 
 #. i18n: file: filedigger/restoredialog.ui:274
 #. i18n: ectx: property (text), widget (QPushButton, mOverwriteBackButton)
 #: po/rc.cpp:27 rc.cpp:27
 msgctxt "@action:button go to previous page in dialog"
 msgid "Back"
-msgstr "Bumalik"
+msgstr "Nazad"
 
 #. i18n: file: filedigger/restoredialog.ui:286
 #. i18n: ectx: property (text), widget (QPushButton, mConfirmButton)
 #: po/rc.cpp:30 rc.cpp:30
 msgctxt "@action:button User answers \"yes I confirm: overwrite files\""
 msgid "Confirm"
-msgstr "Kompirmahin"
+msgstr "Potvrdi"
 
 #. i18n: file: filedigger/restoredialog.ui:341
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
 #: po/rc.cpp:33 rc.cpp:33
 msgctxt "@label above the detailed error messsage"
 msgid "An error occured while restoring:"
-msgstr "May naganap na mali habang nagpapanumbalik ng:"
+msgstr "Greška prilikom vraćanja podataka:"
 
 #. i18n: file: filedigger/restoredialog.ui:372
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:36 rc.cpp:36
 msgctxt "@label"
 msgid "Restoration completed sucessfully!"
-msgstr "Ang pagpapanumbalik ay ganap na natapos ng maayos"
+msgstr "Vraćanje podataka uspjelo!"
 
 #. i18n: file: filedigger/restoredialog.ui:413
 #. i18n: ectx: property (text), widget (QPushButton, mOpenDestinationButton)
 #: po/rc.cpp:39 rc.cpp:39
 msgid "Open Destination"
-msgstr "Buksan ang destinasyon"
+msgstr "Otvori odredište"
 
 #. i18n: file: filedigger/restoredialog.ui:472
 #. i18n: ectx: property (text), widget (QPushButton, mCloseButton)
 #: po/rc.cpp:42 rc.cpp:42
 msgctxt "@action:button"
 msgid "Close"
-msgstr "Isara"
+msgstr "Zatvori"
 
 #: po/rc.cpp:43 settings/backupplan.cpp:69 rc.cpp:43
 msgid "Backups"
-msgstr "Mga seguridad na kopya"
+msgstr "Backupi"
 
 #: po/rc.cpp:44 rc.cpp:44
 msgid "Configure backup plans"
-msgstr "Magkompigura ng plano para sa seguridad na kopya"
+msgstr "Podesite backup plan"
 
 #: po/rc.cpp:45 rc.cpp:45
 msgid "backup,recovery,safety"
-msgstr "seguridad na kopya, pagkabawi,kaligtasan"
+msgstr "rezervna kopija, oporavak, sigurnost"
 
 #: po/rc.cpp:46 rc.cpp:46
 msgid "Kup"
@@ -1208,47 +1159,44 @@ msgstr "Kup"
 
 #: po/rc.cpp:47 rc.cpp:47
 msgid "Kup Backup System"
-msgstr "Sistema ng seguridad na kopya ng Kup"
+msgstr "Kup Backup System"
 
 #: po/rc.cpp:48 rc.cpp:48
 msgid "Start taking backup"
-msgstr "Simulan ang pagkuha ng seguridad na kopya"
+msgstr "Pokrenite backup"
 
 #: po/rc.cpp:49 rc.cpp:49
 msgid "A question if user wants to start taking a backup"
-msgstr ""
-"Tanong kung gusto ng taga-gamit na magsimula ng pagkuha ng seguridad na kopya"
+msgstr "Pitanje da li korisnik želi da pokrene novi backup"
 
 #: po/rc.cpp:50 rc.cpp:50
 msgid "Backup failed"
-msgstr "Nabigo ang seguridad na kopya"
+msgstr "Backup neuspješan"
 
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Saving of backup failed, offer user to see log file"
 msgstr ""
-"Ang pag-impok ng seguridad na kopya ay nabigo, paki-tingnan ang listahan ng "
-"talaksan kung bakit ito ay nabigo"
+"Spašavanje backupa nije uspjelo, ponuditi korisniku da pogleda log daTOTEKU"
 
 #: po/rc.cpp:52 rc.cpp:52
 msgid "Integrity check completed"
-msgstr "Ang pagsisiyasat ng integridad sa seguridad na kopya ay nakumpleto na"
+msgstr "Provjera integriteta završena"
 
 #: po/rc.cpp:53 rc.cpp:53
 msgid "Finished checking integrity of backup archive"
-msgstr ""
-"Natapos na ang pagsisiyasat ang integridad ng arkibo ng seguridad na kopya."
+msgstr "Završena provjera integriteta backup arhive"
 
 #: po/rc.cpp:54 rc.cpp:54
 msgid "Repair completed"
-msgstr "Ang pag-aayos ay nakumpleto na"
+msgstr "Popravka završena"
 
 #: po/rc.cpp:55 rc.cpp:55
 msgid "Finished repairing backup archive"
-msgstr "Natapos na ang pag-aayos sa arkibo ng seguridad na kopya"
+msgstr "Završen popravak backup arhive"
 
 #: settings/backupplan.cpp:36
 msgctxt ""
 "@label Default name for a new backup plan, %1 is the number of the plan in "
 "order"
 msgid "Backup plan %1"
-msgstr "Plano ng seguridad na kopya %1"
+msgstr "Backup plan %1"

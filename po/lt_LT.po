@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2015-05-14 15:54+0800\n"
-"PO-Revision-Date: 2015-03-16 14:33+0000\n"
-"Last-Translator: dgvirtual <dgvirtual@akl.lt>\n"
-"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/"
-"kup/language/lt_LT/)\n"
+"POT-Creation-Date: 2016-06-11 22:53+0800\n"
+"PO-Revision-Date: 2016-06-11 14:46+0000\n"
+"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
+"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/kup/kup/"
+"language/lt_LT/)\n"
 "Language: lt_LT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +82,7 @@ msgstr ""
 "Nepavyko įrašyti padarytos atsarginės kopijos. Daugiau informacijos "
 "ieškokite žurnalo faile."
 
-#: daemon/bupjob.cpp:203
+#: daemon/bupjob.cpp:204
 msgctxt "@info notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
@@ -428,7 +428,7 @@ msgctxt "added after file name in some cases"
 msgid " (file)"
 msgstr "(failas)"
 
-#: filedigger/restoredialog.cpp:116 kcm/backupplanwidget.cpp:155
+#: filedigger/restoredialog.cpp:116 kcm/backupplanwidget.cpp:447
 msgctxt "@action:button"
 msgid "New Folder..."
 msgstr "Naujas aplankas..."
@@ -523,22 +523,68 @@ msgctxt "@action:button"
 msgid "Restore"
 msgstr "Atkurti"
 
-#: kcm/backupplanwidget.cpp:144
+#: kcm/backupplanwidget.cpp:278
+msgctxt "@action:button"
+msgid "Exclude Folder"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:281
+msgctxt "@action:button"
+msgid "Include Folder"
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:378
+msgctxt "@info message bar appearing on top"
+msgid ""
+"You don't have permission to read this folder: <filename>%1</filename><nl/"
+">It cannot be included in the source selection. If it does not contain "
+"anything important to you, one possible solution is to exclude the folder "
+"from the backup plan."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:389
+msgctxt "@info message bar appearing on top"
+msgid ""
+"You don't have permission to read this file: <filename>%1</filename><nl/>It "
+"cannot be included in the source selection. If the file is not important to "
+"you, one possible solution is to exclude the whole folder where the file is "
+"stored from the backup plan."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:405
+msgctxt "@info message bar appearing on top"
+msgid ""
+"The symbolic link <filename>%1</filename> is currently included but it "
+"points to a folder which is not: <filename>%2</filename>.<nl/>That is "
+"probably not what you want. One solution is to simply include the target "
+"folder in the backup plan."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:413
+msgctxt "@info message bar appearing on top"
+msgid ""
+"The symbolic link <filename>%1</filename> is currently included but it "
+"points to a file which is not: <filename>%2</filename>.<nl/>That is probably "
+"not what you want. One solution is to simply include the folder where the "
+"file is stored in the backup plan."
+msgstr ""
+
+#: kcm/backupplanwidget.cpp:436
 msgctxt "@title:window"
 msgid "Select Folder"
 msgstr "Pasirinkite aplanką"
 
-#: kcm/backupplanwidget.cpp:182
+#: kcm/backupplanwidget.cpp:474
 msgctxt "@label"
 msgid "Description:"
 msgstr "Aprašymas:"
 
-#: kcm/backupplanwidget.cpp:185
+#: kcm/backupplanwidget.cpp:477
 msgctxt "@action:button"
 msgid "Back to overview"
 msgstr "Grįžti prie apžvalgos"
 
-#: kcm/backupplanwidget.cpp:214
+#: kcm/backupplanwidget.cpp:506
 msgctxt "@info"
 msgid ""
 "This type of backup is an <emphasis>archive</emphasis>. It contains both the "
@@ -562,7 +608,7 @@ msgstr ""
 "failai tokiame archyve nebus pasiekiami naudojant paprastą failų naršyklę. "
 "Tuo tikslu reikės naudoti specialią programą."
 
-#: kcm/backupplanwidget.cpp:229
+#: kcm/backupplanwidget.cpp:521
 msgctxt "@option:radio"
 msgid ""
 "Versioned Backup (not available because <application>bup</application> is "
@@ -571,12 +617,12 @@ msgstr ""
 "Atsarginės kopijos su versijomis (neprieinama, nes <application>bup</"
 "application> nėra įdiegta)"
 
-#: kcm/backupplanwidget.cpp:234
+#: kcm/backupplanwidget.cpp:526
 msgctxt "@option:radio"
 msgid "Versioned Backup (recommended)"
 msgstr "Atsarginės kopijos su versijomis (rekomenduojama)"
 
-#: kcm/backupplanwidget.cpp:239
+#: kcm/backupplanwidget.cpp:531
 msgctxt "@info"
 msgid ""
 "This type of backup is a folder which is synchronized with your selected "
@@ -595,7 +641,7 @@ msgstr ""
 "atsarginė kopija gali apsaugoti nuo duomenų praradimo dėl sugedusio kietojo "
 "disko, tačiau ji neapsaugos nuo Jūsų pačių klaidų. "
 
-#: kcm/backupplanwidget.cpp:252
+#: kcm/backupplanwidget.cpp:544
 msgctxt "@option:radio"
 msgid ""
 "Synchronized Backup (not available because <application>rsync</application> "
@@ -604,43 +650,43 @@ msgstr ""
 "Sinchruonizuojama atsarginė kopija (neprieinama, nes <application>rsync</"
 "application> nėra įdiegta)"
 
-#: kcm/backupplanwidget.cpp:257
+#: kcm/backupplanwidget.cpp:549
 msgctxt "@option:radio"
 msgid "Synchronized Backup"
 msgstr "Sinchronizuojama atsarginė kopija"
 
-#: kcm/backupplanwidget.cpp:285
+#: kcm/backupplanwidget.cpp:577
 msgctxt "@title"
 msgid "Backup Type"
 msgstr "Atsarginių kopijų tipas"
 
-#: kcm/backupplanwidget.cpp:286
+#: kcm/backupplanwidget.cpp:578
 msgctxt "@label"
 msgid "Select what type of backup you want"
 msgstr "Nurodykite, kokio atsarginių kopijų tipo norite"
 
-#: kcm/backupplanwidget.cpp:294
+#: kcm/backupplanwidget.cpp:586
 msgctxt "@title"
 msgid "Sources"
 msgstr "Šaltiniai"
 
-#: kcm/backupplanwidget.cpp:295
+#: kcm/backupplanwidget.cpp:587
 msgctxt "@label"
 msgid "Select which folders to include in backup"
 msgstr ""
 "Pažymėkite aplankus, kurie turėtų būti įtraukiami darant atsargines kopijas"
 
-#: kcm/backupplanwidget.cpp:309
+#: kcm/backupplanwidget.cpp:601
 msgctxt "@option:radio"
 msgid "Filesystem Path"
 msgstr "Failų sistemos kelias"
 
-#: kcm/backupplanwidget.cpp:310
+#: kcm/backupplanwidget.cpp:602
 msgctxt "@option:radio"
 msgid "External Storage"
 msgstr "Išorinė saugykla"
 
-#: kcm/backupplanwidget.cpp:316
+#: kcm/backupplanwidget.cpp:608
 msgctxt "@info"
 msgid ""
 "You can use this option for backing up to a secondary internal harddrive, an "
@@ -654,12 +700,12 @@ msgstr ""
 "adresu. Čia nurodytas adresas neturi egzistuoti visą laiką, jo atsiradimą "
 "sistema pati pastebės."
 
-#: kcm/backupplanwidget.cpp:323
+#: kcm/backupplanwidget.cpp:615
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
 msgstr "Kelias iki vietos, kur bus saugomos atsarginės kopijos: "
 
-#: kcm/backupplanwidget.cpp:342
+#: kcm/backupplanwidget.cpp:634
 msgctxt "@info"
 msgid ""
 "Use this option if you want to backup your files on an external storage that "
@@ -669,47 +715,47 @@ msgstr ""
 "išorinėje laikmenoje, prijungiamoje prie šio kompiuterio, pvz., išoriniame "
 "USB diske ar atminties kortelėje."
 
-#: kcm/backupplanwidget.cpp:352 kcm/backupplanwidget.cpp:356
+#: kcm/backupplanwidget.cpp:644 kcm/backupplanwidget.cpp:648
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
 msgstr "Nurodytas aplankas bus sukurtas, jei jis neegzistuoja."
 
-#: kcm/backupplanwidget.cpp:354
+#: kcm/backupplanwidget.cpp:646
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
 msgstr "Aplankas atsarginių kopijų diske:"
 
-#: kcm/backupplanwidget.cpp:362
+#: kcm/backupplanwidget.cpp:654
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
 msgstr "Atverkite dialogą ir pasirinkite aplanką"
 
-#: kcm/backupplanwidget.cpp:392
+#: kcm/backupplanwidget.cpp:684
 msgctxt "@title"
 msgid "Destination"
 msgstr "Tikslas"
 
-#: kcm/backupplanwidget.cpp:393
+#: kcm/backupplanwidget.cpp:685
 msgctxt "@label"
 msgid "Select the backup destination"
 msgstr "Pasirinkite, kur bus saugomos kopijos"
 
-#: kcm/backupplanwidget.cpp:410
+#: kcm/backupplanwidget.cpp:702
 msgctxt "@option:radio"
 msgid "Manual Activation"
 msgstr "Rankinis aktyvavimas"
 
-#: kcm/backupplanwidget.cpp:411
+#: kcm/backupplanwidget.cpp:703
 msgctxt "@option:radio"
 msgid "Interval"
 msgstr "Intervalas"
 
-#: kcm/backupplanwidget.cpp:412
+#: kcm/backupplanwidget.cpp:704
 msgctxt "@option:radio"
 msgid "Active Usage Time"
 msgstr "Aktyvaus naudojimo laikas"
 
-#: kcm/backupplanwidget.cpp:414
+#: kcm/backupplanwidget.cpp:706
 msgctxt "@info"
 msgid ""
 "Backups are only taken when manually requested. This can be done by using "
@@ -718,7 +764,7 @@ msgstr ""
 "Atsarginės kopijos daromos tik tada, kai to prašo vartotojas. Tai gali būti "
 "daroma pasinaudojus sistemos dėklo ženkliuko pasirodančiu meniu. "
 
-#: kcm/backupplanwidget.cpp:428
+#: kcm/backupplanwidget.cpp:720
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -727,27 +773,27 @@ msgstr ""
 "Daryti naują atsarginę kopiją bus siūloma praėjus nurodytam intervalui nuo "
 "paskutinės kopijos padarymo ir prijungus atsarginių kopijų tikslą."
 
-#: kcm/backupplanwidget.cpp:445
+#: kcm/backupplanwidget.cpp:737
 msgctxt "@item:inlistbox"
 msgid "Minutes"
 msgstr "Minutės"
 
-#: kcm/backupplanwidget.cpp:446 kcm/backupplanwidget.cpp:473
+#: kcm/backupplanwidget.cpp:738 kcm/backupplanwidget.cpp:765
 msgctxt "@item:inlistbox"
 msgid "Hours"
 msgstr "Valandos"
 
-#: kcm/backupplanwidget.cpp:447
+#: kcm/backupplanwidget.cpp:739
 msgctxt "@item:inlistbox"
 msgid "Days"
 msgstr "Dienos"
 
-#: kcm/backupplanwidget.cpp:448
+#: kcm/backupplanwidget.cpp:740
 msgctxt "@item:inlistbox"
 msgid "Weeks"
 msgstr "Savaitės"
 
-#: kcm/backupplanwidget.cpp:458
+#: kcm/backupplanwidget.cpp:750
 msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
@@ -758,27 +804,27 @@ msgstr ""
 "kompiuterį tam tikrą nustatytą laiką nuo praėjusios kopijos padarymo, "
 "sistema pasiūlys daryti naują atsarginę kopiją."
 
-#: kcm/backupplanwidget.cpp:479
+#: kcm/backupplanwidget.cpp:771
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
 msgstr "Prieš pradedant daryti atsarginę kopiją prašyti patvirtinimo"
 
-#: kcm/backupplanwidget.cpp:498
+#: kcm/backupplanwidget.cpp:790
 msgctxt "@title"
 msgid "Schedule"
 msgstr "Tvarkaraštis"
 
-#: kcm/backupplanwidget.cpp:499
+#: kcm/backupplanwidget.cpp:791
 msgctxt "@label"
 msgid "Specify the backup schedule"
 msgstr "Nurodyti atsarginių kopijų darymo tvarkaraštį"
 
-#: kcm/backupplanwidget.cpp:512
+#: kcm/backupplanwidget.cpp:804
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
 msgstr "Rodyti paslėptus aplankus pasirenkant šaltinį"
 
-#: kcm/backupplanwidget.cpp:518
+#: kcm/backupplanwidget.cpp:810
 msgctxt "@info"
 msgid ""
 "This makes it possible to explicitly include or exclude hidden folders in "
@@ -791,7 +837,7 @@ msgstr ""
 "prasideda tašku. Jie paprastai yra namų aplanke, juose saugomi programų "
 "nustatymai ir laikinieji programų failai."
 
-#: kcm/backupplanwidget.cpp:535
+#: kcm/backupplanwidget.cpp:827
 #, c-format
 msgctxt "@info"
 msgid ""
@@ -803,12 +849,12 @@ msgstr ""
 "vietos ir atsarginių kopijų įrašymas užtruks šiek tiek ilgiau. Tačiau užtat "
 "bus galima atkurti failus iš dalinai sugadintos atsarginės kopijos. "
 
-#: kcm/backupplanwidget.cpp:541
+#: kcm/backupplanwidget.cpp:833
 msgctxt "@option:check"
 msgid "Generate recovery information"
 msgstr "Atkūrimo informacijos generavimas"
 
-#: kcm/backupplanwidget.cpp:543
+#: kcm/backupplanwidget.cpp:835
 msgctxt "@option:check"
 msgid ""
 "Generate recovery information (not available because <application>par2</"
@@ -817,12 +863,12 @@ msgstr ""
 "Atkūrimo informacijos generavimas (neprieinama nes <application>par2</"
 "application> programa nėra įdiegta)"
 
-#: kcm/backupplanwidget.cpp:558
+#: kcm/backupplanwidget.cpp:850
 msgctxt "@option:check"
 msgid "Verify integrity of backups"
 msgstr "Atsarginių kopijų integralumo patikrinimas"
 
-#: kcm/backupplanwidget.cpp:562
+#: kcm/backupplanwidget.cpp:854
 msgctxt "@info"
 msgid ""
 "Checks the whole backup archive for corruption every time you save new data. "
@@ -835,12 +881,12 @@ msgstr ""
 "ilgiau, tačiau taip galėsite aptikti sugadinimo problemas prieš tai, kai "
 "atsarginės kopijos jums prireiks. O tuo metu jau gali būti per vėlu. "
 
-#: kcm/backupplanwidget.cpp:584
+#: kcm/backupplanwidget.cpp:876
 msgctxt "@title"
 msgid "Advanced"
 msgstr "Sudėtingesni nustatymai"
 
-#: kcm/backupplanwidget.cpp:585
+#: kcm/backupplanwidget.cpp:877
 msgctxt "@label"
 msgid "Extra options for advanced users"
 msgstr "Papildomos parinktys pažengusiems vartotojams"
@@ -913,7 +959,7 @@ msgstr ""
 "leidimai svarbūs tik tuo atveju, jei kompiuteriu naudojasi daugiau nei "
 "vienas asmuo, arba, jei darote vykdomųjų programų atsargines kopijas."
 
-#: kcm/folderselectionmodel.cpp:153
+#: kcm/folderselectionmodel.cpp:109
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
@@ -922,12 +968,12 @@ msgstr ""
 "<filename>%1</filename><nl/> bus įtrauktas į atsarginę kopiją, neskaitant "
 "nepažymėtų paaplankių"
 
-#: kcm/folderselectionmodel.cpp:157
+#: kcm/folderselectionmodel.cpp:113
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
 msgstr "<filename>%1</filename><nl/>bus įtrauktas į atsarginę kopiją"
 
-#: kcm/folderselectionmodel.cpp:161
+#: kcm/folderselectionmodel.cpp:117
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
@@ -936,7 +982,7 @@ msgstr ""
 "<filename>%1</filename><nl/> nebus įtrauktas į atsarginę kopiją, tačiau kai "
 "kurie jame esantys aplankai bus įtraukti"
 
-#: kcm/folderselectionmodel.cpp:165
+#: kcm/folderselectionmodel.cpp:121
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
@@ -1021,9 +1067,8 @@ msgctxt "@label"
 msgid "This backup plan has never been run."
 msgstr "Šis atsarginių kopijų planas dar nebuvo paleistas."
 
-#: kioslave/bupslave.cpp:65 kioslave/bupslave.cpp:122
-#: kioslave/bupslave.cpp:159 kioslave/bupslave.cpp:222
-#: kioslave/bupslave.cpp:244
+#: kioslave/bupslave.cpp:65 kioslave/bupslave.cpp:122 kioslave/bupslave.cpp:159
+#: kioslave/bupslave.cpp:222 kioslave/bupslave.cpp:244
 msgid ""
 "No bup repository found.\n"
 "%1"
@@ -1192,24 +1237,3 @@ msgctxt ""
 "order"
 msgid "Backup plan %1"
 msgstr "Atsarginių kopijų planas %1"
-
-#~ msgctxt "notification"
-#~ msgid ""
-#~ "Failed backup integrity check. Your backups are corrupted! See log file "
-#~ "for more details."
-#~ msgstr ""
-#~ "Atsarginių kopijų integralumo patikros rezultatas neigiamas. Jūsų "
-#~ "atsarginės kopijos yra sugadintos! Daugiau informacijos ieškokite žurnalo "
-#~ "faile."
-
-#~ msgid "Copyright (C) 2011 Simon Persson"
-#~ msgstr "Autorinės teisės (C) 2011 Simon Persson"
-
-#~ msgid "Copyright (C) 2013 Simon Persson"
-#~ msgstr "Autorinės teisės (C) 2013 Simon Persson"
-
-#~ msgid "Kup is already running!"
-#~ msgstr "Kup jau veikia!"
-
-#~ msgid "Copyright 2011 Simon Persson"
-#~ msgstr "Autorinės teisės 2011 Simon Persson"

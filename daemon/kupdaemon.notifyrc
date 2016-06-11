@@ -1,7 +1,9 @@
 [Global]
 IconName=chronometer
 Name=Kup
+Name[bs_BA]=Kup
 Name[de]=Kup
+Name[fr_FR]=Kup
 Name[it]=Kup
 Name[lt_LT]=Kup
 Name[pt_BR]=Kup
@@ -9,7 +11,9 @@ Name[sv]=Kup
 Name[tl]=Kup
 Name[zh_TW]=Kup
 Comment=Kup Backup System
-Comment[de]=Kup Backup System
+Comment[bs_BA]=Kup Backup System
+Comment[de]=Kup-Datensicherungssystem
+Comment[fr_FR]=Système de Sauvegarde Kup
 Comment[it]=Kup Backup System
 Comment[lt_LT]=Kup atsarginių kopijų sistema
 Comment[pt_BR]=Sistema de backups Kup
@@ -20,7 +24,9 @@ Comment[zh_TW]=Kup 備份系統
 
 [Event/StartBackup]
 Name=Start taking backup
-Name[de]=Sicherung wird gestartet
+Name[bs_BA]=Pokrenite backup
+Name[de]=Erstellen der Sicherung starten
+Name[fr_FR]=Commencer la sauvegarde
 Name[it]=Esegui un nuovo backup
 Name[lt_LT]=Pradėti kurti atsarginę kopiją
 Name[pt_BR]=Iniciar o backup
@@ -28,6 +34,7 @@ Name[sv]=Ta ny säkerhetskopia
 Name[tl]=Simulan ang pagkuha ng seguridad na kopya
 Name[zh_TW]=開始進行備份
 Comment=A question if user wants to start taking a backup
+Comment[bs_BA]=Pitanje da li korisnik želi da pokrene novi backup
 Comment[de]=Die Frage, ob der Benutzer die Sicherung starten möchte
 Comment[it]=Domanda se l'utente vuole eseguire un backup
 Comment[lt_LT]=Klausimas, ar vartotojas nori pradėti kurti atsarginę kopiją
@@ -39,7 +46,9 @@ Action=Popup
 
 [Event/BackupFailed]
 Name=Backup failed
+Name[bs_BA]=Backup neuspješan
 Name[de]=Sicherung fehlgeschlagen
+Name[fr_FR]=Sauvegarde échouée
 Name[it]=Backup fallito
 Name[lt_LT]=Atsarginės kopijos sukurti nepavyko
 Name[pt_BR]=Falha no backup
@@ -47,7 +56,8 @@ Name[sv]=Säkerhetskopiering misslyckades
 Name[tl]=Nabigo ang seguridad na kopya
 Name[zh_TW]=備份失敗
 Comment=Saving of backup failed, offer user to see log file
-Comment[de]=Ein Fehler bei der Sicherung ist aufgetreten, dem Benutzer wird angeboten, die Logdatei zu lesen.
+Comment[bs_BA]=Spašavanje backupa nije uspjelo, ponuditi korisniku da pogleda log daTOTEKU
+Comment[de]=Ein Fehler bei der Sicherung ist aufgetreten, dem Benutzer wird angeboten, die Log-Datei zu lesen.
 Comment[it]=Salvataggio del backup fallito, proponi all'utente di visualizzare il file di log
 Comment[lt_LT]=Sukurti atsarginės kopijos nepavyko, pasiūlykite vartotojui peržiūrėti žurnalo failą
 Comment[pt_BR]=Falha ao salvar o backup, oferecer ajuda para ver o arquivo de log
@@ -58,7 +68,9 @@ Action=Popup
 
 [Event/IntegrityCheckCompleted]
 Name=Integrity check completed
+Name[bs_BA]=Provjera integriteta završena
 Name[de]=Integritätsprüfung abgeschlossen
+Name[fr_FR]=Contrôle d'intégrité effectué
 Name[it]=Controllo integrità completato
 Name[lt_LT]=Integralumo patikra baigta
 Name[pt_BR]=Verificação de integridade completada
@@ -66,7 +78,8 @@ Name[sv]=Integritetstest färdig
 Name[tl]=Ang pagsisiyasat ng integridad sa seguridad na kopya ay nakumpleto na
 Name[zh_TW]=完整性校驗成功
 Comment=Finished checking integrity of backup archive
-Comment[de]=Integritätsprüfung abgeschlossen
+Comment[bs_BA]=Završena provjera integriteta backup arhive
+Comment[de]=Integritätsprüfung des Datensicherungsarchivs abgeschlossen
 Comment[it]=Controllo dell'integrità del backup completato
 Comment[lt_LT]=Baigta atsarginių kopijų archyvo integralumo patikra
 Comment[pt_BR]=Verificação de integridade do arquivo de backup terminada
@@ -77,6 +90,7 @@ Action=Popup
 
 [Event/RepairCompleted]
 Name=Repair completed
+Name[bs_BA]=Popravka završena
 Name[de]=Reparatur abgeschlossen
 Name[it]=Ripristino completato
 Name[lt_LT]=Taisymas baigtas
@@ -85,7 +99,9 @@ Name[sv]=Färdig med reparation
 Name[tl]=Ang pag-aayos ay nakumpleto na
 Name[zh_TW]=修復完成
 Comment=Finished repairing backup archive
-Comment[de]=Reparatur abgeschlossen
+Comment[bs_BA]=Završen popravak backup arhive
+Comment[de]=Reparatur des Datensicherungsarchivs abgeschlossen
+Comment[fr_FR]=Réparation de l'archive effectuée
 Comment[it]=Riparazione dei backup completata
 Comment[lt_LT]=Atsarginių kopijų archyvo taisymas baigtas
 Comment[pt_BR]=Reparo do arquivo de backup terminado
