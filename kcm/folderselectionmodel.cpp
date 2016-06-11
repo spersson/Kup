@@ -36,40 +36,10 @@
 #include <KLocalizedString>
 
 namespace {
-void removeSubDirs( const QString& path, QSet<QString>& set ) {
-	QSet<QString>::iterator it = set.begin();
-	while( it != set.end() ) {
-		if( it->startsWith( path ) )
-			it = set.erase( it );
-		else
-			++it;
-	}
-}
-
-QModelIndex findLastLeaf( const QModelIndex& index, FolderSelectionModel* model ) {
-	int rows = model->rowCount( index );
-	if( rows > 0 ) {
-		return findLastLeaf( model->index( rows-1, 0, index ), model );
-	}
-	else {
-		return index;
-	}
-}
 
 // we need the trailing slash to be able to use the startsWith() function to check for parent dirs.
 QString ensureTrailingSlash(const QString &pPath) {
-	return pPath.endsWith( QDir::separator() ) ? pPath : pPath + QDir::separator();
-}
-
-bool isForbiddenPath(const QString& pPath) {
-	const QString lPathWithSlash = ensureTrailingSlash(pPath);
-	QFileInfo lFileInfo(lPathWithSlash);
-	return (lPathWithSlash.startsWith(QStringLiteral("/proc/")) ||
-	        lPathWithSlash.startsWith(QStringLiteral("/dev/")) ||
-	        lPathWithSlash.startsWith(QStringLiteral("/sys/")) ||
-	        !lFileInfo.isReadable() ||
-	        !lFileInfo.isExecutable()
-	        );
+	return pPath.endsWith(QDir::separator()) ? pPath : pPath + QDir::separator();
 }
 
 bool setContainsSubdir(QSet<QString> pSet, const QString &pParentDir) {
@@ -91,23 +61,9 @@ FolderSelectionModel::FolderSelectionModel(bool pHiddenFoldersVisible, QObject *
 	setHiddenFoldersVisible(pHiddenFoldersVisible);
 }
 
-FolderSelectionModel::~FolderSelectionModel() {
-}
-
-void FolderSelectionModel::setHiddenFoldersVisible(bool pVisible){
-	if(pVisible) {
-		setFilter(QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Hidden);
-	} else {
-		setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
-	}
-}
-
 Qt::ItemFlags FolderSelectionModel::flags(const QModelIndex &pIndex) const {
 	Qt::ItemFlags lFlags = QFileSystemModel::flags(pIndex);
 	lFlags |= Qt::ItemIsUserCheckable;
-	if(isForbiddenPath(filePath(pIndex))) {
-		lFlags ^= Qt::ItemIsEnabled; //disabled!
-	}
 	return lFlags;
 }
 
@@ -122,7 +78,7 @@ QVariant FolderSelectionModel::data(const QModelIndex& pIndex, int pRole) const 
 		switch(lState) {
 		case StateIncluded:
 		case StateIncludeInherited:
-			if(setContainsSubdir(mExcludedFolderList, lPath)) {
+			if(setContainsSubdir(mExcludedPaths, lPath)) {
 				return Qt::PartiallyChecked;
 			}
 			return Qt::Checked;
@@ -138,7 +94,7 @@ QVariant FolderSelectionModel::data(const QModelIndex& pIndex, int pRole) const 
 		case StateIncludeInherited:
 			return QVariant::fromValue(QPalette().brush(QPalette::Active, QPalette::Text));
 		default:
-			if(setContainsSubdir(mIncludedFolderList, lPath)) {
+			if(setContainsSubdir(mIncludedPaths, lPath)) {
 				return QVariant::fromValue(QPalette().brush( QPalette::Active, QPalette::Text));
 			}
 			return QVariant::fromValue(QPalette().brush( QPalette::Disabled, QPalette::Text));
@@ -148,7 +104,7 @@ QVariant FolderSelectionModel::data(const QModelIndex& pIndex, int pRole) const 
 		switch(lState) {
 		case StateIncluded:
 		case StateIncludeInherited:
-			if(setContainsSubdir(mExcludedFolderList, lPath)) {
+			if(setContainsSubdir(mExcludedPaths, lPath)) {
 				return xi18nc("@info:tooltip %1 is the path of the folder in a listview",
 				             "<filename>%1</filename><nl/>will be included in the backup, except "
 				             "for unchecked subfolders", filePath(pIndex));
@@ -156,7 +112,7 @@ QVariant FolderSelectionModel::data(const QModelIndex& pIndex, int pRole) const 
 			return xi18nc("@info:tooltip %1 is the path of the folder in a listview",
 			             "<filename>%1</filename><nl/>will be included in the backup", filePath(pIndex));
 		default:
-			if(setContainsSubdir(mIncludedFolderList, lPath)) {
+			if(setContainsSubdir(mIncludedPaths, lPath)) {
 				return xi18nc("@info:tooltip %1 is the path of the folder in a listview",
 				             "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included "
 				             "in the backup but contains folders that will", filePath(pIndex));
@@ -202,50 +158,67 @@ bool FolderSelectionModel::setData(const QModelIndex& pIndex, const QVariant& pV
 }
 
 void FolderSelectionModel::includePath(const QString &pPath) {
-	if(mIncludedFolderList.contains(pPath)) {
+	const InclusionState lState = inclusionState(pPath);
+	if(lState == StateIncluded) {
 		return;
 	}
-	const InclusionState lState = inclusionState(pPath);
-	removeSubDirs(pPath, mIncludedFolderList);
-	removeSubDirs(pPath, mExcludedFolderList);
-	if(lState == StateExcluded) {
-		emit excludedPathsChanged();
-	} else if(lState != StateIncludeInherited) {
-		mIncludedFolderList.insert(pPath);
-		emit includedPathsChanged();
+	removeSubDirs(pPath);
+	if(lState == StateNone || lState == StateExcludeInherited) {
+		mIncludedPaths.insert(pPath);
+		emit includedPathAdded(pPath);
 	}
-	emit dataChanged(index(pPath), findLastLeaf(index(pPath), this));
+	emit dataChanged(index(pPath), findLastLeaf(index(pPath)));
 }
 
 void FolderSelectionModel::excludePath(const QString& pPath) {
-	if(mExcludedFolderList.contains(pPath)) {
+	const InclusionState lState = inclusionState(pPath);
+	if(lState == StateExcluded) {
 		return;
 	}
-	const InclusionState lState = inclusionState(pPath);
-	removeSubDirs(pPath, mIncludedFolderList);
-	removeSubDirs(pPath, mExcludedFolderList);
-	if(lState == StateIncluded) {
-		emit includedPathsChanged();
-	} else if(lState == StateIncludeInherited) {
-		mExcludedFolderList.insert(pPath);
-		emit excludedPathsChanged();
+	removeSubDirs(pPath);
+	if(lState == StateIncludeInherited) {
+		mExcludedPaths.insert(pPath);
+		emit excludedPathAdded(pPath);
 	}
-	emit dataChanged(index(pPath), findLastLeaf(index(pPath), this));
+	emit dataChanged(index(pPath), findLastLeaf(index(pPath)));
 }
 
-void FolderSelectionModel::setFolders(const QStringList& pIncludedFolders, const QStringList& pExcludedFolders) {
+void FolderSelectionModel::setIncludedPaths(QSet<QString> pIncludedPaths) {
 	beginResetModel();
-	mIncludedFolderList = QSet<QString>::fromList(pIncludedFolders);
-	mExcludedFolderList = QSet<QString>::fromList(pExcludedFolders);
+	QSet<QString> lRemoved = mIncludedPaths - pIncludedPaths;
+	QSet<QString> lAdded = pIncludedPaths - mIncludedPaths;
+	mIncludedPaths = pIncludedPaths;
+
+	foreach(const QString &lRemovedPath, lRemoved) {
+		emit includedPathRemoved(lRemovedPath);
+	}
+	foreach(const QString &lAddedPath, lAdded) {
+		emit includedPathAdded(lAddedPath);
+	}
 	endResetModel();
 }
 
-QStringList FolderSelectionModel::includedFolders() const {
-	return mIncludedFolderList.toList();
+void FolderSelectionModel::setExcludedPaths(QSet<QString> pExcludedPaths) {
+	beginResetModel();
+	QSet<QString> lRemoved = mExcludedPaths - pExcludedPaths;
+	QSet<QString> lAdded = pExcludedPaths - mExcludedPaths;
+	mExcludedPaths = pExcludedPaths;
+
+	foreach(const QString &lRemovedPath, lRemoved) {
+		emit excludedPathRemoved(lRemovedPath);
+	}
+	foreach(const QString &lAddedPath, lAdded) {
+		emit excludedPathAdded(lAddedPath);
+	}
+	endResetModel();
 }
 
-QStringList FolderSelectionModel::excludedFolders() const {
-	return mExcludedFolderList.toList();
+QSet<QString> FolderSelectionModel::includedPaths() const {
+	return mIncludedPaths;
+}
+
+QSet<QString> FolderSelectionModel::excludedPaths() const {
+	return mExcludedPaths;
 }
 
 FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState(const QModelIndex& pIndex) const {
@@ -253,10 +226,10 @@ FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState(const 
 }
 
 FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState(const QString& pPath) const {
-	if(mIncludedFolderList.contains(pPath)) {
+	if(mIncludedPaths.contains(pPath)) {
 		return StateIncluded;
 	}
-	else if(mExcludedFolderList.contains(pPath)) {
+	else if(mExcludedPaths.contains(pPath)) {
 		return StateExcluded;
 	}
 	else {
@@ -279,5 +252,47 @@ FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState(const 
 
 bool FolderSelectionModel::hiddenFoldersVisible() const {
 	return filter() & QDir::Hidden;
+}
+
+void FolderSelectionModel::setHiddenFoldersVisible(bool pVisible){
+	if(pVisible) {
+		setFilter(QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Hidden);
+	} else {
+		setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
+	}
+}
+
+QModelIndex FolderSelectionModel::findLastLeaf(const QModelIndex &pIndex) {
+	QModelIndex lIndex = pIndex;
+	forever {
+		int lRowCount = rowCount(lIndex);
+		if(lRowCount > 0) {
+			lIndex = index(lRowCount-1, 0, lIndex);
+		} else {
+			return lIndex;
+		}
+	}
+}
+
+void FolderSelectionModel::removeSubDirs(const QString& pPath) {
+	QSet<QString>::iterator it = mExcludedPaths.begin();
+	QString lPath = pPath + QStringLiteral("/");
+	while(it != mExcludedPaths.end()) {
+		if(*it == pPath || it->startsWith(lPath)) {
+			emit excludedPathRemoved(*it);
+			it = mExcludedPaths.erase(it);
+		} else {
+			++it;
+		}
+	}
+	it = mIncludedPaths.begin();
+	while(it != mIncludedPaths.end()) {
+		if(*it == pPath || it->startsWith(lPath)) {
+			emit includedPathRemoved(*it);
+			it = mIncludedPaths.erase(it);
+		} else {
+			++it;
+		}
+	}
 }
 

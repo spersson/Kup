@@ -37,7 +37,6 @@ class FolderSelectionModel : public QFileSystemModel
 
 public:
 	FolderSelectionModel(bool pHiddenFoldersVisible = false, QObject *pParent = 0);
-	virtual ~FolderSelectionModel();
 
 	enum InclusionState {
 		StateNone,
@@ -55,9 +54,10 @@ public:
 	QVariant data(const QModelIndex& pIndex, int pRole = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 	bool setData(const QModelIndex& pIndex, const QVariant& pValue, int pRole = Qt::EditRole) Q_DECL_OVERRIDE;
 
-	void setFolders(const QStringList& pIncludedFolders, const QStringList& pExcludedFolders);
-	QStringList includedFolders() const;
-	QStringList excludedFolders() const;
+	void setIncludedPaths(QSet<QString> pIncludedPaths);
+	void setExcludedPaths(QSet<QString> pExcludedPaths);
+	QSet<QString> includedPaths() const;
+	QSet<QString> excludedPaths() const;
 
 	/**
 	* Include the specified path. All subdirs will be reset.
@@ -76,16 +76,21 @@ public:
 
 	bool hiddenFoldersVisible() const;
 
-public Q_SLOTS:
+public slots:
 	void setHiddenFoldersVisible(bool pVisible);
 
 signals:
-	void includedPathsChanged();
-	void excludedPathsChanged();
+	void includedPathAdded(const QString &pPath);
+	void excludedPathAdded(const QString &pPath);
+	void includedPathRemoved(const QString &pPath);
+	void excludedPathRemoved(const QString &pPath);
 
 private:
-	QSet<QString> mIncludedFolderList;
-	QSet<QString> mExcludedFolderList;
+	QModelIndex findLastLeaf(const QModelIndex& index);
+	void removeSubDirs(const QString& path);
+
+	QSet<QString> mIncludedPaths;
+	QSet<QString> mExcludedPaths;
 };
 
 #endif

@@ -25,34 +25,147 @@
 #include "driveselection.h"
 #include "kbuttongroup.h"
 
+#include <QAction>
 #include <QBoxLayout>
 #include <QCheckBox>
+#include <QCoreApplication>
 #include <QDialogButtonBox>
+#include <QEvent>
 #include <QIcon>
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSpinBox>
+#include <QThread>
 #include <QTimer>
+#include <QTreeView>
 
 #include <KComboBox>
 #include <KConfigDialogManager>
 #include <KConfigGroup>
 #include <KLineEdit>
 #include <KLocalizedString>
+#include <KMessageWidget>
 #include <KPageWidget>
 #include <KUrlRequester>
+
+class ScanFolderEvent : public QEvent {
+public:
+	ScanFolderEvent(QString pPath)
+	   : QEvent(eventType) {
+		mPath = pPath;
+	}
+	QString mPath;
+	static const QEvent::Type eventType = (QEvent::Type)(QEvent::User + 1);
+};
+
+FileScanner::FileScanner() {
+	// create a timer that will call a slot to send the pending updates to UI, one second
+	// after the last update comes in, just to minimize risk of showing incomplete
+	// information to the user.
+	mUnreadablesTimer = new QTimer(this);
+	mUnreadablesTimer->setSingleShot(true);
+	mUnreadablesTimer->setInterval(1000);
+	connect(mUnreadablesTimer, &QTimer::timeout, this, &FileScanner::sendPendingUnreadables);
+}
+
+bool FileScanner::event(QEvent *pEvent) {
+	if(pEvent->type() == ScanFolderEvent::eventType) {
+		ScanFolderEvent *lEvent = (ScanFolderEvent *)pEvent;
+		if(isPathIncluded(lEvent->mPath)) {
+			scanFolder(lEvent->mPath);
+		}
+		return true;
+	}
+	return QObject::event(pEvent);
+}
+
+void FileScanner::includePath(QString pPath) {
+	if(!mExcludedFolders.remove(pPath)) {
+		mIncludedFolders += pPath;
+	}
+	QCoreApplication::postEvent(this, new ScanFolderEvent(pPath), Qt::LowEventPriority);
+}
+
+void FileScanner::excludePath(QString pPath) {
+	if(!mIncludedFolders.remove(pPath)) {
+		mExcludedFolders += pPath;
+	}
+	QString lPath = pPath + QStringLiteral("/");
+	QSet<QString>::iterator it = mUnreadableFiles.begin();
+	while(it != mUnreadableFiles.end()) {
+		if(it->startsWith(lPath)) {
+			mUnreadablesTimer->start();
+			it = mUnreadableFiles.erase(it);
+		} else {
+			++it;
+		}
+	}
+	it = mUnreadableFolders.begin();
+	while(it != mUnreadableFolders.end()) {
+		if(it->startsWith(lPath) || *it == pPath) {
+			mUnreadablesTimer->start();
+			it = mUnreadableFolders.erase(it);
+		} else {
+			++it;
+		}
+	}
+}
+
+void FileScanner::sendPendingUnreadables() {
+	emit unreadablesChanged(QPair<QSet<QString>, QSet<QString>>(mUnreadableFolders, mUnreadableFiles));
+}
+
+bool FileScanner::isPathIncluded(const QString &pPath) {
+	int lLongestInclude = 0;
+	foreach(const QString &lPath, mIncludedFolders) {
+		bool lMatches = pPath == lPath || pPath.startsWith(lPath + QStringLiteral("/"));
+		if(lMatches && lPath.length() > lLongestInclude) {
+			lLongestInclude = lPath.length();
+		}
+	}
+	int lLongestExclude = 0;
+	foreach(const QString &lPath, mExcludedFolders) {
+		bool lMatches = pPath == lPath || pPath.startsWith(lPath + QStringLiteral("/"));
+		if(lMatches && lPath.length() > lLongestExclude) {
+			lLongestExclude = lPath.length();
+		}
+	}
+	return lLongestInclude > lLongestExclude;
+}
+
+void FileScanner::scanFolder(const QString &pPath) {
+	QDir lDir(pPath);
+	if(!lDir.isReadable()) {
+		mUnreadableFolders += pPath;
+		mUnreadablesTimer->start();
+	} else {
+		QFileInfoList lInfoList = lDir.entryInfoList(QDir::Files | QDir::Dirs | QDir::Hidden| QDir::NoDotAndDotDot);
+		foreach(const QFileInfo &lFileInfo, lInfoList) {
+			if(lFileInfo.isDir()) {
+				QCoreApplication::postEvent(this, new ScanFolderEvent(lFileInfo.absoluteFilePath()),
+				                            Qt::LowEventPriority);
+			} else {
+				if(!lFileInfo.isReadable()) {
+					mUnreadableFiles += lFileInfo.absoluteFilePath();
+					mUnreadablesTimer->start();
+				}
+			}
+		}
+	}
+}
 
 ConfigIncludeDummy::ConfigIncludeDummy(FolderSelectionModel *pModel, FolderSelectionWidget *pParent)
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)
 {
-	connect(mModel, SIGNAL(includedPathsChanged()), this, SIGNAL(includeListChanged()));
+	connect(mModel, &FolderSelectionModel::includedPathAdded, this, &ConfigIncludeDummy::includeListChanged);
+	connect(mModel, &FolderSelectionModel::includedPathRemoved, this, &ConfigIncludeDummy::includeListChanged);
 	KConfigDialogManager::changedMap()->insert(QStringLiteral("ConfigIncludeDummy"),
 	                                           SIGNAL(includeListChanged()));
 }
 
 QStringList ConfigIncludeDummy::includeList() {
-	return mModel->includedFolders();
+	return mModel->includedPaths().toList();
 }
 
 void ConfigIncludeDummy::setIncludeList(QStringList pIncludeList) {
@@ -61,21 +174,21 @@ void ConfigIncludeDummy::setIncludeList(QStringList pIncludeList) {
 			pIncludeList.removeAt(i--);
 		}
 	}
-
-	mModel->setFolders(pIncludeList, mModel->excludedFolders());
+	mModel->setIncludedPaths(QSet<QString>::fromList(pIncludeList));
 	mTreeView->expandToShowSelections();
 }
 
 ConfigExcludeDummy::ConfigExcludeDummy(FolderSelectionModel *pModel, FolderSelectionWidget *pParent)
    : QWidget(pParent), mModel(pModel), mTreeView(pParent)
 {
-	connect(mModel, SIGNAL(excludedPathsChanged()), this, SIGNAL(excludeListChanged()));
+	connect(mModel, &FolderSelectionModel::excludedPathAdded, this, &ConfigExcludeDummy::excludeListChanged);
+	connect(mModel, &FolderSelectionModel::excludedPathRemoved, this, &ConfigExcludeDummy::excludeListChanged);
 	KConfigDialogManager::changedMap()->insert(QStringLiteral("ConfigExcludeDummy"),
 	                                           SIGNAL(excludeListChanged()));
 }
 
 QStringList ConfigExcludeDummy::excludeList() {
-	return mModel->excludedFolders();
+	return mModel->excludedPaths().toList();
 }
 
 void ConfigExcludeDummy::setExcludeList(QStringList pExcludeList) {
@@ -84,23 +197,65 @@ void ConfigExcludeDummy::setExcludeList(QStringList pExcludeList) {
 			pExcludeList.removeAt(i--);
 		}
 	}
-	mModel->setFolders(mModel->includedFolders(), pExcludeList);
+	mModel->setExcludedPaths(QSet<QString>::fromList(pExcludeList));
 	mTreeView->expandToShowSelections();
 }
 
 FolderSelectionWidget::FolderSelectionWidget(FolderSelectionModel *pModel, QWidget *pParent)
-   : QTreeView(pParent), mModel(pModel)
+   : QWidget(pParent), mModel(pModel)
 {
+	mMessageWidget = new KMessageWidget(this);
+	mMessageWidget->setCloseButtonVisible(false);
+	mMessageWidget->setWordWrap(true);
+	mMessageWidget->hide();
+	mTreeView = new QTreeView(this);
+	QVBoxLayout *lVLayout = new QVBoxLayout;
+	lVLayout->addWidget(mMessageWidget);
+	lVLayout->addWidget(mTreeView, 1);
+	setLayout(lVLayout);
+
+	connect(mMessageWidget, &KMessageWidget::hideAnimationFinished,
+	        this, &FolderSelectionWidget::updateMessage);
+
+	mExcludeAction = new QAction(xi18nc("@action:button", "Exclude Folder"), this);
+	connect(mExcludeAction, &QAction::triggered, this, &FolderSelectionWidget::executeExcludeAction);
+
 	mModel->setRootPath(QStringLiteral("/"));
 	mModel->setParent(this);
-	setAnimated(true);
-	setModel(mModel);
+	mTreeView->setAnimated(true);
+	mTreeView->setModel(mModel);
+	mTreeView->setHeaderHidden(true);
+	// always expand the root, prevents problem with empty include&exclude lists.
+	mTreeView->expand(mModel->index(QStringLiteral("/")));
+
 	ConfigIncludeDummy *lIncludeDummy = new ConfigIncludeDummy(mModel, this);
 	lIncludeDummy->setObjectName(QStringLiteral("kcfg_Paths included"));
 	ConfigExcludeDummy *lExcludeDummy = new ConfigExcludeDummy(mModel, this);
 	lExcludeDummy->setObjectName(QStringLiteral("kcfg_Paths excluded"));
-	setHeaderHidden(true);
-	expand(mModel->index(QStringLiteral("/"))); // always expand the root, prevents problem with empty include&exclude lists.
+
+	qRegisterMetaType<QPair<QSet<QString>,QSet<QString>>>("QPair<QSet<QString>,QSet<QString>>");
+
+	mWorkerThread = new QThread(this);
+	FileScanner *lFileScanner = new FileScanner;
+	lFileScanner->moveToThread(mWorkerThread);
+	connect(mWorkerThread, &QThread::finished, lFileScanner, &QObject::deleteLater);
+
+	connect(mModel, &FolderSelectionModel::includedPathAdded,
+	        lFileScanner, &FileScanner::includePath);
+	connect(mModel, &FolderSelectionModel::excludedPathRemoved,
+	        lFileScanner, &FileScanner::includePath);
+	connect(mModel, &FolderSelectionModel::excludedPathAdded,
+	        lFileScanner, &FileScanner::excludePath);
+	connect(mModel, &FolderSelectionModel::includedPathRemoved,
+	        lFileScanner, &FileScanner::excludePath);
+	connect(lFileScanner, &FileScanner::unreadablesChanged,
+	        this, &FolderSelectionWidget::setUnreadables);
+	mWorkerThread->start();
+}
+
+FolderSelectionWidget::~FolderSelectionWidget() {
+	mWorkerThread->quit();
+	mWorkerThread->wait();
 }
 
 void FolderSelectionWidget::setHiddenFoldersVisible(bool pVisible) {
@@ -113,7 +268,7 @@ void FolderSelectionWidget::setHiddenFoldersVisible(bool pVisible) {
 }
 
 void FolderSelectionWidget::expandToShowSelections() {
-	foreach(const QString& lFolder,  mModel->includedFolders() + mModel->excludedFolders()) {
+	foreach(const QString& lFolder,  mModel->includedPaths() + mModel->excludedPaths()) {
 		QFileInfo lFolderInfo(lFolder);
 		bool lShouldBeShown = true;
 		while(lFolderInfo.absoluteFilePath() != QStringLiteral("/")) {
@@ -126,11 +281,55 @@ void FolderSelectionWidget::expandToShowSelections() {
 		if(lShouldBeShown) {
 			QModelIndex lIndex = mModel->index(lFolder).parent();
 			while(lIndex.isValid()) {
-				expand(lIndex);
+				mTreeView->expand(lIndex);
 				lIndex = lIndex.parent();
 			}
 		}
 	}
+}
+
+void FolderSelectionWidget::setUnreadables(QPair<QSet<QString>, QSet<QString> > pUnreadables) {
+	mUnreadableFolders = pUnreadables.first.toList();
+	mUnreadableFiles = pUnreadables.second.toList();
+	updateMessage();
+}
+
+void FolderSelectionWidget::updateMessage() {
+	if(mMessageWidget->isVisible() || mMessageWidget->isHideAnimationRunning()) {
+		mMessageWidget->animatedHide();
+		return;
+	}
+
+	mMessageWidget->removeAction(mExcludeAction);
+
+	if(!mUnreadableFolders.isEmpty()) {
+		mMessageWidget->setMessageType(KMessageWidget::Error);
+		mMessageWidget->setText(xi18nc("@info:message",
+		                              "You don't have permission to read this folder: <filename>%1</filename><nl/>"
+		                              "It cannot be included in the source selection. "
+		                              "If it does not contain anything important to you, one possible "
+		                              "solution is to exclude the folder from the backup plan.",
+		                              mUnreadableFolders.first()));
+		mExcludeActionPath = mUnreadableFolders.first();
+		mMessageWidget->addAction(mExcludeAction);
+		mMessageWidget->animatedShow();
+	} else if(!mUnreadableFiles.isEmpty()) {
+		mMessageWidget->setMessageType(KMessageWidget::Error);
+		mMessageWidget->setText(xi18nc("@info:message",
+		                              "You don't have permission to read this file: <filename>%1</filename><nl/>"
+		                              "It cannot be included in the source selection. "
+		                              "If the file is not important to you, one possible solution is "
+		                              "to exclude the whole folder where the file is stored from the backup plan.",
+		                              mUnreadableFiles.first()));
+		QFileInfo lFileInfo = mUnreadableFiles.first();
+		mExcludeActionPath = lFileInfo.absolutePath();
+		mMessageWidget->addAction(mExcludeAction);
+		mMessageWidget->animatedShow();
+	}
+}
+
+void FolderSelectionWidget::executeExcludeAction() {
+	mModel->excludePath(mExcludeActionPath);
 }
 
 DirDialog::DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent)

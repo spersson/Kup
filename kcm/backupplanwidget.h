@@ -22,7 +22,7 @@
 #define BACKUPPLANWIDGET_H
 
 #include <QDialog>
-#include <QTreeView>
+#include <QSet>
 #include <QWidget>
 
 class BackupPlan;
@@ -31,23 +31,66 @@ class DriveSelection;
 class FolderSelectionModel;
 
 class KLineEdit;
+class KMessageWidget;
 class KPageWidget;
 class KPageWidgetItem;
+class QAction;
 class QPushButton;
-
 class QRadioButton;
+class QThread;
+class QTimer;
+class QTreeView;
 
-class FolderSelectionWidget : public QTreeView {
+class FileScanner : public QObject {
+	Q_OBJECT
+public:
+	FileScanner();
+	bool event(QEvent *pEvent) Q_DECL_OVERRIDE;
+
+public slots:
+	void includePath(QString pPath);
+	void excludePath(QString pPath);
+
+signals:
+	void unreadablesChanged(QPair<QSet<QString>, QSet<QString>>);
+
+protected slots:
+	void sendPendingUnreadables();
+
+protected:
+	bool isPathIncluded(const QString &pPath);
+	void scanFolder(const QString &pPath);
+
+	QSet<QString> mIncludedFolders;
+	QSet<QString> mExcludedFolders;
+
+	QSet<QString> mUnreadableFolders;
+	QSet<QString> mUnreadableFiles;
+	QTimer *mUnreadablesTimer;
+};
+
+class FolderSelectionWidget : public QWidget {
 	Q_OBJECT
 public:
 	FolderSelectionWidget(FolderSelectionModel *pModel, QWidget *pParent = 0);
+	virtual ~FolderSelectionWidget();
 
 public slots:
 	void setHiddenFoldersVisible(bool pVisible);
 	void expandToShowSelections();
+	void setUnreadables(QPair<QSet<QString>, QSet<QString>> pUnreadables);
+	void updateMessage();
+	void executeExcludeAction();
 
 protected:
+	QTreeView *mTreeView;
 	FolderSelectionModel *mModel;
+	KMessageWidget *mMessageWidget;
+	QThread *mWorkerThread;
+	QStringList mUnreadableFolders;
+	QStringList mUnreadableFiles;
+	QString mExcludeActionPath;
+	QAction *mExcludeAction;
 };
 
 class ConfigIncludeDummy : public QWidget {
