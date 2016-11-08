@@ -51,7 +51,7 @@ Run from the source directory:
 ```
 mkdir build
 cd build
-cmake ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=release ..
 make
 sudo make install
 ```
