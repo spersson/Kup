@@ -51,8 +51,7 @@ void RsyncJob::startRsync() {
 	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl;
 
-	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-aR");
-	mRsyncProcess << QStringLiteral("--delete") << QStringLiteral("--delete-excluded");
+	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-aXR") << QStringLiteral("--delete-excluded");
 	foreach(QString lExclude, mBackupPlan.mPathsExcluded) {
 		mRsyncProcess << QString(QStringLiteral("--exclude=%1")).arg(lExclude);
 	}
