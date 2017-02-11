@@ -21,7 +21,8 @@
 #include "restoredialog.h"
 #include "ui_restoredialog.h"
 #include "restorejob.h"
-#include "../kcm/dirselector.h"
+#include "dirselector.h"
+#include "kuputils.h"
 
 #include <KIO/CopyJob>
 #include <KDiskFreeSpaceInfo>
@@ -93,9 +94,7 @@ void RestoreDialog::changeEvent(QEvent *pEvent) {
 void RestoreDialog::setOriginalDestination() {
 	if(mSourceInfo.mIsDirectory) {
 		// the path in repo could have had slashes appended below, we are back here because user clicked "back"
-		while(mSourceInfo.mPathInRepo.endsWith(QDir::separator())) {
-			mSourceInfo.mPathInRepo.chop(1);
-		}
+		ensureNoTrailingSlash(mSourceInfo.mPathInRepo);
 		//select parent of folder to be restored
 		mDestination.setFile(mSourceInfo.mPathInRepo.section(QDir::separator(), 0, -2));
 	} else {

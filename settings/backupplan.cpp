@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "backupplan.h"
+#include "kuputils.h"
 
 #include <QDir>
 #include <QStandardPaths>
@@ -44,11 +45,9 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.bup");
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.thumbnails");
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.local/share/Trash");
-	QMutableListIterator<QString> i(lDefaultExcludeList);
+	QMutableStringListIterator i(lDefaultExcludeList);
 	while(i.hasNext()) {
-		QString &lPath = i.next();
-		if(lPath.endsWith(QLatin1Char('/')))
-			lPath.chop(1);
+		ensureNoTrailingSlash(i.next());
 	}
 
 	addItemStringList(QStringLiteral("Paths excluded"), mPathsExcluded, lDefaultExcludeList);

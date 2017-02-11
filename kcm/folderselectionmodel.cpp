@@ -25,6 +25,7 @@
 */
 
 #include "folderselectionmodel.h"
+#include "kuputils.h"
 
 #include <QBrush>
 #include <QColor>
@@ -37,13 +38,10 @@
 
 namespace {
 
-// we need the trailing slash to be able to use the startsWith() function to check for parent dirs.
-QString ensureTrailingSlash(const QString &pPath) {
-	return pPath.endsWith(QDir::separator()) ? pPath : pPath + QDir::separator();
-}
-
 bool setContainsSubdir(QSet<QString> pSet, const QString &pParentDir) {
-	const QString lPathWithSlash = ensureTrailingSlash(pParentDir);
+	// we need the trailing slash to be able to use the startsWith() function to check for parent dirs.
+	QString lPathWithSlash = pParentDir;
+	ensureTrailingSlash(lPathWithSlash);
 	foreach(QString lTestedPath, pSet) {
 		if(lTestedPath.startsWith(lPathWithSlash)) {
 			return true;

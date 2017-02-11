@@ -13,6 +13,7 @@ planstatuswidget.cpp
 kbuttongroup.cpp
 ../settings/backupplan.cpp
 ../settings/kupsettings.cpp
+../settings/kuputils.cpp
 )
 
 add_library(kcm_kup MODULE ${kcm_kup_SRCS})

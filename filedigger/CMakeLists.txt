@@ -1,5 +1,7 @@
 include_directories("../daemon")
+include_directories("../kcm")
 include_directories("../kioslave")
+include_directories("../settings")
 
 set(filedigger_SRCS
 filedigger.cpp
@@ -12,6 +14,7 @@ versionlistdelegate.cpp
 versionlistmodel.cpp
 ../kioslave/vfshelpers.cpp
 ../kcm/dirselector.cpp
+../settings/kuputils.cpp
 )
 
 add_definitions(-fexceptions)
