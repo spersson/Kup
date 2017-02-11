@@ -175,6 +175,10 @@ void KupDaemon::setupExecutors() {
 	for(int i = 0; i < mSettings->mNumberOfPlans; ++i) {
 		PlanExecutor *lExecutor;
 		BackupPlan *lPlan = new BackupPlan(i+1, mConfig, this);
+		if(lPlan->mPathsIncluded.isEmpty()) {
+			delete lPlan;
+			continue;
+		}
 		if(lPlan->mDestinationType == 0) {
 			lExecutor = new FSExecutor(lPlan, this);
 		} else if(lPlan->mDestinationType == 1) {

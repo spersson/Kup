@@ -162,8 +162,16 @@ QString BackupPlan::iconName(Status pStatus) {
 	return QStringLiteral("unknown");
 }
 
-void BackupPlan::usrReadConfig() {
+void BackupPlan::usrRead() {
 	//correct the time spec after default read routines.
 	mLastCompleteBackup.setTimeSpec(Qt::UTC);
+	QMutableStringListIterator lExcludes(mPathsExcluded);
+	while(lExcludes.hasNext()) {
+		ensureNoTrailingSlash(lExcludes.next());
+	}
+	QMutableStringListIterator lIncludes(mPathsIncluded);
+	while(lIncludes.hasNext()) {
+		ensureNoTrailingSlash(lIncludes.next());
+	}
 }
 
