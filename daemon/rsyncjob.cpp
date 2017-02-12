@@ -19,10 +19,13 @@
  ***************************************************************************/
 
 #include "rsyncjob.h"
+#include "kuputils.h"
 
 #include <QTimer>
 
 #include <KLocalizedString>
+
+
 
 RsyncJob::RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)
    :BackupJob(pBackupPlan, pDestinationPath, pLogFilePath)
@@ -51,11 +54,49 @@ void RsyncJob::startRsync() {
 	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl;
 
-	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-aXR") << QStringLiteral("--delete-excluded");
-	foreach(QString lExclude, mBackupPlan.mPathsExcluded) {
-		mRsyncProcess << QString(QStringLiteral("--exclude=%1")).arg(lExclude);
+	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-aX") << QStringLiteral("--delete-excluded");
+	// TODO: use --info=progress2 --no-i-r parameters to get progress info
+	//	mRsyncProcess << QStringLiteral("--info=progress2") << QStringLiteral("--no-i-r");
+
+	QStringList lIncludeNames;
+	foreach(const QString &lInclude, mBackupPlan.mPathsIncluded) {
+		lIncludeNames << lastPartOfPath(lInclude);
 	}
-	mRsyncProcess << mBackupPlan.mPathsIncluded;
+	if(lIncludeNames.removeDuplicates() > 0) {
+		// There would be a naming conflict in the destination folder, instead use full paths.
+		mRsyncProcess << QStringLiteral("-R");
+		foreach(const QString &lExclude, mBackupPlan.mPathsExcluded) {
+			mRsyncProcess << QStringLiteral("--exclude=") + lExclude;
+		}
+	} else {
+		// when NOT using -R, need to then strip parent paths from excludes, everything above the include. Leave the leading slash!
+		foreach(QString lExclude, mBackupPlan.mPathsExcluded) {
+			for(int i = 0; i < mBackupPlan.mPathsIncluded.length(); ++i) {
+				const QString &lInclude = mBackupPlan.mPathsIncluded.at(i);
+				QString lIncludeWithSlash = lInclude;
+				ensureTrailingSlash(lIncludeWithSlash);
+				if(lExclude.startsWith(lIncludeWithSlash)) {
+					if(mBackupPlan.mPathsIncluded.length() == 1) {
+						lExclude.remove(0, lInclude.length());
+					} else {
+						lExclude.remove(0, lInclude.length() - lIncludeNames.at(i).length() - 1);
+					}
+					break;
+				}
+			}
+			mRsyncProcess << QStringLiteral("--exclude=") + lExclude;
+		}
+	}
+
+	if(mBackupPlan.mPathsIncluded.count() == 1) {
+		// Add a slash to the end so that rsync takes only the contents of the folder, not the folder itself.
+		QString lInclude = mBackupPlan.mPathsIncluded.first();
+		ensureTrailingSlash(lInclude);
+		mRsyncProcess << lInclude;
+	} else  {
+		mRsyncProcess << mBackupPlan.mPathsIncluded;
+	}
+
 	mRsyncProcess << mDestinationPath;
 
 	connect(&mRsyncProcess, SIGNAL(started()), SLOT(slotRsyncStarted()));
@@ -78,7 +119,6 @@ void RsyncJob::slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus
 	} else {
 		mLogStream << endl << QStringLiteral("Kup successfully completed the rsync backup job at ")
 		           << QLocale().toString(QDateTime::currentDateTime()) << endl;
-
 	}
 	emitResult();
 }

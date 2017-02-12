@@ -14,6 +14,7 @@ buprepairjob.cpp
 rsyncjob.cpp
 ../settings/backupplan.cpp
 ../settings/kupsettings.cpp
+../settings/kuputils.cpp
 )
 
 kf5_add_kdeinit_executable(kup-daemon ${kupdaemon_SRCS})
