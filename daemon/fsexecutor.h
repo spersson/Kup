@@ -56,6 +56,7 @@ Q_OBJECT
 
 public:
 	FSExecutor(BackupPlan *pPlan, QObject *pParent);
+	~FSExecutor();
 
 public slots:
 	virtual void checkStatus();

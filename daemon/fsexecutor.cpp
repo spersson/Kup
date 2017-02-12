@@ -44,6 +44,11 @@ FSExecutor::FSExecutor(BackupPlan *pPlan, QObject *pParent)
 	mMountWatcher.start();
 }
 
+FSExecutor::~FSExecutor() {
+	mMountWatcher.terminate();
+	mMountWatcher.wait();
+}
+
 void FSExecutor::checkStatus() {
 	static bool lComingBackLater = false;
 	if(!mWatchedParentDir.isEmpty() && !lComingBackLater) {
