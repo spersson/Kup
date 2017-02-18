@@ -37,8 +37,8 @@
 #include <Solid/StorageDrive>
 #include <Solid/StorageVolume>
 
-EDExecutor::EDExecutor(BackupPlan *pPlan, QObject *pParent)
-   :PlanExecutor(pPlan, pParent), mStorageAccess(NULL), mWantsToRunBackup(false), mWantsToShowFiles(false)
+EDExecutor::EDExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
+   :PlanExecutor(pPlan, pKupDaemon), mStorageAccess(NULL), mWantsToRunBackup(false), mWantsToShowFiles(false)
 {
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(QString)), SLOT(deviceAdded(QString)));
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(QString)), SLOT(deviceRemoved(QString)));
@@ -136,7 +136,9 @@ void EDExecutor::startBackup() {
 
 void EDExecutor::slotBackupDone(KJob *pJob) {
 	if(pJob->error()) {
-		notifyBackupFailed(pJob);
+		if(pJob->error() != KJob::KilledJobError) {
+			notifyBackupFailed(pJob);
+		}
 		exitBackupRunningState(false);
 	} else {
 		mPlan->mLastCompleteBackup = QDateTime::currentDateTime().toUTC();

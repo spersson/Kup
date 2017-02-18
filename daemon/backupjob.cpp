@@ -20,6 +20,7 @@
 
 #include "backupjob.h"
 #include "bupjob.h"
+#include "kupdaemon.h"
 #include "rsyncjob.h"
 
 #include <unistd.h>
@@ -28,12 +29,19 @@
 #include <sys/syscall.h>
 #endif
 
-BackupJob::BackupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)
-   :KJob(), mBackupPlan(pBackupPlan), mDestinationPath(pDestinationPath), mLogFilePath(pLogFilePath)
+#include <QTimer>
+
+BackupJob::BackupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon)
+   :KJob(), mBackupPlan(pBackupPlan), mDestinationPath(pDestinationPath), mLogFilePath(pLogFilePath), mKupDaemon(pKupDaemon)
 {
 	mLogFile.setFileName(mLogFilePath);
 	mLogFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
 	mLogStream.setDevice(&mLogFile);
+}
+
+void BackupJob::start() {
+	mKupDaemon->registerJob(this);
+	QTimer::singleShot(0, this, &BackupJob::performJob);
 }
 
 void BackupJob::makeNice(int pPid) {
@@ -58,5 +66,34 @@ QString BackupJob::quoteArgs(const QStringList &pCommand) {
 		}
 	}
 	return lResult;
+}
+
+void BackupJob::jobFinishedSuccess() {
+	// unregistring a job will normally show a UI notification that it the job was completed
+	// setting the error code to indicate that the user canceled the job makes the UI not show
+	// any notification. We want that since we want to trigger our own notification which has
+	// more buttons and stuff.
+	setError(KilledJobError);
+	mKupDaemon->unregisterJob(this);
+
+	// The error code is still used by our internal logic, for triggering our own notification.
+	// So make sure to set it correctly.
+	setError(NoError);
+	emitResult();
+}
+
+void BackupJob::jobFinishedError(BackupJob::ErrorCodes pErrorCode, QString pErrorText) {
+	// if job has already set the error that it was killed by the user then ignore any fault
+	// we get here as that fault is surely about the process exit code was not zero.
+	// And we don't want to report about that (with our notification) in this case.
+	bool lWasKilled = (error() == KilledJobError);
+
+	setError(KilledJobError);
+	mKupDaemon->unregisterJob(this);
+	if(!lWasKilled) {
+		setError(pErrorCode);
+		setErrorText(pErrorText);
+	}
+	emitResult();
 }
 

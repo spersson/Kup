@@ -36,11 +36,14 @@
 #include <KServiceTypeTrader>
 #include <KStandardAction>
 #include <KStatusNotifierItem>
+#include <KUiServerJobTracker>
 
 KupDaemon::KupDaemon() {
 	mWaitingToReloadConfig = false;
 	mConfig = KSharedConfig::openConfig(QStringLiteral("kuprc"));
 	mSettings = new KupSettings(mConfig, this);
+	mJobTracker = new KUiServerJobTracker(this);
+
 }
 
 KupDaemon::~KupDaemon() {
@@ -165,6 +168,14 @@ void KupDaemon::runIntegrityCheck(QString pPath) {
 			lExecutor->startIntegrityCheck();
 		}
 	}
+}
+
+void KupDaemon::registerJob(KJob *pJob) {
+	mJobTracker->registerJob(pJob);
+}
+
+void KupDaemon::unregisterJob(KJob *pJob) {
+	mJobTracker->unregisterJob(pJob);
 }
 
 void KupDaemon::disableSessionManagement(QSessionManager &pManager) {

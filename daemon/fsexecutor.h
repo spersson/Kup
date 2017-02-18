@@ -55,7 +55,7 @@ class FSExecutor: public PlanExecutor
 Q_OBJECT
 
 public:
-	FSExecutor(BackupPlan *pPlan, QObject *pParent);
+	FSExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon);
 	~FSExecutor();
 
 public slots:

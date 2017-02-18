@@ -25,16 +25,17 @@
 
 #include <KProcess>
 
+class KupDaemon;
+
 class BupRepairJob : public BackupJob
 {
 	Q_OBJECT
 
 public:
-	BupRepairJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
-	virtual void start();
+	BupRepairJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon);
 
 protected slots:
-	void startJob();
+	void performJob() Q_DECL_OVERRIDE;
 	void slotRepairStarted();
 	void slotRepairDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 

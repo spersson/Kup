@@ -20,38 +20,28 @@
 
 #include "buprepairjob.h"
 
-#include <QTimer>
-
 #include <KLocalizedString>
 
 BupRepairJob::BupRepairJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath,
-                                       const QString &pLogFilePath)
-   : BackupJob(pBackupPlan, pDestinationPath, pLogFilePath){
+                                       const QString &pLogFilePath, KupDaemon *pKupDaemon)
+   : BackupJob(pBackupPlan, pDestinationPath, pLogFilePath, pKupDaemon){
 	mFsckProcess.setOutputChannelMode(KProcess::SeparateChannels);
 }
 
-void BupRepairJob::start() {
-	QTimer::singleShot(0, this, SLOT(startJob()));
-}
-
-void BupRepairJob::startJob() {
+void BupRepairJob::performJob() {
 	KProcess lPar2Process;
 	lPar2Process.setOutputChannelMode(KProcess::SeparateChannels);
 	lPar2Process << QStringLiteral("bup") << QStringLiteral("fsck") << QStringLiteral("--par2-ok");
 	int lExitCode = lPar2Process.execute();
 	if(lExitCode < 0) {
-		setError(ErrorWithoutLog);
-		setErrorText(xi18nc("@info notification",
-		                    "The <application>bup</application> program is needed but could not be found, "
-		                    "maybe it is not installed?"));
-		emitResult();
+		jobFinishedError(ErrorWithoutLog, xi18nc("@info notification",
+		                                         "The <application>bup</application> program is needed but could not be found, "
+		                                         "maybe it is not installed?"));
 		return;
 	} else if(mBackupPlan.mGenerateRecoveryInfo && lExitCode != 0) {
-		setError(ErrorWithoutLog);
-		setErrorText(xi18nc("@info notification",
-		                    "The <application>par2</application> program is needed but could not be found, "
-		                    "maybe it is not installed?"));
-		emitResult();
+		jobFinishedError(ErrorWithoutLog, xi18nc("@info notification",
+		                                         "The <application>par2</application> program is needed but could not be found, "
+		                                         "maybe it is not installed?"));
 		return;
 	}
 
@@ -75,27 +65,24 @@ void BupRepairJob::slotRepairStarted() {
 
 void BupRepairJob::slotRepairDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mLogStream << QString::fromUtf8(mFsckProcess.readAllStandardError());
-	setError(ErrorWithLog);
+
 	if(pExitStatus != QProcess::NormalExit) {
 		mLogStream << endl << QStringLiteral("Repair failed (the repair process crashed). Your backups could be "
 		                                     "corrupted! See above for details.") << endl;
-		setErrorText(xi18nc("@info notification", "Backup repair failed. Your backups could be corrupted! "
-		                                          "See log file for more details."));
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Backup repair failed. Your backups could be corrupted! "
+		                                                            "See log file for more details."));
 	} else if(pExitCode == 100) {
 		mLogStream << endl << QStringLiteral("Repair succeded. See above for details.") << endl;
-		setErrorText(xi18nc("@info notification", "Success! Backup repair worked. See log file for more details."));
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Success! Backup repair worked. See log file for more details."));
 	} else if(pExitCode == 0) {
 		mLogStream << endl << QStringLiteral("Repair was not necessary. Your backups are fine. See "
 		                                     "above for details.") << endl;
-		setErrorText(xi18nc("@info notification", "Backup repair was not necessary. Your backups are not corrupted."
-		                                          "See log file for more details."));
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Backup repair was not necessary. Your backups are not corrupted."
+		                                                            "See log file for more details."));
 	} else {
 		mLogStream << endl << QStringLiteral("Repair failed. Your backups could still be "
-		                                    "corrupted! See above for details.") << endl;
-		setErrorText(xi18nc("@info notification", "Backup repair failed. Your backups could still be corrupted! "
-		                                   "See log file for more details."));
+		                                     "corrupted! See above for details.") << endl;
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Backup repair failed. Your backups could still be corrupted! "
+		                                                            "See log file for more details."));
 	}
-
-	emitResult();
-	return;
 }

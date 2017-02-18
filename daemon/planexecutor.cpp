@@ -22,6 +22,7 @@
 #include "bupjob.h"
 #include "bupverificationjob.h"
 #include "buprepairjob.h"
+#include "kupdaemon.h"
 #include "rsyncjob.h"
 
 #include <QAction>
@@ -34,9 +35,10 @@
 #include <KNotification>
 #include <KRun>
 
-PlanExecutor::PlanExecutor(BackupPlan *pPlan, QObject *pParent)
-   :QObject(pParent), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL),
-     mFailNotification(NULL), mIntegrityNotification(NULL), mRepairNotification(NULL)
+PlanExecutor::PlanExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
+   :QObject(pKupDaemon), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL),
+     mFailNotification(NULL), mIntegrityNotification(NULL), mRepairNotification(NULL),
+     mKupDaemon(pKupDaemon)
 {
 	QString lCachePath = QString::fromLocal8Bit(qgetenv("XDG_CACHE_HOME").constData());
 	if(lCachePath.isEmpty()) {
@@ -225,7 +227,7 @@ void PlanExecutor::startIntegrityCheck() {
 	if(mPlan->mBackupType != BackupPlan::BupType || busy() || mState == NOT_AVAILABLE) {
 		return;
 	}
-	KJob *lJob = new BupVerificationJob(*mPlan, mDestinationPath, mLogFilePath);
+	KJob *lJob = new BupVerificationJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	connect(lJob, SIGNAL(result(KJob*)), SLOT(integrityCheckFinished(KJob*)));
 	lJob->start();
 	mLastState = mState;
@@ -238,7 +240,7 @@ void PlanExecutor::startRepairJob() {
 	if(mPlan->mBackupType != BackupPlan::BupType || busy() || mState == NOT_AVAILABLE) {
 		return;
 	}
-	KJob *lJob = new BupRepairJob(*mPlan, mDestinationPath, mLogFilePath);
+	KJob *lJob = new BupRepairJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	connect(lJob, SIGNAL(result(KJob*)), SLOT(repairFinished(KJob*)));
 	lJob->start();
 	mLastState = mState;
@@ -377,9 +379,9 @@ void PlanExecutor::showFilesClicked() {
 
 BackupJob *PlanExecutor::createBackupJob() {
 	if(mPlan->mBackupType == BackupPlan::BupType) {
-		return new BupJob(*mPlan, mDestinationPath, mLogFilePath);
+		return new BupJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
-		return new RsyncJob(*mPlan, mDestinationPath, mLogFilePath);
+		return new RsyncJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	}
 	qWarning("Invalid backup type in configuration!");
 	return NULL;

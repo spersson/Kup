@@ -30,9 +30,11 @@
 class KupSettings;
 class PlanExecutor;
 
-class QMenu;
+class KJob;
 class KStatusNotifierItem;
+class KUiServerJobTracker;
 
+class QMenu;
 class QSessionManager;
 class QTimer;
 
@@ -51,6 +53,8 @@ public slots:
 	void showConfig();
 	void updateTrayIcon();
 	void runIntegrityCheck(QString pPath);
+	void registerJob(KJob *pJob);
+	void unregisterJob(KJob *pJob);
 
 private slots:
 	void disableSessionManagement(QSessionManager &pManager);
@@ -67,6 +71,7 @@ private:
 	QMenu *mContextMenu;
 	QTimer *mUsageAccumulatorTimer;
 	bool mWaitingToReloadConfig;
+	KUiServerJobTracker *mJobTracker;
 };
 
 #endif /*KUPDAEMON_H*/

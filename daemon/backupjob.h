@@ -21,13 +21,15 @@
 #ifndef BACKUPJOB_H
 #define BACKUPJOB_H
 
+#include "backupplan.h"
+
 #include <KJob>
 
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>
 
-#include "backupplan.h"
+class KupDaemon;
 
 class BackupJob : public KJob
 {
@@ -39,15 +41,23 @@ public:
 		ErrorSuggestRepair
 	};
 
+	void start() Q_DECL_OVERRIDE;
+
+protected slots:
+	virtual void performJob() = 0;
+
 protected:
-	BackupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
+	BackupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon);
 	static void makeNice(int pPid);
 	QString quoteArgs(const QStringList &pCommand);
+	void jobFinishedSuccess();
+	void jobFinishedError(ErrorCodes pErrorCode, QString pErrorText);
 	const BackupPlan &mBackupPlan;
 	QString mDestinationPath;
 	QString mLogFilePath;
 	QFile mLogFile;
 	QTextStream mLogStream;
+	KupDaemon *mKupDaemon;
 };
 
 #endif // BACKUPJOB_H

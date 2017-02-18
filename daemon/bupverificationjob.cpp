@@ -20,30 +20,22 @@
 
 #include "bupverificationjob.h"
 
-#include <QTimer>
-
 #include <KLocalizedString>
 
 BupVerificationJob::BupVerificationJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath,
-                                       const QString &pLogFilePath)
-   : BackupJob(pBackupPlan, pDestinationPath, pLogFilePath){
+                                       const QString &pLogFilePath, KupDaemon *pKupDaemon)
+   : BackupJob(pBackupPlan, pDestinationPath, pLogFilePath, pKupDaemon){
 	mFsckProcess.setOutputChannelMode(KProcess::SeparateChannels);
 }
 
-void BupVerificationJob::start() {
-	QTimer::singleShot(0, this, SLOT(startJob()));
-}
-
-void BupVerificationJob::startJob() {
+void BupVerificationJob::performJob() {
 	KProcess lVersionProcess;
 	lVersionProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	lVersionProcess << QStringLiteral("bup") << QStringLiteral("version");
 	if(lVersionProcess.execute() < 0) {
-		setError(ErrorWithoutLog);
-		setErrorText(xi18nc("@info notification",
-		                    "The <application>bup</application> program is needed but could not be found, "
-		                    "maybe it is not installed?"));
-		emitResult();
+		jobFinishedError(ErrorWithoutLog, xi18nc("@info notification",
+		                                         "The <application>bup</application> program is needed but could not be found, "
+		                                         "maybe it is not installed?"));
 		return;
 	}
 
@@ -67,38 +59,33 @@ void BupVerificationJob::slotCheckingStarted() {
 
 void BupVerificationJob::slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mLogStream << QString::fromUtf8(mFsckProcess.readAllStandardError());
-	setError(ErrorWithLog);
 	if(pExitStatus != QProcess::NormalExit) {
 		mLogStream << endl << QStringLiteral("Integrity check failed (the process crashed). Your backups could be "
 		                                    "corrupted! See above for details.") << endl;
 		if(mBackupPlan.mGenerateRecoveryInfo) {
-			setErrorText(xi18nc("@info notification",
-			                    "Failed backup integrity check. Your backups could be corrupted! "
-			                    "See log file for more details. Do you want to try repairing the backup files?"));
-			setError(ErrorSuggestRepair);
+			jobFinishedError(ErrorSuggestRepair, xi18nc("@info notification",
+			                                    "Failed backup integrity check. Your backups could be corrupted! "
+			                                    "See log file for more details. Do you want to try repairing the backup files?"));
 		} else {
-			setErrorText(xi18nc("@info notification", "Failed backup integrity check. Your backups are corrupted! "
-			                                          "See log file for more details."));
+			jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Failed backup integrity check. Your backups are corrupted! "
+			                                                            "See log file for more details."));
 		}
 	} else if(pExitCode == 0) {
 		mLogStream << endl << QStringLiteral("Backup integrity test was successful. "
 		                                     "Your backups are fine. See above for details.") << endl;
-		setErrorText(xi18nc("@info notification", "Backup integrity test was successful, "
-		                                          "Your backups are fine."));
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Backup integrity test was successful, "
+		                                                            "Your backups are fine."));
 	} else {
 		mLogStream << endl << QStringLiteral("Integrity check failed. Your backups are "
 		                                     "corrupted! See above for details.") << endl;
 		if(mBackupPlan.mGenerateRecoveryInfo) {
-			setErrorText(xi18nc("@info notification",
-			                    "Failed backup integrity check. Your backups are corrupted! "
-			                    "See log file for more details. Do you want to try repairing the backup files?"));
-			setError(ErrorSuggestRepair);
+			jobFinishedError(ErrorSuggestRepair, xi18nc("@info notification",
+			                                            "Failed backup integrity check. Your backups are corrupted! "
+			                                            "See log file for more details. Do you want to try repairing the backup files?"));
+
 		} else {
-			setErrorText(xi18nc("@info notification", "Failed backup integrity check. Your backups are corrupted! "
-			                                          "See log file for more details."));
+			jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Failed backup integrity check. Your backups are corrupted! "
+			                                                            "See log file for more details."));
 		}
 	}
-
-	emitResult();
-	return;
 }

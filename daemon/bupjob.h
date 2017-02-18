@@ -25,16 +25,17 @@
 
 #include <KProcess>
 
+class KupDaemon;
+
 class BupJob : public BackupJob
 {
 	Q_OBJECT
 
 public:
-	BupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
-	virtual void start();
+	BupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon);
 
 protected slots:
-	void startJob();
+	void performJob() Q_DECL_OVERRIDE;
 	void slotCheckingStarted();
 	void slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 	void slotIndexingStarted();
@@ -43,8 +44,12 @@ protected slots:
 	void slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 	void slotRecoveryInfoStarted();
 	void slotRecoveryInfoDone(int pExitCode, QProcess::ExitStatus pExitStatus);
+	void slotReadBupErrors();
 
 protected:
+	bool doSuspend() Q_DECL_OVERRIDE;
+	bool doResume() Q_DECL_OVERRIDE;
+
 	KProcess mFsckProcess;
 	KProcess mIndexProcess;
 	KProcess mSaveProcess;

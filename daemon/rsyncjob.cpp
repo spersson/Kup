@@ -21,32 +21,30 @@
 #include "rsyncjob.h"
 #include "kuputils.h"
 
-#include <QTimer>
+#include <signal.h>
+
+#include <QRegularExpression>
+#include <QTextStream>
 
 #include <KLocalizedString>
 
 
 
-RsyncJob::RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath)
-   :BackupJob(pBackupPlan, pDestinationPath, pLogFilePath)
+RsyncJob::RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon)
+   :BackupJob(pBackupPlan, pDestinationPath, pLogFilePath, pKupDaemon)
 {
 	mRsyncProcess.setOutputChannelMode(KProcess::SeparateChannels);
+	setCapabilities(KJob::Suspendable | KJob::Killable);
 }
 
-void RsyncJob::start() {
-	QTimer::singleShot(0, this, SLOT(startRsync()));
-}
-
-void RsyncJob::startRsync() {
+void RsyncJob::performJob() {
 	KProcess lVersionProcess;
 	lVersionProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	lVersionProcess << QStringLiteral("rsync") << QStringLiteral("--version");
 	if(lVersionProcess.execute() < 0) {
-		setError(ErrorWithoutLog);
-		setErrorText(xi18nc("@info notification",
-		                    "The <application>rsync</application> program is needed but could not be found, "
-		                    "maybe it is not installed?"));
-		emitResult();
+		jobFinishedError(ErrorWithoutLog, xi18nc("@info notification",
+		                                         "The <application>rsync</application> program is needed but could not be found, "
+		                                         "maybe it is not installed?"));
 		return;
 	}
 
@@ -54,9 +52,9 @@ void RsyncJob::startRsync() {
 	           << QLocale().toString(QDateTime::currentDateTime())
 	           << endl;
 
-	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-aX") << QStringLiteral("--delete-excluded");
-	// TODO: use --info=progress2 --no-i-r parameters to get progress info
-	//	mRsyncProcess << QStringLiteral("--info=progress2") << QStringLiteral("--no-i-r");
+	emit description(this, i18n("Checking what to copy"));
+	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-avX") << QStringLiteral("--delete-excluded");
+	mRsyncProcess << QStringLiteral("--info=progress2") << QStringLiteral("--no-i-r");
 
 	QStringList lIncludeNames;
 	foreach(const QString &lInclude, mBackupPlan.mPathsIncluded) {
@@ -96,10 +94,10 @@ void RsyncJob::startRsync() {
 	} else  {
 		mRsyncProcess << mBackupPlan.mPathsIncluded;
 	}
-
 	mRsyncProcess << mDestinationPath;
 
 	connect(&mRsyncProcess, SIGNAL(started()), SLOT(slotRsyncStarted()));
+	connect(&mRsyncProcess, &KProcess::readyReadStandardOutput, this, &RsyncJob::slotReadRsyncOutput);
 	connect(&mRsyncProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotRsyncFinished(int,QProcess::ExitStatus)));
 	mLogStream << quoteArgs(mRsyncProcess.program()) << endl;
 	mRsyncProcess.start();
@@ -113,13 +111,74 @@ void RsyncJob::slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus
 	mLogStream << QString::fromUtf8(mRsyncProcess.readAllStandardError());
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the rsync backup job.") << endl;
-		setErrorText(xi18nc("@info notification", "Saving backup did not complete successfully. "
-		                                          "See log file for more details."));
-		setError(ErrorWithLog);
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Saving backup did not complete successfully. "
+		                                                            "See log file for more details."));
 	} else {
 		mLogStream << endl << QStringLiteral("Kup successfully completed the rsync backup job at ")
 		           << QLocale().toString(QDateTime::currentDateTime()) << endl;
+		jobFinishedSuccess();
 	}
-	emitResult();
+}
+
+void RsyncJob::slotReadRsyncOutput() {
+	bool lValidInfo = false, lValidFileName = false;
+	QString lFileName;
+	ulong lPercent;
+	qulonglong lTransfered;
+	double lSpeed;
+	QChar lUnit;
+	QRegularExpression lProgressInfoExp(QStringLiteral("^\\s+([\\d,\\.]+)\\s+(\\d+)%\\s+(\\d*[,\\.]\\d+)(\\S)"));
+	// very ugly and rough indication that this is a file path... what else to do..
+	QRegularExpression lNotFileNameExp(QStringLiteral("^(building file list|done$|deleting \\S+|.+/$|$)"));
+	QString lLine;
+
+	QTextStream lStream(mRsyncProcess.readAllStandardOutput());
+	while(lStream.readLineInto(&lLine, 500)) {
+		QRegularExpressionMatch lMatch = lProgressInfoExp.match(lLine);
+		if(lMatch.hasMatch()) {
+			lValidInfo = true;
+			lTransfered = lMatch.captured(1).remove(',').remove('.').toULongLong();
+			lPercent = qMax(lMatch.captured(2).toULong(), (ulong)1);
+			lSpeed = QLocale().toDouble(lMatch.captured(3));
+			lUnit = lMatch.captured(4).at(0);
+		} else {
+			lMatch = lNotFileNameExp.match(lLine);
+			if(!lMatch.hasMatch()) {
+				lValidFileName = true;
+				lFileName = lLine;
+			}
+		}
+	}
+	if(lValidInfo) {
+		setPercent(lPercent);
+		if(lUnit == 'k') {
+			lSpeed *= 1e3;
+		} else if(lUnit == 'M') {
+			lSpeed *= 1e6;
+		} else if(lUnit == 'G') {
+			lSpeed *= 1e9;
+		}
+		emitSpeed(lSpeed);
+		if(lPercent > 5) { // the rounding to integer percent gives big error with small percentages
+			setProcessedAmount(KJob::Bytes, lTransfered);
+			setTotalAmount(KJob::Bytes, lTransfered*100/lPercent);
+		}
+	}
+	if(lValidFileName) {
+		emit description(this, i18n("Saving backup"), qMakePair(i18n("File"), lFileName));
+	}
+}
+
+bool RsyncJob::doKill() {
+	setError(KilledJobError);
+	return 0 == ::kill(mRsyncProcess.pid(), SIGINT);
+}
+
+bool RsyncJob::doSuspend() {
+	return 0 == ::kill(mRsyncProcess.pid(), SIGSTOP);
+}
+
+bool RsyncJob::doResume() {
+	return 0 == ::kill(mRsyncProcess.pid(), SIGCONT);
 }
 

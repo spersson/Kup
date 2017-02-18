@@ -35,8 +35,8 @@
 
 #include <fcntl.h>
 
-FSExecutor::FSExecutor(BackupPlan *pPlan, QObject *pParent)
-   :PlanExecutor(pPlan, pParent)
+FSExecutor::FSExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
+   :PlanExecutor(pPlan, pKupDaemon)
 {
 	mDestinationPath = QDir::cleanPath(mPlan->mFilesystemDestinationPath.toLocalFile());
 	mDirWatch = new KDirWatch(this);
@@ -122,7 +122,9 @@ void FSExecutor::startBackup() {
 
 void FSExecutor::slotBackupDone(KJob *pJob) {
 	if(pJob->error()) {
-		notifyBackupFailed(pJob);
+		if(pJob->error() != KJob::KilledJobError) {
+			notifyBackupFailed(pJob);
+		}
 		exitBackupRunningState(false);
 	} else {
 		mPlan->mLastCompleteBackup = QDateTime::currentDateTime().toUTC();

@@ -25,23 +25,28 @@
 
 #include <KProcess>
 
+class KupDaemon;
+
 class RsyncJob : public BackupJob
 {
 	Q_OBJECT
 
 public:
-	RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath);
+	RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon);
 
-	virtual void start();
-
-public slots:
-	void startRsync();
+protected slots:
+	void performJob() Q_DECL_OVERRIDE;
 
 protected slots:
 	void slotRsyncStarted();
 	void slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus);
+	void slotReadRsyncOutput();
 
 protected:
+	bool doKill() Q_DECL_OVERRIDE;
+	bool doSuspend() Q_DECL_OVERRIDE;
+	bool doResume() Q_DECL_OVERRIDE;
+
 	KProcess mRsyncProcess;
 };
 

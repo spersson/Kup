@@ -37,7 +37,7 @@ class EDExecutor: public PlanExecutor
 Q_OBJECT
 
 public:
-	EDExecutor(BackupPlan *pPlan, QObject *pParent);
+	EDExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon);
 
 public slots:
 	virtual void checkStatus();

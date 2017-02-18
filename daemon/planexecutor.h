@@ -26,6 +26,8 @@
 
 #include <KProcess>
 
+class KupDaemon;
+
 class KRun;
 class KNotification;
 class KProcess;
@@ -43,7 +45,7 @@ class PlanExecutor : public QObject
 {
 	Q_OBJECT
 public:
-	PlanExecutor(BackupPlan *pPlan, QObject *pParent);
+	PlanExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon);
 	virtual ~PlanExecutor();
 
 	BackupPlan::ScheduleType scheduleType() {
@@ -108,6 +110,7 @@ protected:
 	KNotification *mIntegrityNotification;
 	KNotification *mRepairNotification;
 	ExecutorState mLastState;
+	KupDaemon *mKupDaemon;
 };
 
 #endif // PLANEXECUTOR_H
