@@ -31,6 +31,7 @@ KF5::Solid
 KF5::Notifications
 KF5::CoreAddons
 KF5::DBusAddons
+KF5::JobWidgets
 )
 
 ########### install files ###############

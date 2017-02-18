@@ -46,6 +46,7 @@ To compile you need:
   - kiconthemes
   - kconfig
   - kinit
+  - kjobwidgets
 
 Run from the source directory:
 ```

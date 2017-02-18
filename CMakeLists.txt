@@ -35,6 +35,7 @@ IconThemes
 DBusAddons
 Config
 Init # needed for the kdeinit cmake macro
+JobWidgets
 )
 
 add_subdirectory(daemon)

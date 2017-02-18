@@ -28,6 +28,7 @@ KF5::KIOCore
 KF5::KIOFileWidgets
 KF5::I18n
 KF5::IconThemes
+KF5::JobWidgets
 git24kup
 )
 
