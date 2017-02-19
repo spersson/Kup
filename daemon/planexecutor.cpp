@@ -219,6 +219,13 @@ void PlanExecutor::discardFailNotification() {
 	}
 }
 
+void PlanExecutor::notifyBackupSucceeded() {
+	KNotification *lNotification = new KNotification(QStringLiteral("BackupSucceeded"));
+	lNotification->setTitle(xi18nc("@title:window", "Backup Saved"));
+	lNotification->setText(xi18nc("@info notification", "Saving backup completed successfully."));
+	lNotification->sendEvent();
+}
+
 void PlanExecutor::showLog() {
 	KRun::runUrl(QUrl::fromLocalFile(mLogFilePath), QStringLiteral("text/x-log"), NULL);
 }

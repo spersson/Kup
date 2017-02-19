@@ -44,6 +44,11 @@ Comment[tl]=Tanong kung gusto ng taga-gamit na magsimula ng pagkuha ng seguridad
 Comment[zh_TW]=如果使用者想要開始進行備份的話會被詢問一個問題
 Action=Popup
 
+[Event/BackupSucceeded]
+Name=Backup succeeded
+Comment=Saving of backup successfully completed
+Action=Popup
+
 [Event/BackupFailed]
 Name=Backup failed
 Name[bs_BA]=Backup neuspješan

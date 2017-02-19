@@ -92,6 +92,8 @@ protected slots:
 	void notifyBackupFailed(KJob *pFailedJob);
 	void discardFailNotification();
 
+	void notifyBackupSucceeded();
+
 	void showLog();
 	void integrityCheckFinished(KJob *pJob);
 	void discardIntegrityNotification();

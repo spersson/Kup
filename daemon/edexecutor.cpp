@@ -141,6 +141,7 @@ void EDExecutor::slotBackupDone(KJob *pJob) {
 		}
 		exitBackupRunningState(false);
 	} else {
+		notifyBackupSucceeded();
 		mPlan->mLastCompleteBackup = QDateTime::currentDateTime().toUTC();
 		KDiskFreeSpaceInfo lSpaceInfo = KDiskFreeSpaceInfo::freeSpaceInfo(mDestinationPath);
 		if(lSpaceInfo.isValid())
