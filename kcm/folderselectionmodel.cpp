@@ -277,8 +277,9 @@ void FolderSelectionModel::removeSubDirs(const QString& pPath) {
 	QString lPath = pPath + QStringLiteral("/");
 	while(it != mExcludedPaths.end()) {
 		if(*it == pPath || it->startsWith(lPath)) {
-			emit excludedPathRemoved(*it);
+			QString lPathCopy = *it;
 			it = mExcludedPaths.erase(it);
+			emit excludedPathRemoved(lPathCopy);
 		} else {
 			++it;
 		}
@@ -286,8 +287,9 @@ void FolderSelectionModel::removeSubDirs(const QString& pPath) {
 	it = mIncludedPaths.begin();
 	while(it != mIncludedPaths.end()) {
 		if(*it == pPath || it->startsWith(lPath)) {
-			emit includedPathRemoved(*it);
+			QString lPathCopy = *it;
 			it = mIncludedPaths.erase(it);
+			emit includedPathRemoved(lPathCopy);
 		} else {
 			++it;
 		}
