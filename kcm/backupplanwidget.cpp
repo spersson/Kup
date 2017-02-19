@@ -820,6 +820,7 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	lShowHiddenLayout->addWidget(lShowHiddenLabel, 0, 1);
 
 	QWidget *lRecoveryWidget = new QWidget;
+	lRecoveryWidget->setVisible(false);
 	QCheckBox *lRecoveryCheckBox = new QCheckBox;
 	lRecoveryCheckBox->setObjectName(QStringLiteral("kcfg_Generate recovery info"));
 
@@ -847,6 +848,7 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	connect(mVersionedRadio, SIGNAL(toggled(bool)), lRecoveryWidget, SLOT(setVisible(bool)));
 
 	QWidget *lVerificationWidget = new QWidget;
+	lVerificationWidget->setVisible(false);
 	QCheckBox *lVerificationCheckBox = new QCheckBox(xi18nc("@option:check", "Verify integrity of backups"));
 	lVerificationCheckBox->setObjectName(QStringLiteral("kcfg_Check backups"));
 
