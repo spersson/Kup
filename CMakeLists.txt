@@ -1,12 +1,22 @@
 cmake_minimum_required(VERSION 3.0)
 
-set(BUILD_SHARED_LIBS ON)
-add_subdirectory(libgit2-0.19.0)
-include_directories(${CMAKE_SOURCE_DIR}/libgit2-0.19.0/include)
-project(kup)
-
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+
+project(kup)
+
+# Use this option if you want to use the system LibGit2 library.
+# This is not recommended unless you know what you are doing.
+option(USE_SYSTEM_LIBGIT2 "Don't set this option unless your are sure that your system version of LibGit2 library is fully compatible with Kup." OFF)
+if (USE_SYSTEM_LIBGIT2)
+  find_package(LibGit2 REQUIRED)
+  set(libgit_link_name git2)
+else (USE_SYSTEM_LIBGIT2)
+  set(BUILD_SHARED_LIBS ON)
+  add_subdirectory(libgit2-0.19.0)
+  include_directories(${CMAKE_SOURCE_DIR}/libgit2-0.19.0/include)
+  set(libgit_link_name git24kup)
+endif (USE_SYSTEM_LIBGIT2)
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug" OR ${CMAKE_BUILD_TYPE} STREQUAL "DebugFull")
   message(WARNING "enabling debug output!")
