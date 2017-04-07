@@ -55,9 +55,7 @@ public slots:
 	void runIntegrityCheck(QString pPath);
 	void registerJob(KJob *pJob);
 	void unregisterJob(KJob *pJob);
-
-private slots:
-	void disableSessionManagement(QSessionManager &pManager);
+	void slotShutdownRequest(QSessionManager &pManager);
 
 private:
 	void setupExecutors();

@@ -65,13 +65,7 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
 	KDBusService lService(KDBusService::Unique);
 
 	lDaemon->setupGuiStuff();
-
-	// these calls will make session management not try (and fail because of KDBusService) to start
-	// this daemon. We have autostart for the purpose of launching this daemon instead.
-	lDaemon->connect(&lApp, SIGNAL(commitDataRequest(QSessionManager&)), lDaemon,
-	                 SLOT(disableSessionManagement(QSessionManager&)));
-	lDaemon->connect(&lApp, SIGNAL(saveStateRequest(QSessionManager&)), lDaemon,
-	                 SLOT(disableSessionManagement(QSessionManager&)));
+	lDaemon->connect(&lApp, &QApplication::commitDataRequest, lDaemon, &KupDaemon::slotShutdownRequest);
 
 	return lApp.exec();
 }

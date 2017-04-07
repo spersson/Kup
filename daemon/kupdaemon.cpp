@@ -27,6 +27,8 @@
 #include <QApplication>
 #include <QDBusConnection>
 #include <QMenu>
+#include <QMessageBox>
+#include <QPushButton>
 #include <QSessionManager>
 #include <QTimer>
 
@@ -179,8 +181,29 @@ void KupDaemon::unregisterJob(KJob *pJob) {
 	mJobTracker->unregisterJob(pJob);
 }
 
-void KupDaemon::disableSessionManagement(QSessionManager &pManager) {
+void KupDaemon::slotShutdownRequest(QSessionManager &pManager) {
+	// this will make session management not try (and fail because of KDBusService starting only
+	// one instance) to start this daemon. We have autostart for the purpose of launching this daemon instead.
 	pManager.setRestartHint(QSessionManager::RestartNever);
+
+
+	foreach(PlanExecutor *lExecutor, mExecutors) {
+		if(lExecutor->busy() && pManager.allowsErrorInteraction()) {
+			QMessageBox lMessageBox;
+			QPushButton *lContinueButton = lMessageBox.addButton(i18n("Continue"), QMessageBox::RejectRole);
+			lMessageBox.addButton(i18n("Stop"), QMessageBox::AcceptRole);
+			lMessageBox.setText(i18nc("%1 is a text explaining the current activity", "Currently busy: %1", lExecutor->currentActivityTitle()));
+			lMessageBox.setInformativeText(i18n("Do you really want to stop?"));
+			lMessageBox.setIcon(QMessageBox::Warning);
+			lMessageBox.setWindowIcon(QIcon::fromTheme(QStringLiteral("kup")));
+			lMessageBox.setWindowTitle(i18n("User Backups"));
+			lMessageBox.exec();
+			if(lMessageBox.clickedButton() == lContinueButton) {
+				pManager.cancel();
+			}
+			return; //only ask for one active executor.
+		}
+	}
 }
 
 void KupDaemon::setupExecutors() {
