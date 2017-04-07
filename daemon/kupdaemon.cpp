@@ -119,7 +119,9 @@ void KupDaemon::updateTrayIcon() {
 
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->mState != PlanExecutor::NOT_AVAILABLE) {
-			lStatus = KStatusNotifierItem::Active;
+			if(lExec->scheduleType() == BackupPlan::MANUAL) {
+				lStatus = KStatusNotifierItem::Active;
+			}
 			lToolTipTitle = xi18nc("@info:tooltip", "Backup destination available");
 		}
 	}
@@ -143,10 +145,9 @@ void KupDaemon::updateTrayIcon() {
 	}
 	foreach(PlanExecutor *lExecutor, mExecutors) {
 		if(lExecutor->busy()) {
-			lStatus = KStatusNotifierItem::NeedsAttention;
 			lToolTipIconName = QStringLiteral("kup");
 			lToolTipTitle = lExecutor->currentActivityTitle();
-			lToolTipSubTitle = lExecutor->mPlan->mDescription; // TODO: show percentage etc.
+			lToolTipSubTitle = lExecutor->mPlan->mDescription;
 		}
 	}
 	mStatusNotifier->setStatus(lStatus);
@@ -214,7 +215,6 @@ void KupDaemon::setupTrayIcon() {
 	mStatusNotifier->setCategory(KStatusNotifierItem::SystemServices);
 	mStatusNotifier->setStandardActionsEnabled(false);
 	mStatusNotifier->setTitle(xi18nc("@title:window", "Backups"));
-	mStatusNotifier->setAttentionMovieByName(QStringLiteral("kuprunning"));
 }
 
 void KupDaemon::setupContextMenu() {
