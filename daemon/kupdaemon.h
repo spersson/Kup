@@ -47,15 +47,15 @@ public:
 	virtual ~KupDaemon();
 	bool shouldStart();
 	void setupGuiStuff();
+	void slotShutdownRequest(QSessionManager &pManager);
+	void registerJob(KJob *pJob);
+	void unregisterJob(KJob *pJob);
 
 public slots:
 	void reloadConfig();
 	void showConfig();
 	void updateTrayIcon();
 	void runIntegrityCheck(QString pPath);
-	void registerJob(KJob *pJob);
-	void unregisterJob(KJob *pJob);
-	void slotShutdownRequest(QSessionManager &pManager);
 
 private:
 	void setupExecutors();

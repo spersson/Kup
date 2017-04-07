@@ -65,7 +65,9 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
 	KDBusService lService(KDBusService::Unique);
 
 	lDaemon->setupGuiStuff();
-	lDaemon->connect(&lApp, &QApplication::commitDataRequest, lDaemon, &KupDaemon::slotShutdownRequest);
+	lDaemon->connect(&lApp, &QApplication::commitDataRequest, [=](QSessionManager &pManager) {
+		lDaemon->slotShutdownRequest(pManager);
+	});
 
 	return lApp.exec();
 }
