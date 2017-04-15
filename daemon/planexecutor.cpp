@@ -231,7 +231,7 @@ void PlanExecutor::showLog() {
 }
 
 void PlanExecutor::startIntegrityCheck() {
-	if(mPlan->mBackupType != BackupPlan::BupType || busy() || mState == NOT_AVAILABLE) {
+	if(mPlan->mBackupType != BackupPlan::BupType || busy() || !destinationAvailable()) {
 		return;
 	}
 	KJob *lJob = new BupVerificationJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
@@ -244,7 +244,7 @@ void PlanExecutor::startIntegrityCheck() {
 }
 
 void PlanExecutor::startRepairJob() {
-	if(mPlan->mBackupType != BackupPlan::BupType || busy() || mState == NOT_AVAILABLE) {
+	if(mPlan->mBackupType != BackupPlan::BupType || busy() || !destinationAvailable()) {
 		return;
 	}
 	KJob *lJob = new BupRepairJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
@@ -253,6 +253,13 @@ void PlanExecutor::startRepairJob() {
 	mLastState = mState;
 	mState = REPAIRING;
 	emit stateChanged();
+}
+
+void PlanExecutor::startBackupSaveJob() {
+	if(busy() || !destinationAvailable()) {
+		return;
+	}
+	enterBackupRunningState();
 	mRunBackupAction->setEnabled(false);
 }
 

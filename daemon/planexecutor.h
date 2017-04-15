@@ -55,6 +55,9 @@ public:
 	bool busy() {
 		return mState == BACKUP_RUNNING || mState == INTEGRITY_TESTING || mState == REPAIRING;
 	}
+	bool destinationAvailable() {
+		return mState != NOT_AVAILABLE;
+	}
 
 	QString currentActivityTitle();
 
@@ -73,6 +76,8 @@ public slots:
 	void updateAccumulatedUsageTime();
 	void startIntegrityCheck();
 	void startRepairJob();
+	void startBackupSaveJob();
+	void showLog();
 
 signals:
 	void stateChanged();
@@ -94,7 +99,6 @@ protected slots:
 
 	void notifyBackupSucceeded();
 
-	void showLog();
 	void integrityCheckFinished(KJob *pJob);
 	void discardIntegrityNotification();
 	void repairFinished(KJob *pJob);
