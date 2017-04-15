@@ -67,7 +67,7 @@ private:
 	QList<PlanExecutor *> mExecutors;
 	KStatusNotifierItem *mStatusNotifier;
 	QMenu *mContextMenu;
-	QTimer *mUsageAccumulatorTimer;
+	QTimer *mUsageAccTimer;
 	bool mWaitingToReloadConfig;
 	KUiServerJobTracker *mJobTracker;
 };

@@ -62,13 +62,14 @@ bool KupDaemon::shouldStart() {
 void KupDaemon::setupGuiStuff() {
 	// timer to update logged time and also trigger warning if too long
 	// time has now passed since last backup
-	mUsageAccumulatorTimer = new QTimer(this);
-	mUsageAccumulatorTimer->setInterval(KUP_USAGE_MONITOR_INTERVAL_S * 1000);
-	mUsageAccumulatorTimer->start();
-	KIdleTime::instance()->addIdleTimeout(KUP_IDLE_TIMEOUT_S * 1000);
-	connect(KIdleTime::instance(), SIGNAL(timeoutReached(int)), mUsageAccumulatorTimer, SLOT(stop()));
-	connect(KIdleTime::instance(), SIGNAL(timeoutReached(int)), KIdleTime::instance(), SLOT(catchNextResumeEvent()));
-	connect(KIdleTime::instance(), SIGNAL(resumingFromIdle()), mUsageAccumulatorTimer, SLOT(start()));
+	mUsageAccTimer = new QTimer(this);
+	mUsageAccTimer->setInterval(KUP_USAGE_MONITOR_INTERVAL_S * 1000);
+	mUsageAccTimer->start();
+	KIdleTime *lIdleTime = KIdleTime::instance();
+	lIdleTime->addIdleTimeout(KUP_IDLE_TIMEOUT_S * 1000);
+	connect(lIdleTime, SIGNAL(timeoutReached(int)), mUsageAccTimer, SLOT(stop()));
+	connect(lIdleTime, SIGNAL(timeoutReached(int)), lIdleTime, SLOT(catchNextResumeEvent()));
+	connect(lIdleTime, SIGNAL(resumingFromIdle()), mUsageAccTimer, SLOT(start()));
 
 	setupTrayIcon();
 	setupExecutors();
@@ -222,14 +223,14 @@ void KupDaemon::setupExecutors() {
 			delete lPlan;
 			continue;
 		}
-		//... add other types here
+		connect(mUsageAccTimer, &QTimer::timeout,
+		        lExecutor, &PlanExecutor::updateAccumulatedUsageTime);
 		mExecutors.append(lExecutor);
 	}
 	foreach(PlanExecutor *lExecutor, mExecutors) {
 		lExecutor->checkStatus(); //connect after to trigger less updates here, do one check after instead.
 		connect(lExecutor, SIGNAL(stateChanged()), SLOT(updateTrayIcon()));
 		connect(lExecutor, SIGNAL(backupStatusChanged()), SLOT(updateTrayIcon()));
-		connect(mUsageAccumulatorTimer, SIGNAL(timeout()), lExecutor, SLOT(updateAccumulatedUsageTime()));
 	}
 }
 
