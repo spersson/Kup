@@ -85,11 +85,11 @@ PlanExecutor::~PlanExecutor() {
 QString PlanExecutor::currentActivityTitle() {
 	switch(mState) {
 	case BACKUP_RUNNING:
-		return xi18nc("@info:tooltip", "Taking new backup");
+		return i18nc("status in tooltip", "Saving new backup");
 	case INTEGRITY_TESTING:
-		return xi18nc("@info:tooltip", "Checking backup integrity");
+		return i18nc("status in tooltip", "Checking backup integrity");
 	case REPAIRING:
-		return xi18nc("@info:tooltip", "Repairing backups");
+		return i18nc("status in tooltip", "Repairing backups");
 	default:
 		return QString();
 	}
@@ -118,11 +118,11 @@ void PlanExecutor::enterAvailableState() {
 		if(!lNextTime.isValid() || lNextTime < lNow) {
 			lShouldBeTakenNow = true;
 			if(!mPlan->mLastCompleteBackup.isValid())
-				lUserQuestion = xi18nc("@info", "Do you want to take a first backup now?");
+				lUserQuestion = xi18nc("@info", "Do you want to save a first backup now?");
 			else {
 				QString t = KFormat().formatSpelloutDuration(mPlan->mLastCompleteBackup.secsTo(lNow) * 1000);
-				lUserQuestion = xi18nc("@info", "It's been %1 since the last backup was taken, "
-				                     "do you want to take a backup now?", t);
+				lUserQuestion = xi18nc("@info", "It has been %1 since last backup was saved.\n"
+				                                "Save a new backup now?", t);
 			}
 		} else {
 			lShouldBeTakenLater = true;
@@ -133,12 +133,12 @@ void PlanExecutor::enterAvailableState() {
 	case BackupPlan::USAGE:
 		if(!mPlan->mLastCompleteBackup.isValid()) {
 			lShouldBeTakenNow = true;
-			lUserQuestion = xi18nc("@info", "Do you want to take a first backup now?");
+			lUserQuestion = xi18nc("@info", "Do you want to save a first backup now?");
 		} else if(mPlan->mAccumulatedUsageTime > (quint32)mPlan->mUsageLimit * 3600) {
 			lShouldBeTakenNow = true;
 			QString t = KFormat().formatSpelloutDuration(mPlan->mAccumulatedUsageTime * 1000);
-			lUserQuestion = xi18nc("@info", "You've been active with this computer for %1 since the last backup was taken, "
-			                     "do you want to take a backup now?", t);
+			lUserQuestion = xi18nc("@info", "You have been active for %1 since last backup was saved.\n"
+			                                "Save a new backup now?", t);
 		}
 		break;
 	}
