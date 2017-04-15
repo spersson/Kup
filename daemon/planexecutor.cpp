@@ -167,7 +167,7 @@ void PlanExecutor::enterNotAvailableState() {
 void PlanExecutor::askUser(const QString &pQuestion) {
 	discardUserQuestion();
 	mQuestion = new KNotification(QStringLiteral("StartBackup"), KNotification::Persistent);
-	mQuestion->setTitle(xi18nc("@title:window", "Backup Device Available - %1", mPlan->mDescription));
+	mQuestion->setTitle(mPlan->mDescription);
 	mQuestion->setText(pQuestion);
 	QStringList lAnswers;
 	lAnswers << xi18nc("@action:button", "Yes") << xi18nc("@action:button", "No");
