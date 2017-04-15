@@ -51,9 +51,6 @@ public slots:
 signals:
 	void removeMe();
 	void configureMe();
-
-protected:
-	QString statusText();
 };
 
 

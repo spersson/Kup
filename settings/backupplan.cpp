@@ -25,6 +25,7 @@
 #include <QStandardPaths>
 #include <QString>
 
+#include <KFormat>
 #include <KLocalizedString>
 
 BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent)
@@ -175,3 +176,28 @@ void BackupPlan::usrRead() {
 	}
 }
 
+QString BackupPlan::statusText() {
+	QLocale lLocale;
+	KFormat lFormat(lLocale);
+	QString lStatus;
+	if(mLastCompleteBackup.isValid()) {
+		QDateTime lLocalTime = mLastCompleteBackup.toLocalTime();
+
+		lStatus += i18nc("%1 is fancy formatted date", "Last saved: %1",
+		                 lFormat.formatRelativeDate(lLocalTime.date(), QLocale::LongFormat));
+
+		if(mLastBackupSize > 0.0) {
+			lStatus += '\n';
+			lStatus += i18nc("%1 is storage size of archive", "Size: %1",
+			                 lFormat.formatByteSize(mLastBackupSize));
+		}
+		if(mLastAvailableSpace > 0.0) {
+			lStatus += '\n';
+			lStatus += i18nc("%1 is free storage space", "Free space: %1",
+			                 lFormat.formatByteSize(mLastAvailableSpace));
+		}
+	} else {
+		lStatus = xi18nc("@label", "This backup plan has never been run.");
+	}
+	return lStatus;
+}

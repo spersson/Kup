@@ -32,7 +32,7 @@ public:
 	BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pParent = 0);
 	int planNumber() const {return mPlanNumber;}
 	virtual void setPlanNumber(int pPlanNumber);
-
+	QString statusText();
 	void removePlanFromConfig();
 
 	QString mDescription;
