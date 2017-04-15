@@ -41,7 +41,7 @@ public:
 
 public slots:
 	virtual void checkStatus();
-	virtual void showFilesClicked();
+	virtual void showBackupFiles();
 
 protected slots:
 	void deviceAdded(const QString &pUdi);

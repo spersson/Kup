@@ -90,7 +90,7 @@ void EDExecutor::updateAccessibility() {
 	if(mWantsToRunBackup) {
 		startBackup(); // run startBackup again now that it has been mounted
 	} else if(mWantsToShowFiles) {
-		showFilesClicked();
+		showBackupFiles();
 	}
 }
 
@@ -167,7 +167,7 @@ void EDExecutor::slotBackupSizeDone(KJob *pJob) {
 	exitBackupRunningState(pJob->error() == 0);
 }
 
-void EDExecutor::showFilesClicked() {
+void EDExecutor::showBackupFiles() {
 	if(!mStorageAccess)
 		return;
 
@@ -179,7 +179,7 @@ void EDExecutor::showFilesClicked() {
 			QFileInfo lDestinationInfo(mDestinationPath);
 			if(lDestinationInfo.exists() && lDestinationInfo.isDir()) {
 				mWantsToShowFiles = false; //reset, only used to retrigger this state-entering if drive wasn't already mounted
-				PlanExecutor::showFilesClicked();
+				PlanExecutor::showBackupFiles();
 			}
 		}
 	} else { //not mounted yet. trigger mount and come back to this startBackup again later

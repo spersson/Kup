@@ -371,7 +371,7 @@ void PlanExecutor::updateAccumulatedUsageTime() {
 	}
 }
 
-void PlanExecutor::showFilesClicked() {
+void PlanExecutor::showBackupFiles() {
 	if(mState == NOT_AVAILABLE)
 		return;
 	if(mPlan->mBackupType == BackupPlan::BupType) {

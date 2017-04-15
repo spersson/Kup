@@ -69,7 +69,7 @@ public:
 
 public slots:
 	virtual void checkStatus() = 0;
-	virtual void showFilesClicked();
+	virtual void showBackupFiles();
 	void updateAccumulatedUsageTime();
 	void startIntegrityCheck();
 	void startRepairJob();
