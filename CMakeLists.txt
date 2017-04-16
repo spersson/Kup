@@ -46,14 +46,18 @@ DBusAddons
 Config
 Init # needed for the kdeinit cmake macro
 JobWidgets
+Plasma
 )
 
 add_subdirectory(daemon)
+add_subdirectory(dataengine)
 add_subdirectory(icons)
 add_subdirectory(filedigger)
 add_subdirectory(kcm)
 add_subdirectory(kioslave)
 add_subdirectory(po)
+
+plasma_install_package(plasmoid org.kde.kupapplet)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

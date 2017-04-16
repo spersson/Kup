@@ -32,8 +32,6 @@ class KRun;
 class KNotification;
 class KProcess;
 
-class QAction;
-class QMenu;
 class QTimer;
 
 // Accumulate usage time every KUP_USAGE_MONITOR_INTERVAL_S while user is active.
@@ -68,7 +66,6 @@ public:
 	QString mDestinationPath;
 	QString mLogFilePath;
 	BackupPlan *mPlan;
-	QMenu *mActionMenu;
 
 public slots:
 	virtual void checkStatus() = 0;
@@ -107,9 +104,6 @@ protected slots:
 protected:
 	BackupJob *createBackupJob();
 
-	QAction *mShowFilesAction;
-	QAction *mRunBackupAction;
-	QAction *mShowLogFileAction;
 	KNotification *mQuestion;
 	QTimer *mSchedulingTimer;
 	KNotification *mFailNotification;

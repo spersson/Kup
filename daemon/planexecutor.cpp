@@ -25,9 +25,7 @@
 #include "kupdaemon.h"
 #include "rsyncjob.h"
 
-#include <QAction>
 #include <QDir>
-#include <QMenu>
 #include <QTimer>
 
 #include <KFormat>
@@ -57,23 +55,6 @@ PlanExecutor::PlanExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
 	mLogFilePath.append(QString::number(mPlan->planNumber()));
 	mLogFilePath.append(QStringLiteral(".log"));
 
-	mRunBackupAction = new QAction(xi18nc("@action:inmenu", "Take Backup Now"), this);
-	mRunBackupAction->setEnabled(false);
-	connect(mRunBackupAction, SIGNAL(triggered()), SLOT(enterBackupRunningState()));
-
-	mShowFilesAction = new QAction(xi18nc("@action:inmenu", "Show Files"), this);
-	mShowFilesAction->setEnabled(false);
-	connect(mShowFilesAction, SIGNAL(triggered()), SLOT(showFilesClicked()));
-
-	mShowLogFileAction = new QAction(xi18nc("@action:inmenu", "Show Log File"), this);
-	mShowLogFileAction->setEnabled(QFileInfo(mLogFilePath).exists());
-	connect(mShowLogFileAction, SIGNAL(triggered()), SLOT(showLog()));
-
-	mActionMenu = new QMenu(mPlan->mDescription);
-	mActionMenu->addAction(mRunBackupAction);
-	mActionMenu->addAction(mShowFilesAction);
-	mActionMenu->addAction(mShowLogFileAction);
-
 	mSchedulingTimer = new QTimer(this);
 	mSchedulingTimer->setSingleShot(true);
 	connect(mSchedulingTimer, SIGNAL(timeout()), SLOT(enterAvailableState()));
@@ -91,15 +72,22 @@ QString PlanExecutor::currentActivityTitle() {
 	case REPAIRING:
 		return i18nc("status in tooltip", "Repairing backups");
 	default:
-		return QString();
+		switch (mPlan->backupStatus()) {
+		case BackupPlan::GOOD:
+			return i18nc("status in tooltip", "Backup status OK");
+		case BackupPlan::MEDIUM:
+			return i18nc("status in tooltip", "New backup suggested");
+		case BackupPlan::BAD:
+			return i18nc("status in tooltip", "New backup neeeded");
+		default:
+			return QString();
+		}
 	}
 }
 
 // dispatcher code for entering one of the available states
 void PlanExecutor::enterAvailableState() {
 	if(mState == NOT_AVAILABLE) {
-		mShowFilesAction->setEnabled(true);
-		mRunBackupAction->setEnabled(true);
 		mState = WAITING_FOR_FIRST_BACKUP; //initial child state of "Available" state
 		emit stateChanged();
 	}
@@ -158,8 +146,6 @@ void PlanExecutor::enterAvailableState() {
 
 void PlanExecutor::enterNotAvailableState() {
 	mSchedulingTimer->stop();
-	mShowFilesAction->setEnabled(false);
-	mRunBackupAction->setEnabled(false);
 	mState = NOT_AVAILABLE;
 	emit stateChanged();
 }
@@ -240,7 +226,6 @@ void PlanExecutor::startIntegrityCheck() {
 	mLastState = mState;
 	mState = INTEGRITY_TESTING;
 	emit stateChanged();
-	mRunBackupAction->setEnabled(false);
 }
 
 void PlanExecutor::startRepairJob() {
@@ -260,7 +245,6 @@ void PlanExecutor::startBackupSaveJob() {
 		return;
 	}
 	enterBackupRunningState();
-	mRunBackupAction->setEnabled(false);
 }
 
 void PlanExecutor::integrityCheckFinished(KJob *pJob) {
@@ -288,7 +272,6 @@ void PlanExecutor::integrityCheckFinished(KJob *pJob) {
 		mState = mLastState;
 	}
 	emit stateChanged();
-	mRunBackupAction->setEnabled(true);
 }
 
 void PlanExecutor::discardIntegrityNotification() {
@@ -315,7 +298,6 @@ void PlanExecutor::repairFinished(KJob *pJob) {
 		mState = mLastState;
 	}
 	emit stateChanged();
-	mRunBackupAction->setEnabled(true);
 }
 
 void PlanExecutor::discardRepairNotification() {
@@ -329,13 +311,10 @@ void PlanExecutor::enterBackupRunningState() {
 	discardUserQuestion();
 	mState = BACKUP_RUNNING;
 	emit stateChanged();
-	mRunBackupAction->setEnabled(false);
 	startBackup();
 }
 
 void PlanExecutor::exitBackupRunningState(bool pWasSuccessful) {
-	mRunBackupAction->setEnabled(true);
-	mShowLogFileAction->setEnabled(QFileInfo(mLogFilePath).exists());
 	if(pWasSuccessful) {
 		if(mPlan->mScheduleType == BackupPlan::USAGE) {
 			//reset usage time after successful backup

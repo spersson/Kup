@@ -18,6 +18,12 @@ rm kcm/kcm_kup.desktop.template.h
 intltool-extract --quiet --type=gettext/ini daemon/kupdaemon.notifyrc.template
 cat daemon/kupdaemon.notifyrc.template.h >> ${WDIR}/rc.cpp
 rm daemon/kupdaemon.notifyrc.template.h
+intltool-extract --quiet --type=gettext/ini dataengine/plasma-dataengine-kup.desktop.template
+cat dataengine/plasma-dataengine-kup.desktop.template.h >> ${WDIR}/rc.cpp
+rm dataengine/plasma-dataengine-kup.desktop.template.h
+intltool-extract --quiet --type=gettext/ini plasmoid/metadata.desktop.template
+cat plasmoid/metadata.desktop.template.h >> ${WDIR}/rc.cpp
+rm plasmoid/metadata.desktop.template.h
 
 cd ${WDIR}
 echo "Done preparing rc files"
@@ -26,10 +32,10 @@ echo "Done preparing rc files"
 echo "Extracting messages"
 cd ${BASEDIR}
 # see above on sorting
-find . -name 'libgit2*' -prune -o '(' -name '*.cpp' -o -name '*.h' -o -name '*.c' ')' -print | sort > ${WDIR}/infiles.list
+find . -name 'libgit2*' -prune -o '(' -name '*.cpp' -o -name '*.h' -o -name '*.qml' ')' -print | sort > ${WDIR}/infiles.list
 echo "rc.cpp" >> ${WDIR}/infiles.list
 cd ${WDIR}
-xgettext --from-code=UTF-8 -C -kde -ci18n -ki18n:1 -ki18nc:1c,2 -ki18np:1,2 -ki18ncp:1c,2,3 -ktr2i18n:1 \
+xgettext --from-code=UTF-8 -C --kde -ci18n -ki18n:1 -ki18nc:1c,2 -ki18np:1,2 -ki18ncp:1c,2,3 -ktr2i18n:1 \
 	-kI18N_NOOP:1 -kI18N_NOOP2:1c,2 -kaliasLocale -kki18n:1 -kki18nc:1c,2 -kki18np:1,2 -kki18ncp:1c,2,3 \
 	-kN_:1 -kxi18nc:1c,2 -kxi18ncp:1c,2,3 --msgid-bugs-address="${BUGADDR}" \
 	--files-from=infiles.list -D ${BASEDIR} -D ${WDIR} -o ${PROJECT}.pot || { echo "error while calling xgettext. aborting."; exit 1; }
@@ -46,6 +52,8 @@ done
 cd ${WDIR}
 intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/kcm/kcm_kup.desktop.template ${BASEDIR}/kcm/kcm_kup.desktop
 intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/daemon/kupdaemon.notifyrc.template ${BASEDIR}/daemon/kupdaemon.notifyrc
+intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/dataengine/plasma-dataengine-kup.desktop.template ${BASEDIR}/dataengine/plasma-dataengine-kup.desktop
+intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/plasmoid/metadata.desktop.template ${BASEDIR}/plasmoid/metadata.desktop
 echo "Done merging translations"
 
 

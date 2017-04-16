@@ -18,56 +18,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef KUPDAEMON_H
-#define KUPDAEMON_H
+#ifndef KUPJOB_H
+#define KUPJOB_H
 
-#include <KSharedConfig>
+#include <Plasma/ServiceJob>
 
-#define KUP_DBUS_SERVICE_NAME QStringLiteral("org.kde.kupdaemon")
-#define KUP_DBUS_OBJECT_PATH QStringLiteral("/DaemonControl")
-
-class KupSettings;
-class PlanExecutor;
-
-class KJob;
-class KUiServerJobTracker;
-
-class QLocalServer;
 class QLocalSocket;
-class QSessionManager;
-class QTimer;
 
-class KupDaemon : public QObject
+class KupJob : public Plasma::ServiceJob
 {
 	Q_OBJECT
 
 public:
-	KupDaemon();
-	virtual ~KupDaemon();
-	bool shouldStart();
-	void setupGuiStuff();
-	void slotShutdownRequest(QSessionManager &pManager);
-	void registerJob(KJob *pJob);
-	void unregisterJob(KJob *pJob);
+	KupJob(int pPlanNumber, QLocalSocket *pSocket, const QString &pOperation,
+	       QMap<QString, QVariant> &pParameters, QObject *pParent = 0);
 
-public slots:
-	void reloadConfig();
-	void runIntegrityCheck(QString pPath);
-
-private:
-	void setupExecutors();
-	void handleRequests(QLocalSocket *pSocket);
-	void sendStatus(QLocalSocket *pSocket);
-
-	KSharedConfigPtr mConfig;
-	KupSettings *mSettings;
-	QList<PlanExecutor *> mExecutors;
-	QTimer *mUsageAccTimer;
-	QTimer *mStatusUpdateTimer;
-	bool mWaitingToReloadConfig;
-	KUiServerJobTracker *mJobTracker;
-	QLocalServer *mLocalServer;
-	QList<QLocalSocket *> mSockets;
+protected:
+	void start() override;
+	QLocalSocket *mSocket;
+	int mPlanNumber;
 };
 
-#endif /*KUPDAEMON_H*/
+#endif

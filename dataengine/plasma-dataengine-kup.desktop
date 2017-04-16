@@ -1,0 +1,31 @@
+[Desktop Entry]
+Type=Service
+Icon=kup
+
+X-KDE-ServiceTypes=Plasma/DataEngine
+X-KDE-Library=plasma_engine_kup
+
+X-KDE-PluginInfo-Author=Simon Persson
+X-KDE-PluginInfo-Email=simon.persson@mykolab.com
+X-KDE-PluginInfo-Name=backups
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://github.com/spersson/kup
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+
+Name=Backups
+Name[bs_BA]=Backupi
+Name[de]=Datensicherungen
+Name[es]=Copias de seguridad
+Name[fr_FR]=Sauvegardes
+Name[it]=Backup
+Name[lt_LT]=Atsarginės kopijos
+Name[pl]=Kopie zapasowe
+Name[pt_BR]=Backups
+Name[ru]=Резервные копии
+Name[sv]=Säkerhetskopior
+Name[tl]=Mga seguridad na kopya
+Name[zh_TW]=備份
+Comment=Status of backup plans

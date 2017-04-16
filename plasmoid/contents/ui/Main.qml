@@ -18,56 +18,54 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef KUPDAEMON_H
-#define KUPDAEMON_H
+import QtQuick 2.0
+import org.kde.plasma.plasmoid 2.0
+import org.kde.plasma.core 2.0 as PlasmaCore
 
-#include <KSharedConfig>
+Item {
+	Plasmoid.switchWidth: units.gridUnit * 10
+	Plasmoid.switchHeight: units.gridUnit * 10
+	Plasmoid.toolTipMainText: getCommonStatus("tooltip title", "Error")
+	Plasmoid.toolTipSubText: getCommonStatus("tooltip subtitle", "No connection")
+	Plasmoid.icon: getCommonStatus("tooltip icon name", "kup")
+	Plasmoid.status: getCommonStatus("tray icon active", false)
+						  ? PlasmaCore.Types.ActiveStatus
+						  : PlasmaCore.Types.PassiveStatus
 
-#define KUP_DBUS_SERVICE_NAME QStringLiteral("org.kde.kupdaemon")
-#define KUP_DBUS_OBJECT_PATH QStringLiteral("/DaemonControl")
+	PlasmaCore.DataSource {
+		id: backupPlans
+		engine: "backups"
+		connectedSources: sources
 
-class KupSettings;
-class PlanExecutor;
+		onSourceAdded: {
+			disconnectSource(source);
+			connectSource(source);
+		}
+		onSourceRemoved: {
+			disconnectSource(source);
+		}
+	}
 
-class KJob;
-class KUiServerJobTracker;
 
-class QLocalServer;
-class QLocalSocket;
-class QSessionManager;
-class QTimer;
+	function getCommonStatus(key, def){
+		var result = backupPlans.data["common"][key];
+		if(result === undefined) {
+			result = def;
+		}
+		return result;
+	}
 
-class KupDaemon : public QObject
-{
-	Q_OBJECT
+	property int planCount: backupPlans.data["common"]["plan count"]
 
-public:
-	KupDaemon();
-	virtual ~KupDaemon();
-	bool shouldStart();
-	void setupGuiStuff();
-	void slotShutdownRequest(QSessionManager &pManager);
-	void registerJob(KJob *pJob);
-	void unregisterJob(KJob *pJob);
+	Plasmoid.fullRepresentation: FullRepresentation {}
+	Plasmoid.compactRepresentation: PlasmaCore.IconItem {
+		source: "kup"
+		width: units.iconSizes.medium;
+		height: units.iconSizes.medium;
 
-public slots:
-	void reloadConfig();
-	void runIntegrityCheck(QString pPath);
-
-private:
-	void setupExecutors();
-	void handleRequests(QLocalSocket *pSocket);
-	void sendStatus(QLocalSocket *pSocket);
-
-	KSharedConfigPtr mConfig;
-	KupSettings *mSettings;
-	QList<PlanExecutor *> mExecutors;
-	QTimer *mUsageAccTimer;
-	QTimer *mStatusUpdateTimer;
-	bool mWaitingToReloadConfig;
-	KUiServerJobTracker *mJobTracker;
-	QLocalServer *mLocalServer;
-	QList<QLocalSocket *> mSockets;
-};
-
-#endif /*KUPDAEMON_H*/
+		MouseArea {
+			anchors.fill: parent
+			onClicked: plasmoid.expanded = !plasmoid.expanded
+		}
+	}
+}

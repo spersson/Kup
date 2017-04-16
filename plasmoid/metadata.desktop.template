@@ -1,0 +1,24 @@
+[Desktop Entry]
+Type=Service
+Icon=kup
+
+X-KDE-PluginInfo-Author=Simon Persson
+X-KDE-PluginInfo-Email=simon.persson@mykolab.com
+X-KDE-PluginInfo-Name=org.kde.kupapplet
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=http://github.com/spersson/kup
+X-KDE-PluginInfo-Category=System Information
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+
+X-KDE-ServiceTypes=Plasma/Applet
+
+X-Plasma-API=declarativeappletscript
+X-Plasma-MainScript=ui/Main.qml
+X-Plasma-NotificationArea=true
+X-Plasma-NotificationAreaCategory=SystemServices
+X-Plasma-DBusActivationService=org.kde.kupdaemon
+
+_Name=Backup Status
+_Comment=Displays status of backup plans
