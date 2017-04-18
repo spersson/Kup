@@ -106,6 +106,7 @@ protected slots:
 
 protected:
 	BackupJob *createBackupJob();
+	bool powerSaveActive();
 
 	KNotification *mQuestion;
 	QTimer *mSchedulingTimer;

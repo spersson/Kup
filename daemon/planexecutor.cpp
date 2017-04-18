@@ -38,6 +38,7 @@
 static QString sPwrMgmtServiceName = QStringLiteral("org.freedesktop.PowerManagement");
 static QString sPwrMgmtPath = QStringLiteral("/org/freedesktop/PowerManagement");
 static QString sPwrMgmtInhibitInterface = QStringLiteral("org.freedesktop.PowerManagement.Inhibit");
+static QString sPwrMgmtInterface = QStringLiteral("org.freedesktop.PowerManagement");
 
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
    :QObject(pKupDaemon), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL),
@@ -138,8 +139,10 @@ void PlanExecutor::enterAvailableState() {
 	}
 
 	if(lShouldBeTakenNow) {
-		// only ask the first time after destination has become available
-		if(mPlan->mAskBeforeTakingBackup && mState == WAITING_FOR_FIRST_BACKUP) {
+		// Only ask the first time after destination has become available.
+		// Always ask if power saving is active.
+		if( (mPlan->mAskBeforeTakingBackup && mState == WAITING_FOR_FIRST_BACKUP) ||
+		    powerSaveActive()) {
 			askUser(lUserQuestion);
 		} else {
 			enterBackupRunningState();
@@ -417,4 +420,13 @@ BackupJob *PlanExecutor::createBackupJob() {
 	}
 	qWarning("Invalid backup type in configuration!");
 	return NULL;
+}
+
+bool PlanExecutor::powerSaveActive() {
+	QDBusMessage lMsg = QDBusMessage::createMethodCall(sPwrMgmtServiceName,
+	                                                   sPwrMgmtPath,
+	                                                   sPwrMgmtInterface,
+	                                                   QStringLiteral("GetPowerSaveStatus"));
+	QDBusReply<bool> lReply = QDBusConnection::sessionBus().call(lMsg);
+	return lReply.value();
 }
