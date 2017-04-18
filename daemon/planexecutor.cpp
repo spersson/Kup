@@ -25,6 +25,8 @@
 #include "kupdaemon.h"
 #include "rsyncjob.h"
 
+#include <QDBusConnection>
+#include <QDBusReply>
 #include <QDir>
 #include <QTimer>
 
@@ -33,10 +35,14 @@
 #include <KNotification>
 #include <KRun>
 
+static QString sPwrMgmtServiceName = QStringLiteral("org.freedesktop.PowerManagement");
+static QString sPwrMgmtPath = QStringLiteral("/org/freedesktop/PowerManagement");
+static QString sPwrMgmtInhibitInterface = QStringLiteral("org.freedesktop.PowerManagement.Inhibit");
+
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
    :QObject(pKupDaemon), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL),
      mFailNotification(NULL), mIntegrityNotification(NULL), mRepairNotification(NULL),
-     mKupDaemon(pKupDaemon)
+     mKupDaemon(pKupDaemon), mSleepCookie(0)
 {
 	QString lCachePath = QString::fromLocal8Bit(qgetenv("XDG_CACHE_HOME").constData());
 	if(lCachePath.isEmpty()) {
@@ -226,6 +232,7 @@ void PlanExecutor::startIntegrityCheck() {
 	mLastState = mState;
 	mState = INTEGRITY_TESTING;
 	emit stateChanged();
+	startSleepInhibit();
 }
 
 void PlanExecutor::startRepairJob() {
@@ -238,6 +245,7 @@ void PlanExecutor::startRepairJob() {
 	mLastState = mState;
 	mState = REPAIRING;
 	emit stateChanged();
+	startSleepInhibit();
 }
 
 void PlanExecutor::startBackupSaveJob() {
@@ -248,6 +256,7 @@ void PlanExecutor::startBackupSaveJob() {
 }
 
 void PlanExecutor::integrityCheckFinished(KJob *pJob) {
+	endSleepInhibit();
 	discardIntegrityNotification();
 	mIntegrityNotification = new KNotification(QStringLiteral("IntegrityCheckCompleted"), KNotification::Persistent);
 	mIntegrityNotification->setTitle(xi18nc("@title:window", "Integrity Check Completed"));
@@ -282,6 +291,7 @@ void PlanExecutor::discardIntegrityNotification() {
 }
 
 void PlanExecutor::repairFinished(KJob *pJob) {
+	endSleepInhibit();
 	discardRepairNotification();
 	mRepairNotification = new KNotification(QStringLiteral("RepairCompleted"), KNotification::Persistent);
 	mRepairNotification->setTitle(xi18nc("@title:window", "Repair Completed"));
@@ -307,14 +317,43 @@ void PlanExecutor::discardRepairNotification() {
 	}
 }
 
+void PlanExecutor::startSleepInhibit() {
+	if(mSleepCookie != 0) {
+		return;
+	}
+	QDBusMessage lMsg = QDBusMessage::createMethodCall(sPwrMgmtServiceName,
+	                                                   sPwrMgmtPath,
+	                                                   sPwrMgmtInhibitInterface,
+	                                                   QStringLiteral("Inhibit"));
+	lMsg << i18n("Kup Backup System");
+	lMsg << currentActivityTitle();
+	QDBusReply<uint> lReply = QDBusConnection::sessionBus().call(lMsg);
+	mSleepCookie = lReply.value();
+}
+
+void PlanExecutor::endSleepInhibit() {
+	if(mSleepCookie == 0) {
+		return;
+	}
+	QDBusMessage lMsg = QDBusMessage::createMethodCall(sPwrMgmtServiceName,
+	                                                  sPwrMgmtPath,
+	                                                  sPwrMgmtInhibitInterface,
+	                                                  QStringLiteral("UnInhibit"));
+	lMsg << mSleepCookie;
+	QDBusConnection::sessionBus().asyncCall(lMsg);
+	mSleepCookie = 0;
+}
+
 void PlanExecutor::enterBackupRunningState() {
 	discardUserQuestion();
 	mState = BACKUP_RUNNING;
 	emit stateChanged();
+	startSleepInhibit();
 	startBackup();
 }
 
 void PlanExecutor::exitBackupRunningState(bool pWasSuccessful) {
+	endSleepInhibit();
 	if(pWasSuccessful) {
 		if(mPlan->mScheduleType == BackupPlan::USAGE) {
 			//reset usage time after successful backup

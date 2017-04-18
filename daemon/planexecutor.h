@@ -101,6 +101,9 @@ protected slots:
 	void repairFinished(KJob *pJob);
 	void discardRepairNotification();
 
+	void startSleepInhibit();
+	void endSleepInhibit();
+
 protected:
 	BackupJob *createBackupJob();
 
@@ -111,6 +114,7 @@ protected:
 	KNotification *mRepairNotification;
 	ExecutorState mLastState;
 	KupDaemon *mKupDaemon;
+	uint mSleepCookie;
 };
 
 #endif // PLANEXECUTOR_H
