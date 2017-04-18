@@ -145,7 +145,7 @@ void PlanExecutor::enterAvailableState() {
 		    powerSaveActive()) {
 			askUser(lUserQuestion);
 		} else {
-			enterBackupRunningState();
+			startBackupSaveJob();
 		}
 	} else if(lShouldBeTakenLater){
 		// schedule a wakeup for asking again when the time is right.
@@ -167,7 +167,7 @@ void PlanExecutor::askUser(const QString &pQuestion) {
 	QStringList lAnswers;
 	lAnswers << xi18nc("@action:button", "Yes") << xi18nc("@action:button", "No");
 	mQuestion->setActions(lAnswers);
-	connect(mQuestion, SIGNAL(action1Activated()), SLOT(enterBackupRunningState()));
+	connect(mQuestion, SIGNAL(action1Activated()), SLOT(startBackupSaveJob()));
 	connect(mQuestion, SIGNAL(action2Activated()), SLOT(discardUserQuestion()));
 	connect(mQuestion, SIGNAL(closed()), SLOT(discardUserQuestion()));
 	connect(mQuestion, SIGNAL(ignored()), SLOT(discardUserQuestion()));
@@ -255,7 +255,11 @@ void PlanExecutor::startBackupSaveJob() {
 	if(busy() || !destinationAvailable()) {
 		return;
 	}
-	enterBackupRunningState();
+	discardUserQuestion();
+	mState = BACKUP_RUNNING;
+	emit stateChanged();
+	startSleepInhibit();
+	startBackup();
 }
 
 void PlanExecutor::integrityCheckFinished(KJob *pJob) {
@@ -345,14 +349,6 @@ void PlanExecutor::endSleepInhibit() {
 	lMsg << mSleepCookie;
 	QDBusConnection::sessionBus().asyncCall(lMsg);
 	mSleepCookie = 0;
-}
-
-void PlanExecutor::enterBackupRunningState() {
-	discardUserQuestion();
-	mState = BACKUP_RUNNING;
-	emit stateChanged();
-	startSleepInhibit();
-	startBackup();
 }
 
 void PlanExecutor::exitBackupRunningState(bool pWasSuccessful) {

@@ -83,7 +83,6 @@ signals:
 protected slots:
 	virtual void startBackup() = 0;
 
-	void enterBackupRunningState();
 	void exitBackupRunningState(bool pWasSuccessful);
 	void enterAvailableState();
 	void enterNotAvailableState();
