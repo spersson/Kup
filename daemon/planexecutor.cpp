@@ -86,6 +86,8 @@ QString PlanExecutor::currentActivityTitle() {
 			return i18nc("status in tooltip", "New backup suggested");
 		case BackupPlan::BAD:
 			return i18nc("status in tooltip", "New backup neeeded");
+		case BackupPlan::NO_STATUS:
+			return QStringLiteral("");
 		default:
 			return QString();
 		}

@@ -73,7 +73,7 @@ public:
 	virtual QDateTime nextScheduledTime();
 	virtual int scheduleIntervalInSeconds();
 
-	enum Status {GOOD, MEDIUM, BAD};
+	enum Status {GOOD, MEDIUM, BAD, NO_STATUS};
 	Status backupStatus();
 	static QString iconName(Status pStatus);
 

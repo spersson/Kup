@@ -244,14 +244,14 @@ void KupDaemon::handleRequests(QLocalSocket *pSocket) {
 void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 	bool lTrayIconActive = false;
 	bool lAnyPlanBusy = false;
-	QString lToolTipTitle = i18nc("status in tooltip", "Backup status OK");
+	// If all backup plans have status == NO_STATUS then tooltip title will be empty
+	QString lToolTipTitle;
 	QString lToolTipSubTitle = i18nc("status in tooltip", "Backup destination not available");
-	QString lToolTipIconName = BackupPlan::iconName(BackupPlan::GOOD);
+	QString lToolTipIconName = QStringLiteral("kup");
 
 	if(mExecutors.isEmpty()) {
 		lToolTipTitle = i18n("No backup plans configured");
 		lToolTipSubTitle.clear();
-		lToolTipIconName.clear();
 	}
 
 	foreach(PlanExecutor *lExec, mExecutors) {
@@ -260,6 +260,12 @@ void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 			if(lExec->scheduleType() == BackupPlan::MANUAL) {
 				lTrayIconActive = true;
 			}
+		}
+	}
+	foreach(PlanExecutor *lExec, mExecutors) {
+		if(lExec->mPlan->backupStatus() == BackupPlan::GOOD) {
+			lToolTipIconName = BackupPlan::iconName(BackupPlan::GOOD);
+			lToolTipTitle = i18nc("status in tooltip", "Backup status OK");
 		}
 	}
 
@@ -274,9 +280,7 @@ void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 		if(lExec->mPlan->backupStatus() == BackupPlan::BAD) {
 			lToolTipIconName = BackupPlan::iconName(BackupPlan::BAD);
 			lToolTipTitle = i18nc("status in tooltip", "New backup neeeded");
-			if(lExec->scheduleType() != BackupPlan::MANUAL) {
-				lTrayIconActive = true;
-			}
+			lTrayIconActive = true;
 		}
 	}
 	foreach(PlanExecutor *lExecutor, mExecutors) {
@@ -286,6 +290,11 @@ void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 			lToolTipSubTitle = lExecutor->mPlan->mDescription;
 			lAnyPlanBusy = true;
 		}
+	}
+
+	if(lToolTipTitle.isEmpty() && !lToolTipSubTitle.isEmpty()) {
+		lToolTipTitle = lToolTipSubTitle;
+		lToolTipSubTitle.clear();
 	}
 
 	QJsonObject lStatus;

@@ -122,17 +122,17 @@ int BackupPlan::scheduleIntervalInSeconds() {
 }
 
 BackupPlan::Status BackupPlan::backupStatus() {
-	if(!mLastCompleteBackup.isValid())
+	if(!mLastCompleteBackup.isValid()) {
 		return BAD;
+	}
+	if(mScheduleType == MANUAL) {
+		return NO_STATUS;
+	}
 
 	int lStatus = 5; //trigger BAD status if schedule type is something strange
 	int lInterval = 1;
 
 	switch(mScheduleType) {
-	case MANUAL:
-		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTime().toUTC());
-		lInterval = 60*60*24*7; //assume seven days is safe interval
-		break;
 	case INTERVAL:
 		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTime().toUTC());
 		lInterval = scheduleIntervalInSeconds();
@@ -159,8 +159,10 @@ QString BackupPlan::iconName(Status pStatus) {
 		return QStringLiteral("security-medium");
 	case BAD:
 		return QStringLiteral("security-low");
+	case NO_STATUS:
+		return QStringLiteral("");
 	}
-	return QStringLiteral("unknown");
+	return QStringLiteral("");
 }
 
 void BackupPlan::usrRead() {
