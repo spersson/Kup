@@ -113,6 +113,11 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 	}
 }
 
+QSize KupKcm::sizeHint() const {
+	int lBaseWidth = fontMetrics().width('M');
+	return QSize(lBaseWidth * 65, lBaseWidth * 35);
+}
+
 void KupKcm::load() {
 	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
 		return;

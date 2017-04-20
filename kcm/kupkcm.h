@@ -43,6 +43,7 @@ class KupKcm : public KCModule
 	Q_OBJECT
 public:
 	KupKcm(QWidget *pParent, const QVariantList &pArgs);
+	virtual QSize sizeHint() const override;
 
 public slots:
 	virtual void load();

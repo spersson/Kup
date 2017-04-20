@@ -262,6 +262,7 @@ void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 			}
 		}
 	}
+
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->mPlan->backupStatus() == BackupPlan::GOOD) {
 			lToolTipIconName = BackupPlan::iconName(BackupPlan::GOOD);
@@ -283,6 +284,7 @@ void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 			lTrayIconActive = true;
 		}
 	}
+
 	foreach(PlanExecutor *lExecutor, mExecutors) {
 		if(lExecutor->busy()) {
 			lToolTipIconName = QStringLiteral("kup");

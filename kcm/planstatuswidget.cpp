@@ -32,6 +32,7 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
    : QGroupBox(pParent), mPlan(pPlan)
 {
 	QVBoxLayout *lVLayout1 = new QVBoxLayout;
+	QVBoxLayout *lVLayout2 = new QVBoxLayout;
 	QHBoxLayout *lHLayout1 = new QHBoxLayout;
 	QHBoxLayout *lHLayout2 = new QHBoxLayout;
 
@@ -47,10 +48,11 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	mRemoveButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-remove")), xi18nc("@action:button", "Remove"));
 	connect(mRemoveButton, SIGNAL(clicked()), this, SIGNAL(removeMe()));
 
-	lVLayout1->addWidget(mDescriptionLabel);
-	lHLayout1->addWidget(mStatusIconLabel);
-	lHLayout1->addWidget(mStatusTextLabel);
+	lVLayout2->addWidget(mDescriptionLabel);
+	lVLayout2->addWidget(mStatusTextLabel);
+	lHLayout1->addLayout(lVLayout2);
 	lHLayout1->addStretch();
+	lHLayout1->addWidget(mStatusIconLabel);
 	lVLayout1->addLayout(lHLayout1);
 	lHLayout2->addStretch();
 	lHLayout2->addWidget(mConfigureButton);
