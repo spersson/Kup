@@ -46,12 +46,14 @@ K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
 KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
    : KCModule(pParent, pArgs)
 {
-	KAboutData lAbout(QStringLiteral("kcm_kup"), i18n("Kup Configuration Module"), QStringLiteral("0.6.1"),
+	KAboutData lAbout(QStringLiteral("kcm_kup"), i18n("Kup Configuration Module"),
+	                  QStringLiteral("0.6.1"),
 	                  i18n("Configuration of backup plans for the Kup backup system"),
 	                  KAboutLicense::GPL, i18n("Copyright (C) 2011-2015 Simon Persson"),
 	                  QString(), QString(), "simonpersson1@gmail.com");
 	lAbout.addAuthor(i18n("Simon Persson"), i18n("Maintainer"), "simonpersson1@gmail.com");
-	lAbout.setTranslator(xi18nc("NAME OF TRANSLATORS", "Your names"), xi18nc("EMAIL OF TRANSLATORS", "Your emails"));
+	lAbout.setTranslator(xi18nc("NAME OF TRANSLATORS", "Your names"),
+	                     xi18nc("EMAIL OF TRANSLATORS", "Your emails"));
 	setAboutData(new KAboutData(lAbout));
 
 	setObjectName(QStringLiteral("kcm_kup")); //needed for the kconfigdialogmanager magic
@@ -75,7 +77,8 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 	lRsyncProcess.setOutputChannelMode(KProcess::MergedChannels);
 	lExitCode = lRsyncProcess.execute();
 	if(lExitCode >= 0) {
-		mRsyncVersion = QString::fromLocal8Bit(lRsyncProcess.readLine()).split(QLatin1Char(' '), QString::SkipEmptyParts).at(2);
+		QString lOutput = QString::fromLocal8Bit(lRsyncProcess.readLine());
+		mRsyncVersion = lOutput.split(QLatin1Char(' '), QString::SkipEmptyParts).at(2);
 	}
 
 	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
@@ -134,8 +137,9 @@ void KupKcm::load() {
 		completelyRemovePlan(i);
 	}
 	KCModule::load();
-	// this call is needed because it could have been set true before, now load() is called because user
-	// pressed reset button. need to manually reset the "changed" state to false in this case.
+	// this call is needed because it could have been set true before, now load() is called
+	// because user pressed reset button. need to manually reset the "changed" state to false
+	// in this case.
 	unmanagedWidgetChangeState(false);
 }
 
@@ -164,7 +168,8 @@ void KupKcm::save() {
 				QMessageBox::warning(this, xi18nc("@title:window", "Warning"),
 				                     xi18nc("@info %1 is the name of the backup plan",
 				                            "%1 does not have a destination!<nl/>"
-				                            "No backups will be saved by this plan.", lPlan->mDescription));
+				                            "No backups will be saved by this plan.",
+				                            lPlan->mDescription));
 			}
 		}
 		else {
@@ -252,7 +257,8 @@ void KupKcm::createSettingsFrontPage() {
 	lScrollArea->setWidgetResizable(true);
 	lScrollArea->setFrameStyle(QFrame::NoFrame);
 
-	mAddPlanButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-add")), xi18nc("@action:button", "Add New Plan"));
+	mAddPlanButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-add")),
+	                                 xi18nc("@action:button", "Add New Plan"));
 	connect(mAddPlanButton, SIGNAL(clicked()), this, SLOT(addPlan()));
 
 	mEnableCheckBox = new QCheckBox(xi18nc("@option:check", "Backups Enabled"));
@@ -271,7 +277,8 @@ void KupKcm::createSettingsFrontPage() {
 }
 
 void KupKcm::createPlanWidgets(int pIndex) {
-	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion, mRsyncVersion, mPar2Available);
+	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion,
+	                                                     mRsyncVersion, mPar2Available);
 	connect(lPlanWidget, SIGNAL(requestOverviewReturn()), this, SLOT(showFrontPage()));
 	KConfigDialogManager *lConfigManager = new KConfigDialogManager(lPlanWidget, mPlans.at(pIndex));
 	lConfigManager->setObjectName(objectName());
