@@ -34,6 +34,7 @@ public:
 	virtual void setPlanNumber(int pPlanNumber);
 	QString statusText();
 	void removePlanFromConfig();
+	void copyFrom(const BackupPlan &pPlan);
 
 	QString mDescription;
 	QStringList mPathsIncluded;

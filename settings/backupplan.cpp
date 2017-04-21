@@ -96,6 +96,31 @@ void BackupPlan::removePlanFromConfig() {
 	config()->deleteGroup(QString(QStringLiteral("Plan/%1")).arg(mPlanNumber));
 }
 
+void BackupPlan::copyFrom(const BackupPlan &pPlan) {
+	mDescription = i18nc("default description of newly duplicated backup plan",
+	                     "%1 (copy)", pPlan.mDescription);
+	mPathsIncluded = pPlan.mPathsIncluded;
+	mPathsExcluded = pPlan.mPathsExcluded;
+	mBackupType = pPlan.mBackupType;
+	mScheduleType = pPlan.mScheduleType;
+	mScheduleInterval = pPlan.mScheduleInterval;
+	mScheduleIntervalUnit = pPlan.mScheduleIntervalUnit;
+	mUsageLimit = pPlan.mUsageLimit;
+	mAskBeforeTakingBackup = pPlan.mAskBeforeTakingBackup;
+	mDestinationType = pPlan.mDestinationType;
+	mFilesystemDestinationPath = pPlan.mFilesystemDestinationPath;
+	mExternalUUID = pPlan.mExternalUUID;
+	mExternalDestinationPath = pPlan.mExternalDestinationPath;
+	mExternalVolumeLabel = pPlan.mExternalVolumeLabel;
+	mExternalDeviceDescription = pPlan.mExternalDeviceDescription;
+	mExternalPartitionNumber = pPlan.mExternalPartitionNumber;
+	mExternalPartitionsOnDrive = pPlan.mExternalPartitionsOnDrive;
+	mExternalVolumeCapacity = pPlan.mExternalVolumeCapacity;
+	mShowHiddenFolders = pPlan.mShowHiddenFolders;
+	mGenerateRecoveryInfo = pPlan.mGenerateRecoveryInfo;
+	mCheckBackups = pPlan.mCheckBackups;
+}
+
 QDateTime BackupPlan::nextScheduledTime() {
 	Q_ASSERT(mScheduleType == 1);
 	if(!mLastCompleteBackup.isValid())

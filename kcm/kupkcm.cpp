@@ -289,6 +289,19 @@ void KupKcm::createPlanWidgets(int pIndex) {
 	connect(mEnableCheckBox, SIGNAL(toggled(bool)), lStatusWidget, SLOT(setEnabled(bool)));
 	connect(lPlanWidget->mDescriptionEdit, SIGNAL(textChanged(QString)),
 	        lStatusWidget->mDescriptionLabel, SLOT(setText(QString)));
+	connect(lStatusWidget, &PlanStatusWidget::duplicateMe, [this,pIndex]{
+		BackupPlan *lNewPlan = new BackupPlan(mPlans.count() + 1, mConfig, this);
+		lNewPlan->copyFrom(*mPlans.at(pIndex));
+		mPlans.append(lNewPlan);
+		mConfigManagers.append(NULL);
+		mPlanWidgets.append(NULL);
+		mStatusWidgets.append(NULL);
+		createPlanWidgets(mPlans.count() - 1);
+		// crazy trick to make the config system realize that stuff has changed
+		// and will need to be saved.
+		lNewPlan->setDefaults();
+		updateChangedStatus();
+	});
 
 	mConfigManagers[pIndex] = lConfigManager;
 	mPlanWidgets[pIndex] = lPlanWidget;

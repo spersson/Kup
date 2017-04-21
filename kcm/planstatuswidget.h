@@ -51,6 +51,7 @@ public slots:
 signals:
 	void removeMe();
 	void configureMe();
+	void duplicateMe();
 };
 
 

@@ -47,6 +47,9 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(configureMe()));
 	mRemoveButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-remove")), xi18nc("@action:button", "Remove"));
 	connect(mRemoveButton, SIGNAL(clicked()), this, SIGNAL(removeMe()));
+	QPushButton *lCopyButton = new QPushButton(QIcon::fromTheme(QStringLiteral("edit-duplicate")),
+	                                           xi18nc("@action:button", "Duplicate"));
+	connect(lCopyButton, &QPushButton::clicked, this, &PlanStatusWidget::duplicateMe);
 
 	lVLayout2->addWidget(mDescriptionLabel);
 	lVLayout2->addWidget(mStatusTextLabel);
@@ -55,6 +58,7 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	lHLayout1->addWidget(mStatusIconLabel);
 	lVLayout1->addLayout(lHLayout1);
 	lHLayout2->addStretch();
+	lHLayout2->addWidget(lCopyButton);
 	lHLayout2->addWidget(mConfigureButton);
 	lHLayout2->addWidget(mRemoveButton);
 	lVLayout1->addLayout(lHLayout2);
