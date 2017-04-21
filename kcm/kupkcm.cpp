@@ -212,40 +212,6 @@ void KupKcm::showFrontPage() {
 	mStackedLayout->setCurrentIndex(0);
 }
 
-void KupKcm::removePlan() {
-	for(int i = 0; i < mStatusWidgets.count(); ++i) {
-		PlanStatusWidget *lStatusWidget = mStatusWidgets.at(i);
-		if(QObject::sender() == lStatusWidget) {
-			if(i < mSettings->mNumberOfPlans)
-				partiallyRemovePlan(i);
-			else
-				completelyRemovePlan(i);
-			updateChangedStatus();
-			break;
-		}
-	}
-}
-
-void KupKcm::configurePlan() {
-	for(int i = 0; i < mStatusWidgets.count(); ++i) {
-		PlanStatusWidget *lPlanWidget = mStatusWidgets.at(i);
-		if(QObject::sender() == lPlanWidget) {
-			mStackedLayout->setCurrentWidget(mPlanWidgets.at(i));
-			break;
-		}
-	}
-}
-
-void KupKcm::addPlan() {
-	mPlans.append(new BackupPlan(mPlans.count() + 1, mConfig, this));
-	mConfigManagers.append(NULL);
-	mPlanWidgets.append(NULL);
-	mStatusWidgets.append(NULL);
-	createPlanWidgets(mPlans.count() - 1);
-	updateChangedStatus();
-	mStatusWidgets.at(mPlans.count() - 1)->mConfigureButton->click();
-}
-
 void KupKcm::createSettingsFrontPage() {
 	mFrontPage = new QWidget;
 	QHBoxLayout *lHLayout = new QHBoxLayout;
@@ -257,17 +223,25 @@ void KupKcm::createSettingsFrontPage() {
 	lScrollArea->setWidgetResizable(true);
 	lScrollArea->setFrameStyle(QFrame::NoFrame);
 
-	mAddPlanButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-add")),
-	                                 xi18nc("@action:button", "Add New Plan"));
-	connect(mAddPlanButton, SIGNAL(clicked()), this, SLOT(addPlan()));
+	QPushButton *lAddPlanButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-add")),
+	                                             xi18nc("@action:button", "Add New Plan"));
+	connect(lAddPlanButton, &QPushButton::clicked, [this]{
+		mPlans.append(new BackupPlan(mPlans.count() + 1, mConfig, this));
+		mConfigManagers.append(NULL);
+		mPlanWidgets.append(NULL);
+		mStatusWidgets.append(NULL);
+		createPlanWidgets(mPlans.count() - 1);
+		updateChangedStatus();
+		emit mStatusWidgets.at(mPlans.count() - 1)->configureMe();
+	});
 
 	mEnableCheckBox = new QCheckBox(xi18nc("@option:check", "Backups Enabled"));
 	mEnableCheckBox->setObjectName(QStringLiteral("kcfg_Backups enabled"));
-	connect(mEnableCheckBox, SIGNAL(toggled(bool)), mAddPlanButton, SLOT(setEnabled(bool)));
+	connect(mEnableCheckBox, &QCheckBox::toggled, lAddPlanButton, &QPushButton::setEnabled);
 
 	lHLayout->addWidget(mEnableCheckBox);
 	lHLayout->addStretch();
-	lHLayout->addWidget(mAddPlanButton);
+	lHLayout->addWidget(lAddPlanButton);
 	lVLayout->addLayout(lHLayout);
 	lVLayout->addWidget(lScrollArea);
 	mFrontPage->setLayout(lVLayout);
@@ -284,11 +258,16 @@ void KupKcm::createPlanWidgets(int pIndex) {
 	lConfigManager->setObjectName(objectName());
 	connect(lConfigManager, SIGNAL(widgetModified()), this, SLOT(updateChangedStatus()));
 	PlanStatusWidget *lStatusWidget = new PlanStatusWidget(mPlans.at(pIndex));
-	connect(lStatusWidget, SIGNAL(removeMe()), this, SLOT(removePlan()));
-	connect(lStatusWidget, SIGNAL(configureMe()), this, SLOT(configurePlan()));
-	connect(mEnableCheckBox, SIGNAL(toggled(bool)), lStatusWidget, SLOT(setEnabled(bool)));
-	connect(lPlanWidget->mDescriptionEdit, SIGNAL(textChanged(QString)),
-	        lStatusWidget->mDescriptionLabel, SLOT(setText(QString)));
+	connect(lStatusWidget, &PlanStatusWidget::removeMe, [=]{
+		if(pIndex < mSettings->mNumberOfPlans)
+			partiallyRemovePlan(pIndex);
+		else
+			completelyRemovePlan(pIndex);
+		updateChangedStatus();
+	});
+	connect(lStatusWidget, &PlanStatusWidget::configureMe, [=]{
+		mStackedLayout->setCurrentIndex(pIndex + 1);
+	});
 	connect(lStatusWidget, &PlanStatusWidget::duplicateMe, [this,pIndex]{
 		BackupPlan *lNewPlan = new BackupPlan(mPlans.count() + 1, mConfig, this);
 		lNewPlan->copyFrom(*mPlans.at(pIndex));
@@ -302,6 +281,10 @@ void KupKcm::createPlanWidgets(int pIndex) {
 		lNewPlan->setDefaults();
 		updateChangedStatus();
 	});
+	connect(mEnableCheckBox, &QCheckBox::toggled,
+	        lStatusWidget, &PlanStatusWidget::setEnabled);
+	connect(lPlanWidget->mDescriptionEdit, &KLineEdit::textChanged,
+	        lStatusWidget->mDescriptionLabel, &QLabel::setText);
 
 	mConfigManagers[pIndex] = lConfigManager;
 	mPlanWidgets[pIndex] = lPlanWidget;

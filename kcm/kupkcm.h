@@ -49,11 +49,8 @@ public slots:
 	virtual void load();
 	virtual void save();
 
-	void addPlan();
 	void updateChangedStatus();
 	void showFrontPage();
-	void removePlan();
-	void configurePlan();
 
 private:
 	void createSettingsFrontPage();
@@ -71,7 +68,6 @@ private:
 	QStackedLayout *mStackedLayout;
 	QVBoxLayout *mVerticalLayout;
 	QCheckBox *mEnableCheckBox;
-	QPushButton *mAddPlanButton;
 	QString mBupVersion;
 	QString mRsyncVersion;
 	bool mPar2Available;

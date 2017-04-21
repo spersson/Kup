@@ -21,7 +21,6 @@
 #ifndef PLANSTATUSWIDGET_H
 #define PLANSTATUSWIDGET_H
 
-#include <QList>
 #include <QGroupBox>
 
 class BackupPlan;
@@ -42,8 +41,6 @@ public:
 	QLabel *mDescriptionLabel;
 	QLabel *mStatusIconLabel;
 	QLabel *mStatusTextLabel;
-	QPushButton *mConfigureButton;
-	QPushButton *mRemoveButton;
 
 public slots:
 	void updateIcon();

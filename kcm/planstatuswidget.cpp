@@ -42,11 +42,14 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	lDescriptionFont.setBold(true);
 	mDescriptionLabel->setFont(lDescriptionFont);
 	mStatusIconLabel = new QLabel();
-	mStatusTextLabel = new QLabel(mPlan->statusText()); //TODO: add dbus interface to be notified from daemon when this is updated.
-	mConfigureButton = new QPushButton(QIcon::fromTheme(QStringLiteral("configure")), xi18nc("@action:button", "Configure"));
-	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(configureMe()));
-	mRemoveButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-remove")), xi18nc("@action:button", "Remove"));
-	connect(mRemoveButton, SIGNAL(clicked()), this, SIGNAL(removeMe()));
+	//TODO: add dbus interface to be notified from daemon when this is updated.
+	mStatusTextLabel = new QLabel(mPlan->statusText());
+	QPushButton *lConfigureButton = new QPushButton(QIcon::fromTheme(QStringLiteral("configure")),
+	                                                xi18nc("@action:button", "Configure"));
+	connect(lConfigureButton, SIGNAL(clicked()), this, SIGNAL(configureMe()));
+	QPushButton *lRemoveButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-remove")),
+	                                             xi18nc("@action:button", "Remove"));
+	connect(lRemoveButton, SIGNAL(clicked()), this, SIGNAL(removeMe()));
 	QPushButton *lCopyButton = new QPushButton(QIcon::fromTheme(QStringLiteral("edit-duplicate")),
 	                                           xi18nc("@action:button", "Duplicate"));
 	connect(lCopyButton, &QPushButton::clicked, this, &PlanStatusWidget::duplicateMe);
@@ -59,8 +62,8 @@ PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
 	lVLayout1->addLayout(lHLayout1);
 	lHLayout2->addStretch();
 	lHLayout2->addWidget(lCopyButton);
-	lHLayout2->addWidget(mConfigureButton);
-	lHLayout2->addWidget(mRemoveButton);
+	lHLayout2->addWidget(lConfigureButton);
+	lHLayout2->addWidget(lRemoveButton);
 	lVLayout1->addLayout(lHLayout2);
 	setLayout(lVLayout1);
 
