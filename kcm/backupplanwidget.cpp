@@ -223,7 +223,9 @@ ConfigIncludeDummy::ConfigIncludeDummy(FolderSelectionModel *pModel, FolderSelec
 }
 
 QStringList ConfigIncludeDummy::includeList() {
-	return mModel->includedPaths().toList();
+	QStringList lList = mModel->includedPaths().toList();
+	lList.sort();
+	return lList;
 }
 
 void ConfigIncludeDummy::setIncludeList(QStringList pIncludeList) {
@@ -246,7 +248,9 @@ ConfigExcludeDummy::ConfigExcludeDummy(FolderSelectionModel *pModel, FolderSelec
 }
 
 QStringList ConfigExcludeDummy::excludeList() {
-	return mModel->excludedPaths().toList();
+	QStringList lList = mModel->excludedPaths().toList();
+	lList.sort();
+	return lList;
 }
 
 void ConfigExcludeDummy::setExcludeList(QStringList pExcludeList) {
