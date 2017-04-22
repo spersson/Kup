@@ -89,7 +89,7 @@ void BupJob::performJob() {
 
 void BupJob::slotCheckingStarted() {
 	makeNice(mFsckProcess.pid());
-	emit description(this, i18n("Verifying backup archive integrity"));
+	emit description(this, i18n("Checking backup integrity"));
 }
 
 void BupJob::slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
@@ -134,7 +134,7 @@ void BupJob::slotIndexingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	mLogStream << QString::fromUtf8(mIndexProcess.readAllStandardError());
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the bup backup job: failed to index everything.") << endl;
-		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Failed to index the file system. "
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Failed to analyze files. "
 		                                                            "See log file for more details."));
 		return;
 	}
@@ -163,7 +163,7 @@ void BupJob::slotSavingDone(int pExitCode, QProcess::ExitStatus pExitStatus) {
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the bup backup job: "
 		                                     "failed to save everything.") << endl;
-		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Failed to save the complete backup. "
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Failed to save backup. "
 		                                                            "See log file for more details."));
 		return;
 	}
@@ -248,7 +248,8 @@ void BupJob::slotReadBupErrors() {
 		emitSpeed(lSpeedKBps * 1024);
 	}
 	if(lValidFileName) {
-		emit description(this, i18n("Saving backup"), qMakePair(i18n("File"), lFileName));
+		emit description(this, i18n("Saving backup"),
+		                 qMakePair(i18nc("Label for file currently being copied", "File"), lFileName));
 	}
 }
 

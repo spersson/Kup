@@ -111,7 +111,7 @@ void RsyncJob::slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus
 	mLogStream << QString::fromUtf8(mRsyncProcess.readAllStandardError());
 	if(pExitStatus != QProcess::NormalExit || pExitCode != 0) {
 		mLogStream << endl << QStringLiteral("Kup did not successfully complete the rsync backup job.") << endl;
-		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Saving backup did not complete successfully. "
+		jobFinishedError(ErrorWithLog, xi18nc("@info notification", "Failed to save backup. "
 		                                                            "See log file for more details."));
 	} else {
 		mLogStream << endl << QStringLiteral("Kup successfully completed the rsync backup job at ")
@@ -165,7 +165,8 @@ void RsyncJob::slotReadRsyncOutput() {
 		}
 	}
 	if(lValidFileName) {
-		emit description(this, i18n("Saving backup"), qMakePair(i18n("File"), lFileName));
+		emit description(this, i18n("Saving backup"),
+		                 qMakePair(i18nc("Label for file currently being copied", "File"), lFileName));
 	}
 }
 

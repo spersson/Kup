@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2017-04-21 15:05+0800\n"
+"POT-Creation-Date: 2017-04-22 11:18+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 
 #: daemon/bupjob.cpp:92
 #, kde-format
-msgid "Verifying backup archive integrity"
+msgid "Checking backup integrity"
 msgstr ""
 
 #: daemon/bupjob.cpp:103 daemon/bupverificationjob.cpp:67
@@ -63,7 +63,7 @@ msgid ""
 "for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:130 daemon/rsyncjob.cpp:55
+#: daemon/bupjob.cpp:130 daemon/rsyncjob.cpp:57
 #, kde-format
 msgid "Checking what to copy"
 msgstr ""
@@ -71,18 +71,18 @@ msgstr ""
 #: daemon/bupjob.cpp:137
 #, kde-kuit-format
 msgctxt "@info notification"
-msgid "Failed to index the file system. See log file for more details."
+msgid "Failed to analyze files. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:158 daemon/bupjob.cpp:251 daemon/rsyncjob.cpp:168
+#: daemon/bupjob.cpp:158 daemon/bupjob.cpp:251 daemon/rsyncjob.cpp:173
 #, kde-format
 msgid "Saving backup"
 msgstr ""
 
-#: daemon/bupjob.cpp:166
+#: daemon/bupjob.cpp:166 daemon/rsyncjob.cpp:119
 #, kde-kuit-format
 msgctxt "@info notification"
-msgid "Failed to save the complete backup. See log file for more details."
+msgid "Failed to save backup. See log file for more details."
 msgstr ""
 
 #: daemon/bupjob.cpp:188
@@ -98,8 +98,9 @@ msgid ""
 "details."
 msgstr ""
 
-#: daemon/bupjob.cpp:251 daemon/rsyncjob.cpp:168
+#: daemon/bupjob.cpp:252 daemon/rsyncjob.cpp:174
 #, kde-format
+msgctxt "Label for file currently being copied"
 msgid "File"
 msgstr ""
 
@@ -283,7 +284,7 @@ msgstr ""
 #: daemon/planexecutor.cpp:76
 #, kde-format
 msgctxt "status in tooltip"
-msgid "Saving new backup"
+msgid "Saving backup"
 msgstr ""
 
 #: daemon/planexecutor.cpp:78
@@ -376,19 +377,12 @@ msgstr ""
 msgid "Kup Backup System"
 msgstr ""
 
-#: daemon/rsyncjob.cpp:46
+#: daemon/rsyncjob.cpp:48
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
 "The <application>rsync</application> program is needed but could not be "
 "found, maybe it is not installed?"
-msgstr ""
-
-#: daemon/rsyncjob.cpp:114
-#, kde-kuit-format
-msgctxt "@info notification"
-msgid ""
-"Saving backup did not complete successfully. See log file for more details."
 msgstr ""
 
 #: filedigger/main.cpp:47

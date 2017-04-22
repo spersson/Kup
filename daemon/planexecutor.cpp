@@ -73,7 +73,7 @@ PlanExecutor::~PlanExecutor() {
 QString PlanExecutor::currentActivityTitle() {
 	switch(mState) {
 	case BACKUP_RUNNING:
-		return i18nc("status in tooltip", "Saving new backup");
+		return i18nc("status in tooltip", "Saving backup");
 	case INTEGRITY_TESTING:
 		return i18nc("status in tooltip", "Checking backup integrity");
 	case REPAIRING:
