@@ -30,7 +30,8 @@
 
 
 
-RsyncJob::RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon)
+RsyncJob::RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath,
+                   const QString &pLogFilePath, KupDaemon *pKupDaemon)
    :BackupJob(pBackupPlan, pDestinationPath, pLogFilePath, pKupDaemon)
 {
 	mRsyncProcess.setOutputChannelMode(KProcess::SeparateChannels);
@@ -42,9 +43,10 @@ void RsyncJob::performJob() {
 	lVersionProcess.setOutputChannelMode(KProcess::SeparateChannels);
 	lVersionProcess << QStringLiteral("rsync") << QStringLiteral("--version");
 	if(lVersionProcess.execute() < 0) {
-		jobFinishedError(ErrorWithoutLog, xi18nc("@info notification",
-		                                         "The <application>rsync</application> program is needed but could not be found, "
-		                                         "maybe it is not installed?"));
+		jobFinishedError(ErrorWithoutLog,
+		                 xi18nc("@info notification",
+		                        "The <application>rsync</application> program is needed but "
+		                        "could not be found, maybe it is not installed?"));
 		return;
 	}
 
@@ -53,7 +55,8 @@ void RsyncJob::performJob() {
 	           << endl;
 
 	emit description(this, i18n("Checking what to copy"));
-	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-avX") << QStringLiteral("--delete-excluded");
+	mRsyncProcess << QStringLiteral("rsync") << QStringLiteral("-avX")
+	              << QStringLiteral("--delete-excluded");
 	mRsyncProcess << QStringLiteral("--info=progress2") << QStringLiteral("--no-i-r");
 
 	QStringList lIncludeNames;
@@ -67,7 +70,8 @@ void RsyncJob::performJob() {
 			mRsyncProcess << QStringLiteral("--exclude=") + lExclude;
 		}
 	} else {
-		// when NOT using -R, need to then strip parent paths from excludes, everything above the include. Leave the leading slash!
+		// when NOT using -R, need to then strip parent paths from excludes, everything above the
+		// include. Leave the leading slash!
 		foreach(QString lExclude, mBackupPlan.mPathsExcluded) {
 			for(int i = 0; i < mBackupPlan.mPathsIncluded.length(); ++i) {
 				const QString &lInclude = mBackupPlan.mPathsIncluded.at(i);
@@ -98,7 +102,8 @@ void RsyncJob::performJob() {
 
 	connect(&mRsyncProcess, SIGNAL(started()), SLOT(slotRsyncStarted()));
 	connect(&mRsyncProcess, &KProcess::readyReadStandardOutput, this, &RsyncJob::slotReadRsyncOutput);
-	connect(&mRsyncProcess, SIGNAL(finished(int,QProcess::ExitStatus)), SLOT(slotRsyncFinished(int,QProcess::ExitStatus)));
+	connect(&mRsyncProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
+	        SLOT(slotRsyncFinished(int,QProcess::ExitStatus)));
 	mLogStream << quoteArgs(mRsyncProcess.program()) << endl;
 	mRsyncProcess.start();
 }
