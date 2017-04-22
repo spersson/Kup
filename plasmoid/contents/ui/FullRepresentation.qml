@@ -81,22 +81,23 @@ Item {
 					Layout.preferredHeight: units.iconSizes.huge
 				}
 			}
-			Row {
+			Flow {
+				width: parent.width
 				spacing: theme.defaultFont.pointSize
 				PlasmaComponents.Button {
 					text: i18nd("kup", "Save new backup")
-					enabled: getPlanStatus(index, "destination available") &&
+					visible: getPlanStatus(index, "destination available") &&
 								!getPlanStatus(index, "busy")
 					onClicked: startOperation(index, "save backup")
 				}
 				PlasmaComponents.Button {
 					text: i18nd("kup", "Show files")
-					enabled: getPlanStatus(index, "destination available")
+					visible: getPlanStatus(index, "destination available")
 					onClicked: startOperation(index, "show backup files")
 				}
 				PlasmaComponents.Button {
 					text: i18nd("kup", "Show log file")
-					enabled: getPlanStatus(index, "log file exists")
+					visible: getPlanStatus(index, "log file exists")
 					onClicked: startOperation(index, "show log file")
 				}
 			}
