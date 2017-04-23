@@ -1347,7 +1347,7 @@ msgstr "Bestätigen"
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
 #: po/rc.cpp:33 rc.cpp:33
 #, kde-format
-msgctxt "@label above the detailed error messsage"
+msgctxt "@label above the detailed error message"
 msgid "An error occured while restoring:"
 msgstr "Bei der Wiederherstellung ist ein Fehler aufgetreten:"
 
@@ -1356,7 +1356,7 @@ msgstr "Bei der Wiederherstellung ist ein Fehler aufgetreten:"
 #: po/rc.cpp:36 rc.cpp:36
 #, kde-format
 msgctxt "@label"
-msgid "Restoration completed sucessfully!"
+msgid "Restoration completed successfully!"
 msgstr "Wiederherstellung erfolgreich abgeschlossen!"
 
 #. i18n: file: filedigger/restoredialog.ui:413
