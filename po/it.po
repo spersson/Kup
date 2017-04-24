@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2017-04-22 11:18+0800\n"
+"POT-Creation-Date: 2017-04-24 16:59+0800\n"
 "PO-Revision-Date: 2016-06-11 14:46+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Italian (http://www.transifex.com/kup/kup/language/it/)\n"
@@ -1236,17 +1236,17 @@ msgstr ""
 "Nessun repository bup trovato.\n"
 "%1"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:87
+#: plasmoid/contents/ui/FullRepresentation.qml:88
 #, fuzzy, kde-format
 msgid "Save new backup"
 msgstr "Eseguo un nuovo backup"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:93
+#: plasmoid/contents/ui/FullRepresentation.qml:94
 #, fuzzy, kde-format
 msgid "Show files"
 msgstr "Mostra i file"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:98
+#: plasmoid/contents/ui/FullRepresentation.qml:99
 #, fuzzy, kde-format
 msgid "Show log file"
 msgstr "Mostra il file di log"

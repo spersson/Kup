@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2017-04-22 11:18+0800\n"
+"POT-Creation-Date: 2017-04-24 16:59+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1105,17 +1105,17 @@ msgid ""
 "%1"
 msgstr ""
 
-#: plasmoid/contents/ui/FullRepresentation.qml:87
+#: plasmoid/contents/ui/FullRepresentation.qml:88
 #, kde-format
 msgid "Save new backup"
 msgstr ""
 
-#: plasmoid/contents/ui/FullRepresentation.qml:93
+#: plasmoid/contents/ui/FullRepresentation.qml:94
 #, kde-format
 msgid "Show files"
 msgstr ""
 
-#: plasmoid/contents/ui/FullRepresentation.qml:98
+#: plasmoid/contents/ui/FullRepresentation.qml:99
 #, kde-format
 msgid "Show log file"
 msgstr ""

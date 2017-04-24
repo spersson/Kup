@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jeff Huang <s8321414@gmail.com>, 2014-2016
+# Jeff Huang <s8321414@gmail.com>, 2014-2017
 # Simon Persson <simon.persson@mykolab.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2017-04-22 11:18+0800\n"
-"PO-Revision-Date: 2016-06-11 14:11+0000\n"
+"POT-Creation-Date: 2017-04-24 16:59+0800\n"
+"PO-Revision-Date: 2017-04-24 00:05+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/kup/kup/language/"
 "zh_TW/)\n"
@@ -50,7 +50,7 @@ msgid ""
 msgstr "備份目的地無法被初始化。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupjob.cpp:92
-#, fuzzy, kde-format
+#, kde-format
 msgid "Checking backup integrity"
 msgstr "正在校驗備份完整性"
 
@@ -75,29 +75,29 @@ msgstr "備份完整性校驗失敗。您的備份可能已損毀！參見記錄
 #: daemon/bupjob.cpp:130 daemon/rsyncjob.cpp:57
 #, kde-format
 msgid "Checking what to copy"
-msgstr ""
+msgstr "勾選哪些要複製"
 
 #: daemon/bupjob.cpp:137
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to analyze files. See log file for more details."
-msgstr "檔案系統索引失敗。參見記錄檔以取得更多詳細資訊。"
+msgstr "分析檔案失敗。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupjob.cpp:158 daemon/bupjob.cpp:251 daemon/rsyncjob.cpp:173
-#, fuzzy, kde-format
+#, kde-format
 msgid "Saving backup"
-msgstr "開始進行備份"
+msgstr "正在儲存備份"
 
 #: daemon/bupjob.cpp:166 daemon/rsyncjob.cpp:119
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to save backup. See log file for more details."
-msgstr "儲存完整備份失敗。參見記錄檔以取得更多詳細資訊。"
+msgstr "儲存備份失敗。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupjob.cpp:188
-#, fuzzy, kde-format
+#, kde-format
 msgid "Generating recovery information"
-msgstr "產生復原資訊"
+msgstr "正在生成復原資訊"
 
 #: daemon/bupjob.cpp:196
 #, kde-kuit-format
@@ -108,10 +108,10 @@ msgid ""
 msgstr "產生備份的復原資訊失敗。參見記錄檔以取得更多詳細資訊。"
 
 #: daemon/bupjob.cpp:252 daemon/rsyncjob.cpp:174
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Label for file currently being copied"
 msgid "File"
-msgstr "檔案："
+msgstr "檔案"
 
 #: daemon/buprepairjob.cpp:72
 #, kde-kuit-format
@@ -191,63 +191,63 @@ msgstr "您並沒有備份目的地的寫入權限。"
 #: daemon/kupdaemon.cpp:171
 #, kde-format
 msgid "Continue"
-msgstr ""
+msgstr "繼續"
 
 #: daemon/kupdaemon.cpp:173
 #, kde-format
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: daemon/kupdaemon.cpp:175
 #, kde-format
 msgctxt "%1 is a text explaining the current activity"
 msgid "Currently busy: %1"
-msgstr ""
+msgstr "忙碌中：%1"
 
 #: daemon/kupdaemon.cpp:176
 #, kde-format
 msgid "Do you really want to stop?"
-msgstr ""
+msgstr "您真的想要停止嗎？"
 
 #: daemon/kupdaemon.cpp:179
-#, fuzzy, kde-format
+#, kde-format
 msgid "User Backups"
-msgstr "備份"
+msgstr "使用者備份"
 
 #: daemon/kupdaemon.cpp:249
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Backup destination not available"
-msgstr "備份目標不可用"
+msgstr "備份目的地不可用"
 
 #: daemon/kupdaemon.cpp:253 daemon/kupdaemon.cpp:310
 #, kde-format
 msgid "No backup plans configured"
-msgstr ""
+msgstr "未設定備份計畫"
 
 #: daemon/kupdaemon.cpp:259
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Backup destination available"
-msgstr "備份目標可用"
+msgstr "備份目的地可用"
 
 #: daemon/kupdaemon.cpp:269 daemon/planexecutor.cpp:84
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Backup status OK"
 msgstr "備份狀態 OK"
 
 #: daemon/kupdaemon.cpp:276 daemon/planexecutor.cpp:86
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "New backup suggested"
-msgstr "建議新的備份"
+msgstr "已建議新備份"
 
 #: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:88
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "New backup neeeded"
-msgstr "需要新的備份"
+msgstr "需要新備份"
 
 #: daemon/main.cpp:41
 #, kde-kuit-format
@@ -298,44 +298,48 @@ msgid "Your emails"
 msgstr "s8321414@yahoo.com.tw "
 
 #: daemon/planexecutor.cpp:76
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Saving backup"
-msgstr "開始進行備份"
+msgstr "正在儲存備份"
 
 #: daemon/planexecutor.cpp:78
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Checking backup integrity"
-msgstr "正在校驗備份完整性"
+msgstr "正在檢查備份完整性"
 
 #: daemon/planexecutor.cpp:80
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Repairing backups"
 msgstr "正在修復備份"
 
 #: daemon/planexecutor.cpp:118 daemon/planexecutor.cpp:133
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Do you want to save a first backup now?"
-msgstr "您想要現在進行第一次的備份嗎？"
+msgstr "您想要現在儲存第一個備份嗎？"
 
 #: daemon/planexecutor.cpp:121
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "It has been %1 since last backup was saved.\n"
 "Save a new backup now?"
-msgstr "自從最後一次備份，已經過了 %1 了，您想要現在進行備份嗎？"
+msgstr ""
+"自上一個備份儲存後已經過了 %1。\n"
+"現在儲存新備份？"
 
 #: daemon/planexecutor.cpp:137
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "You have been active for %1 since last backup was saved.\n"
 "Save a new backup now?"
-msgstr "自從您上次備份後，這臺電腦已經開啟了 %1 了，您想要現在進行備份嗎？"
+msgstr ""
+"自上一個備份儲存後您似乎相當活躍。\n"
+"現在儲存新備份？"
 
 #: daemon/planexecutor.cpp:170 daemon/planexecutor.cpp:200
 #: daemon/planexecutor.cpp:278
@@ -365,16 +369,16 @@ msgid "Show log file"
 msgstr "顯示記錄檔"
 
 #: daemon/planexecutor.cpp:221
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@title:window"
 msgid "Backup Saved"
-msgstr "備份失敗"
+msgstr "備份已儲存"
 
 #: daemon/planexecutor.cpp:222
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info notification"
 msgid "Saving backup completed successfully."
-msgstr "還原成功地完成！"
+msgstr "儲存備份成功完成。"
 
 #: daemon/planexecutor.cpp:271
 #, kde-kuit-format
@@ -592,13 +596,13 @@ msgstr "還原"
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Exclude Folder"
-msgstr ""
+msgstr "排除資料夾"
 
 #: kcm/backupplanwidget.cpp:285
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Include Folder"
-msgstr ""
+msgstr "包含資料夾"
 
 #: kcm/backupplanwidget.cpp:382
 #, kde-kuit-format
@@ -609,6 +613,9 @@ msgid ""
 "anything important to you, one possible solution is to exclude the folder "
 "from the backup plan."
 msgstr ""
+"您沒有權限讀取此資料夾：<filename>%1</filename><nl/>其無法被包含於來源選擇"
+"中。若其並不包含任何對您來說重要的東西，其中一個可能的解決方法是從備份計畫中"
+"排除該資料夾。"
 
 #: kcm/backupplanwidget.cpp:393
 #, kde-kuit-format
@@ -619,6 +626,9 @@ msgid ""
 "you, one possible solution is to exclude the whole folder where the file is "
 "stored from the backup plan."
 msgstr ""
+"您沒有權限讀取此檔案：<filename>%1</filename><nl/>其無法被包含在來源選擇中。"
+"若該檔案對您來說並不重要，其中一個可能的解決方法是將包含該檔案的資料夾整個排"
+"除在備份計畫外。"
 
 #: kcm/backupplanwidget.cpp:409
 #, kde-kuit-format
@@ -629,6 +639,9 @@ msgid ""
 "probably not what you want. One solution is to simply include the target "
 "folder in the backup plan."
 msgstr ""
+"符號連結 <filename>%1</filename> 目前被包含在內，但是其指向的資料夾並不包含："
+"<filename>%2</filename>。<nl/>這可能不是您想要的。其中一個解法是將目標資料夾"
+"包含在備份計畫內。"
 
 #: kcm/backupplanwidget.cpp:417
 #, kde-kuit-format
@@ -639,6 +652,9 @@ msgid ""
 "not what you want. One solution is to simply include the folder where the "
 "file is stored in the backup plan."
 msgstr ""
+"符號連結 <filename>%1</filename> 目前被包含在內，但是其指向的檔案並不包含："
+"<filename>%2</filename>。<nl/>這可能不是您想要的。其中一個解法是將包含目標檔"
+"案的資料夾包含在備份計畫內。"
 
 #: kcm/backupplanwidget.cpp:440
 #, kde-kuit-format
@@ -1153,7 +1169,7 @@ msgstr "移除"
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Duplicate"
-msgstr ""
+msgstr "重製"
 
 #: kioslave/bupslave.cpp:92 kioslave/bupslave.cpp:149 kioslave/bupslave.cpp:186
 #: kioslave/bupslave.cpp:249 kioslave/bupslave.cpp:271
@@ -1165,20 +1181,20 @@ msgstr ""
 "找不到 bup 的儲存庫。\n"
 "%1"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:87
-#, fuzzy, kde-format
+#: plasmoid/contents/ui/FullRepresentation.qml:88
+#, kde-format
 msgid "Save new backup"
-msgstr "正在進行新的備份"
+msgstr "儲存新備份"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:93
-#, fuzzy, kde-format
+#: plasmoid/contents/ui/FullRepresentation.qml:94
+#, kde-format
 msgid "Show files"
 msgstr "顯示檔案"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:98
-#, fuzzy, kde-format
+#: plasmoid/contents/ui/FullRepresentation.qml:99
+#, kde-format
 msgid "Show log file"
-msgstr "顯示記錄檔"
+msgstr "顯示紀錄檔"
 
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
@@ -1265,7 +1281,7 @@ msgstr "確認"
 #. i18n: file: filedigger/restoredialog.ui:341
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
 #: po/rc.cpp:33 rc.cpp:33
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label above the detailed error message"
 msgid "An error occured while restoring:"
 msgstr "還原時遇到錯誤："
@@ -1273,7 +1289,7 @@ msgstr "還原時遇到錯誤："
 #. i18n: file: filedigger/restoredialog.ui:372
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:36 rc.cpp:36
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label"
 msgid "Restoration completed successfully!"
 msgstr "還原成功地完成！"
@@ -1319,14 +1335,12 @@ msgid "A question if user wants to start taking a backup"
 msgstr "如果使用者想要開始進行備份的話會被詢問一個問題"
 
 #: po/rc.cpp:50 rc.cpp:50
-#, fuzzy
 msgid "Backup succeeded"
-msgstr "需要新的備份"
+msgstr "備份成功"
 
 #: po/rc.cpp:51 rc.cpp:51
-#, fuzzy
 msgid "Saving of backup successfully completed"
-msgstr "備份儲存失敗"
+msgstr "儲存備份成功完成"
 
 #: po/rc.cpp:52 rc.cpp:52
 msgid "Backup failed"
@@ -1353,18 +1367,16 @@ msgid "Finished repairing backup archive"
 msgstr "修復備份壓縮檔完成"
 
 #: po/rc.cpp:59 rc.cpp:59
-#, fuzzy
 msgid "Status of backup plans"
-msgstr "設定備份計畫"
+msgstr "備份計畫的狀態"
 
 #: po/rc.cpp:60 rc.cpp:60
-#, fuzzy
 msgid "Backup Status"
-msgstr "備份狀態 OK"
+msgstr "備份狀態"
 
 #: po/rc.cpp:61 rc.cpp:61
 msgid "Displays status of backup plans"
-msgstr ""
+msgstr "顯示備份計畫的狀態"
 
 #: settings/backupplan.cpp:38
 #, kde-kuit-format
@@ -1378,70 +1390,28 @@ msgstr "備份計畫 %1"
 #, kde-format
 msgctxt "default description of newly duplicated backup plan"
 msgid "%1 (copy)"
-msgstr ""
+msgstr "%1 (副本)"
 
 #: settings/backupplan.cpp:213
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "%1 is fancy formatted date"
 msgid "Last saved: %1"
-msgstr " - 儲存在 %1"
+msgstr "最後儲存：%1"
 
 #: settings/backupplan.cpp:218
 #, kde-format
 msgctxt "%1 is storage size of archive"
 msgid "Size: %1"
-msgstr ""
+msgstr "大小：%1"
 
 #: settings/backupplan.cpp:223
 #, kde-format
 msgctxt "%1 is free storage space"
 msgid "Free space: %1"
-msgstr ""
+msgstr "剩餘空間：%1"
 
 #: settings/backupplan.cpp:227
 #, kde-kuit-format
 msgctxt "@label"
 msgid "This backup plan has never been run."
 msgstr "這個備份計畫尚未執行過。"
-
-#~ msgctxt "@title:window"
-#~ msgid "Backups"
-#~ msgstr "備份"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Backups"
-#~ msgstr "備份"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Configure Backups"
-#~ msgstr "設定備份"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Take Backup Now"
-#~ msgstr "現在進行備份"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Show Log File"
-#~ msgstr "顯示記錄檔"
-
-#~ msgctxt "@title:window"
-#~ msgid "Backup Device Available - %1"
-#~ msgstr "可用的備份裝置 - %1"
-
-#~ msgctxt "@info notification"
-#~ msgid ""
-#~ "Saving backup did not complete successfully. See log file for more "
-#~ "details."
-#~ msgstr "備份儲存並未成功完成。參見記錄檔以取得更多詳細資訊。"
-
-#~ msgctxt "@label %1 is fancy formatted date, %2 is time of day"
-#~ msgid "Last backup was taken %1 at %2.\n"
-#~ msgstr "最後一次備份是 %1 在 %2 。\n"
-
-#~ msgctxt "@label %1 is storage size of archive"
-#~ msgid "The size of the backup archive was %1.\n"
-#~ msgstr "備份檔案的大小是 %1 。\n"
-
-#~ msgctxt "@label %1 is free storage space"
-#~ msgid "The destination still had %1 available.\n"
-#~ msgstr "目的地仍有 %1 可用。\n"

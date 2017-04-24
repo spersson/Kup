@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
-"Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?c"
-"ontent=147465\n"
-"POT-Creation-Date: 2017-04-22 11:18+0800\n"
+"Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
+"content=147465\n"
+"POT-Creation-Date: 2017-04-24 16:59+0800\n"
 "PO-Revision-Date: 2017-04-22 11:59+0800\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -629,9 +629,9 @@ msgid ""
 "anything important to you, one possible solution is to exclude the folder "
 "from the backup plan."
 msgstr ""
-"Du har inte rättighet att läsa mappen: <filename>%1</filename><nl/"
-">Den kan inte inkluderas i säkerhetskopieringen. Om den inte innehåller något"
-" viktigt så kan en möjlig lösning vara att exkludera mappen."
+"Du har inte rättighet att läsa mappen: <filename>%1</filename><nl/>Den kan "
+"inte inkluderas i säkerhetskopieringen. Om den inte innehåller något viktigt "
+"så kan en möjlig lösning vara att exkludera mappen."
 
 #: kcm/backupplanwidget.cpp:393
 #, kde-kuit-format
@@ -642,10 +642,9 @@ msgid ""
 "you, one possible solution is to exclude the whole folder where the file is "
 "stored from the backup plan."
 msgstr ""
-"Du har inte rättighet att läsa filen: <filename>%1</filename><nl/"
-">Den kan inte inkluderas i säkerhetskopieringen. Om den inte innehåller något"
-" viktigt så kan en möjlig lösning vara att exkludera hela mappen där den är"
-" lagrad."
+"Du har inte rättighet att läsa filen: <filename>%1</filename><nl/>Den kan "
+"inte inkluderas i säkerhetskopieringen. Om den inte innehåller något viktigt "
+"så kan en möjlig lösning vara att exkludera hela mappen där den är lagrad."
 
 #: kcm/backupplanwidget.cpp:409
 #, kde-kuit-format
@@ -656,10 +655,10 @@ msgid ""
 "probably not what you want. One solution is to simply include the target "
 "folder in the backup plan."
 msgstr ""
-"Den symboliska länken <filename>%1</filename> är inkluderad i planen men"
-" refererar till  mappen <filename>%2</filename> som inte är med.<nl/"
-">Antagligen är detta inte något du önskar. En möjlig lösning är att helt"
-" enkelt inkludera mappen."
+"Den symboliska länken <filename>%1</filename> är inkluderad i planen men "
+"refererar till  mappen <filename>%2</filename> som inte är med.<nl/"
+">Antagligen är detta inte något du önskar. En möjlig lösning är att helt "
+"enkelt inkludera mappen."
 
 #: kcm/backupplanwidget.cpp:417
 #, kde-kuit-format
@@ -670,10 +669,10 @@ msgid ""
 "not what you want. One solution is to simply include the folder where the "
 "file is stored in the backup plan."
 msgstr ""
-"Den symboliska länken <filename>%1</filename> är inkluderad i planen men"
-" refererar till  filen <filename>%2</filename> som inte är med.<nl/"
-">Antagligen är detta inte något du önskar. En möjlig lösning är att inkludera"
-" mappen där den faktiska filen är lagrad."
+"Den symboliska länken <filename>%1</filename> är inkluderad i planen men "
+"refererar till  filen <filename>%2</filename> som inte är med.<nl/"
+">Antagligen är detta inte något du önskar. En möjlig lösning är att "
+"inkludera mappen där den faktiska filen är lagrad."
 
 #: kcm/backupplanwidget.cpp:440
 #, kde-kuit-format
@@ -1229,17 +1228,17 @@ msgstr ""
 "Inget bup-arkiv hittades.\n"
 "%1"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:87
+#: plasmoid/contents/ui/FullRepresentation.qml:88
 #, kde-format
 msgid "Save new backup"
 msgstr "Spara säkerhetskopia"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:93
+#: plasmoid/contents/ui/FullRepresentation.qml:94
 #, kde-format
 msgid "Show files"
 msgstr "Visa filer"
 
-#: plasmoid/contents/ui/FullRepresentation.qml:98
+#: plasmoid/contents/ui/FullRepresentation.qml:99
 #, kde-format
 msgid "Show log file"
 msgstr "Visa loggfil"

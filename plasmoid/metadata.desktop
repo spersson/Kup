@@ -21,4 +21,12 @@ X-Plasma-NotificationAreaCategory=SystemServices
 X-Plasma-DBusActivationService=org.kde.kupdaemon
 
 Name=Backup Status
+Name[de]=Zustand des Backups
+Name[pt_BR]=Estado do backup
+Name[sv]=Säkerhetskopiornas status
+Name[zh_TW]=備份狀態
 Comment=Displays status of backup plans
+Comment[de]=Status der Backupkonfigurationen anzeigen
+Comment[pt_BR]=Exibe o estado dos planos de backup
+Comment[sv]=Visar status för säkerhetskopior
+Comment[zh_TW]=顯示備份計畫的狀態

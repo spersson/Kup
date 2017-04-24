@@ -17,6 +17,7 @@ X-KDE-PluginInfo-EnabledByDefault=true
 
 Name=Backups
 Name[bs_BA]=Backupi
+Name[da]=Backupper
 Name[de]=Datensicherungen
 Name[es]=Copias de seguridad
 Name[fr_FR]=Sauvegardes
@@ -29,3 +30,7 @@ Name[sv]=Säkerhetskopior
 Name[tl]=Mga seguridad na kopya
 Name[zh_TW]=備份
 Comment=Status of backup plans
+Comment[de]=Zustand der Backupkonfiguration
+Comment[pt_BR]=Estado dos planos de backup
+Comment[sv]=Status för säkerhetskopior
+Comment[zh_TW]=備份計畫的狀態
