@@ -36,7 +36,7 @@
 FileDigger::FileDigger(MergedRepository *pRepository, QWidget *pParent)
    : KMainWindow(pParent)
 {
-	setWindowIcon(QIcon::fromTheme(QStringLiteral("chronometer")));
+	setWindowIcon(QIcon::fromTheme(QStringLiteral("kup")));
 	KToolBar *lAppToolBar = toolBar();
 	lAppToolBar->addAction(KStandardAction::quit(this, SLOT(close()), this));
 	QSplitter *lSplitter = new QSplitter();

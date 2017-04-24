@@ -2,7 +2,7 @@
 Name=Kup
 GenericName=Backup Monitor
 Exec=kup-daemon
-Icon=chronometer
+Icon=kup
 Type=Application
 Terminal=false
 X-KDE-autostart-after=panel

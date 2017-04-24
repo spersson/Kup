@@ -580,7 +580,7 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
 	lPage->setName(xi18nc("@title", "Backup Type"));
 	lPage->setHeader(xi18nc("@label", "Select what type of backup you want"));
-	lPage->setIcon(QIcon::fromTheme(QStringLiteral("chronometer")));
+	lPage->setIcon(QIcon::fromTheme(QStringLiteral("folder-sync")));
 	return lPage;
 }
 
@@ -589,7 +589,7 @@ KPageWidgetItem *BackupPlanWidget::createSourcePage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(mSourceSelectionWidget);
 	lPage->setName(xi18nc("@title", "Sources"));
 	lPage->setHeader(xi18nc("@label", "Select which folders to include in backup"));
-	lPage->setIcon(QIcon::fromTheme(QStringLiteral("folder-important")));
+	lPage->setIcon(QIcon::fromTheme(QStringLiteral("cloud-upload")));
 	return lPage;
 }
 
@@ -687,7 +687,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
 	lPage->setName(xi18nc("@title", "Destination"));
 	lPage->setHeader(xi18nc("@label", "Select the backup destination"));
-	lPage->setIcon(QIcon::fromTheme(QStringLiteral("folder-downloads")));
+	lPage->setIcon(QIcon::fromTheme(QStringLiteral("cloud-download")));
 	return lPage;
 }
 
@@ -793,7 +793,7 @@ KPageWidgetItem *BackupPlanWidget::createSchedulePage() {
 	KPageWidgetItem *lPage = new KPageWidgetItem(lTopWidget);
 	lPage->setName(xi18nc("@title", "Schedule"));
 	lPage->setHeader(xi18nc("@label", "Specify the backup schedule"));
-	lPage->setIcon(QIcon::fromTheme(QStringLiteral("view-time-schedule")));
+	lPage->setIcon(QIcon::fromTheme(QStringLiteral("view-calendar")));
 	return lPage;
 }
 
