@@ -1266,7 +1266,7 @@ msgstr "確認"
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
 #: po/rc.cpp:33 rc.cpp:33
 #, kde-format
-msgctxt "@label above the detailed error messsage"
+msgctxt "@label above the detailed error message"
 msgid "An error occured while restoring:"
 msgstr "還原時遇到錯誤："
 
@@ -1275,7 +1275,7 @@ msgstr "還原時遇到錯誤："
 #: po/rc.cpp:36 rc.cpp:36
 #, kde-format
 msgctxt "@label"
-msgid "Restoration completed sucessfully!"
+msgid "Restoration completed successfully!"
 msgstr "還原成功地完成！"
 
 #. i18n: file: filedigger/restoredialog.ui:413

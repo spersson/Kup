@@ -1342,7 +1342,7 @@ msgstr "Patvirtinti"
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
 #: po/rc.cpp:33 rc.cpp:33
 #, kde-format
-msgctxt "@label above the detailed error messsage"
+msgctxt "@label above the detailed error message"
 msgid "An error occured while restoring:"
 msgstr "Atkuriant nutiko klaida: "
 
@@ -1351,7 +1351,7 @@ msgstr "Atkuriant nutiko klaida: "
 #: po/rc.cpp:36 rc.cpp:36
 #, kde-format
 msgctxt "@label"
-msgid "Restoration completed sucessfully!"
+msgid "Restoration completed successfully!"
 msgstr "Atkūrimas baigtas sėkmingai!"
 
 #. i18n: file: filedigger/restoredialog.ui:413

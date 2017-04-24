@@ -338,7 +338,7 @@
            <item>
             <widget class="QLabel" name="mErrorLabel">
              <property name="text">
-              <string comment="@label above the detailed error messsage">An error occured while restoring:</string>
+              <string comment="@label above the detailed error message">An error occured while restoring:</string>
              </property>
             </widget>
            </item>
@@ -369,7 +369,7 @@
            <item>
             <widget class="QLabel" name="label">
              <property name="text">
-              <string comment="@label">Restoration completed sucessfully!</string>
+              <string comment="@label">Restoration completed successfully!</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
