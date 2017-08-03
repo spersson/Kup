@@ -13,7 +13,7 @@ There are two types of backup schemes supported, one which keeps the backup fold
 - Kioslave for accessing bup archives. This allows you to open files and folders directly from an archive, with any KDE application.
 - A file browsing application for bup archives, allowing you to locate the file you want to restore more easily than with the kioslave. It also helps you restore files or folders.
 
-## Detailed list of features##
+## Detailed list of features ##
 - backup types:
   - Synchronized folders with the use of "rsync".
   - Incremental backup archive with the use of "bup"
