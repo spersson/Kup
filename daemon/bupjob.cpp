@@ -236,7 +236,7 @@ void BupJob::slotReadBupErrors() {
 			lLine.remove(0, 2);
 			lFileName = lLine;
 			lValidFileName = true;
-		} else {
+		} else if(!lLine.startsWith("D /")) {
 			mLogStream << lLine << endl;
 		}
 	}
