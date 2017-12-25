@@ -24,6 +24,7 @@
 #include "backupjob.h"
 
 #include <KProcess>
+#include <QElapsedTimer>
 
 class KupDaemon;
 
@@ -54,6 +55,7 @@ protected:
 	KProcess mIndexProcess;
 	KProcess mSaveProcess;
 	KProcess mPar2Process;
+	QElapsedTimer mInfoRateLimiter;
 };
 
 #endif /*BUPJOB_H*/

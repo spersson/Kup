@@ -82,6 +82,7 @@ void BupJob::performJob() {
 		connect(&mFsckProcess, SIGNAL(started()), SLOT(slotCheckingStarted()));
 		mLogStream << quoteArgs(mFsckProcess.program()) << endl;
 		mFsckProcess.start();
+		mInfoRateLimiter.start();
 	} else {
 		slotCheckingDone(0, QProcess::NormalExit);
 	}
@@ -239,17 +240,20 @@ void BupJob::slotReadBupErrors() {
 			mLogStream << lLine << endl;
 		}
 	}
-	if(lValidInfo) {
-		setPercent(lPercent);
-		setTotalAmount(KJob::Bytes, lTotalKBytes*1024);
-		setTotalAmount(KJob::Files, lTotalFiles);
-		setProcessedAmount(KJob::Bytes, lCopiedKBytes*1024);
-		setProcessedAmount(KJob::Files, lCopiedFiles);
-		emitSpeed(lSpeedKBps * 1024);
-	}
-	if(lValidFileName) {
-		emit description(this, i18n("Saving backup"),
-		                 qMakePair(i18nc("Label for file currently being copied", "File"), lFileName));
+	if(mInfoRateLimiter.hasExpired(200)) {
+		if(lValidInfo) {
+			setPercent(lPercent);
+			setTotalAmount(KJob::Bytes, lTotalKBytes*1024);
+			setTotalAmount(KJob::Files, lTotalFiles);
+			setProcessedAmount(KJob::Bytes, lCopiedKBytes*1024);
+			setProcessedAmount(KJob::Files, lCopiedFiles);
+			emitSpeed(lSpeedKBps * 1024);
+		}
+		if(lValidFileName) {
+			emit description(this, i18n("Saving backup"),
+			                 qMakePair(i18nc("Label for file currently being copied", "File"), lFileName));
+		}
+		mInfoRateLimiter.start();
 	}
 }
 
