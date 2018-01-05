@@ -106,6 +106,7 @@ void RsyncJob::performJob() {
 	        SLOT(slotRsyncFinished(int,QProcess::ExitStatus)));
 	mLogStream << quoteArgs(mRsyncProcess.program()) << endl;
 	mRsyncProcess.start();
+	mInfoRateLimiter.start();
 }
 
 void RsyncJob::slotRsyncStarted() {
@@ -154,24 +155,27 @@ void RsyncJob::slotReadRsyncOutput() {
 			}
 		}
 	}
-	if(lValidInfo) {
-		setPercent(lPercent);
-		if(lUnit == 'k') {
-			lSpeed *= 1e3;
-		} else if(lUnit == 'M') {
-			lSpeed *= 1e6;
-		} else if(lUnit == 'G') {
-			lSpeed *= 1e9;
+	if(mInfoRateLimiter.hasExpired(200)) {
+		if(lValidInfo) {
+			setPercent(lPercent);
+			if(lUnit == 'k') {
+				lSpeed *= 1e3;
+			} else if(lUnit == 'M') {
+				lSpeed *= 1e6;
+			} else if(lUnit == 'G') {
+				lSpeed *= 1e9;
+			}
+			emitSpeed(lSpeed);
+			if(lPercent > 5) { // the rounding to integer percent gives big error with small percentages
+				setProcessedAmount(KJob::Bytes, lTransfered);
+				setTotalAmount(KJob::Bytes, lTransfered*100/lPercent);
+			}
 		}
-		emitSpeed(lSpeed);
-		if(lPercent > 5) { // the rounding to integer percent gives big error with small percentages
-			setProcessedAmount(KJob::Bytes, lTransfered);
-			setTotalAmount(KJob::Bytes, lTransfered*100/lPercent);
+		if(lValidFileName) {
+			emit description(this, i18n("Saving backup"),
+			                 qMakePair(i18nc("Label for file currently being copied", "File"), lFileName));
 		}
-	}
-	if(lValidFileName) {
-		emit description(this, i18n("Saving backup"),
-		                 qMakePair(i18nc("Label for file currently being copied", "File"), lFileName));
+		mInfoRateLimiter.start();
 	}
 }
 

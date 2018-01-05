@@ -24,6 +24,7 @@
 #include "backupjob.h"
 
 #include <KProcess>
+#include <QElapsedTimer>
 
 class KupDaemon;
 
@@ -48,6 +49,7 @@ protected:
 	bool doResume() Q_DECL_OVERRIDE;
 
 	KProcess mRsyncProcess;
+	QElapsedTimer mInfoRateLimiter;
 };
 
 #endif // RSYNCJOB_H
