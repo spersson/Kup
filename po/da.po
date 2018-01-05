@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2017-05-29 17:49+0800\n"
-"PO-Revision-Date: 2017-04-22 04:02+0000\n"
-"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
+"POT-Creation-Date: 2018-01-05 16:00+0800\n"
+"PO-Revision-Date: 2017-09-23 00:12+0000\n"
+"Last-Translator: Peter Jespersen <flywheel@illogical.dk>\n"
 "Language-Team: Danish (http://www.transifex.com/kup/kup/language/da/)\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -47,12 +47,12 @@ msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr "Backupslutpunkt kunne ikke klargøres. Se logfil for detaljer."
 
-#: daemon/bupjob.cpp:92
+#: daemon/bupjob.cpp:93
 #, kde-format
 msgid "Checking backup integrity"
-msgstr ""
+msgstr "Tjekker integriteten af backup"
 
-#: daemon/bupjob.cpp:103 daemon/bupverificationjob.cpp:67
+#: daemon/bupjob.cpp:104 daemon/bupverificationjob.cpp:67
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -62,7 +62,7 @@ msgstr ""
 "Integritetstjek fejlet. Dine backupper kan være korrupte! Se logfil for "
 "detaljer. Vil du prøve at reparere backupfilerne?"
 
-#: daemon/bupjob.cpp:107
+#: daemon/bupjob.cpp:108
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -72,34 +72,34 @@ msgstr ""
 "Integritetskontrol fejlet. Dine backupper kan være beskadigede! Se logfil "
 "for yderligere  detaljer."
 
-#: daemon/bupjob.cpp:130 daemon/rsyncjob.cpp:57
+#: daemon/bupjob.cpp:131 daemon/rsyncjob.cpp:57
 #, kde-format
 msgid "Checking what to copy"
 msgstr ""
 
-#: daemon/bupjob.cpp:137
+#: daemon/bupjob.cpp:138
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to analyze files. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:158 daemon/bupjob.cpp:251 daemon/rsyncjob.cpp:173
+#: daemon/bupjob.cpp:159 daemon/bupjob.cpp:253 daemon/rsyncjob.cpp:175
 #, kde-format
 msgid "Saving backup"
-msgstr ""
+msgstr "Lagrer backup"
 
-#: daemon/bupjob.cpp:166 daemon/rsyncjob.cpp:119
+#: daemon/bupjob.cpp:167 daemon/rsyncjob.cpp:120
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to save backup. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:188
+#: daemon/bupjob.cpp:189
 #, kde-format
 msgid "Generating recovery information"
 msgstr ""
 
-#: daemon/bupjob.cpp:196
+#: daemon/bupjob.cpp:197
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -109,11 +109,11 @@ msgstr ""
 "Kunne ikke skabe gendannelsesinformation for backuppen. Se logfil for "
 "detaljer."
 
-#: daemon/bupjob.cpp:252 daemon/rsyncjob.cpp:174
+#: daemon/bupjob.cpp:254 daemon/rsyncjob.cpp:176
 #, kde-format
 msgctxt "Label for file currently being copied"
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: daemon/buprepairjob.cpp:72
 #, kde-kuit-format
@@ -198,12 +198,12 @@ msgstr "Du har ikke skriverettigheder til slutpunktet."
 #: daemon/kupdaemon.cpp:171
 #, kde-format
 msgid "Continue"
-msgstr ""
+msgstr "Fortsæt"
 
 #: daemon/kupdaemon.cpp:173
 #, kde-format
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: daemon/kupdaemon.cpp:175
 #, kde-format
@@ -214,7 +214,7 @@ msgstr ""
 #: daemon/kupdaemon.cpp:176
 #, kde-format
 msgid "Do you really want to stop?"
-msgstr ""
+msgstr "Vil du virkelig afbryde?"
 
 #: daemon/kupdaemon.cpp:179
 #, kde-format
@@ -242,19 +242,19 @@ msgstr ""
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Backup status OK"
-msgstr ""
+msgstr "Backupstatus OK"
 
 #: daemon/kupdaemon.cpp:276 daemon/planexecutor.cpp:86
 #, kde-format
 msgctxt "status in tooltip"
 msgid "New backup suggested"
-msgstr ""
+msgstr "Ny backup foreslået"
 
 #: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:88
 #, kde-format
 msgctxt "status in tooltip"
 msgid "New backup neeeded"
-msgstr ""
+msgstr "Ny backup påkrævet"
 
 #: daemon/main.cpp:41
 #, kde-kuit-format
@@ -310,13 +310,13 @@ msgstr "Din e-Post"
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Saving backup"
-msgstr ""
+msgstr "Lagrer backup"
 
 #: daemon/planexecutor.cpp:78
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Checking backup integrity"
-msgstr ""
+msgstr "Tjekker integriteten af backup"
 
 #: daemon/planexecutor.cpp:80
 #, kde-format
@@ -377,13 +377,13 @@ msgstr "Vis Logfil"
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Backup Saved"
-msgstr ""
+msgstr "Backup Gemt"
 
 #: daemon/planexecutor.cpp:222
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Saving backup completed successfully."
-msgstr ""
+msgstr "Lagring af backup succesfuldt udført."
 
 #: daemon/planexecutor.cpp:271
 #, kde-kuit-format
@@ -724,7 +724,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@title"
 msgid "Backup Type"
-msgstr ""
+msgstr "Backup-type"
 
 #: kcm/backupplanwidget.cpp:582
 #, kde-kuit-format
@@ -1135,7 +1135,7 @@ msgstr "Fjern"
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplikér"
 
 #: kioslave/bupslave.cpp:92 kioslave/bupslave.cpp:149 kioslave/bupslave.cpp:186
 #: kioslave/bupslave.cpp:249 kioslave/bupslave.cpp:271
@@ -1150,17 +1150,17 @@ msgstr ""
 #: plasmoid/contents/ui/FullRepresentation.qml:88
 #, kde-format
 msgid "Save new backup"
-msgstr ""
+msgstr "Gem ny backup"
 
 #: plasmoid/contents/ui/FullRepresentation.qml:94
 #, kde-format
 msgid "Show files"
-msgstr ""
+msgstr "Vis filer"
 
 #: plasmoid/contents/ui/FullRepresentation.qml:99
 #, kde-format
 msgid "Show log file"
-msgstr ""
+msgstr "Vis logfiler"
 
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
@@ -1248,7 +1248,7 @@ msgstr "Bekræft"
 #. i18n: file: filedigger/restoredialog.ui:341
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
 #: po/rc.cpp:33 rc.cpp:33
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label above the detailed error message"
 msgid "An error occured while restoring:"
 msgstr "En fejl opstod ved gendannelse:"
@@ -1256,7 +1256,7 @@ msgstr "En fejl opstod ved gendannelse:"
 #. i18n: file: filedigger/restoredialog.ui:372
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:36 rc.cpp:36
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label"
 msgid "Restoration completed successfully!"
 msgstr "Gendannelse fuldført!"
@@ -1339,7 +1339,7 @@ msgstr ""
 
 #: po/rc.cpp:60 rc.cpp:60
 msgid "Backup Status"
-msgstr ""
+msgstr "Backupstatus"
 
 #: po/rc.cpp:61 rc.cpp:61
 msgid "Displays status of backup plans"
@@ -1357,25 +1357,25 @@ msgstr "Backupplan %1"
 #, kde-format
 msgctxt "default description of newly duplicated backup plan"
 msgid "%1 (copy)"
-msgstr ""
+msgstr "%1 (kopi)"
 
 #: settings/backupplan.cpp:213
 #, kde-format
 msgctxt "%1 is fancy formatted date"
 msgid "Last saved: %1"
-msgstr ""
+msgstr "Sidst gemt: %1"
 
 #: settings/backupplan.cpp:218
 #, kde-format
 msgctxt "%1 is storage size of archive"
 msgid "Size: %1"
-msgstr ""
+msgstr "Størrelse: %1"
 
 #: settings/backupplan.cpp:223
 #, kde-format
 msgctxt "%1 is free storage space"
 msgid "Free space: %1"
-msgstr ""
+msgstr "Fri plads: %1"
 
 #: settings/backupplan.cpp:227
 #, kde-kuit-format

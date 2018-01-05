@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2017-05-29 17:49+0800\n"
+"POT-Creation-Date: 2018-01-05 16:00+0800\n"
 "PO-Revision-Date: 2016-06-11 14:47+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/kup/kup/language/"
@@ -54,12 +54,12 @@ msgstr ""
 "Le répertoire de sauvegarde ne peut être initialisé. Voyez le fichier de log "
 "pour plus de détails."
 
-#: daemon/bupjob.cpp:92
+#: daemon/bupjob.cpp:93
 #, fuzzy, kde-format
 msgid "Checking backup integrity"
 msgstr "Vérification de l'intégrité de la sauvegarde"
 
-#: daemon/bupjob.cpp:103 daemon/bupverificationjob.cpp:67
+#: daemon/bupjob.cpp:104 daemon/bupverificationjob.cpp:67
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -70,7 +70,7 @@ msgstr ""
 "corrompue! Voyez le fichier de log pour plus de détails. Voulez vous essayer "
 "de réparer le fichier de sauvegarde?"
 
-#: daemon/bupjob.cpp:107
+#: daemon/bupjob.cpp:108
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -80,12 +80,12 @@ msgstr ""
 "La vérification de la sauvegarde a échoué. Votre sauvegarde pourrait être "
 "corrompue! Voyez le fichier de log pour plus d'informations."
 
-#: daemon/bupjob.cpp:130 daemon/rsyncjob.cpp:57
+#: daemon/bupjob.cpp:131 daemon/rsyncjob.cpp:57
 #, kde-format
 msgid "Checking what to copy"
 msgstr ""
 
-#: daemon/bupjob.cpp:137
+#: daemon/bupjob.cpp:138
 #, fuzzy, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to analyze files. See log file for more details."
@@ -93,12 +93,12 @@ msgstr ""
 "Indexation du système de fichier échouée. Voyez le fichier de log pour plus "
 "de détails."
 
-#: daemon/bupjob.cpp:158 daemon/bupjob.cpp:251 daemon/rsyncjob.cpp:173
+#: daemon/bupjob.cpp:159 daemon/bupjob.cpp:253 daemon/rsyncjob.cpp:175
 #, fuzzy, kde-format
 msgid "Saving backup"
 msgstr "Commencer la sauvegarde"
 
-#: daemon/bupjob.cpp:166 daemon/rsyncjob.cpp:119
+#: daemon/bupjob.cpp:167 daemon/rsyncjob.cpp:120
 #, fuzzy, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to save backup. See log file for more details."
@@ -106,12 +106,12 @@ msgstr ""
 "Échec à l'enregistrement de la sauvegarde complète. Voyez le fichier de log "
 "pour plus de détails."
 
-#: daemon/bupjob.cpp:188
+#: daemon/bupjob.cpp:189
 #, fuzzy, kde-format
 msgid "Generating recovery information"
 msgstr "Générer les informations de restauration"
 
-#: daemon/bupjob.cpp:196
+#: daemon/bupjob.cpp:197
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -121,7 +121,7 @@ msgstr ""
 "Informations sur la sauvegarde non enregistrées. Voyez le fichier de log "
 "pour plus de détails."
 
-#: daemon/bupjob.cpp:252 daemon/rsyncjob.cpp:174
+#: daemon/bupjob.cpp:254 daemon/rsyncjob.cpp:176
 #, fuzzy, kde-format
 msgctxt "Label for file currently being copied"
 msgid "File"

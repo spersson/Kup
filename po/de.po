@@ -8,15 +8,15 @@
 # jrabe, 2016
 # jrabe, 2016
 # HinzundKunz <martin.tlustos@gmail.com>, 2015-2017
-# Matthias Schuster Scharmer <shalokshalom@riseup.net>, 2015
+# Matthias Schuster Scharmer <shalokshalom@protonmail.ch>, 2015
 # Simon Persson <simon.persson@mykolab.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2017-05-29 17:49+0800\n"
-"PO-Revision-Date: 2017-04-24 07:38+0000\n"
+"POT-Creation-Date: 2018-01-05 16:00+0800\n"
+"PO-Revision-Date: 2017-09-19 23:42+0000\n"
 "Last-Translator: HinzundKunz <martin.tlustos@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/kup/kup/language/de/)\n"
 "Language: de\n"
@@ -55,12 +55,12 @@ msgstr ""
 "Das Zielverzeichnis konnte nicht initialisiert werden. Weitere Informationen "
 "finden Sie in der Log-Datei."
 
-#: daemon/bupjob.cpp:92
+#: daemon/bupjob.cpp:93
 #, kde-format
 msgid "Checking backup integrity"
 msgstr "Überprüfe den Zustand der Sicherung"
 
-#: daemon/bupjob.cpp:103 daemon/bupverificationjob.cpp:67
+#: daemon/bupjob.cpp:104 daemon/bupverificationjob.cpp:67
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -71,7 +71,7 @@ msgstr ""
 "sein. Weitere Informationen finden Sie in der Log-Datei. Möchten Sie "
 "probieren, die Sicherungsdateien zu reparieren?"
 
-#: daemon/bupjob.cpp:107
+#: daemon/bupjob.cpp:108
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -81,12 +81,12 @@ msgstr ""
 "Die Integritätsprüfung ist fehlgeschlagen. Ihr Backup könnte fehlerhaft "
 "sein. Weitere Informationen finden Sie in der Log-Datei."
 
-#: daemon/bupjob.cpp:130 daemon/rsyncjob.cpp:57
+#: daemon/bupjob.cpp:131 daemon/rsyncjob.cpp:57
 #, kde-format
 msgid "Checking what to copy"
 msgstr "Überprüfe, was kopiert werden soll"
 
-#: daemon/bupjob.cpp:137
+#: daemon/bupjob.cpp:138
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to analyze files. See log file for more details."
@@ -94,12 +94,12 @@ msgstr ""
 "Konnte die Dateien nicht analysieren. In der Log-Datei finden sich mehr "
 "Informationen dazu."
 
-#: daemon/bupjob.cpp:158 daemon/bupjob.cpp:251 daemon/rsyncjob.cpp:173
+#: daemon/bupjob.cpp:159 daemon/bupjob.cpp:253 daemon/rsyncjob.cpp:175
 #, kde-format
 msgid "Saving backup"
 msgstr "Backup wird gesichert"
 
-#: daemon/bupjob.cpp:166 daemon/rsyncjob.cpp:119
+#: daemon/bupjob.cpp:167 daemon/rsyncjob.cpp:120
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to save backup. See log file for more details."
@@ -107,12 +107,12 @@ msgstr ""
 "Backup konnte nicht gesichert werden. In der Log-Datei finden sich mehr "
 "Informationen dazu."
 
-#: daemon/bupjob.cpp:188
+#: daemon/bupjob.cpp:189
 #, kde-format
 msgid "Generating recovery information"
 msgstr "Erzeuge Wiederherstellungsinformationen"
 
-#: daemon/bupjob.cpp:196
+#: daemon/bupjob.cpp:197
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -122,7 +122,7 @@ msgstr ""
 "Die Wiederherstellungsinformationen für die Sicherung konnten nicht erstellt "
 "werden. Weitere Informationen finden Sie in der Log-Datei."
 
-#: daemon/bupjob.cpp:252 daemon/rsyncjob.cpp:174
+#: daemon/bupjob.cpp:254 daemon/rsyncjob.cpp:176
 #, kde-format
 msgctxt "Label for file currently being copied"
 msgid "File"

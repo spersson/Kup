@@ -4,16 +4,18 @@
 #
 # Translators:
 # Administrador de Sistemas de Koali <admin@koali.es>, 2014
+# Alex Castilla <alex.castillap@gmail.com>, 2017
 # Francisco García Cisneros <fgarciacis@koali.es>, 2013
+# seryeb - <seryeb@gmail.com>, 2017
 # Simon Persson <simon.persson@mykolab.com>, 2014
-# Simon Persson <simon.persson@mykolab.com>, 2014-2015
+# Simon Persson <simon.persson@mykolab.com>, 2014-2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2017-05-29 17:49+0800\n"
-"PO-Revision-Date: 2016-06-11 14:48+0000\n"
+"POT-Creation-Date: 2018-01-05 16:00+0800\n"
+"PO-Revision-Date: 2018-01-05 07:58+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/kup/kup/language/es/)\n"
 "Language: es\n"
@@ -49,56 +51,63 @@ msgctxt "@info notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
 msgstr ""
+"El destino de la copia de seguridad no pudo ser inicializado. Revisa los "
+"eventos para más detalles."
 
-#: daemon/bupjob.cpp:92
+#: daemon/bupjob.cpp:93
 #, kde-format
 msgid "Checking backup integrity"
-msgstr ""
+msgstr "Comprobando la integridad de la copia de seguridad"
 
-#: daemon/bupjob.cpp:103 daemon/bupverificationjob.cpp:67
+#: daemon/bupjob.cpp:104 daemon/bupverificationjob.cpp:67
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details. Do you want to try repairing the backup files?"
 msgstr ""
+"Fallo la comprobación de integridad. Su copia de seguridad puede estar "
+"corrupta!! Ver el archivo de log para mas detalles. Quiere que se intente la "
+"reparación de los archivos de copia de seguridad?"
 
-#: daemon/bupjob.cpp:107
+#: daemon/bupjob.cpp:108
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details."
 msgstr ""
+"Fallo la comprobación de integridad. Su copia de seguridad puede estar "
+"corrupta!! Ver el archivo de log para mas detalles."
 
-#: daemon/bupjob.cpp:130 daemon/rsyncjob.cpp:57
+#: daemon/bupjob.cpp:131 daemon/rsyncjob.cpp:57
 #, kde-format
 msgid "Checking what to copy"
 msgstr ""
 
-#: daemon/bupjob.cpp:137
+#: daemon/bupjob.cpp:138
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to analyze files. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:158 daemon/bupjob.cpp:251 daemon/rsyncjob.cpp:173
-#, fuzzy, kde-format
+#: daemon/bupjob.cpp:159 daemon/bupjob.cpp:253 daemon/rsyncjob.cpp:175
+#, kde-format
 msgid "Saving backup"
 msgstr "Haciendo nueva copia de seguridad"
 
-#: daemon/bupjob.cpp:166 daemon/rsyncjob.cpp:119
+#: daemon/bupjob.cpp:167 daemon/rsyncjob.cpp:120
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to save backup. See log file for more details."
 msgstr ""
 
-#: daemon/bupjob.cpp:188
+#: daemon/bupjob.cpp:189
 #, kde-format
 msgid "Generating recovery information"
 msgstr ""
 
-#: daemon/bupjob.cpp:196
+#: daemon/bupjob.cpp:197
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
@@ -106,11 +115,11 @@ msgid ""
 "details."
 msgstr ""
 
-#: daemon/bupjob.cpp:252 daemon/rsyncjob.cpp:174
-#, fuzzy, kde-format
+#: daemon/bupjob.cpp:254 daemon/rsyncjob.cpp:176
+#, kde-format
 msgctxt "Label for file currently being copied"
 msgid "File"
-msgstr "Archivo:"
+msgstr "Archivo"
 
 #: daemon/buprepairjob.cpp:72
 #, kde-kuit-format
@@ -149,6 +158,9 @@ msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details."
 msgstr ""
+"Fallo la comprobación de integridad. Su copia de seguridad puede estar "
+"corrupta!! Ver el archivo de log para mas detalles. Quiere que se intente la "
+"reparación de los archivos de copia de seguridad?"
 
 #: daemon/bupverificationjob.cpp:76
 #, kde-kuit-format
@@ -163,6 +175,9 @@ msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details. Do you want to try repairing the backup files?"
 msgstr ""
+"Fallo la comprobación de integridad. Su copia de seguridad puede estar "
+"corrupta!! Ver el archivo de log para mas detalles. Quiere que se intente la "
+"reparación de los archivos de copia de seguridad?"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:124
 #: daemon/edexecutor.cpp:160 daemon/fsexecutor.cpp:114
@@ -206,12 +221,12 @@ msgid "Do you really want to stop?"
 msgstr ""
 
 #: daemon/kupdaemon.cpp:179
-#, fuzzy, kde-format
+#, kde-format
 msgid "User Backups"
-msgstr "Copias de seguridad"
+msgstr ""
 
 #: daemon/kupdaemon.cpp:249
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Backup destination not available"
 msgstr "Destino de la copia de seguridad no disponible"
@@ -222,25 +237,25 @@ msgid "No backup plans configured"
 msgstr ""
 
 #: daemon/kupdaemon.cpp:259
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Backup destination available"
 msgstr "Destino de la copia de seguridad disponible"
 
 #: daemon/kupdaemon.cpp:269 daemon/planexecutor.cpp:84
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Backup status OK"
-msgstr "Estado de la copia de seguridad CORRECTO"
+msgstr "Estado de la copia de seguridad correcto"
 
 #: daemon/kupdaemon.cpp:276 daemon/planexecutor.cpp:86
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "New backup suggested"
 msgstr "Recomendada nueva copia de seguridad"
 
 #: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:88
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "New backup neeeded"
 msgstr "Necesaria nueva copia de seguridad"
@@ -252,6 +267,8 @@ msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running <command>kcmshell5 kup</command>"
 msgstr ""
+"Kup no está habilitado, habilítalo desde el módulo de Preferencias del "
+"Sistema:<command>kcmshell5 kup</command>"
 
 #: daemon/main.cpp:47
 #, kde-kuit-format
@@ -295,7 +312,7 @@ msgid "Your emails"
 msgstr "admin@koali.es"
 
 #: daemon/planexecutor.cpp:76
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Saving backup"
 msgstr "Haciendo nueva copia de seguridad"
@@ -304,39 +321,40 @@ msgstr "Haciendo nueva copia de seguridad"
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Checking backup integrity"
-msgstr ""
+msgstr "Comprobando la integridad de la copia de seguridad"
 
 #: daemon/planexecutor.cpp:80
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status in tooltip"
 msgid "Repairing backups"
-msgstr "Haciendo nueva copia de seguridad"
+msgstr ""
 
 #: daemon/planexecutor.cpp:118 daemon/planexecutor.cpp:133
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Do you want to save a first backup now?"
 msgstr "¿Desea realizar la primera copia de seguridad ahora?"
 
 #: daemon/planexecutor.cpp:121
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "It has been %1 since last backup was saved.\n"
 "Save a new backup now?"
 msgstr ""
-"Hace %1 desde que se realizó la última copia de seguridad, ¿quiere realizar "
-"una copia de seguridad ahora?"
+"Hace %1 desde que se realizó la última copia de seguridad.\n"
+"¿Desea realizar una copia de seguridad ahora?"
 
 #: daemon/planexecutor.cpp:137
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "You have been active for %1 since last backup was saved.\n"
 "Save a new backup now?"
 msgstr ""
 "Ha estado activo con este ordenador por %1 desde que se realizó la última "
-"copia de seguridad, ¿Desea realizar una copia de seguridad ahora?"
+"copia de seguridad.\n"
+" ¿Desea realizar una copia de seguridad ahora?"
 
 #: daemon/planexecutor.cpp:170 daemon/planexecutor.cpp:200
 #: daemon/planexecutor.cpp:278
@@ -366,16 +384,16 @@ msgid "Show log file"
 msgstr ""
 
 #: daemon/planexecutor.cpp:221
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@title:window"
 msgid "Backup Saved"
-msgstr "Copias de seguridad Activadas"
+msgstr ""
 
 #: daemon/planexecutor.cpp:222
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info notification"
 msgid "Saving backup completed successfully."
-msgstr "¡Restauración completada con éxito!"
+msgstr ""
 
 #: daemon/planexecutor.cpp:271
 #, kde-kuit-format
@@ -927,7 +945,7 @@ msgstr "Especificar el calendario de copias de seguridad"
 #, kde-kuit-format
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
-msgstr ""
+msgstr "Mostrar carpetas ocultas en la selección de orígenes"
 
 #: kcm/backupplanwidget.cpp:814
 #, kde-kuit-format
@@ -1173,19 +1191,19 @@ msgstr ""
 "%1"
 
 #: plasmoid/contents/ui/FullRepresentation.qml:88
-#, fuzzy, kde-format
+#, kde-format
 msgid "Save new backup"
-msgstr "Haciendo nueva copia de seguridad"
+msgstr ""
 
 #: plasmoid/contents/ui/FullRepresentation.qml:94
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show files"
 msgstr "Mostrar archivos"
 
 #: plasmoid/contents/ui/FullRepresentation.qml:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show log file"
-msgstr "Mostrar archivos"
+msgstr ""
 
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
@@ -1274,7 +1292,7 @@ msgstr "Confirmar"
 #. i18n: file: filedigger/restoredialog.ui:341
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
 #: po/rc.cpp:33 rc.cpp:33
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label above the detailed error message"
 msgid "An error occured while restoring:"
 msgstr "Ocurrió un error durante la restauración:"
@@ -1282,7 +1300,7 @@ msgstr "Ocurrió un error durante la restauración:"
 #. i18n: file: filedigger/restoredialog.ui:372
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:36 rc.cpp:36
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label"
 msgid "Restoration completed successfully!"
 msgstr "¡Restauración completada con éxito!"
@@ -1328,9 +1346,8 @@ msgid "A question if user wants to start taking a backup"
 msgstr ""
 
 #: po/rc.cpp:50 rc.cpp:50
-#, fuzzy
 msgid "Backup succeeded"
-msgstr "Necesaria nueva copia de seguridad"
+msgstr ""
 
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Saving of backup successfully completed"
@@ -1361,14 +1378,12 @@ msgid "Finished repairing backup archive"
 msgstr ""
 
 #: po/rc.cpp:59 rc.cpp:59
-#, fuzzy
 msgid "Status of backup plans"
-msgstr "Configurar planes de copias de seguridad"
+msgstr ""
 
 #: po/rc.cpp:60 rc.cpp:60
-#, fuzzy
 msgid "Backup Status"
-msgstr "Estado de la copia de seguridad CORRECTO"
+msgstr ""
 
 #: po/rc.cpp:61 rc.cpp:61
 msgid "Displays status of backup plans"
@@ -1389,10 +1404,10 @@ msgid "%1 (copy)"
 msgstr ""
 
 #: settings/backupplan.cpp:213
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "%1 is fancy formatted date"
 msgid "Last saved: %1"
-msgstr "- guardado en %1"
+msgstr ""
 
 #: settings/backupplan.cpp:218
 #, kde-format
@@ -1411,35 +1426,3 @@ msgstr ""
 msgctxt "@label"
 msgid "This backup plan has never been run."
 msgstr "Este plan de copias de seguridad nunca ha sido usado."
-
-#~ msgctxt "@title:window"
-#~ msgid "Backups"
-#~ msgstr "Copias de seguridad"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Backups"
-#~ msgstr "Copias de seguridad"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Configure Backups"
-#~ msgstr "Configurar copias de seguridad"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Take Backup Now"
-#~ msgstr "Hacer copia de seguridad ahora"
-
-#~ msgctxt "@title:window"
-#~ msgid "Backup Device Available - %1"
-#~ msgstr "Dispositivo de copias de seguridad disponible - %1"
-
-#~ msgctxt "@label %1 is fancy formatted date, %2 is time of day"
-#~ msgid "Last backup was taken %1 at %2.\n"
-#~ msgstr "La última copia de seguridad se hizo %1 a las %2.\n"
-
-#~ msgctxt "@label %1 is storage size of archive"
-#~ msgid "The size of the backup archive was %1.\n"
-#~ msgstr "El tamaño del archivo de copias de seguridad fue %1.\n"
-
-#~ msgctxt "@label %1 is free storage space"
-#~ msgid "The destination still had %1 available.\n"
-#~ msgstr "El destino aún contiene %1 disponible.\n"
