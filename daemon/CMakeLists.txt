@@ -27,11 +27,11 @@ KF5::KIOCore
 KF5::KIOFileWidgets
 KF5::IdleTime
 KF5::I18n
+KF5::JobWidgets
 KF5::Solid
 KF5::Notifications
 KF5::CoreAddons
 KF5::DBusAddons
-KF5::JobWidgets
 )
 
 ########### install files ###############

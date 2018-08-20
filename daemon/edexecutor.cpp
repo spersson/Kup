@@ -38,7 +38,7 @@
 #include <Solid/StorageVolume>
 
 EDExecutor::EDExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
-   :PlanExecutor(pPlan, pKupDaemon), mStorageAccess(NULL), mWantsToRunBackup(false), mWantsToShowFiles(false)
+   :PlanExecutor(pPlan, pKupDaemon), mStorageAccess(nullptr), mWantsToRunBackup(false), mWantsToShowFiles(false)
 {
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(QString)), SLOT(deviceAdded(QString)));
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(QString)), SLOT(deviceRemoved(QString)));
@@ -81,7 +81,7 @@ void EDExecutor::deviceRemoved(const QString &pUdi) {
 	if(mCurrentUdi == pUdi) {
 		mWantsToRunBackup = false;
 		mCurrentUdi.clear();
-		mStorageAccess = NULL;
+		mStorageAccess = nullptr;
 		enterNotAvailableState();
 	}
 }
@@ -111,7 +111,7 @@ void EDExecutor::startBackup() {
 			QFileInfo lInfo(mDestinationPath);
 			if(lInfo.isWritable()) {
 				BackupJob *lJob = createBackupJob();
-				if(lJob == NULL) {
+				if(lJob == nullptr) {
 					KNotification::event(KNotification::Error, xi18nc("@title:window", "Problem"),
 					                     xi18nc("notification", "Invalid type of backup in configuration."));
 					exitBackupRunningState(false);

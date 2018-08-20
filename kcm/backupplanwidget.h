@@ -137,7 +137,7 @@ class DirDialog: public QDialog
 {
 	Q_OBJECT
 public:
-	explicit DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent = NULL);
+	explicit DirDialog(const QUrl &pRootDir, const QString &pStartSubDir, QWidget *pParent = nullptr);
 	QUrl url() const;
 private:
 	DirSelector *mDirSelector;

@@ -49,9 +49,9 @@ RestoreDialog::RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent)
 
 	mUI->setupUi(this);
 
-	mFileWidget = NULL;
-	mDirSelector = NULL;
-	mJobTracker = NULL;
+	mFileWidget = nullptr;
+	mDirSelector = nullptr;
+	mJobTracker = nullptr;
 
 	mUI->mRestoreOriginalButton->setMinimumHeight(mUI->mRestoreOriginalButton->sizeHint().height() * 2);
 	mUI->mRestoreCustomButton->setMinimumHeight(mUI->mRestoreCustomButton->sizeHint().height() * 2);
@@ -104,7 +104,7 @@ void RestoreDialog::setOriginalDestination() {
 }
 
 void RestoreDialog::setCustomDestination() {
-	if(mSourceInfo.mIsDirectory && mDirSelector == NULL) {
+	if(mSourceInfo.mIsDirectory && mDirSelector == nullptr) {
 		mDirSelector = new DirSelector(this);
 		mDirSelector->setRootUrl(QUrl::fromLocalFile(QStringLiteral("/")));
 		QString lDirPath = mSourceInfo.mPathInRepo.section(QDir::separator(), 0, -2);
@@ -115,7 +115,7 @@ void RestoreDialog::setCustomDestination() {
 		                                                xi18nc("@action:button","New Folder..."));
 		connect(lNewFolderButton, SIGNAL(clicked()), SLOT(createNewFolder()));
 		mUI->mDestinationHLayout->insertWidget(0, lNewFolderButton);
-	} else if(!mSourceInfo.mIsDirectory && mFileWidget == NULL) {
+	} else if(!mSourceInfo.mIsDirectory && mFileWidget == nullptr) {
 		QFileInfo lFileInfo(mSourceInfo.mPathInRepo);
 		do {
 			lFileInfo.setFile(lFileInfo.absolutePath()); // check the file's directory first, not the file.
@@ -315,7 +315,7 @@ void RestoreDialog::startRestoring() {
 	lSourcePath.append(mSourceInfo.mPathInRepo);
 	RestoreJob *lRestoreJob = new RestoreJob(mSourceInfo.mRepoPath, lSourcePath, mRestorationPath,
 	                                         mDirectoriesCount, mSourceSize, mFileSizes);
-	if(mJobTracker == NULL) {
+	if(mJobTracker == nullptr) {
 		mJobTracker = new KWidgetJobTracker(this);
 	}
 	mJobTracker->registerJob(lRestoreJob);
@@ -406,7 +406,7 @@ void RestoreDialog::openDestinationFolder() {
 	KRun::runUrl(QUrl::fromLocalFile(mSourceInfo.mIsDirectory ?
 	                                    mFolderToCreate.absoluteFilePath() :
 	                                    mDestination.absolutePath()),
-	             QStringLiteral("inode/directory"), NULL);
+	             QStringLiteral("inode/directory"), nullptr);
 }
 
 void RestoreDialog::moveFolder() {

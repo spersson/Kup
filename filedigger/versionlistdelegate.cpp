@@ -213,7 +213,7 @@ void VersionListDelegate::paint(QPainter *pPainter, const QStyleOptionViewItem &
 	pPainter->restore();
 
 	VersionItemAnimation *lAnimation = mActiveAnimations.value(pIndex);
-	if(lAnimation != NULL) {
+	if(lAnimation != nullptr) {
 		pPainter->save();
 		pPainter->setClipRect(pOption.rect);
 
@@ -233,7 +233,7 @@ QSize VersionListDelegate::sizeHint(const QStyleOptionViewItem &pOption, const Q
 	int lExtraHeight = 0;
 	int lExtraWidth = 0;
 	VersionItemAnimation *lAnimation = mActiveAnimations.value(pIndex);
-	if(lAnimation != NULL) {
+	if(lAnimation != nullptr) {
 		int lButtonHeight = lAnimation->mOpenButton->mStyleOption.rect.height();
 		lExtraHeight = lAnimation->extraHeight() * (lButtonHeight + cMargin);
 		lExtraWidth = lAnimation->mOpenButton->mStyleOption.rect.width() +
@@ -258,7 +258,7 @@ bool VersionListDelegate::eventFilter(QObject *pObject, QEvent *pEvent) {
 void VersionListDelegate::updateCurrent(const QModelIndex &pCurrent, const QModelIndex &pPrevious) {
 	if(pPrevious.isValid()) {
 		VersionItemAnimation *lPrevAnim = mActiveAnimations.value(pPrevious);
-		if(lPrevAnim != NULL) {
+		if(lPrevAnim != nullptr) {
 			lPrevAnim->setDirection(QAbstractAnimation::Backward);
 			lPrevAnim->start();
 			lPrevAnim->setFocus(false);
@@ -266,7 +266,7 @@ void VersionListDelegate::updateCurrent(const QModelIndex &pCurrent, const QMode
 	}
 	if(pCurrent.isValid()) {
 		VersionItemAnimation *lCurAnim = mActiveAnimations.value(pCurrent);
-		if(lCurAnim == NULL) {
+		if(lCurAnim == nullptr) {
 			if(!mInactiveAnimations.isEmpty()) {
 				lCurAnim = mInactiveAnimations.takeFirst();
 			} else {

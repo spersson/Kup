@@ -67,13 +67,13 @@ class MergedNode: public QObject {
 public:
 	MergedNode(QObject *pParent, const QString &pName, uint pMode);
 	virtual ~MergedNode() {
-		if(mSubNodes != NULL) {
+		if(mSubNodes != nullptr) {
 			delete mSubNodes;
 		}
 	}
 	bool isDirectory() const { return S_ISDIR(mMode); }
-	void getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPath = NULL, QString *pBranchName = NULL,
-	               quint64 *pCommitTime = NULL, QString *pPathInRepo = NULL) const;
+	void getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPath = nullptr, QString *pBranchName = nullptr,
+	               quint64 *pCommitTime = nullptr, QString *pPathInRepo = nullptr) const;
 	virtual MergedNodeList &subNodes();
 	const VersionList *versionList() const { return &mVersionList; }
 	uint mode() const { return mMode; }

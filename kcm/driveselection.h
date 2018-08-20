@@ -76,7 +76,7 @@ protected slots:
 
 protected:
 	virtual void paintEvent(QPaintEvent *pPaintEvent);
-	int findItem(const DataType pField, const QString &pSearchString, QStandardItem **pReturnedItem = NULL) const;
+	int findItem(const DataType pField, const QString &pSearchString, QStandardItem **pReturnedItem = nullptr) const;
 
 	QStandardItemModel *mDrivesModel;
 	QString mSelectedUuid;

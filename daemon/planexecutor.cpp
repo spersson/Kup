@@ -41,8 +41,8 @@ static QString sPwrMgmtInhibitInterface = QStringLiteral("org.freedesktop.PowerM
 static QString sPwrMgmtInterface = QStringLiteral("org.freedesktop.PowerManagement");
 
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
-   :QObject(pKupDaemon), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(NULL),
-     mFailNotification(NULL), mIntegrityNotification(NULL), mRepairNotification(NULL),
+   :QObject(pKupDaemon), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(nullptr),
+     mFailNotification(nullptr), mIntegrityNotification(nullptr), mRepairNotification(nullptr),
      mKupDaemon(pKupDaemon), mSleepCookie(0)
 {
 	QString lCachePath = QString::fromLocal8Bit(qgetenv("XDG_CACHE_HOME").constData());
@@ -182,7 +182,7 @@ void PlanExecutor::askUser(const QString &pQuestion) {
 void PlanExecutor::discardUserQuestion() {
 	if(mQuestion) {
 		mQuestion->deleteLater();
-		mQuestion = NULL;
+		mQuestion = nullptr;
 	}
 }
 
@@ -212,7 +212,7 @@ void PlanExecutor::notifyBackupFailed(KJob *pFailedJob) {
 void PlanExecutor::discardFailNotification() {
 	if(mFailNotification) {
 		mFailNotification->deleteLater();
-		mFailNotification = NULL;
+		mFailNotification = nullptr;
 	}
 }
 
@@ -224,7 +224,7 @@ void PlanExecutor::notifyBackupSucceeded() {
 }
 
 void PlanExecutor::showLog() {
-	KRun::runUrl(QUrl::fromLocalFile(mLogFilePath), QStringLiteral("text/x-log"), NULL);
+	KRun::runUrl(QUrl::fromLocalFile(mLogFilePath), QStringLiteral("text/x-log"), nullptr);
 }
 
 void PlanExecutor::startIntegrityCheck() {
@@ -295,7 +295,7 @@ void PlanExecutor::integrityCheckFinished(KJob *pJob) {
 void PlanExecutor::discardIntegrityNotification() {
 	if(mIntegrityNotification) {
 		mIntegrityNotification->deleteLater();
-		mIntegrityNotification = NULL;
+		mIntegrityNotification = nullptr;
 	}
 }
 
@@ -322,7 +322,7 @@ void PlanExecutor::repairFinished(KJob *pJob) {
 void PlanExecutor::discardRepairNotification() {
 	if(mRepairNotification) {
 		mRepairNotification->deleteLater();
-		mRepairNotification = NULL;
+		mRepairNotification = nullptr;
 	}
 }
 
@@ -406,7 +406,7 @@ void PlanExecutor::showBackupFiles() {
 		lArgs << mDestinationPath;
 		KProcess::startDetached(QStringLiteral("kup-filedigger"), lArgs);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
-		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QStringLiteral("inode/directory"), NULL);
+		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QStringLiteral("inode/directory"), nullptr);
 	}
 }
 
@@ -417,7 +417,7 @@ BackupJob *PlanExecutor::createBackupJob() {
 		return new RsyncJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	}
 	qWarning("Invalid backup type in configuration!");
-	return NULL;
+	return nullptr;
 }
 
 bool PlanExecutor::powerSaveActive() {

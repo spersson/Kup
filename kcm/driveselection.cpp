@@ -82,7 +82,7 @@ QString DriveSelection::mountPathOfSelectedDrive() const {
 	if(mSelectedAndAccessible) {
 		QStandardItem *lItem;
 		findItem(DriveSelection::UUID, mSelectedUuid, &lItem);
-		if(lItem != NULL) {
+		if(lItem != nullptr) {
 			Solid::Device lDevice(lItem->data(DriveSelection::UDI).toString());
 			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
 			if(lAccess) {
@@ -147,7 +147,7 @@ void DriveSelection::delayedDeviceAdded() {
 		QStandardItem *lItem;
 		bool lNeedsToBeAdded = false;
 		findItem(DriveSelection::UUID, lUuid, &lItem);
-		if(lItem == NULL) {
+		if(lItem == nullptr) {
 			lItem = new QStandardItem();
 			lItem->setEditable(false);
 			lItem->setData(lUuid, DriveSelection::UUID);
@@ -215,7 +215,7 @@ void DriveSelection::deviceRemoved(const QString &pUdi) {
 void DriveSelection::accessabilityChanged(bool pAccessible, const QString &pUdi) {
 	QStandardItem *lItem;
 	findItem(DriveSelection::UDI, pUdi, &lItem);
-	if(lItem != NULL) {
+	if(lItem != nullptr) {
 		if(pAccessible) {
 			Solid::Device lDevice(pUdi);
 			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
@@ -250,7 +250,7 @@ void DriveSelection::updateSelection(const QItemSelection &pSelected, const QIte
 		if(!lUdiOfSelected.isEmpty()) {
 			Solid::Device lDevice(lUdiOfSelected);
 			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
-			if(lAccess != NULL) {
+			if(lAccess != nullptr) {
 				lIsAccessible = lAccess->isAccessible();
 			}
 		}
@@ -285,7 +285,7 @@ void DriveSelection::setSelectedDrive(const QString &pUuid) {
 	} else {
 		QStandardItem *lItem;
 		findItem(DriveSelection::UUID, pUuid, &lItem);
-		if(lItem != NULL) {
+		if(lItem != nullptr) {
 			setCurrentIndex(mDrivesModel->indexFromItem(lItem));
 		}
 	}
@@ -294,7 +294,7 @@ void DriveSelection::setSelectedDrive(const QString &pUuid) {
 void DriveSelection::saveExtraData() {
 	QStandardItem *lItem;
 	findItem(DriveSelection::UUID, mSelectedUuid, &lItem);
-	if(lItem != NULL) {
+	if(lItem != nullptr) {
 		mBackupPlan->mExternalDeviceDescription = lItem->data(DriveSelection::DeviceDescription).toString();
 		mBackupPlan->mExternalPartitionNumber = lItem->data(DriveSelection::PartitionNumber).toInt();
 		mBackupPlan->mExternalPartitionsOnDrive = lItem->data(DriveSelection::PartitionsOnDrive).toInt();
@@ -320,14 +320,14 @@ int DriveSelection::findItem(const DriveSelection::DataType pField, const QStrin
 	for(int lRow = 0; lRow < mDrivesModel->rowCount(); ++lRow) {
 		QStandardItem *lItem = mDrivesModel->item(lRow);
 		if(lItem->data(pField).toString() == pSearchString) {
-			if(pReturnedItem != NULL) {
+			if(pReturnedItem != nullptr) {
 				*pReturnedItem = lItem;
 			}
 			return lRow;
 		}
 	}
-	if(pReturnedItem != NULL) {
-		*pReturnedItem = NULL;
+	if(pReturnedItem != nullptr) {
+		*pReturnedItem = nullptr;
 	}
 	return -1;
 }

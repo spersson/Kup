@@ -53,7 +53,7 @@ class Directory: public Node {
 public:
 	Directory(QObject *pParent, const QString &pName, quint64 pMode);
 	virtual ~Directory() {
-		if(mSubNodes != NULL) {
+		if(mSubNodes != nullptr) {
 			delete mSubNodes;
 		}
 	}
@@ -180,7 +180,7 @@ public:
 	Repository(QObject *pParent, const QString &pRepositoryPath);
 	virtual ~Repository();
 	bool isValid() {
-		return mRepository != NULL && mRevisionWalker != NULL;
+		return mRepository != nullptr && mRevisionWalker != nullptr;
 	}
 
 protected:

@@ -61,8 +61,8 @@ private:
 BupSlave::BupSlave(const QByteArray &pPoolSocket, const QByteArray &pAppSocket)
    : SlaveBase("bup", pPoolSocket, pAppSocket)
 {
-	mRepository = NULL;
-	mOpenFile = NULL;
+	mRepository = nullptr;
+	mOpenFile = nullptr;
 	#if LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 24
 	git_libgit2_init();
 	#else
@@ -71,7 +71,7 @@ BupSlave::BupSlave(const QByteArray &pPoolSocket, const QByteArray &pAppSocket)
 }
 
 BupSlave::~BupSlave() {
-	if(mRepository != NULL) {
+	if(mRepository != nullptr) {
 		delete mRepository;
 	}
 	#if LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 24
@@ -82,7 +82,7 @@ BupSlave::~BupSlave() {
 }
 
 void BupSlave::close() {
-	mOpenFile = NULL;
+	mOpenFile = nullptr;
 	emit finished();
 }
 
@@ -98,12 +98,12 @@ void BupSlave::get(const QUrl &pUrl) {
 	// symlink, it would just create a symlink on the destination kioslave using the
 	// target it already got from calling stat() on this one.
 	Node *lNode = mRepository->resolve(lPathInRepo, true);
-	if(lNode == NULL) {
+	if(lNode == nullptr) {
 		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 	File *lFile = qobject_cast<File *>(lNode);
-	if(lFile == NULL) {
+	if(lFile == nullptr) {
 		emit error(KIO::ERR_IS_DIRECTORY, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
@@ -118,8 +118,8 @@ void BupSlave::get(const QUrl &pUrl) {
 	const QString lResumeOffset = metaData(QStringLiteral("resume"));
 	if(!lResumeOffset.isEmpty()) {
 		bool ok;
-		KIO::fileoffset_t lOffset = lResumeOffset.toLongLong(&ok);
-		if (ok && (lOffset > 0) && ((quint64)lOffset < lFile->size())) {
+        quint64 lOffset = lResumeOffset.toULongLong(&ok);
+        if (ok && lOffset < lFile->size()) {
 			if(0 == lFile->seek(lOffset)) {
 				emit canResume();
 				lProcessedSize = lOffset;
@@ -131,7 +131,7 @@ void BupSlave::get(const QUrl &pUrl) {
 	int lRetVal;
 	while(0 == (lRetVal = lFile->read(lResultArray))) {
 		emit data(lResultArray);
-		lProcessedSize += lResultArray.length();
+        lProcessedSize += static_cast<quint64>(lResultArray.length());
 		emit processedSize(lProcessedSize);
 	}
 	if(lRetVal == KIO::ERR_NO_CONTENT) {
@@ -150,12 +150,12 @@ void BupSlave::listDir(const QUrl &pUrl) {
 		return;
 	}
 	Node *lNode = mRepository->resolve(lPathInRepo, true);
-	if(lNode == NULL) {
+	if(lNode == nullptr) {
 		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 	Directory *lDir = qobject_cast<Directory *>(lNode);
-	if(lDir == NULL) {
+	if(lDir == nullptr) {
 		emit error(KIO::ERR_IS_FILE, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
@@ -188,13 +188,13 @@ void BupSlave::open(const QUrl &pUrl, QIODevice::OpenMode pMode) {
 	}
 
 	Node *lNode = mRepository->resolve(lPathInRepo, true);
-	if(lNode == NULL) {
+	if(lNode == nullptr) {
 		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
 
 	File *lFile = qobject_cast<File *>(lNode);
-	if(lFile == NULL) {
+	if(lFile == nullptr) {
 		emit error(KIO::ERR_IS_DIRECTORY, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
@@ -212,14 +212,14 @@ void BupSlave::open(const QUrl &pUrl, QIODevice::OpenMode pMode) {
 }
 
 void BupSlave::read(filesize_t pSize) {
-	if(mOpenFile == NULL) {
+	if(mOpenFile == nullptr) {
 		emit error(KIO::ERR_COULD_NOT_READ, QString());
 		return;
 	}
 	QByteArray lResultArray;
 	int lRetVal = 0;
-	while(pSize > 0 && 0 == (lRetVal = mOpenFile->read(lResultArray, pSize))) {
-		pSize -= lResultArray.size();
+    while(pSize > 0 && 0 == (lRetVal = mOpenFile->read(lResultArray, static_cast<int>(pSize)))) {
+        pSize -= static_cast<quint64>(lResultArray.size());
 		emit data(lResultArray);
 	}
 	if(lRetVal == 0) {
@@ -231,7 +231,7 @@ void BupSlave::read(filesize_t pSize) {
 }
 
 void BupSlave::seek(filesize_t pOffset) {
-	if(mOpenFile == NULL) {
+	if(mOpenFile == nullptr) {
 		emit error(KIO::ERR_COULD_NOT_SEEK, QString());
 		return;
 	}
@@ -251,7 +251,7 @@ void BupSlave::stat(const QUrl &pUrl) {
 	}
 
 	Node *lNode = mRepository->resolve(lPathInRepo);
-	if(lNode == NULL) {
+	if(lNode == nullptr) {
 		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
@@ -273,7 +273,7 @@ void BupSlave::mimetype(const QUrl &pUrl) {
 	}
 
 	Node *lNode = mRepository->resolve(lPathInRepo);
-	if(lNode == NULL) {
+	if(lNode == nullptr) {
 		emit error(KIO::ERR_DOES_NOT_EXIST, lPathInRepo.join(QStringLiteral("/")));
 		return;
 	}
@@ -303,7 +303,7 @@ bool BupSlave::checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepo
 		}
 		else {
 			delete mRepository;
-			mRepository = NULL;
+			mRepository = nullptr;
 		}
 	}
 
@@ -317,7 +317,7 @@ bool BupSlave::checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepo
 		    QFile::exists(lRepoPath + QStringLiteral("refs"))) ||
 		      (QFile::exists(lRepoPath + QStringLiteral(".git/objects")) &&
 		       QFile::exists(lRepoPath + QStringLiteral(".git/refs")))) {
-			mRepository = new Repository(NULL, lRepoPath);
+			mRepository = new Repository(nullptr, lRepoPath);
 			return mRepository->isValid();
 		}
 	}
@@ -357,7 +357,7 @@ void BupSlave::createUDSEntry(Node *pNode, UDSEntry &pUDSEntry, int pDetails) {
 		pUDSEntry.insert(KIO::UDSEntry::UDS_LINK_DEST, pNode->mSymlinkTarget);
 		if(pDetails > 1) {
 			Node *lNode = qobject_cast<Node *>(pNode->parent())->resolve(pNode->mSymlinkTarget, true);
-			if(lNode != NULL) { // follow symlink only if details > 1 and it leads to something
+			if(lNode != nullptr) { // follow symlink only if details > 1 and it leads to something
 				pNode = lNode;
 			}
 		}
@@ -365,17 +365,17 @@ void BupSlave::createUDSEntry(Node *pNode, UDSEntry &pUDSEntry, int pDetails) {
 	pUDSEntry.insert(KIO::UDSEntry::UDS_FILE_TYPE, pNode->mMode & S_IFMT);
 	pUDSEntry.insert(KIO::UDSEntry::UDS_ACCESS, pNode->mMode & 07777);
 	if(pDetails > 0) {
-		qint64 lSize = 0;
+        quint64 lSize = 0;
 		File *lFile = qobject_cast<File *>(pNode);
-		if(lFile != NULL) {
+		if(lFile != nullptr) {
 			lSize = lFile->size();
 		}
-		pUDSEntry.insert(KIO::UDSEntry::UDS_SIZE, lSize);
+        pUDSEntry.insert(KIO::UDSEntry::UDS_SIZE, static_cast<qint64>(lSize));
 		pUDSEntry.insert(KIO::UDSEntry::UDS_MIME_TYPE, pNode->mMimeType);
 		pUDSEntry.insert(KIO::UDSEntry::UDS_ACCESS_TIME, pNode->mAtime);
 		pUDSEntry.insert(KIO::UDSEntry::UDS_MODIFICATION_TIME, pNode->mMtime);
-		pUDSEntry.insert(KIO::UDSEntry::UDS_USER, getUserName(pNode->mUid));
-		pUDSEntry.insert(KIO::UDSEntry::UDS_GROUP, getGroupName(pNode->mGid));
+        pUDSEntry.insert(KIO::UDSEntry::UDS_USER, getUserName(static_cast<uint>(pNode->mUid)));
+        pUDSEntry.insert(KIO::UDSEntry::UDS_GROUP, getGroupName(static_cast<uint>(pNode->mGid)));
 	}
 }
 

@@ -76,11 +76,11 @@ QModelIndex MergedVfsModel::parent(const QModelIndex &pChild) const {
 	}
 	MergedNode *lChild = static_cast<MergedNode *>(pChild.internalPointer());
 	MergedNode *lParent = qobject_cast<MergedNode *>(lChild->parent());
-	if(lParent == NULL || lParent == mRoot) {
+	if(lParent == nullptr || lParent == mRoot) {
 		return QModelIndex(); //invalid
 	}
 	MergedNode *lGrandParent = qobject_cast<MergedNode *>(lParent->parent());
-	if(lGrandParent == NULL) {
+	if(lGrandParent == nullptr) {
 		return QModelIndex(); //invalid
 	}
 	return createIndex(lGrandParent->subNodes().indexOf(lParent), 0, lParent);
@@ -91,7 +91,7 @@ int MergedVfsModel::rowCount(const QModelIndex &pParent) const {
 		return mRoot->subNodes().count();
 	}
 	MergedNode *lParent = static_cast<MergedNode *>(pParent.internalPointer());
-	if(lParent == NULL) {
+	if(lParent == nullptr) {
 		return 0;
 	}
 	return lParent->subNodes().count();

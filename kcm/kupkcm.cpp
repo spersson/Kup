@@ -104,9 +104,9 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 		mSettings = new KupSettings(mConfig, this);
 		for(int i = 0; i < mSettings->mNumberOfPlans; ++i) {
 			mPlans.append(new BackupPlan(i+1, mConfig, this));
-			mConfigManagers.append(NULL);
-			mPlanWidgets.append(NULL);
-			mStatusWidgets.append(NULL);
+			mConfigManagers.append(nullptr);
+			mPlanWidgets.append(nullptr);
+			mStatusWidgets.append(nullptr);
 		}
 		createSettingsFrontPage();
 		addConfig(mSettings, mFrontPage);
@@ -150,7 +150,7 @@ void KupKcm::save() {
 	for(int i=0; i < mPlans.count(); ++i) {
 		lPlan = mPlans.at(i);
 		lManager = mConfigManagers.at(i);
-		if(lManager != NULL) {
+		if(lManager != nullptr) {
 			if(lPlansRemoved != 0) {
 				lPlan->removePlanFromConfig();
 				lPlan->setPlanNumber(i + 1);
@@ -227,9 +227,9 @@ void KupKcm::createSettingsFrontPage() {
 	                                             xi18nc("@action:button", "Add New Plan"));
 	connect(lAddPlanButton, &QPushButton::clicked, [this]{
 		mPlans.append(new BackupPlan(mPlans.count() + 1, mConfig, this));
-		mConfigManagers.append(NULL);
-		mPlanWidgets.append(NULL);
-		mStatusWidgets.append(NULL);
+		mConfigManagers.append(nullptr);
+		mPlanWidgets.append(nullptr);
+		mStatusWidgets.append(nullptr);
 		createPlanWidgets(mPlans.count() - 1);
 		updateChangedStatus();
 		emit mStatusWidgets.at(mPlans.count() - 1)->configureMe();
@@ -272,9 +272,9 @@ void KupKcm::createPlanWidgets(int pIndex) {
 		BackupPlan *lNewPlan = new BackupPlan(mPlans.count() + 1, mConfig, this);
 		lNewPlan->copyFrom(*mPlans.at(pIndex));
 		mPlans.append(lNewPlan);
-		mConfigManagers.append(NULL);
-		mPlanWidgets.append(NULL);
-		mStatusWidgets.append(NULL);
+		mConfigManagers.append(nullptr);
+		mPlanWidgets.append(nullptr);
+		mStatusWidgets.append(nullptr);
 		createPlanWidgets(mPlans.count() - 1);
 		// crazy trick to make the config system realize that stuff has changed
 		// and will need to be saved.
@@ -306,11 +306,11 @@ void KupKcm::partiallyRemovePlan(int pIndex) {
 	mVerticalLayout->removeWidget(mStatusWidgets.at(pIndex));
 	mStackedLayout->removeWidget(mPlanWidgets.at(pIndex));
 	mConfigManagers.at(pIndex)->deleteLater();
-	mConfigManagers[pIndex] = NULL;
+	mConfigManagers[pIndex] = nullptr;
 	mStatusWidgets.at(pIndex)->deleteLater();
-	mStatusWidgets[pIndex] = NULL;
+	mStatusWidgets[pIndex] = nullptr;
 	mPlanWidgets.at(pIndex)->deleteLater();
-	mPlanWidgets[pIndex] = NULL;
+	mPlanWidgets[pIndex] = nullptr;
 }
 
 #include "kupkcm.moc"

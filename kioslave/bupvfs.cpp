@@ -27,8 +27,8 @@
 #include <QDebug>
 #include <QMimeDatabase>
 
-git_revwalk *Node::mRevisionWalker = NULL;
-git_repository *Node::mRepository = NULL;
+git_revwalk *Node::mRevisionWalker = nullptr;
+git_repository *Node::mRepository = nullptr;
 
 Node::Node(QObject *pParent, const QString &pName, quint64 pMode)
    :QObject(pParent), Metadata(pMode)
@@ -59,13 +59,13 @@ Node *Node::resolve(const QStringList &pPathList, bool pFollowLinks) {
 			lNode = qobject_cast<Node *>(lNode->parent());
 		} else {
 			Directory *lDir = qobject_cast<Directory *>(lNode);
-			if(lDir == NULL) {
-				return NULL;
+			if(lDir == nullptr) {
+				return nullptr;
 			}
-			lNode = lDir->subNodes().value(lPathComponent, NULL);
+			lNode = lDir->subNodes().value(lPathComponent, nullptr);
 		}
-		if(lNode == NULL) {
-			return NULL;
+		if(lNode == nullptr) {
+			return nullptr;
 		}
 	}
 	if(pFollowLinks && !lNode->mSymlinkTarget.isEmpty()) {
@@ -77,9 +77,9 @@ Node *Node::resolve(const QStringList &pPathList, bool pFollowLinks) {
 QString Node::completePath() {
 	QString lCompletePath;
 	Node *lNode = this;
-	while(lNode != NULL) {
+	while(lNode != nullptr) {
 		Node *lNewNode = qobject_cast<Node *>(lNode->parent());
-		if(lNewNode	== NULL) { //this must be the repository, already starts and ends with slash.
+		if(lNewNode	== nullptr) { //this must be the repository, already starts and ends with slash.
 			QString lObjectName = lNode->objectName();
 			lObjectName.chop(1);
 			lCompletePath.prepend(lObjectName);
@@ -94,7 +94,7 @@ QString Node::completePath() {
 
 Node *Node::parentCommit() {
 	Node *lNode = this;
-	while(lNode != NULL && qobject_cast<Branch *>(lNode->parent()) == NULL) {
+	while(lNode != nullptr && qobject_cast<Branch *>(lNode->parent()) == nullptr) {
 		lNode = qobject_cast<Node *>(lNode->parent());
 	}
 	return lNode;
@@ -102,7 +102,7 @@ Node *Node::parentCommit() {
 
 //Node *Node::parentRepository() {
 //	Node *lNode = this;
-//	while(lNode->parent() != NULL && qobject_cast<Repository *>(lNode) == NULL) {
+//	while(lNode->parent() != nullptr && qobject_cast<Repository *>(lNode) == nullptr) {
 //		lNode = qobject_cast<Node *>(lNode->parent());
 //	}
 //	return lNode;
@@ -111,12 +111,12 @@ Node *Node::parentCommit() {
 Directory::Directory(QObject *pParent, const QString &pName, quint64 pMode)
    :Node(pParent, pName, pMode)
 {
-	mSubNodes = NULL;
+	mSubNodes = nullptr;
 	mMimeType = QStringLiteral("inode/directory");
 }
 
 NodeMap Directory::subNodes() {
-	if(mSubNodes == NULL) {
+	if(mSubNodes == nullptr) {
 		mSubNodes = new NodeMap();
 		generateSubNodes();
 	}
@@ -144,11 +144,11 @@ BlobFile::BlobFile(Node *pParent, const git_oid *pOid, const QString &pName, qui
    : File(pParent, pName, pMode)
 {
 	mOid = *pOid;
-	mBlob = NULL;
+	mBlob = nullptr;
 }
 
 BlobFile::~BlobFile() {
-	if(mBlob != NULL) {
+	if(mBlob != nullptr) {
 		git_blob_free(mBlob);
 	}
 }
@@ -158,7 +158,7 @@ int BlobFile::read(QByteArray &pChunk, int pReadSize) {
 		return KIO::ERR_NO_CONTENT;
 	}
 	git_blob *lBlob = cachedBlob();
-	if(lBlob == NULL) {
+	if(lBlob == nullptr) {
 		return KIO::ERR_COULD_NOT_READ;
 	}
 	int lAvailableSize = size() - mOffset;
@@ -172,7 +172,7 @@ int BlobFile::read(QByteArray &pChunk, int pReadSize) {
 }
 
 git_blob *BlobFile::cachedBlob() {
-	if(mBlob == NULL) {
+	if(mBlob == nullptr) {
 		git_blob_lookup(&mBlob, mRepository, &mOid);
 	}
 	return mBlob;
@@ -180,7 +180,7 @@ git_blob *BlobFile::cachedBlob() {
 
 quint64 BlobFile::calculateSize() {
 	git_blob *lBlob = cachedBlob();
-	if(lBlob == NULL) {
+	if(lBlob == nullptr) {
 		return 0;
 	}
 	return git_blob_rawsize(lBlob);
@@ -191,12 +191,12 @@ ChunkFile::ChunkFile(Node *pParent, const git_oid *pOid, const QString &pName, q
 {
 	mOid = *pOid;
 	mValidSeekPosition = false;
-	mCurrentBlob = NULL;
+	mCurrentBlob = nullptr;
 	seek(0);
 }
 
 ChunkFile::~ChunkFile() {
-	if(mCurrentBlob != NULL) {
+	if(mCurrentBlob != nullptr) {
 		git_blob_free(mCurrentBlob);
 	}
 }
@@ -215,9 +215,9 @@ int ChunkFile::seek(quint64 pOffset) {
 	while(!mPositionStack.isEmpty()) {
 		delete mPositionStack.takeLast();
 	}
-	if(mCurrentBlob != NULL) {
+	if(mCurrentBlob != nullptr) {
 		git_blob_free(mCurrentBlob);
-		mCurrentBlob = NULL;
+		mCurrentBlob = nullptr;
 	}
 
 	git_tree *lTree;
@@ -278,14 +278,14 @@ int ChunkFile::read(QByteArray &pChunk, int pReadSize) {
 	}
 
 	TreePosition *lCurrentPos = mPositionStack.last();
-	if(mCurrentBlob != NULL && lCurrentPos->mSkipSize == 0) {
+	if(mCurrentBlob != nullptr && lCurrentPos->mSkipSize == 0) {
 		// skipsize has been reset, this means current blob has been exhausted. Free it
 		// now as we're about to fetch a new one.
 		git_blob_free(mCurrentBlob);
-		mCurrentBlob = NULL;
+		mCurrentBlob = nullptr;
 	}
 
-	if(mCurrentBlob == NULL) {
+	if(mCurrentBlob == nullptr) {
 		const git_tree_entry *lTreeEntry = git_tree_entry_byindex(lCurrentPos->mTree, lCurrentPos->mIndex);
 		if(0 != git_blob_lookup(&mCurrentBlob, mRepository, git_tree_entry_id(lTreeEntry))) {
 			return KIO::ERR_COULD_NOT_READ;
@@ -355,20 +355,20 @@ ArchivedDirectory::ArchivedDirectory(Node *pParent, const git_oid *pOid, const Q
    : Directory(pParent, pName, pMode)
 {
 	mOid = *pOid;
-	mMetadataStream = NULL;
-	mTree = NULL;
+	mMetadataStream = nullptr;
+	mTree = nullptr;
 	if(0 != git_tree_lookup(&mTree, mRepository, &mOid)) {
 		return;
 	}
 	const git_tree_entry *lTreeEntry = git_tree_entry_byname(mTree, ".bupm");
-	if(lTreeEntry != NULL && 0 == git_blob_lookup(&mMetadataBlob, mRepository, git_tree_entry_id(lTreeEntry))) {
+	if(lTreeEntry != nullptr && 0 == git_blob_lookup(&mMetadataBlob, mRepository, git_tree_entry_id(lTreeEntry))) {
 		mMetadataStream = new VintStream(git_blob_rawcontent(mMetadataBlob), git_blob_rawsize(mMetadataBlob), this);
 		readMetadata(*mMetadataStream); // the first entry is metadata for the directory itself
 	}
 }
 
 void ArchivedDirectory::generateSubNodes() {
-	if(mTree == NULL) {
+	if(mTree == nullptr) {
 		return;
 	}
 	uint lEntryCount = git_tree_entrycount(mTree);
@@ -383,7 +383,7 @@ void ArchivedDirectory::generateSubNodes() {
 			continue;
 		}
 
-		Node *lSubNode = NULL;
+		Node *lSubNode = nullptr;
 		if(S_ISDIR(lMode)) {
 			lSubNode = new ArchivedDirectory(this, lOid, lName, lMode);
 		} else if(S_ISLNK(lMode)) {
@@ -394,18 +394,18 @@ void ArchivedDirectory::generateSubNodes() {
 			lSubNode = new BlobFile(this, lOid, lName, lMode);
 		}
 		mSubNodes->insert(lName, lSubNode);
-		if(!S_ISDIR(lMode) && mMetadataStream != NULL) {
+		if(!S_ISDIR(lMode) && mMetadataStream != nullptr) {
 			lSubNode->readMetadata(*mMetadataStream);
 		}
 	}
-	if(mMetadataStream != NULL) {
+	if(mMetadataStream != nullptr) {
 		delete mMetadataStream;
-		mMetadataStream = NULL;
+		mMetadataStream = nullptr;
 		git_blob_free(mMetadataBlob);
-		mMetadataBlob = NULL;
+		mMetadataBlob = nullptr;
 	}
 	git_tree_free(mTree);
-	mTree = NULL;
+	mTree = nullptr;
 }
 
 Branch::Branch(Node *pParent, const char *pName)
@@ -422,7 +422,7 @@ Branch::Branch(Node *pParent, const char *pName)
 }
 
 void Branch::reload() {
-	if(mSubNodes == NULL) {
+	if(mSubNodes == nullptr) {
 		mSubNodes = new NodeMap();
 	}
 	// potentially changed content in a branch, generateSubNodes is written so
@@ -459,7 +459,7 @@ Repository::Repository(QObject *pParent, const QString &pRepositoryPath)
 	}
 	if(0 != git_repository_open(&mRepository, pRepositoryPath.toLocal8Bit())) {
 		qWarning() << "could not open repository " << pRepositoryPath;
-		mRepository = NULL;
+		mRepository = nullptr;
 		return;
 	}
 	git_strarray lBranchNames;
@@ -483,16 +483,16 @@ Repository::Repository(QObject *pParent, const QString &pRepositoryPath)
 
 	if(0 != git_revwalk_new(&mRevisionWalker, mRepository)) {
 		qWarning() << "could not create a revision walker in repository " << pRepositoryPath;
-		mRevisionWalker = NULL;
+		mRevisionWalker = nullptr;
 		return;
 	}
 }
 
 Repository::~Repository() {
-	if(mRepository != NULL) {
+	if(mRepository != nullptr) {
 		git_repository_free(mRepository);
 	}
-	if(mRevisionWalker != NULL) {
+	if(mRevisionWalker != nullptr) {
 		git_revwalk_free(mRevisionWalker);
 	}
 }

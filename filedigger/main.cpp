@@ -78,17 +78,17 @@ int main(int pArgCount, char **pArgArray) {
 	#else
 	git_threads_init();
 	#endif
-	MergedRepository *lRepository = new MergedRepository(NULL, lParser.positionalArguments().first(),
+	MergedRepository *lRepository = new MergedRepository(nullptr, lParser.positionalArguments().first(),
 	                                                     lParser.value("branch"));
 	if(!lRepository->open()) {
-		KMessageBox::sorry(NULL, xi18nc("@info messagebox, %1 is a folder path",
+		KMessageBox::sorry(nullptr, xi18nc("@info messagebox, %1 is a folder path",
 		                               "The backup archive <filename>%1</filename> could not be opened. Check if the backups really are located there.",
 		                               lParser.positionalArguments().first()));
 		return 1;
 	}
 	if(!lRepository->readBranch()) {
 		if(!lRepository->permissionsOk()) {
-			KMessageBox::sorry(NULL, xi18nc("@info messagebox",
+			KMessageBox::sorry(nullptr, xi18nc("@info messagebox",
 			                               "You do not have permission needed to read this backup archive."));
 			return 2;
 		} else {

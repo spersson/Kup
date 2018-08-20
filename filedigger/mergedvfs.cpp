@@ -34,7 +34,7 @@
 typedef QMap<QString, MergedNode *> NameMap;
 typedef QMapIterator<QString, MergedNode *> NameMapIterator;
 
-git_repository *MergedNode::mRepository = NULL;
+git_repository *MergedNode::mRepository = nullptr;
 
 bool mergedNodeLessThan(const MergedNode *a, const MergedNode *b) {
 	if(a->isDirectory() != b->isDirectory()) {
@@ -51,7 +51,7 @@ bool versionGreaterThan(const VersionData *a, const VersionData *b) {
 MergedNode::MergedNode(QObject *pParent, const QString &pName, uint pMode)
    :QObject(pParent)
 {
-	mSubNodes = NULL;
+	mSubNodes = nullptr;
 	setObjectName(pName);
 	mMode = pMode;
 }
@@ -60,7 +60,7 @@ void MergedNode::getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPat
                            QString *pBranchName, quint64 *pCommitTime, QString *pPathInRepo) const {
 	QList<const MergedNode *> lStack;
 	const MergedNode *lNode = this;
-	while(lNode != NULL) {
+	while(lNode != nullptr) {
 		lStack.append(lNode);
 		lNode = qobject_cast<const MergedNode *>(lNode->parent());
 	}
@@ -94,7 +94,7 @@ void MergedNode::getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPat
 }
 
 MergedNodeList &MergedNode::subNodes() {
-	if(mSubNodes == NULL) {
+	if(mSubNodes == nullptr) {
 		mSubNodes = new MergedNodeList();
 		if(S_ISDIR(mMode)) {
 			generateSubNodes();
@@ -104,7 +104,7 @@ MergedNodeList &MergedNode::subNodes() {
 }
 
 void MergedNode::askForIntegrityCheck() {
-	int lAnswer = KMessageBox::questionYesNo(NULL, xi18nc("@info messagebox",
+	int lAnswer = KMessageBox::questionYesNo(nullptr, xi18nc("@info messagebox",
 	                                                     "Could not read this backup archive. Perhaps some files "
 	                                                     "have become corrupted. Do you want to run an integrity "
 	                                                     "check to test this?"));
@@ -125,10 +125,10 @@ void MergedNode::generateSubNodes() {
 			askForIntegrityCheck();
 			continue; // try to be fault tolerant by not aborting...
 		}
-		git_blob *lMetadataBlob = NULL;
-		VintStream *lMetadataStream = NULL;
+		git_blob *lMetadataBlob = nullptr;
+		VintStream *lMetadataStream = nullptr;
 		const git_tree_entry *lTreeEntry = git_tree_entry_byname(lTree, ".bupm");
-		if(lTreeEntry != NULL && 0 == git_blob_lookup(&lMetadataBlob, mRepository, git_tree_entry_id(lTreeEntry))) {
+		if(lTreeEntry != nullptr && 0 == git_blob_lookup(&lMetadataBlob, mRepository, git_tree_entry_id(lTreeEntry))) {
 			lMetadataStream = new VintStream(git_blob_rawcontent(lMetadataBlob), git_blob_rawsize(lMetadataBlob), this);
 			Metadata lMetadata;
 			readMetadata(*lMetadataStream, lMetadata); // the first entry is metadata for the directory itself, discard it.
@@ -146,8 +146,8 @@ void MergedNode::generateSubNodes() {
 				continue;
 			}
 
-			MergedNode *lSubNode = lSubNodeMap.value(lName, NULL);
-			if(lSubNode == NULL) {
+			MergedNode *lSubNode = lSubNodeMap.value(lName, nullptr);
+			if(lSubNode == nullptr) {
 				lSubNode = new MergedNode(this, lName, lMode);
 				lSubNodeMap.insert(lName, lSubNode);
 				mSubNodes->append(lSubNode);
@@ -159,8 +159,8 @@ void MergedNode::generateSubNodes() {
 				} else {
 					lName.append(xi18nc("added after file name in some cases", " (file)"));
 				}
-				lSubNode = lSubNodeMap.value(lName, NULL);
-				if(lSubNode == NULL) {
+				lSubNode = lSubNodeMap.value(lName, nullptr);
+				if(lSubNode == nullptr) {
 					lSubNode = new MergedNode(this, lName, lMode);
 					lSubNodeMap.insert(lName, lSubNode);
 					mSubNodes->append(lSubNode);
@@ -181,7 +181,7 @@ void MergedNode::generateSubNodes() {
 			} else {
 				quint64 lModifiedDate;
 				Metadata lMetadata;
-				if(lMetadataStream != NULL && 0 == readMetadata(*lMetadataStream, lMetadata)) {
+				if(lMetadataStream != nullptr && 0 == readMetadata(*lMetadataStream, lMetadata)) {
 					lModifiedDate = lMetadata.mMtime;
 				} else {
 					lModifiedDate = lCurrentVersion->mModifiedDate;
@@ -193,7 +193,7 @@ void MergedNode::generateSubNodes() {
 				}
 			}
 		}
-		if(lMetadataStream != NULL) {
+		if(lMetadataStream != nullptr) {
 			delete lMetadataStream;
 			git_blob_free(lMetadataBlob);
 		}
@@ -214,7 +214,7 @@ MergedRepository::MergedRepository(QObject *pParent, const QString &pRepositoryP
 }
 
 MergedRepository::~MergedRepository() {
-	if(mRepository != NULL) {
+	if(mRepository != nullptr) {
 		git_repository_free(mRepository);
 	}
 }
@@ -222,14 +222,14 @@ MergedRepository::~MergedRepository() {
 bool MergedRepository::open() {
 	if(0 != git_repository_open(&mRepository, objectName().toLocal8Bit())) {
 		qWarning() << "could not open repository " << objectName();
-		mRepository = NULL;
+		mRepository = nullptr;
 		return false;
 	}
 	return true;
 }
 
 bool MergedRepository::readBranch() {
-	if(mRepository == NULL) {
+	if(mRepository == nullptr) {
 		return false;
 	}
 	git_revwalk *lRevisionWalker;
@@ -262,7 +262,7 @@ bool MergedRepository::readBranch() {
 }
 
 bool MergedRepository::permissionsOk() {
-	if(mRepository == NULL) {
+	if(mRepository == nullptr) {
 		return false;
 	}
 	QDir lRepoDir(objectName());

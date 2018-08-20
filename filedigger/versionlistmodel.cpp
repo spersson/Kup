@@ -32,7 +32,7 @@
 VersionListModel::VersionListModel(QObject *parent) :
    QAbstractListModel(parent)
 {
-	mVersionList = NULL;
+	mVersionList = nullptr;
 }
 
 void VersionListModel::setNode(const MergedNode *pNode) {
@@ -44,14 +44,14 @@ void VersionListModel::setNode(const MergedNode *pNode) {
 
 int VersionListModel::rowCount(const QModelIndex &pParent) const {
 	Q_UNUSED(pParent)
-	if(mVersionList != NULL) {
+	if(mVersionList != nullptr) {
 		return mVersionList->count();
 	}
 	return 0;
 }
 
 QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
-	if(!pIndex.isValid() || mVersionList == NULL) {
+	if(!pIndex.isValid() || mVersionList == nullptr) {
 		return QVariant();
 	}
 	QMimeDatabase db;

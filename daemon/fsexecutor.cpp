@@ -110,7 +110,7 @@ void FSExecutor::checkStatus() {
 
 void FSExecutor::startBackup() {
 	BackupJob *lJob = createBackupJob();
-	if(lJob == NULL) {
+	if(lJob == nullptr) {
 		KNotification::event(KNotification::Error, xi18nc("@title:window", "Problem"),
 		                     xi18nc("notification", "Invalid type of backup in configuration."));
 		exitBackupRunningState(false);
@@ -181,7 +181,7 @@ void MountWatcher::run() {
 	forever {
 		FD_ZERO(&lFdSet);
 		FD_SET(lMountsFd, &lFdSet);
-		if(select(lMountsFd+1, NULL, NULL, &lFdSet, NULL) > 0) {
+		if(select(lMountsFd+1, nullptr, nullptr, &lFdSet, nullptr) > 0) {
 			emit mountsChanged();
 		}
 	}
