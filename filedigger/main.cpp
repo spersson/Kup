@@ -29,7 +29,6 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
-#include <KMessageBox>
 
 #include <QApplication>
 #include <QDebug>
@@ -64,12 +63,9 @@ int main(int pArgCount, char **pArgArray) {
 	lParser.process(lApp);
 	lAbout.processCommandLine(&lParser);
 
-	if(lParser.positionalArguments().count() != 1) {
-		// this very convoluted call is just to stop Qt from adding quotation marks around the text output
-		qCritical("%s", i18nc("@info:shell Error message at startup",
-		                     "You must supply the path to a bup or git repository that "
-		                     "you wish to open for viewing.").toLocal8Bit().constData());
-		return -1;
+	QString lRepoPath;
+	if(!lParser.positionalArguments().isEmpty()) {
+		lRepoPath = lParser.positionalArguments().first();
 	}
 
 	// This needs to be called first thing, before any other calls to libgit2.
@@ -78,29 +74,10 @@ int main(int pArgCount, char **pArgArray) {
 	#else
 	git_threads_init();
 	#endif
-	MergedRepository *lRepository = new MergedRepository(nullptr, lParser.positionalArguments().first(),
-	                                                     lParser.value("branch"));
-	if(!lRepository->open()) {
-		KMessageBox::sorry(nullptr, xi18nc("@info messagebox, %1 is a folder path",
-		                               "The backup archive <filename>%1</filename> could not be opened. Check if the backups really are located there.",
-		                               lParser.positionalArguments().first()));
-		return 1;
-	}
-	if(!lRepository->readBranch()) {
-		if(!lRepository->permissionsOk()) {
-			KMessageBox::sorry(nullptr, xi18nc("@info messagebox",
-			                               "You do not have permission needed to read this backup archive."));
-			return 2;
-		} else {
-			lRepository->askForIntegrityCheck();
-			return 3;
-		}
-	}
 
-	FileDigger *lFileDigger = new FileDigger(lRepository);
+	FileDigger *lFileDigger = new FileDigger(lRepoPath, lParser.value(QStringLiteral("branch")));
 	lFileDigger->show();
 	int lRetVal = lApp.exec();
-	delete lRepository;
 	#if LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 24
 	git_libgit2_shutdown();
 	#else

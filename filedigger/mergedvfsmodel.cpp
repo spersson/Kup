@@ -31,6 +31,10 @@ MergedVfsModel::MergedVfsModel(MergedRepository *pRoot, QObject *pParent) :
 {
 }
 
+MergedVfsModel::~MergedVfsModel() {
+	delete mRoot;
+}
+
 int MergedVfsModel::columnCount(const QModelIndex &pParent) const {
 	Q_UNUSED(pParent)
 	return 1;

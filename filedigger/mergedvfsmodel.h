@@ -30,6 +30,7 @@ class MergedVfsModel : public QAbstractItemModel
 	Q_OBJECT
 public:
 	explicit MergedVfsModel(MergedRepository *pRoot, QObject *pParent = 0);
+	~MergedVfsModel();
 	int columnCount(const QModelIndex &pParent) const;
 	QVariant data(const QModelIndex &pIndex, int pRole) const;
 	QModelIndex index(int pRow, int pColumn, const QModelIndex &pParent) const;
