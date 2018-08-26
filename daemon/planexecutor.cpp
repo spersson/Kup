@@ -23,6 +23,7 @@
 #include "bupverificationjob.h"
 #include "buprepairjob.h"
 #include "kupdaemon.h"
+#include "kupdaemon_debug.h"
 #include "rsyncjob.h"
 
 #include <QDBusConnection>
@@ -416,7 +417,7 @@ BackupJob *PlanExecutor::createBackupJob() {
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
 		return new RsyncJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	}
-	qWarning("Invalid backup type in configuration!");
+	qCWarning(KUPDAEMON) << "Invalid backup type in configuration!";
 	return nullptr;
 }
 

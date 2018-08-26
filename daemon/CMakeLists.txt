@@ -17,6 +17,13 @@ rsyncjob.cpp
 ../settings/kuputils.cpp
 )
 
+ecm_qt_declare_logging_category(kupdaemon_SRCS
+    HEADER kupdaemon_debug.h
+    IDENTIFIER KUPDAEMON
+    CATEGORY_NAME kup.daemon
+    DEFAULT_SEVERITY Debug
+)
+
 kf5_add_kdeinit_executable(kup-daemon ${kupdaemon_SRCS})
 target_link_libraries(kdeinit_kup-daemon
 Qt5::Core

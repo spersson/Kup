@@ -19,13 +19,13 @@
  ***************************************************************************/
 
 #include "kupdaemon.h"
+#include "kupdaemon_debug.h"
 
 #include <KAboutData>
 #include <KDBusService>
 #include <KLocalizedString>
 
 #include <QApplication>
-#include <QDebug>
 #include <QCommandLineParser>
 
 extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
@@ -35,12 +35,14 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
 
 	KLocalizedString::setApplicationDomain("kup");
 
+	qCDebug(KUPDAEMON) << "Running Kup daemon...";
+
 	KupDaemon *lDaemon = new KupDaemon();
 	if(!lDaemon->shouldStart()) {
-		qCritical("%s", xi18nc("@info:shell Error message at startup",
-		                       "Kup is not enabled, enable it from the "
-		                       "system settings module. You can do that by running "
-		                       "<command>kcmshell5 kup</command>").toLocal8Bit().constData());
+		qCCritical(KUPDAEMON) << xi18nc("@info:shell Error message at startup",
+										"Kup is not enabled, enable it from the "
+										"system settings module. You can do that by running "
+										"<command>kcmshell5 kup</command>");
 		return 0;
 	}
 

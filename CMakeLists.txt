@@ -32,6 +32,7 @@ include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(FeatureSummary)
 include(ECMInstallIcons)
+include(ECMQtDeclareLoggingCategory)
 
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
 find_package(KF5 REQUIRED COMPONENTS
