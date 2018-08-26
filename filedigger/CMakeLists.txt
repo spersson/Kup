@@ -17,6 +17,13 @@ versionlistmodel.cpp
 ../settings/kuputils.cpp
 )
 
+ecm_qt_declare_logging_category(filedigger_SRCS
+    HEADER kupfiledigger_debug.h
+    IDENTIFIER KUPFILEDIGGER
+    CATEGORY_NAME kup.filedigger
+    DEFAULT_SEVERITY Debug
+)
+
 add_definitions(-fexceptions)
 
 ki18n_wrap_ui(filedigger_SRCS restoredialog.ui)

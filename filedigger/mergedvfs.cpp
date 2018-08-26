@@ -21,6 +21,7 @@
 #include "kupdaemon.h"
 #include "mergedvfs.h"
 #include "vfshelpers.h"
+#include "kupfiledigger_debug.h"
 
 #include <QDebug>
 #include <QDir>
@@ -221,7 +222,7 @@ MergedRepository::~MergedRepository() {
 
 bool MergedRepository::open() {
 	if(0 != git_repository_open(&mRepository, objectName().toLocal8Bit())) {
-		qWarning() << "could not open repository " << objectName();
+		qCWarning(KUPFILEDIGGER) << "could not open repository " << objectName();
 		mRepository = nullptr;
 		return false;
 	}
@@ -234,14 +235,14 @@ bool MergedRepository::readBranch() {
 	}
 	git_revwalk *lRevisionWalker;
 	if(0 != git_revwalk_new(&lRevisionWalker, mRepository)) {
-		qWarning() << "could not create a revision walker in repository " << objectName();
+		qCWarning(KUPFILEDIGGER) << "could not create a revision walker in repository " << objectName();
 		return false;
 	}
 
 	QString lCompleteBranchName = QStringLiteral("refs/heads/");
 	lCompleteBranchName.append(mBranchName);
 	if(0 != git_revwalk_push_ref(lRevisionWalker, lCompleteBranchName.toLocal8Bit())) {
-		qWarning() << "Unable to read branch " << mBranchName << " in repository " << objectName();
+		qCWarning(KUPFILEDIGGER) << "Unable to read branch " << mBranchName << " in repository " << objectName();
 		git_revwalk_free(lRevisionWalker);
 		return false;
 	}

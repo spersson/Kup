@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include "bupvfs.h"
+#include "kupkio_debug.h"
 
 #include <git2/blob.h>
 #include <git2/branch.h>
@@ -458,7 +459,7 @@ Repository::Repository(QObject *pParent, const QString &pRepositoryPath)
 		setObjectName(objectName() + QLatin1Char('/'));
 	}
 	if(0 != git_repository_open(&mRepository, pRepositoryPath.toLocal8Bit())) {
-		qWarning() << "could not open repository " << pRepositoryPath;
+		qCWarning(KUPKIO) << "could not open repository " << pRepositoryPath;
 		mRepository = nullptr;
 		return;
 	}
@@ -482,7 +483,7 @@ Repository::Repository(QObject *pParent, const QString &pRepositoryPath)
 	git_strarray_free(&lBranchNames);
 
 	if(0 != git_revwalk_new(&mRevisionWalker, mRepository)) {
-		qWarning() << "could not create a revision walker in repository " << pRepositoryPath;
+		qCWarning(KUPKIO) << "could not create a revision walker in repository " << pRepositoryPath;
 		mRevisionWalker = nullptr;
 		return;
 	}
