@@ -1,0 +1,12 @@
+[Desktop Entry]
+Exec=kup-filedigger
+Icon=kup
+Type=Application
+Categories=FileManager;Utility;Qt;KDE;
+X-KDE-StartupNotify=true
+
+
+_Name=Filedigger
+_GenericName=Backup Archive Explorer
+_Comment=Use Filedigger to restore files or entire folders from a saved backup in the "bup" format.
+_X-KDE-Keywords=backup,recovery,safety,restore,recover

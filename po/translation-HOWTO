@@ -22,3 +22,4 @@ updated or added translations of the text strings from .desktop files, running
 extract-messages.sh is needed to generate an updated .desktop file. That
 generated .desktop file is kept in git for convenience.
 
+You need to install programs: intltool and kde-dev-scripts
