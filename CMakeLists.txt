@@ -48,6 +48,8 @@ Config
 Init # needed for the kdeinit cmake macro
 JobWidgets
 Plasma
+Pty
+XmlGui
 )
 
 add_subdirectory(daemon)
@@ -57,6 +59,7 @@ add_subdirectory(filedigger)
 add_subdirectory(kcm)
 add_subdirectory(kioslave)
 add_subdirectory(po)
+add_subdirectory(resticcore)
 
 plasma_install_package(plasmoid org.kde.kupapplet)
 

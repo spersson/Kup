@@ -28,4 +28,6 @@ void ensureNoTrailingSlash(QString &pPath);
 
 QString lastPartOfPath(const QString &pPath);
 
+bool fastDiff(const QString &absPath1, const QString &absPath2);
+
 #endif // KUPUTILS_H

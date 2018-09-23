@@ -22,6 +22,7 @@
 #define RESTOREDIALOG_H
 
 #include "versionlistmodel.h"
+#include "vfshelpers.h"
 
 #include <KIO/Job>
 #include <QDialog>
@@ -43,7 +44,7 @@ class RestoreDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent = 0);
+	explicit RestoreDialog(BackupType backupType, const BupSourceInfo &pPathInfo, QWidget *parent = 0);
 	~RestoreDialog();
 
 protected:
@@ -85,6 +86,7 @@ private:
 	QHash<QString, quint64> mFileSizes;
 	int mDirectoriesCount;
 	KWidgetJobTracker *mJobTracker;
+	BackupType mBackupType;
 };
 
 #endif // RESTOREDIALOG_H

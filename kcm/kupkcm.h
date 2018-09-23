@@ -70,6 +70,7 @@ private:
 	QCheckBox *mEnableCheckBox;
 	QString mBupVersion;
 	QString mRsyncVersion;
+    QString mResticVersion;
 	bool mPar2Available;
 };
 

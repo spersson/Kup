@@ -18,28 +18,54 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "kupdaemon.h"
-#include "mergedvfs.h"
-#include "vfshelpers.h"
-#include "kupfiledigger_debug.h"
-
-#include <QDebug>
 #include <QDir>
 
-MergedNode::MergedNode(QObject *pParent, const QString &pName, uint pMode) :
-	QObject(pParent)
+#include "fsminerrestic.h"
+#include "kupfiledigger_debug.h"
+
+FsMinerRestic::FsMinerRestic(const QString &mountPath, QObject *parent) :
+	FsMiner(mountPath, parent)
 {
-	mSubNodes = nullptr;
-	setObjectName(pName);
-	mMode = pMode;
+
 }
 
-MergedNodeList &MergedNode::subNodes() {
-	if(mSubNodes == nullptr) {
-		mSubNodes = new MergedNodeList();
-		if(isDirectory()) {
-			generateSubNodes();
-		}
+void FsMinerRestic::doProcess()
+{
+#define EMIT_AND_RETURN(snapshots) {                          \
+		emit backupProcessed(BackupDescriptor { snapshots }); \
+		return;                                               \
 	}
-	return *mSubNodes;
+
+#define EMIT_AND_RETURN_EMPTY EMIT_AND_RETURN(QList<BackupSnapshot>())
+
+	QString snapshotsPath = QString("%1%2snapshots")
+			.arg(mMountPath).arg(QDir::separator());
+	QDir snapshotsDir(snapshotsPath);
+	if (!snapshotsDir.exists()) {
+        qCWarning(KUPFILEDIGGER) << "Cannot find snapshots dir";
+		EMIT_AND_RETURN_EMPTY;
+	}
+
+	QFileInfoList snapshotListDir = snapshotsDir
+			.entryInfoList(QStringList(), QDir::Dirs | QDir::NoDotAndDotDot);
+	BackupDescriptor descriptor;
+	foreach (QFileInfo fileInfo, snapshotListDir) {
+		QDateTime snapshotDateTime =
+				QDateTime::fromString(fileInfo.fileName(), Qt::ISODate);
+		if (snapshotDateTime.isNull() || !snapshotDateTime.isValid())
+			continue;
+		BackupSnapshot snaphot {
+			snapshotDateTime,
+			fileInfo.absoluteFilePath()
+		};
+		descriptor.mSnapshots.append(snaphot);
+	}
+
+	emit backupProcessed(descriptor);
+}
+
+QString FsMinerRestic::pathToLatest()
+{
+	return QString("%1%2snapshots%2latest")
+			.arg(mMountPath).arg(QDir::separator());
 }

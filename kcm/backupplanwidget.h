@@ -41,6 +41,9 @@ class QRadioButton;
 class QThread;
 class QTimer;
 class QTreeView;
+class QCheckBox;
+class QSpinBox;
+class QLabel;
 
 class FileScanner : public QObject {
 	Q_OBJECT
@@ -148,16 +151,31 @@ class BackupPlanWidget : public QWidget
 	Q_OBJECT
 public:
 	BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion,
+                     const QString &pResticVersion,
 	                 const QString &pRsyncVersion, bool pPar2Available);
 
 	void saveExtraData();
 
-	KPageWidgetItem *createTypePage(const QString &pBupVersion, const QString &pRsyncVersion);
+	KPageWidgetItem *createTypePage(const QString &pBupVersion,
+                                    const QString &pResticVersion, const QString &pRsyncVersion);
 	KPageWidgetItem *createSourcePage();
 	KPageWidgetItem *createDestinationPage();
 	KPageWidgetItem *createSchedulePage();
 	KPageWidgetItem *createAdvancedPage(bool pPar2Available);
 
+	QWidget *createRemovalGroup(int pIndentation);
+	void createRemoveRow(QCheckBox **cb,
+						 const char *label,
+						 QSpinBox **sb,
+						 bool cbValue,
+						 int sbValue,
+						 const QString &kcfgLabel,
+						 const QString &tooltip);
+
+public slots:
+	void refreshDuration();
+
+public:
 	KLineEdit *mDescriptionEdit;
 	QPushButton *mConfigureButton;
 	KPageWidget *mConfigPages;
@@ -166,7 +184,14 @@ public:
 	KLineEdit *mDriveDestEdit;
 	QRadioButton *mVersionedRadio;
 	QRadioButton *mSyncedRadio;
+    QRadioButton *mResticRadio;
 	FolderSelectionWidget *mSourceSelectionWidget;
+
+	// Restic.
+	QSpinBox *mDurationYears;
+	QSpinBox *mDurationMonths;
+	QSpinBox *mDurationDays;
+	QLabel *mDurationSummary;
 
 protected slots:
 	void openDriveDestDialog();

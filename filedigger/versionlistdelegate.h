@@ -25,6 +25,7 @@
 #include <QParallelAnimationGroup>
 #include <QSignalMapper>
 
+#include "vfshelpers.h"
 
 class Button : public QObject {
 	Q_OBJECT
@@ -69,6 +70,7 @@ public:
 	float mOpacity;
 	Button *mOpenButton;
 	Button *mRestoreButton;
+	Button *mCopyButton;
 	QWidget *mParent;
 };
 
@@ -76,7 +78,7 @@ class VersionListDelegate : public QAbstractItemDelegate
 {
 	Q_OBJECT
 public:
-	explicit VersionListDelegate(QAbstractItemView *pItemView, QObject *pParent = 0);
+	explicit VersionListDelegate(BackupType pBackupType, QAbstractItemView *pItemView, QObject *pParent = 0);
 	~VersionListDelegate();
 	virtual void paint(QPainter *pPainter, const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const;
 	virtual QSize sizeHint(const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const;
@@ -85,6 +87,7 @@ public:
 signals:
 	void openRequested(const QModelIndex &pIndex);
 	void restoreRequested(const QModelIndex &pIndex);
+	void copyRequested(const QModelIndex &pIndex);
 
 public slots:
 	void updateCurrent(const QModelIndex &pCurrent, const QModelIndex &pPrevious);
@@ -97,6 +100,7 @@ protected:
 	QAbstractItemModel *mModel;
 	QHash<QPersistentModelIndex, VersionItemAnimation *> mActiveAnimations;
 	QList<VersionItemAnimation *> mInactiveAnimations;
+	BackupType mBackupType;
 };
 
 #endif // VERSIONDELEGATE_H

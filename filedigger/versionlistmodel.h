@@ -51,7 +51,7 @@ protected:
 };
 
 enum VersionDataRole {
-	VersionBupUrlRole = Qt::UserRole + 1, // QUrl
+	VersionUrlRole = Qt::UserRole + 1, // QUrl
 	VersionMimeTypeRole, // QString
 	VersionSizeRole, // quint64
 	VersionSourceInfoRole, // PathInfo

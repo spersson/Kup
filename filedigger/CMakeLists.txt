@@ -7,11 +7,16 @@ set(filedigger_SRCS
 filedigger.cpp
 main.cpp
 mergedvfs.cpp
+mergedvfsbup.cpp
+mergedvfsrestic.cpp
 mergedvfsmodel.cpp
 restoredialog.cpp
 restorejob.cpp
 versionlistdelegate.cpp
 versionlistmodel.cpp
+fsminer.cpp
+fsminerbup.cpp
+fsminerrestic.cpp
 ../kioslave/vfshelpers.cpp
 ../kcm/dirselector.cpp
 ../settings/kuputils.cpp
@@ -29,6 +34,7 @@ add_definitions(-fexceptions)
 ki18n_wrap_ui(filedigger_SRCS restoredialog.ui)
 add_executable(kup-filedigger ${filedigger_SRCS})
 target_link_libraries(kup-filedigger
+resticcore
 Qt5::Core
 Qt5::Gui
 KF5::KIOCore

@@ -20,6 +20,7 @@
 
 #include "filedigger.h"
 #include "mergedvfs.h"
+#include "kupfiledigger_debug.h"
 
 #if LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 24
 #include <git2/global.h>
@@ -57,6 +58,9 @@ int main(int pArgCount, char **pArgArray) {
 	lParser.addOption(QCommandLineOption(QStringList() << QStringLiteral("b") << QStringLiteral("branch"),
 	                                     i18n("Name of the branch to be opened."),
 	                                     QStringLiteral("branch name"), QStringLiteral("kup")));
+	lParser.addOption(QCommandLineOption(QStringList() << QStringLiteral("t"),
+										 i18n("Type of backup (bup, restic)."),
+										 QStringLiteral("type of backup"), QStringLiteral("kup")));
 	lParser.addPositionalArgument(QStringLiteral("<repository path>"), i18n("Path to the bup repository to be opened."));
 
 	lAbout.setupCommandLine(&lParser);
@@ -75,7 +79,18 @@ int main(int pArgCount, char **pArgArray) {
 	git_threads_init();
 	#endif
 
-	FileDigger *lFileDigger = new FileDigger(lRepoPath, lParser.value(QStringLiteral("branch")));
+	BackupType type;
+	QString typeString = lParser.value(QStringLiteral("t"));
+	if (typeString == QStringLiteral("restic"))
+		type = BackupType::B_T_RESTIC;
+	else if (typeString == QStringLiteral("bup"))
+		type = BackupType::B_T_BUP;
+	else {
+		qCWarning(KUPFILEDIGGER) << "Please specify a known backup type";
+		return 1;
+	}
+
+	FileDigger *lFileDigger = new FileDigger(type, lRepoPath, lParser.value(QStringLiteral("branch")));
 	lFileDigger->show();
 	int lRetVal = lApp.exec();
 	#if LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 24

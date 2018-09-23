@@ -76,6 +76,20 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	addItemBool(QStringLiteral("Show hidden folders"), mShowHiddenFolders);
 	addItemBool(QStringLiteral("Generate recovery info"), mGenerateRecoveryInfo);
 	addItemBool(QStringLiteral("Check backups"), mCheckBackups);
+	addItemBool(QStringLiteral("Keep last n"), mKeepLastN);
+	addItemInt(QStringLiteral("Keep last n value"), mKeepLastNValue);
+	addItemBool(QStringLiteral("Keep hourly"), mKeepHourly);
+	addItemInt(QStringLiteral("Keep hourly value"), mKeepHourlyValue);
+	addItemBool(QStringLiteral("Keep daily"), mKeepDaily);
+	addItemInt(QStringLiteral("Keep daily value"), mKeepDailyValue);
+	addItemBool(QStringLiteral("Keep monthly"), mKeepMonthly);
+	addItemInt(QStringLiteral("Keep monthly value"), mKeepMonthlyValue);
+	addItemBool(QStringLiteral("Keep yearly"), mKeepYearly);
+	addItemInt(QStringLiteral("Keep yearly value"), mKeepYearlyValue);
+	addItemBool(QStringLiteral("Keep within duration"), mKeepWithinDuration);
+	addItemInt(QStringLiteral("Keep within duration value years"), mKeepWithinDurationYears);
+	addItemInt(QStringLiteral("Keep within duration value months"), mKeepWithinDurationMonths);
+	addItemInt(QStringLiteral("Keep within duration value days"), mKeepWithinDurationDays);
 
 	addItemDateTime(QStringLiteral("Last complete backup"), mLastCompleteBackup);
 	addItemDouble(QStringLiteral("Last backup size"), mLastBackupSize);

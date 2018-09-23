@@ -24,6 +24,14 @@
 #include <KMainWindow>
 #include <QUrl>
 
+#include <QSharedPointer>
+#include <QAbstractListModel>
+
+#include <restichelper.h>
+#include "fsminer.h"
+
+#include "vfshelpers.h"
+
 class KDirOperator;
 class MergedVfsModel;
 class MergedRepository;
@@ -31,33 +39,83 @@ class VersionListModel;
 class QListView;
 class QModelIndex;
 class QTreeView;
+class QLabel;
+class FsMiner;
+
+class BupMountLock : public MountLock
+{
+    Q_OBJECT
+public:
+    BupMountLock(const QString& repoPath, QObject* parent = nullptr);
+    bool isLocked() override;
+
+public slots:
+    bool unlock() override;
+
+private:
+    QProcess mProcess;
+};
+
+class SnapshotListModel : public QAbstractListModel
+{
+    Q_OBJECT
+public:
+    SnapshotListModel(QObject *parent = nullptr);
+    void setSnapshots(const QList<BackupSnapshot> &snapshots);
+    QVariant data(const QModelIndex &index, int role) const override;
+    int rowCount(const QModelIndex &parent) const override;
+
+private:
+    QList<BackupSnapshot> mSnapshots;
+};
 
 class FileDigger : public KMainWindow
 {
 	Q_OBJECT
 public:
-	explicit FileDigger(const QString &pRepoPath, const QString &pBranchName, QWidget *pParent = nullptr);
+	explicit FileDigger(BackupType type,
+						const QString &pRepoPath,
+						const QString &pBranchName,
+						QWidget *pParent = nullptr);
 
 protected slots:
 	void updateVersionModel(const QModelIndex &pCurrent, const QModelIndex &pPrevious);
 	void open(const QModelIndex &pIndex);
 	void restore(const QModelIndex &pIndex);
+	void copy(const QModelIndex &pIndex);
 	void repoPathAvailable();
 	void checkFileWidgetPath();
 	void enterUrl(QUrl pUrl);
+    void setInfo(QString info);
+    void onBackupDescriptorReceived(BackupDescriptor desc);
+
+signals:
+    void mountSucceeded();
+
+protected:
+    void requestMount();
+    virtual void closeEvent(QCloseEvent* event) override;
 
 protected:
 	MergedRepository *createRepo();
-	void createRepoView(MergedRepository *pRepository);
+    void createRepoView();
 	void createSelectionView();
 	MergedVfsModel *mMergedVfsModel;
 	QTreeView *mMergedVfsView;
 
 	VersionListModel *mVersionModel;
 	QListView *mVersionView;
+    QListView *mSnapshotView;
 	QString mRepoPath;
 	QString mBranchName;
+    QLabel* mInfoLabel;
 	KDirOperator *mDirOperator;
+	BackupType mBackupType;
+    QSharedPointer<MountLock> mMountLock;
+    QSharedPointer<FsMiner> mFsMiner;
+    BackupDescriptor mDescriptor;
+    SnapshotListModel mSnapshotModel;
+    QTabWidget* m_tab;
 };
 
 #endif // FILEDIGGER_H

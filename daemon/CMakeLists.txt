@@ -12,6 +12,7 @@ bupjob.cpp
 bupverificationjob.cpp
 buprepairjob.cpp
 rsyncjob.cpp
+resticjob.cpp
 ../settings/backupplan.cpp
 ../settings/kupsettings.cpp
 ../settings/kuputils.cpp
@@ -26,6 +27,7 @@ ecm_qt_declare_logging_category(kupdaemon_SRCS
 
 kf5_add_kdeinit_executable(kup-daemon ${kupdaemon_SRCS})
 target_link_libraries(kdeinit_kup-daemon
+resticcore
 Qt5::Core
 Qt5::DBus
 Qt5::Gui
@@ -39,6 +41,7 @@ KF5::Solid
 KF5::Notifications
 KF5::CoreAddons
 KF5::DBusAddons
+KF5::Pty
 )
 
 ########### install files ###############

@@ -24,11 +24,13 @@
 #include <QAbstractItemModel>
 
 #include "mergedvfs.h"
+#include "mergedvfsbup.h"
 
 class MergedVfsModel : public QAbstractItemModel
 {
 	Q_OBJECT
 public:
+	// TODO
 	explicit MergedVfsModel(MergedRepository *pRoot, QObject *pParent = 0);
 	~MergedVfsModel();
 	int columnCount(const QModelIndex &pParent) const;
@@ -41,6 +43,7 @@ public:
 	const MergedNode *node(const QModelIndex &pIndex);
 
 protected:
+	// TODO
 	MergedRepository *mRoot;
 
 };
