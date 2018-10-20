@@ -137,7 +137,7 @@ msgstr "Reparationen lyckades! Se loggfil för detaljer."
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
-"Backup repair was not necessary. Your backups are not corrupted.See log file "
+"Backup repair was not necessary. Your backups are not corrupted. See log file "
 "for more details."
 msgstr ""
 "Reparation behövdes inte, dina säkerhetskopior är ok. Se loggfil för "

@@ -131,7 +131,7 @@ msgstr "成功！備份修復完成。參見記錄檔以取得更多詳細資訊
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
-"Backup repair was not necessary. Your backups are not corrupted.See log file "
+"Backup repair was not necessary. Your backups are not corrupted. See log file "
 "for more details."
 msgstr "不需要修復備份。您的備份並無損毀。參見記錄檔以取得更多詳細資訊。"
 

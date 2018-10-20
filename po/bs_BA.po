@@ -142,7 +142,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
-"Backup repair was not necessary. Your backups are not corrupted.See log file "
+"Backup repair was not necessary. Your backups are not corrupted. See log file "
 "for more details."
 msgstr ""
 "Popravljanje backupa nije potrebno. Backupi nisu oštećeni. Za detalje, "
