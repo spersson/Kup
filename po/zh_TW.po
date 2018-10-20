@@ -246,7 +246,7 @@ msgstr "已建議新備份"
 #: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:88
 #, kde-format
 msgctxt "status in tooltip"
-msgid "New backup neeeded"
+msgid "New backup needed"
 msgstr "需要新備份"
 
 #: daemon/main.cpp:41

@@ -274,7 +274,7 @@ msgstr "Neues Backup empfohlen"
 #: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:88
 #, kde-format
 msgctxt "status in tooltip"
-msgid "New backup neeeded"
+msgid "New backup needed"
 msgstr "Neues Backup nötig"
 
 #: daemon/main.cpp:41
