@@ -280,7 +280,7 @@ void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 	foreach(PlanExecutor *lExec, mExecutors) {
 		if(lExec->mPlan->backupStatus() == BackupPlan::BAD) {
 			lToolTipIconName = BackupPlan::iconName(BackupPlan::BAD);
-			lToolTipTitle = i18nc("status in tooltip", "New backup neeeded");
+			lToolTipTitle = i18nc("status in tooltip", "New backup needed");
 			lTrayIconActive = true;
 		}
 	}

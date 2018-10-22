@@ -150,7 +150,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
-"Backup repair was not necessary. Your backups are not corrupted.See log file "
+"Backup repair was not necessary. Your backups are not corrupted. See log file "
 "for more details."
 msgstr ""
 "Eine Reparatur war nicht nötig. Ihre Sicherungsdateien sind in Ordnung. "
@@ -274,7 +274,7 @@ msgstr "Neues Backup empfohlen"
 #: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:88
 #, kde-format
 msgctxt "status in tooltip"
-msgid "New backup neeeded"
+msgid "New backup needed"
 msgstr "Neues Backup nötig"
 
 #: daemon/main.cpp:41

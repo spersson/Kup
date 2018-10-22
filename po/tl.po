@@ -149,7 +149,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
-"Backup repair was not necessary. Your backups are not corrupted.See log file "
+"Backup repair was not necessary. Your backups are not corrupted. See log file "
 "for more details."
 msgstr ""
 "Hindi kinakailangang ayusin ang iyong seguridad na kopya dahil ito ay walang "
@@ -272,7 +272,7 @@ msgstr "Kinakailangan ng bagong seguridad na kopya"
 #: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:88
 #, fuzzy, kde-format
 msgctxt "status in tooltip"
-msgid "New backup neeeded"
+msgid "New backup needed"
 msgstr "Kinakailangan ng bagong seguridad na kopya"
 
 #: daemon/main.cpp:41
