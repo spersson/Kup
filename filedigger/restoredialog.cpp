@@ -23,6 +23,7 @@
 #include "restorejob.h"
 #include "dirselector.h"
 #include "kuputils.h"
+#include "kupfiledigger_debug.h"
 
 #include <KIO/CopyJob>
 #include <KDiskFreeSpaceInfo>
@@ -46,6 +47,9 @@ RestoreDialog::RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent)
    : QDialog(parent), mUI(new Ui::RestoreDialog), mSourceInfo(pPathInfo)
 {
 	mSourceFileName = mSourceInfo.mPathInRepo.section(QDir::separator(), -1);
+
+	qCDebug(KUPFILEDIGGER) << "Starting restore dialog for repo: " << mSourceInfo.mRepoPath
+	          << ", restoring: " << mSourceInfo.mPathInRepo;
 
 	mUI->setupUi(this);
 
@@ -168,6 +172,8 @@ void RestoreDialog::startPrechecks() {
 	mSourceSize = 0;
 	mFileSizes.clear();
 
+	qCDebug(KUPFILEDIGGER) << "Destination has been selected: " << mDestination.absoluteFilePath();
+
 	if(mSourceInfo.mIsDirectory) {
 		mDirectoriesCount = 1; // the folder being restored, rest will be added during listing.
 		mRestorationPath = mDestination.absoluteFilePath();
@@ -195,6 +201,7 @@ void RestoreDialog::startPrechecks() {
 				mRestorationPath.append(KUP_TMP_RESTORE_FOLDER);
 			}
 		}
+		qCDebug(KUPFILEDIGGER) << "Starting source file listing job on: " << mSourceInfo.mBupKioPath;
 		KIO::ListJob *lListJob = KIO::listRecursive(mSourceInfo.mBupKioPath, KIO::HideProgressInfo);
 		connect(lListJob, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
 		        SLOT(collectSourceListing(KIO::Job*,KIO::UDSEntryList)));
@@ -243,6 +250,7 @@ void RestoreDialog::collectSourceListing(KIO::Job *pJob, const KIO::UDSEntryList
 }
 
 void RestoreDialog::sourceListingCompleted(KJob *pJob) {
+	qCDebug(KUPFILEDIGGER) << "Source listing job completed. Exit status: " << pJob->error();
 	if(!mSavedWorkingDirectory.isEmpty()) {
 		QDir::setCurrent(mSavedWorkingDirectory);
 	}
@@ -258,6 +266,7 @@ void RestoreDialog::sourceListingCompleted(KJob *pJob) {
 }
 
 void RestoreDialog::completePrechecks() {
+	qCDebug(KUPFILEDIGGER) << "Starting free disk space check on: " << mDestination.absolutePath();
 	KDiskFreeSpaceInfo lSpaceInfo = KDiskFreeSpaceInfo::freeSpaceInfo(mDestination.absolutePath());
 	if(lSpaceInfo.isValid() && lSpaceInfo.available() < mSourceSize) {
 		mMessageWidget->setText(xi18nc("@info message bar appearing on top",
@@ -266,6 +275,7 @@ void RestoreDialog::completePrechecks() {
 		mMessageWidget->setMessageType(KMessageWidget::Error);
 		mMessageWidget->animatedShow();
 	} else if(mUI->mFileConflictList->count() > 0) {
+		qCDebug(KUPFILEDIGGER) << "Detected file conflicts.";
 		if(mSourceInfo.mIsDirectory) {
 			QString lDateString = QLocale().toString(QDateTime::fromTime_t(mSourceInfo.mCommitTime).toLocalTime());
 			lDateString.replace(QLatin1Char('/'), QLatin1Char('-')); // make sure no slashes in suggested folder name
@@ -313,6 +323,7 @@ void RestoreDialog::startRestoring() {
 	QDateTime lCommitTime = QDateTime::fromTime_t(mSourceInfo.mCommitTime);
 	lSourcePath.append(lCommitTime.toString(QStringLiteral("yyyy-MM-dd-hhmmss")));
 	lSourcePath.append(mSourceInfo.mPathInRepo);
+	qCDebug(KUPFILEDIGGER) << "Starting restore. Source path: " << lSourcePath << ", restore path: " << mRestorationPath;
 	RestoreJob *lRestoreJob = new RestoreJob(mSourceInfo.mRepoPath, lSourcePath, mRestorationPath,
 	                                         mDirectoriesCount, mSourceSize, mFileSizes);
 	if(mJobTracker == nullptr) {
@@ -329,16 +340,18 @@ void RestoreDialog::startRestoring() {
 }
 
 void RestoreDialog::restoringCompleted(KJob *pJob) {
+	qCDebug(KUPFILEDIGGER) << "Restore job completed. Exit status: " << pJob->error();
 	if(pJob->error() != 0) {
 		mUI->mRestorationOutput->setPlainText(pJob->errorText());
 		mUI->mRestorationStackWidget->setCurrentIndex(1);
 		mUI->mCloseButton->show();
 	} else {
 		if(!mSourceInfo.mIsDirectory && mSourceFileName != mDestination.fileName()) {
-			KIO::CopyJob *lFileMoveJob = KIO::move(QUrl::fromLocalFile(mRestorationPath + '/' + mSourceFileName),
-			                                       QUrl::fromLocalFile(mRestorationPath + '/' + mDestination.fileName()),
-			                                       KIO::HideProgressInfo);
+			QUrl lSourceUrl = QUrl::fromLocalFile(mRestorationPath + '/' + mSourceFileName);
+			QUrl lDestinationUrl = QUrl::fromLocalFile(mRestorationPath + '/' + mDestination.fileName());
+			KIO::CopyJob *lFileMoveJob = KIO::move(lSourceUrl, lDestinationUrl, KIO::HideProgressInfo);
 			connect(lFileMoveJob, SIGNAL(result(KJob*)), SLOT(fileMoveCompleted(KJob*)));
+			qCDebug(KUPFILEDIGGER) << "Starting file move job from: " << lSourceUrl << ", to: " << lDestinationUrl;
 			lFileMoveJob->start();
 		} else {
 			moveFolder();
@@ -347,21 +360,12 @@ void RestoreDialog::restoringCompleted(KJob *pJob) {
 }
 
 void RestoreDialog::fileMoveCompleted(KJob *pJob) {
+	qCDebug(KUPFILEDIGGER) << "File move job completed. Exit status: " << pJob->error();
 	if(pJob->error() != 0) {
 		mUI->mRestorationOutput->setPlainText(pJob->errorText());
 		mUI->mRestorationStackWidget->setCurrentIndex(1);
 	} else {
 		moveFolder();
-	}
-}
-
-void RestoreDialog::folderMoveCompleted(KJob *pJob) {
-	mUI->mCloseButton->show();
-	if(pJob->error() != 0) {
-		mUI->mRestorationOutput->setPlainText(pJob->errorText());
-		mUI->mRestorationStackWidget->setCurrentIndex(1);
-	} else {
-		mUI->mRestorationStackWidget->setCurrentIndex(2);
 	}
 }
 
@@ -413,16 +417,29 @@ void RestoreDialog::moveFolder() {
 	if(!mRestorationPath.endsWith(KUP_TMP_RESTORE_FOLDER)) {
 		mUI->mRestorationStackWidget->setCurrentIndex(2);
 		mUI->mCloseButton->show();
+		qCDebug(KUPFILEDIGGER) << "Overall restore operation completed.";
 		return;
 	}
-	KIO::CopyJob *lFolderMoveJob = KIO::moveAs(QUrl::fromLocalFile(mRestorationPath),
-	                                     QUrl::fromLocalFile(mRestorationPath.section(QDir::separator(), 0, -2)),
-	                                     KIO::Overwrite | KIO::HideProgressInfo);
+	QUrl lSourceUrl = QUrl::fromLocalFile(mRestorationPath);
+	QUrl lDestinationUrl = QUrl::fromLocalFile(mRestorationPath.section(QDir::separator(), 0, -2));
+	KIO::CopyJob *lFolderMoveJob = KIO::moveAs(lSourceUrl, lDestinationUrl, KIO::Overwrite | KIO::HideProgressInfo);
 	connect(lFolderMoveJob, SIGNAL(result(KJob*)), SLOT(folderMoveCompleted(KJob*)));
 	mJobTracker->registerJob(lFolderMoveJob);
 	QWidget *lProgressWidget = mJobTracker->widget(lFolderMoveJob);
 	mUI->mRestoreProgressLayout->insertWidget(1, lProgressWidget);
 	lProgressWidget->show();
+	qCDebug(KUPFILEDIGGER) << "Starting folder move job from: " << lSourceUrl << ", to: " << lDestinationUrl;
 	lFolderMoveJob->start();
 }
 
+void RestoreDialog::folderMoveCompleted(KJob *pJob) {
+	qCDebug(KUPFILEDIGGER) << "Folder move job completed. Exit status: " << pJob->error();
+	mUI->mCloseButton->show();
+	if(pJob->error() != 0) {
+		mUI->mRestorationOutput->setPlainText(pJob->errorText());
+		mUI->mRestorationStackWidget->setCurrentIndex(1);
+	} else {
+		qCDebug(KUPFILEDIGGER) << "Overall restore operation completed.";
+		mUI->mRestorationStackWidget->setCurrentIndex(2);
+	}
+}
