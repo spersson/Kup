@@ -21,7 +21,7 @@ ecm_qt_declare_logging_category(kupdaemon_SRCS
     HEADER kupdaemon_debug.h
     IDENTIFIER KUPDAEMON
     CATEGORY_NAME kup.daemon
-    DEFAULT_SEVERITY Debug
+    DEFAULT_SEVERITY Warning
 )
 
 kf5_add_kdeinit_executable(kup-daemon ${kupdaemon_SRCS})

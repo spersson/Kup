@@ -9,7 +9,7 @@ ecm_qt_declare_logging_category(bupslave_SRCS
     HEADER kupkio_debug.h
     IDENTIFIER KUPKIO
     CATEGORY_NAME kup.kio
-    DEFAULT_SEVERITY Debug
+    DEFAULT_SEVERITY Warning
 )
 
 add_library(kio_bup MODULE ${bupslave_SRCS})
