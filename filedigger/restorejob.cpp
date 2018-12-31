@@ -97,7 +97,7 @@ void RestoreJob::timerEvent(QTimerEvent *pTimerEvent) {
 	}
 	if(lFileWasUpdated) {
 		emit description(this, xi18nc("progress report, current operation", "Restoring"),
-		                 qMakePair(xi18nc("progress report, label", "File:"), lLastFileName));
+		                 qMakePair(xi18nc("progress report, label", "File"), lLastFileName));
 		setProcessedAmount(Files, lProcessedFiles);
 		setProcessedAmount(Bytes, lProcessedBytes); // this will also call emitPercent()
 	}

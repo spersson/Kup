@@ -3,8 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Asmer Mlaćo <asmerovski@gmail.com>, 2015
-# Asmer Mlaćo <asmerovski@gmail.com>, 2016-2017
+# maz-1 <ohmygod19993@gmail.com>, 2018
 # Simon Persson <simon.persson@mykolab.com>, 2018
 msgid ""
 msgstr ""
@@ -14,14 +13,13 @@ msgstr ""
 "POT-Creation-Date: 2018-12-31 14:58+0800\n"
 "PO-Revision-Date: 2018-12-31 05:49+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
-"Language-Team: Bosnian (Bosnia and Herzegovina) (http://www.transifex.com/"
-"kup/kup/language/bs_BA/)\n"
-"Language: bs_BA\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/kup/kup/language/"
+"zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: daemon/bupjob.cpp:47 daemon/buprepairjob.cpp:38
 #: daemon/bupverificationjob.cpp:37
@@ -30,9 +28,7 @@ msgctxt "@info notification"
 msgid ""
 "The <application>bup</application> program is needed but could not be found, "
 "maybe it is not installed?"
-msgstr ""
-"Aplikacija<application>bup</application> potrebna za rad, ali nije nađena. "
-"Možda nije instalirana?"
+msgstr "需要程序<application>bup</application>但是无法找到，也许未安装？"
 
 #: daemon/bupjob.cpp:52 daemon/buprepairjob.cpp:43
 #, kde-kuit-format
@@ -40,23 +36,19 @@ msgctxt "@info notification"
 msgid ""
 "The <application>par2</application> program is needed but could not be "
 "found, maybe it is not installed?"
-msgstr ""
-"Aplikacija<application>par2</application> potrebna za rad, ali nije nađena. "
-"Možda nije instalirana?"
+msgstr "需要程序<application>par2</application>但是无法找到，也许未安装？"
 
 #: daemon/bupjob.cpp:71
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
 "Backup destination could not be initialised. See log file for more details."
-msgstr ""
-"Odredište za pohranu backupa ne može biti inicijalizirano. Za detaljan info, "
-"pogledajte log datoteku"
+msgstr "备份目标无法初始化，查看日志以获取更多细节。"
 
 #: daemon/bupjob.cpp:93
 #, kde-format
 msgid "Checking backup integrity"
-msgstr "Provjeravam integritet backupa"
+msgstr "检查备份完整性"
 
 #: daemon/bupjob.cpp:104 daemon/bupverificationjob.cpp:67
 #, kde-kuit-format
@@ -65,9 +57,8 @@ msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details. Do you want to try repairing the backup files?"
 msgstr ""
-"Provjera integriteta backupa neuspješna. Vaši backupi su vjerovatno "
-"oštećeni. Pogledajte log datoteku. Da li želite pokušati popravak backup "
-"datoteka?"
+"备份完整性检查失败，你的备份可能已损坏！查看日志以获取更多细节。是否要尝试修"
+"复备份文件？"
 
 #: daemon/bupjob.cpp:108
 #, kde-kuit-format
@@ -75,37 +66,34 @@ msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups could be corrupted! See log file "
 "for more details."
-msgstr ""
-"Provjera integriteta backupa neuspješna. Vaši backupi su vjerovatno "
-"oštećeni. Pogledajte log datoteku za detalje."
+msgstr "备份完整性检查失败，你的备份可能已损坏！查看日志以获取更多细节。"
 
 #: daemon/bupjob.cpp:131 daemon/rsyncjob.cpp:57
 #, kde-format
 msgid "Checking what to copy"
-msgstr ""
+msgstr "勾选哪些要复制"
 
 #: daemon/bupjob.cpp:138
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to analyze files. See log file for more details."
-msgstr ""
+msgstr "分析文件失败。查看日志以获取更多细节。"
 
 #: daemon/bupjob.cpp:159 daemon/bupjob.cpp:253 daemon/rsyncjob.cpp:175
 #, kde-format
 msgid "Saving backup"
-msgstr ""
+msgstr "保存备份"
 
 #: daemon/bupjob.cpp:167 daemon/rsyncjob.cpp:120
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Failed to save backup. See log file for more details."
-msgstr ""
-"Neuspješan završetak backupa. Za detaljan info, pogledajte log datoteku."
+msgstr "无法保存备份。查看日志以获取更多细节。"
 
 #: daemon/bupjob.cpp:189
 #, kde-format
 msgid "Generating recovery information"
-msgstr "Kreiraj informacije za oporavak"
+msgstr "生成恢复信息"
 
 #: daemon/bupjob.cpp:197
 #, kde-kuit-format
@@ -113,15 +101,13 @@ msgctxt "@info notification"
 msgid ""
 "Failed to generate recovery info for the backup. See log file for more "
 "details."
-msgstr ""
-"Generisanje recovery informacije nije uspjelo. Za više informacija, "
-"pogledajte log datoteku."
+msgstr "无法为备份生成恢复信息。查看日志以获取更多细节。"
 
 #: daemon/bupjob.cpp:254 daemon/rsyncjob.cpp:176
 #, kde-format
 msgctxt "Label for file currently being copied"
 msgid "File"
-msgstr "Datoteka"
+msgstr "文件"
 
 #: daemon/buprepairjob.cpp:72
 #, kde-kuit-format
@@ -129,16 +115,13 @@ msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could be corrupted! See log file for more "
 "details."
-msgstr ""
-"Popravka backup arhive nije uspjela. Backupi su vjerovatno oštećeni! "
-"Provjerite log datoteku."
+msgstr "备份修复失败，你的备份可能已损坏！查看日志以获取更多细节。"
 
 #: daemon/buprepairjob.cpp:76
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Success! Backup repair worked. See log file for more details."
-msgstr ""
-"Popravke na backupu su uspješne. Za detaljan info, pogledajte log datoteku."
+msgstr "成功！备份修复已生效。查看日志以获取更多细节。"
 
 #: daemon/buprepairjob.cpp:80
 #, kde-kuit-format
@@ -146,9 +129,7 @@ msgctxt "@info notification"
 msgid ""
 "Backup repair was not necessary. Your backups are not corrupted. See log "
 "file for more details."
-msgstr ""
-"Popravljanje backupa nije potrebno. Backupi nisu oštećeni. Za detelje, "
-"provjerite log datoteku."
+msgstr "不需要修复备份，你的备份未损坏。查看日志以获取更多细节。"
 
 #: daemon/buprepairjob.cpp:85
 #, kde-kuit-format
@@ -156,9 +137,7 @@ msgctxt "@info notification"
 msgid ""
 "Backup repair failed. Your backups could still be corrupted! See log file "
 "for more details."
-msgstr ""
-"Popravka backupa neuspješna. Backupi su najvjerovatnije oštećeni! Provjerite "
-"log datoteku za detalje."
+msgstr "备份修复失败，你的备份可能依然是损坏的！查看日志以获取更多细节。"
 
 #: daemon/bupverificationjob.cpp:70 daemon/bupverificationjob.cpp:87
 #, kde-kuit-format
@@ -166,15 +145,13 @@ msgctxt "@info notification"
 msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details."
-msgstr ""
-"Provjera integriteta backupa neuspješna. Backupi su oštećeni! Provjerite log "
-"datoteku."
+msgstr "备份完整性检查失败，你的备份已损坏！查看日志以获取更多细节。"
 
 #: daemon/bupverificationjob.cpp:76
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Backup integrity test was successful, Your backups are fine."
-msgstr "Test integriteta backupa usješan. Backupi su ispravni."
+msgstr "备份完整性检查成功，你的备份没有问题。"
 
 #: daemon/bupverificationjob.cpp:83
 #, kde-kuit-format
@@ -183,8 +160,8 @@ msgid ""
 "Failed backup integrity check. Your backups are corrupted! See log file for "
 "more details. Do you want to try repairing the backup files?"
 msgstr ""
-"Provjera integriteta backupa neuspješna. Vaši backupi su oštećeni. "
-"Pogledajte log datoteku. Da li želite pokušati popravak backup datoteka?"
+"备份完整性检查失败，你的备份已损坏！查看日志以获取更多细节。是否要尝试修复备"
+"份文件？"
 
 #: daemon/edexecutor.cpp:115 daemon/edexecutor.cpp:124
 #: daemon/edexecutor.cpp:160 daemon/fsexecutor.cpp:114
@@ -192,80 +169,80 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Problem"
-msgstr "Problem"
+msgstr "问题"
 
 #: daemon/edexecutor.cpp:116 daemon/fsexecutor.cpp:115
 #, kde-kuit-format
 msgctxt "notification"
 msgid "Invalid type of backup in configuration."
-msgstr "Tip backupa u konfiguraciji nije validan."
+msgstr "在设置中选择了无效的备份类型。"
 
 #: daemon/edexecutor.cpp:125
 #, kde-kuit-format
 msgctxt "notification"
 msgid "You don't have write permission to backup destination."
-msgstr "Nemate permisije da pišete na backup odredište"
+msgstr "你不具备对备份目标的写权限。"
 
 #: daemon/kupdaemon.cpp:171
 #, kde-format
 msgid "Continue"
-msgstr "Dalje"
+msgstr "继续"
 
 #: daemon/kupdaemon.cpp:173
 #, kde-format
 msgid "Stop"
-msgstr "Zaustavi"
+msgstr "停止"
 
 #: daemon/kupdaemon.cpp:175
 #, kde-format
 msgctxt "%1 is a text explaining the current activity"
 msgid "Currently busy: %1"
-msgstr ""
+msgstr "正忙：%1"
 
 #: daemon/kupdaemon.cpp:176
 #, kde-format
 msgid "Do you really want to stop?"
-msgstr ""
+msgstr "你确定要停止吗？"
 
 #: daemon/kupdaemon.cpp:179
 #, kde-format
 msgid "User Backups"
-msgstr "Backupi"
+msgstr "用户备份"
 
 #: daemon/kupdaemon.cpp:249
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Backup destination not available"
-msgstr "Odredište za backup nije dostupno"
+msgstr "备份目标不可用"
 
 #: daemon/kupdaemon.cpp:253 daemon/kupdaemon.cpp:310
 #, kde-format
 msgid "No backup plans configured"
-msgstr ""
+msgstr "未配置备份计划"
 
 #: daemon/kupdaemon.cpp:259
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Backup destination available"
-msgstr "Odredište za backup dostupno"
+msgstr "备份目标可用"
 
 #: daemon/kupdaemon.cpp:269 daemon/planexecutor.cpp:85
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Backup status OK"
-msgstr "Status backupa: OK"
+msgstr "备份状态OK"
 
 #: daemon/kupdaemon.cpp:276 daemon/planexecutor.cpp:87
 #, kde-format
 msgctxt "status in tooltip"
 msgid "New backup suggested"
-msgstr "Predlažem novi backup"
+msgstr "已建议新备份"
 
 #: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:89
 #, kde-format
 msgctxt "status in tooltip"
 msgid "New backup needed"
-msgstr "Potreban novi backup"
+msgstr "需要新备份"
 
 #: daemon/main.cpp:43
 #, kde-kuit-format
@@ -274,14 +251,14 @@ msgid ""
 "Kup is not enabled, enable it from the system settings module. You can do "
 "that by running <command>kcmshell5 kup</command>"
 msgstr ""
-"Kup nije omogućen, omogućite ga kroz System Setting modul. Možete to uraditi "
-"pokretanjem sljedeće komande: <command>kcmshell5 kup</command>"
+"Kup未启用，请从系统设置模块中启用。可以运行<command>kcmshell5 kup</command>以"
+"进行此操作。"
 
 #: daemon/main.cpp:49
 #, kde-kuit-format
 msgctxt "@title"
 msgid "Kup Daemon"
-msgstr "Kup daemon"
+msgstr "Kup守护进程"
 
 #: daemon/main.cpp:50
 #, kde-format
@@ -290,14 +267,13 @@ msgid ""
 "This allows it to quickly perform incremental backups, only saving the parts "
 "of files that has actually changed since last backup was taken."
 msgstr ""
-"Kup je fleksibilno backup rješenje koje koristi bup system pohrane podataka. "
-"To mu omogućava da brzo izvrši inkementalne backupe, pomoću kojih se "
-"spašavaju samo dijelovi datoteka koji su se promijenili od zadnjeg backupa."
+"Kup是一个使用备份储存系统\"bup\"的灵活的备份解决方案。它可以快速地进行增量备"
+"份，只储存在最后一次备份之后所变更的文件部份。"
 
 #: daemon/main.cpp:53 kcm/kupkcm.cpp:52
 #, kde-format
 msgid "Copyright (C) 2011-2015 Simon Persson"
-msgstr "Copyright (C) 2011-2015 Simon Persson"
+msgstr "版权所有 (C) 2011-2015 Simon Persson"
 
 #: daemon/main.cpp:55 filedigger/main.cpp:50 kcm/kupkcm.cpp:54
 #, kde-format
@@ -308,37 +284,37 @@ msgstr "Simon Persson"
 #, kde-kuit-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Vaša imena"
+msgstr "林自源"
 
 #: daemon/main.cpp:56 filedigger/main.cpp:51 kcm/kupkcm.cpp:56
 #, kde-kuit-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "Vaši e-mailovi"
+msgstr "ohmygod19993@gmail.com"
 
 #: daemon/planexecutor.cpp:77
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Saving backup"
-msgstr ""
+msgstr "正在保存备份"
 
 #: daemon/planexecutor.cpp:79
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Checking backup integrity"
-msgstr "Provjeravam integritet backupa"
+msgstr "正在检查备份完整性"
 
 #: daemon/planexecutor.cpp:81
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Repairing backups"
-msgstr "Popravljam backupe"
+msgstr "正在修复备份"
 
 #: daemon/planexecutor.cpp:119 daemon/planexecutor.cpp:134
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Do you want to save a first backup now?"
-msgstr "Da li želite sada pokrenuti prvi backup?"
+msgstr "你想要现在储存第一个备份吗？"
 
 #: daemon/planexecutor.cpp:122
 #, kde-kuit-format
@@ -347,8 +323,8 @@ msgid ""
 "It has been %1 since last backup was saved.\n"
 "Save a new backup now?"
 msgstr ""
-"Već je prošlo %1 od zadnjeg backupa.\n"
-"Da li želite pokrenuti novi backup?"
+"自上一个备份储存后已经过了 %1。\n"
+"现在储存新备份？"
 
 #: daemon/planexecutor.cpp:138
 #, kde-kuit-format
@@ -357,62 +333,64 @@ msgid ""
 "You have been active for %1 since last backup was saved.\n"
 "Save a new backup now?"
 msgstr ""
+"自上一个备份储存后你的频繁操作维持了%1。\n"
+"现在储存新备份？"
 
 #: daemon/planexecutor.cpp:171 daemon/planexecutor.cpp:201
 #: daemon/planexecutor.cpp:279
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Yes"
-msgstr "Da"
+msgstr "是"
 
 #: daemon/planexecutor.cpp:171 daemon/planexecutor.cpp:202
 #: daemon/planexecutor.cpp:280
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "No"
-msgstr "Ne"
+msgstr "否"
 
 #: daemon/planexecutor.cpp:193
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Saving of Backup Failed"
-msgstr "Neuspješna pohrana backupa"
+msgstr "备份保存失败"
 
 #: daemon/planexecutor.cpp:198 daemon/planexecutor.cpp:276
 #: daemon/planexecutor.cpp:310
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Show log file"
-msgstr "Prikaži log datoteku"
+msgstr "显示日志文件"
 
 #: daemon/planexecutor.cpp:222
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Backup Saved"
-msgstr ""
+msgstr "备份已保存"
 
 #: daemon/planexecutor.cpp:223
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Saving backup completed successfully."
-msgstr "Pohrana backupa završena"
+msgstr "储存备份成功完成。"
 
 #: daemon/planexecutor.cpp:272
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Integrity Check Completed"
-msgstr "Provjera integriteta završena"
+msgstr "完整性检查已完成"
 
 #: daemon/planexecutor.cpp:307
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Repair Completed"
-msgstr "Popravka završena"
+msgstr "修复已完成"
 
 #: daemon/planexecutor.cpp:338 po/rc.cpp:47 rc.cpp:47
 #, kde-format
 msgid "Kup Backup System"
-msgstr "Kup Backup System"
+msgstr "Kup 备份系统"
 
 #: daemon/rsyncjob.cpp:48
 #, kde-kuit-format
@@ -420,9 +398,7 @@ msgctxt "@info notification"
 msgid ""
 "The <application>rsync</application> program is needed but could not be "
 "found, maybe it is not installed?"
-msgstr ""
-"Aplikacija<application>rsync</application> potrebna za rad, ali nije nađena. "
-"Možda nije instalirana?"
+msgstr "需要程序<application>rsync</application>但是无法找到，也许未安装？"
 
 #: filedigger/filedigger.cpp:103
 #, kde-kuit-format
@@ -431,14 +407,13 @@ msgid ""
 "The backup archive <filename>%1</filename> could not be opened.Check if the "
 "backups really are located there."
 msgstr ""
-"Backup arhiva <filename>%1</filename> se ne može otvoriti. Provjerite da li "
-"su backupi stvarno locirani tamo."
+"备份压缩文件<filename>%1</filename>无法开启。请检查备份是否真的位于那里。"
 
 #: filedigger/filedigger.cpp:111
 #, kde-kuit-format
 msgctxt "@info messagebox"
 msgid "You do not have permission needed to read this backup archive."
-msgstr "Nemate permisije potrebne za čitanje ove backup arhive."
+msgstr "你没有读取这个备份压缩文件的必须权限。"
 
 #: filedigger/filedigger.cpp:160
 #, kde-format
@@ -449,27 +424,27 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@title"
 msgid "File Digger"
-msgstr "File Digger"
+msgstr "文件挖掘器"
 
 #: filedigger/main.cpp:47
 #, kde-format
 msgid "Browser for bup archives."
-msgstr "Pretraživač bup arhiva"
+msgstr "Bup 归档的浏览程序。"
 
 #: filedigger/main.cpp:48
 #, kde-format
 msgid "Copyright (C) 2013-2015 Simon Persson"
-msgstr "Copyright (C) 2013-2015 Simon Persson"
+msgstr "版权所有 (C) 2013-2015 Simon Persson"
 
 #: filedigger/main.cpp:58
 #, kde-format
 msgid "Name of the branch to be opened."
-msgstr "Ime grane koju treba otvoriti."
+msgstr "所要开启的分支的名称。"
 
 #: filedigger/main.cpp:60
 #, kde-format
 msgid "Path to the bup repository to be opened."
-msgstr "Putanja do bup repozitorija koju treba otvoriti."
+msgstr "所要开启的 bup 储存库的路径。"
 
 #: filedigger/mergedvfs.cpp:109
 #, kde-kuit-format
@@ -478,44 +453,44 @@ msgid ""
 "Could not read this backup archive. Perhaps some files have become "
 "corrupted. Do you want to run an integrity check to test this?"
 msgstr ""
-"Nije moguće pročitati ovu backup arhivu. Možda su datoteke oštećene. Da li "
-"želite pokrenuti provjeru integriteta arhive?"
+"无法读取这个备份压缩文件。也许某些文件已损毁。你想要执行完整性检查来测试这个"
+"文件吗？"
 
 #: filedigger/mergedvfs.cpp:157
 #, kde-kuit-format
 msgctxt "added after folder name in some cases"
 msgid " (folder)"
-msgstr " (folder)"
+msgstr "(文件夹)"
 
 #: filedigger/mergedvfs.cpp:159
 #, kde-kuit-format
 msgctxt "added after file name in some cases"
 msgid " (symlink)"
-msgstr " (simbolički link)"
+msgstr "(符号链接)"
 
 #: filedigger/mergedvfs.cpp:161
 #, kde-kuit-format
 msgctxt "added after file name in some cases"
 msgid " (file)"
-msgstr "(datoteka)"
+msgstr "(文件)"
 
 #: filedigger/restoredialog.cpp:119 kcm/backupplanwidget.cpp:451
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "New Folder..."
-msgstr "Novi folder..."
+msgstr "新文件夹..."
 
 #: filedigger/restoredialog.cpp:145 filedigger/restoredialog.cpp:164
 #, kde-kuit-format
 msgctxt "@info message bar appearing on top"
 msgid "No destination was selected, please select one."
-msgstr "Nije odabrano odredište, molim odaberite ga."
+msgstr "目的地尚未选择，请选择一个。"
 
 #: filedigger/restoredialog.cpp:259
 #, kde-kuit-format
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
-msgstr "Desio se problem kod dobavljanja liste datoteka za restore: %1"
+msgstr "当要取得所有要恢复的文件的列表时发生了问题： %1"
 
 #: filedigger/restoredialog.cpp:273
 #, kde-kuit-format
@@ -523,9 +498,7 @@ msgctxt "@info message bar appearing on top"
 msgid ""
 "The destination does not have enough space available. Please choose a "
 "different destination or free some space."
-msgstr ""
-"Odredište nema dovoljno slobodnog prostora. Molim odaberite drugo odredište, "
-"ili oslobodite prostora na trenutnom odredištu."
+msgstr "目的地没有足够的可用空间。请选择其他目的地或是释放一些空间。"
 
 #: filedigger/restoredialog.cpp:284
 #, kde-kuit-format
@@ -533,37 +506,37 @@ msgctxt ""
 "added to the suggested filename when restoring, %1 is the time when backup "
 "was taken"
 msgid " - saved at %1"
-msgstr "- spašeno u %1"
+msgstr " - 储存在 %1"
 
 #: filedigger/restoredialog.cpp:285
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Folder already exists, please choose a solution"
-msgstr "Folder već postoji, odaberite rješenje"
+msgstr "文件夹已存在，请选择一个解决方案"
 
 #: filedigger/restoredialog.cpp:291
 #, kde-kuit-format
 msgctxt "@info"
 msgid "File already exists"
-msgstr "Datoteka već postoji"
+msgstr "文件已存在"
 
 #: filedigger/restoredialog.cpp:304
 #, kde-kuit-format
 msgctxt "@info message bar appearing on top"
 msgid "The new name entered already exists, please enter a different one."
-msgstr "Ime koje ste unijeli već postoji, molim odaberite drugo ime."
+msgstr "输入的新名称已存在，请输入一个不同的名称。"
 
 #: filedigger/restoredialog.cpp:375 kcm/dirselector.cpp:50
 #, kde-kuit-format
 msgctxt "default folder name when creating a new folder"
 msgid "New Folder"
-msgstr "Novi folder"
+msgstr "新文件夹"
 
 #: filedigger/restoredialog.cpp:380 kcm/dirselector.cpp:55
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "New Folder"
-msgstr "Novi folder"
+msgstr "新文件夹"
 
 #: filedigger/restoredialog.cpp:381 kcm/dirselector.cpp:56
 #, kde-kuit-format
@@ -572,54 +545,54 @@ msgid ""
 "Create new folder in:\n"
 "%1"
 msgstr ""
-"Kreirajte novi folder u:\n"
+"在此处新增文件夹：\n"
 "%1"
 
 #: filedigger/restoredialog.cpp:394 kcm/dirselector.cpp:68
 #, kde-format
 msgid "A folder named %1 already exists."
-msgstr "Folder sa nazivom %1 već postoji."
+msgstr "名称为 %1 的文件夹已存在。"
 
 #: filedigger/restoredialog.cpp:400 kcm/dirselector.cpp:74
 #, kde-format
 msgid "You do not have permission to create %1."
-msgstr "Nemate permisije da kreirate %1"
+msgstr "你没有权限创建 %1 。"
 
 #: filedigger/restorejob.cpp:99
 #, kde-kuit-format
 msgctxt "progress report, current operation"
 msgid "Restoring"
-msgstr "Vraćam"
+msgstr "正在还原"
 
 #: filedigger/restorejob.cpp:100
 #, kde-kuit-format
 msgctxt "progress report, label"
 msgid "File"
-msgstr "Datoteka"
+msgstr "文件"
 
 #: filedigger/versionlistdelegate.cpp:135
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Open"
-msgstr "Otvori"
+msgstr "打开"
 
 #: filedigger/versionlistdelegate.cpp:137
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Restore"
-msgstr "Vrati"
+msgstr "恢复"
 
 #: kcm/backupplanwidget.cpp:282
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Exclude Folder"
-msgstr "Isključi mapu"
+msgstr "排除文件夹"
 
 #: kcm/backupplanwidget.cpp:285
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Include Folder"
-msgstr "Uključi mapu"
+msgstr "包括文件夹"
 
 #: kcm/backupplanwidget.cpp:382
 #, kde-kuit-format
@@ -630,9 +603,9 @@ msgid ""
 "anything important to you, one possible solution is to exclude the folder "
 "from the backup plan."
 msgstr ""
-"Nemate dozvolu da čitate ovu mapu: <filename>%1</filename><nl/> Nije ju "
-"moguće uključiti u odabir. Ako ne sadrži ništa bitno za vas, jedno od "
-"mogućih rješenja je da je isključite iz plana za izradu sigurnosne kopije."
+"你没有权限读取此文件夹：<filename>%1</filename><nl/>其无法被包含于来源选择"
+"中。若其并不包含任何对你来说重要的东西，其中一个可能的解决方法是从备份计划中"
+"排除该文件夹。"
 
 #: kcm/backupplanwidget.cpp:393
 #, kde-kuit-format
@@ -643,9 +616,9 @@ msgid ""
 "you, one possible solution is to exclude the whole folder where the file is "
 "stored from the backup plan."
 msgstr ""
-"Nemate dozvolu da čitate ovu datoteku: <filename>%1</filename><nl/> Nije ju "
-"moguće uključiti u odabir. Ako ne sadrži ništa bitno za vas, jedno od "
-"mogućih rješenja je da je isključite iz plana za izradu sigurnosne kopije."
+"你没有权限读取此文件：<filename>%1</filename><nl/>其无法被包含于来源选择中。"
+"若其并不包含任何对你来说重要的东西，其中一个可能的解决方法是从备份计划中排除"
+"该文件所在的文件夹。"
 
 #: kcm/backupplanwidget.cpp:409
 #, kde-kuit-format
@@ -656,10 +629,9 @@ msgid ""
 "probably not what you want. One solution is to simply include the target "
 "folder in the backup plan."
 msgstr ""
-"Simbolički link <filename>%1</filename> je uključen u izradu kopije, ali "
-"pokazuje na mapu koja nije uključena u izradu kopije: <filename>%2</"
-"filename>.<nl/>Ovov vjerovatno nije ono što želite. Moguće rješenje je da "
-"uključite i povezanu mapu u izradu kopije."
+"符号链接 <filename>%1</filename> 目前被包含在内，但是其指向的文件夹并不包含："
+"<filename>%2</filename>。这可能不是你想要的。<nl/>其中一个解决方法是将目标文"
+"件夹包含在备份计划内。"
 
 #: kcm/backupplanwidget.cpp:417
 #, kde-kuit-format
@@ -670,28 +642,27 @@ msgid ""
 "not what you want. One solution is to simply include the folder where the "
 "file is stored in the backup plan."
 msgstr ""
-"Simbolički link <filename>%1</filename> je uključen u izradu kopije, ali "
-"pokazuje na datoteku koja nije uključena u izradu kopije: <filename>%2</"
-"filename>.<nl/>Ovo vjerovatno nije ono što želite. Moguće rješenje je da "
-"uključite i povezanu mapu u izradu kopije."
+"符号链接<filename>%1</filename>目前被包含在内，但是其指向的文件并不包含："
+"<filename>%2</filename>。这可能不是你想要的。其中一个解决方法是将目标文件所在"
+"的文件夹包含在备份计划内。"
 
 #: kcm/backupplanwidget.cpp:440
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "Odaberi folder"
+msgstr "选择文件夹"
 
 #: kcm/backupplanwidget.cpp:478
 #, kde-kuit-format
 msgctxt "@label"
 msgid "Description:"
-msgstr "Opis"
+msgstr "描述："
 
 #: kcm/backupplanwidget.cpp:481
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Back to overview"
-msgstr "Nazad na pregled"
+msgstr "回到概览"
 
 #: kcm/backupplanwidget.cpp:510
 #, kde-kuit-format
@@ -707,10 +678,11 @@ msgid ""
 "files in the archive can not be accessed directly with a general file "
 "manager, a special program is needed."
 msgstr ""
-"Ovaj tip backupa je <emphasis>arhiva</emphasis>. On sadrži zadnju, i sve "
-"prethodne verzije datoteka koje ste spasili. Korištenje ovog tipa backupa "
-"dozvoljava vraćanje starijih verzija vaših datoteka, ili datoteka koje su "
-"pobrisane sa vašeg kompjutera. "
+"这种类型的备份是一个<emphasis>压缩文件</emphasis>。它同时包含了你文件的最新版"
+"本及较早的备份版本。使用这个类型的备份让您可以将你的文件恢复到旧版本，或是救"
+"回稍后从你的电脑中删除的文件。储存空间是最小的，因为其只储存你文件每个版本间"
+"的差异。然而，备份文件会随着时间的过去而逐渐增大。<nl/>同时尤其要注意的是，在"
+"压缩文件里的文件是无法使用一般的文件管理器直接存取的，必须使用特殊的程序。"
 
 #: kcm/backupplanwidget.cpp:525
 #, kde-kuit-format
@@ -718,15 +690,13 @@ msgctxt "@option:radio"
 msgid ""
 "Versioned Backup (not available because <application>bup</application> is "
 "not installed)"
-msgstr ""
-"Verzionirani backup (nije dostupan jer <application>bup</application> nije "
-"instalirana)."
+msgstr "版本控制备份（因为<application>bup</application>未安装，故不可用）"
 
 #: kcm/backupplanwidget.cpp:530
 #, kde-kuit-format
 msgctxt "@option:radio"
 msgid "Versioned Backup (recommended)"
-msgstr "Backup sa verzijama (preporučeno)"
+msgstr "版本控制备份(建议)"
 
 #: kcm/backupplanwidget.cpp:535
 #, kde-kuit-format
@@ -740,12 +710,10 @@ msgid ""
 "due to a broken hard drive but it does not help you to recover from your own "
 "mistakes."
 msgstr ""
-"Ovaj tip backupa je ustvari folder koji je sinhroniziran sa izvornim "
-"folderom kojeg želite spasiti. Odredišna datoteka sadrži identičnu kopiju "
-"izvornih foldera i ništa drugo. Ako izbrišete datoteku u izvornom folderu, "
-"datoteka će biti pobrisana i na odredištu. Ovaj tip backup-a može vas "
-"zaštititi od slučajnog gubitka podataka zbog oštećenog hard diska, ali ne "
-"može vas zaštititi od vlatitih grešaka."
+"这个类型的备份是一个与你选定的来源文件夹同步的文件夹。这种备份只将要备份的目"
+"标完整地复制到目的路径。如果文件被从来源文件夹删除，它也会从备份文件夹中删"
+"除。<nl/>这种类型的备份可以防止因为坏掉的磁盘而损失文件，但对您复原自己造成的"
+"错误并没有帮助。"
 
 #: kcm/backupplanwidget.cpp:548
 #, kde-kuit-format
@@ -753,51 +721,49 @@ msgctxt "@option:radio"
 msgid ""
 "Synchronized Backup (not available because <application>rsync</application> "
 "is not installed)"
-msgstr ""
-"Backup sa sinhronizacijom (nije dostupan, jer <application>rsync</"
-"application> nije instaliran)"
+msgstr "同步备份（因为<application>rsync</application>未安装，故不可用）"
 
 #: kcm/backupplanwidget.cpp:553
 #, kde-kuit-format
 msgctxt "@option:radio"
 msgid "Synchronized Backup"
-msgstr "Sinhronizirani backup"
+msgstr "同步备份"
 
 #: kcm/backupplanwidget.cpp:581
 #, kde-kuit-format
 msgctxt "@title"
 msgid "Backup Type"
-msgstr "Tip backup-a"
+msgstr "备份类型"
 
 #: kcm/backupplanwidget.cpp:582
 #, kde-kuit-format
 msgctxt "@label"
 msgid "Select what type of backup you want"
-msgstr "Odaberite koji tip backup-a želite"
+msgstr "选择你想要的备份类型"
 
 #: kcm/backupplanwidget.cpp:590
 #, kde-kuit-format
 msgctxt "@title"
 msgid "Sources"
-msgstr "Izvorišta"
+msgstr "来源"
 
 #: kcm/backupplanwidget.cpp:591
 #, kde-kuit-format
 msgctxt "@label"
 msgid "Select which folders to include in backup"
-msgstr "Odaberite foldere koje želite uključiti u backup"
+msgstr "选择你想要备份的文件夹"
 
 #: kcm/backupplanwidget.cpp:605
 #, kde-kuit-format
 msgctxt "@option:radio"
 msgid "Filesystem Path"
-msgstr "Putanja na file sistemu"
+msgstr "文件系统路径"
 
 #: kcm/backupplanwidget.cpp:606
 #, kde-kuit-format
 msgctxt "@option:radio"
 msgid "External Storage"
-msgstr "Vanjska pohrana"
+msgstr "外部存储"
 
 #: kcm/backupplanwidget.cpp:612
 #, kde-kuit-format
@@ -808,16 +774,15 @@ msgid ""
 "always mount it at the same path in the filesystem. The path specified here "
 "does not need to exist at all times, its existance will be monitored."
 msgstr ""
-"Ovu opciju možete koristiti za backup na drugi hard disk, eksterni eSATA "
-"disk ili na mrežni uređaj. Jedino što je potrebno je da ga mountate uvijek "
-"na istu putanju. Putanja koju specificirate ovdje ne mora postojati, ali će "
-"biti monitorirana."
+"你可以使用此选项来使用第二个内部硬盘、外置eSATA硬盘或者网络存储进行备份。这需"
+"要你将它一直都挂载在文件系统中的同一个路径。指定的路径并不需要随时存在，它将"
+"会被监控是否存在。"
 
 #: kcm/backupplanwidget.cpp:619
 #, kde-kuit-format
 msgctxt "@label:textbox"
 msgid "Destination Path for Backup:"
-msgstr "Odredišna putanja za backup"
+msgstr "备份的目的地："
 
 #: kcm/backupplanwidget.cpp:638
 #, kde-kuit-format
@@ -826,56 +791,56 @@ msgid ""
 "Use this option if you want to backup your files on an external storage that "
 "can be plugged in to this computer, such as a USB hard drive or memory stick."
 msgstr ""
-"Koristite ovu opciju ako želite backup na eksterni disk koji je priključen "
-"na vaš kompjuter, kao što su USB hard disk i stik."
+"如果你想要将文件备份到插入这台电脑的外部储存装置，像是USB硬盘或是储存卡的话，"
+"使用这个选项。"
 
 #: kcm/backupplanwidget.cpp:648 kcm/backupplanwidget.cpp:652
 #, kde-kuit-format
 msgctxt "@info:tooltip"
 msgid "The specified folder will be created if it does not exist."
-msgstr "Navedeni folder će biti kreiran ako ne postoji."
+msgstr "如果指定的文件夹不存在，将会被新增。"
 
 #: kcm/backupplanwidget.cpp:650
 #, kde-kuit-format
 msgctxt "@label:textbox"
 msgid "Folder on Destination Drive:"
-msgstr "Folder na odredišnom disku:"
+msgstr "目的地磁盘上的文件夹："
 
 #: kcm/backupplanwidget.cpp:658
 #, kde-kuit-format
 msgctxt "@info:tooltip"
 msgid "Open dialog to select a folder"
-msgstr "Otvorite dijalog da odaberete folder"
+msgstr "打开对话框以选择一个文件夹"
 
 #: kcm/backupplanwidget.cpp:688
 #, kde-kuit-format
 msgctxt "@title"
 msgid "Destination"
-msgstr "Odredište"
+msgstr "目的地"
 
 #: kcm/backupplanwidget.cpp:689
 #, kde-kuit-format
 msgctxt "@label"
 msgid "Select the backup destination"
-msgstr "Odaberite odredište za backup"
+msgstr "选择备份目的地"
 
 #: kcm/backupplanwidget.cpp:706
 #, kde-kuit-format
 msgctxt "@option:radio"
 msgid "Manual Activation"
-msgstr "Ručna aktivacija"
+msgstr "手动激活"
 
 #: kcm/backupplanwidget.cpp:707
 #, kde-kuit-format
 msgctxt "@option:radio"
 msgid "Interval"
-msgstr "Interval"
+msgstr "间隔"
 
 #: kcm/backupplanwidget.cpp:708
 #, kde-kuit-format
 msgctxt "@option:radio"
 msgid "Active Usage Time"
-msgstr "Aktivno vrijeme korištenja"
+msgstr "活跃使用时间"
 
 #: kcm/backupplanwidget.cpp:710
 #, kde-kuit-format
@@ -884,8 +849,7 @@ msgid ""
 "Backups are only taken when manually requested. This can be done by using "
 "the popup menu from the backup system tray icon."
 msgstr ""
-"Backupi će se izvršiti samo ako je to manualno zatraženo. Za ovo možete "
-"korititi meni u ikoni sistemskih obavještenja."
+"备份将只会在你手动要求时进行。这可以通过备份系统托盘图标的弹出菜单完成。"
 
 #: kcm/backupplanwidget.cpp:724
 #, kde-kuit-format
@@ -893,33 +857,31 @@ msgctxt "@info"
 msgid ""
 "New backup will be triggered when backup destination becomes available and "
 "more than the configured interval has passed since the last backup was taken."
-msgstr ""
-"Novi backup će se pokrenuti kada odredište postane dostupno, i ako je prošlo "
-"više od konfigurisanog intervala otkako se desio zadnji backup."
+msgstr "新备份将会在自最后一次备份后超过设定间隔且备份目的地可用时自动启动。"
 
 #: kcm/backupplanwidget.cpp:741
 #, kde-kuit-format
 msgctxt "@item:inlistbox"
 msgid "Minutes"
-msgstr "Minuta"
+msgstr "分钟"
 
 #: kcm/backupplanwidget.cpp:742 kcm/backupplanwidget.cpp:769
 #, kde-kuit-format
 msgctxt "@item:inlistbox"
 msgid "Hours"
-msgstr "Sati"
+msgstr "小时"
 
 #: kcm/backupplanwidget.cpp:743
 #, kde-kuit-format
 msgctxt "@item:inlistbox"
 msgid "Days"
-msgstr "Dana"
+msgstr "天"
 
 #: kcm/backupplanwidget.cpp:744
 #, kde-kuit-format
 msgctxt "@item:inlistbox"
 msgid "Weeks"
-msgstr "Sedmica"
+msgstr "星期"
 
 #: kcm/backupplanwidget.cpp:754
 #, kde-kuit-format
@@ -929,32 +891,32 @@ msgid ""
 "you have been using your computer actively for more than the configured time "
 "limit since the last backup was taken."
 msgstr ""
-"Novi backup će se pokrenuti kada odredište postane dostupno, i ako je prošlo "
-"više od konfigurisanog intervala otkako aktivno koristite računar."
+"新备份将会在你使用电脑超过自最后一次备份算起设定的时间限制且备份目的地可用时"
+"自动启动。"
 
 #: kcm/backupplanwidget.cpp:775
 #, kde-kuit-format
 msgctxt "@option:check"
 msgid "Ask for confirmation before taking backup"
-msgstr "Traži potvrdu prije pokretanja backup-a."
+msgstr "在进行备份前再一次确认"
 
 #: kcm/backupplanwidget.cpp:794
 #, kde-kuit-format
 msgctxt "@title"
 msgid "Schedule"
-msgstr "Raspored"
+msgstr "计划"
 
 #: kcm/backupplanwidget.cpp:795
 #, kde-kuit-format
 msgctxt "@label"
 msgid "Specify the backup schedule"
-msgstr "Specificirajte raspored backup-a"
+msgstr "指定备份计划"
 
 #: kcm/backupplanwidget.cpp:808
 #, kde-kuit-format
 msgctxt "@option:check"
 msgid "Show hidden folders in source selection"
-msgstr "Prikaži skrivene foldere kod odabira izvora backup-a"
+msgstr "在选择的来源中显示隐藏的文件夹"
 
 #: kcm/backupplanwidget.cpp:814
 #, kde-kuit-format
@@ -965,10 +927,9 @@ msgid ""
 "dot. They are typically located in your home folder and are used to store "
 "settings and temporary files for your applications."
 msgstr ""
-"Ovo omogućava da se eksplicitno uključe ili isključe skrivene datoteke kod "
-"odabira šta će ići u sigurnosnu kopiju. Skrivene mape imaju imena koja "
-"počinju sa tačkom. Obično su locirani u vašoj korisničkoj mapi, i služe da "
-"se drže postavke i privremene datateke vaših aplikacija."
+"这样就可以明确地包含或排除在选择的备份来源中的隐藏文件夹。隐藏文件夹的名称会"
+"以一个点作为开头。它们通常位于你的家目录，且通常用于储存你的应用程序的设置及"
+"临时文件。"
 
 #: kcm/backupplanwidget.cpp:832
 #, kde-kuit-format
@@ -978,15 +939,14 @@ msgid ""
 "backups will take slightly longer time. In return it will be possible to "
 "recover from a partially corrupted backup."
 msgstr ""
-"Ova opcija će povećati korištenje diska za 10%, i spašavanje sigurnosnih "
-"kopija će potrajati malo duže. Zbog ovoga će biti moguće spašavanje "
-"sigurnosnih kopija iz djelimično oštećenih kopija."
+"这会让你的备份使用大约10%的额外储存空间，且储存备份的时候会需要稍微长一点的时"
+"间。与之相对的是你将可能可以从部分损毁的备份中恢复。"
 
 #: kcm/backupplanwidget.cpp:838
 #, kde-kuit-format
 msgctxt "@option:check"
 msgid "Generate recovery information"
-msgstr "Kreiraj informacije za oporavak"
+msgstr "为备份生成恢复信息"
 
 #: kcm/backupplanwidget.cpp:840
 #, kde-kuit-format
@@ -995,14 +955,13 @@ msgid ""
 "Generate recovery information (not available because <application>par2</"
 "application> is not installed)"
 msgstr ""
-"Generisanje inforamcija za oporavak (nije dostupno jer  <application>par2</"
-"application> nije instalirana)"
+"为备份生成恢复信息（因为<application>par2</application>未安装，故不可用）"
 
 #: kcm/backupplanwidget.cpp:856
 #, kde-kuit-format
 msgctxt "@option:check"
 msgid "Verify integrity of backups"
-msgstr "Provjeri integritet backup-a"
+msgstr "检查备份的完整性"
 
 #: kcm/backupplanwidget.cpp:860
 #, kde-kuit-format
@@ -1013,42 +972,40 @@ msgid ""
 "corruption problems sooner than at the time you need to use a backup, at "
 "that time it could be too late."
 msgstr ""
-"Provjerava cijelu sigurnosnu kopiju na oštećenja svaki put kada spašavate "
-"podatke. Spašavanje kopija će trajati malo duže, ali dopušta detekciju "
-"problema u slučaju oštećenja prije trenutka kada trebate vratiti sigurnosne "
-"kopije, a tada već može biti prekasno."
+"在你每次储存新的文件时校验整个备份压缩文件是否损毁。储存备份将会稍微花长一点"
+"的时间，但可以让你很快找到损毁问题，以免在你需要使用备份时才发现一切都太迟"
+"了。"
 
 #: kcm/backupplanwidget.cpp:882
 #, kde-kuit-format
 msgctxt "@title"
 msgid "Advanced"
-msgstr "Napredno"
+msgstr "高级"
 
 #: kcm/backupplanwidget.cpp:883
 #, kde-kuit-format
 msgctxt "@label"
 msgid "Extra options for advanced users"
-msgstr "Dodatne opcije za napredne korisnike"
+msgstr "进阶用户的额外选项"
 
 #: kcm/driveselection.cpp:275
 #, kde-kuit-format
 msgctxt "@label Only shown if no drives are detected"
 msgid ""
 "Plug in the external storage you wish to use, then select it in this list."
-msgstr ""
-"Priključite vanjski disk koji želite koristiti i odaberite ga u ovoj listi"
+msgstr "插入你想要使用的外部存储设备，然后在这个列表中选取它。"
 
 #: kcm/driveselectiondelegate.cpp:75
 #, kde-kuit-format
 msgctxt "@item:inlistbox this text is added if selected drive is disconnected"
 msgid " (disconnected)"
-msgstr "(odspojen)"
+msgstr "(未连接)"
 
 #: kcm/driveselectiondelegate.cpp:78
 #, kde-kuit-format
 msgctxt "@label %1 is amount of free storage space of hard drive"
 msgid "%1 free"
-msgstr "%1 slobodno"
+msgstr "%1 可用"
 
 #: kcm/driveselectiondelegate.cpp:92
 #, kde-kuit-format
@@ -1057,7 +1014,7 @@ msgctxt ""
 "device. %1 is partition number, %2 is device description, %3 is either empty "
 "or the \" (disconnected)\" text"
 msgid "Partition %1 on %2%3"
-msgstr "Particija %1 na %2%3"
+msgstr "分区 %1 在 %2%3 上"
 
 #: kcm/driveselectiondelegate.cpp:95
 #, kde-kuit-format
@@ -1073,13 +1030,13 @@ msgctxt ""
 "@item:inlistbox %1 is filesystem label, %2 is the device description, %3 is "
 "either empty or the \" (disconnected)\" text"
 msgid "%1 on %2%3"
-msgstr "%1 on %2%3"
+msgstr "%1 在 %2%3上"
 
 #: kcm/driveselectiondelegate.cpp:106
 #, kde-kuit-format
 msgctxt "@item:inlistbox %1 is drive(partition) label, %2 is storage capacity"
 msgid "%1: %2 total capacity"
-msgstr "%1: %2 ukupni kapacitet"
+msgstr "%1: %2 总容量"
 
 #: kcm/driveselectiondelegate.cpp:153
 #, kde-kuit-format
@@ -1089,9 +1046,8 @@ msgid ""
 "system. File permissions only matters if there is more than one user of this "
 "computer or if you are backing up executable program files."
 msgstr ""
-"Upozorenje: Simbolički linkovi i dozvole na datotekama ne mogu biti spašene "
-"na ovaj datotečni sistem. Dozvole na datotekama su bitne samo ako ima više "
-"korisnika ovog računara ili ako spašavate programe i izvršne datoteke."
+"警告：符号链接和文件权限无法保存到这个文件系统里。文件权限仅在多个用户使用这"
+"台计算机或者保存可执行的程序文件时有影响。"
 
 #: kcm/driveselectiondelegate.cpp:157
 #, kde-kuit-format
@@ -1101,9 +1057,8 @@ msgid ""
 "permissions only matters if there is more than one user of this computer or "
 "if you are backing up executable program files."
 msgstr ""
-"Upozorenje: Dozvole na datotekama ne mogu biti spašene na ovaj datotečni "
-"sistem. Dozvole na datotekama su bitne samo ako ima više korisnika ovog "
-"računara ili ako spašavate programe i izvršne datoteke."
+"警告：文件权限不会储存到文件系统中。文件权限只在这台计算机上有多于一个的使用"
+"者时有影响，或是如果你备份的是可执行的程序文件。"
 
 #: kcm/folderselectionmodel.cpp:107
 #, kde-kuit-format
@@ -1111,15 +1066,13 @@ msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/>will be included in the backup, except for "
 "unchecked subfolders"
-msgstr ""
-"<filename>%1</filename><nl/>biće uključen u backup, osim subfoldera koji "
-"nemaju kvačicu."
+msgstr "<filename>%1</filename><nl/>将会被包括在备份中，除了未勾选的子文件夹"
 
 #: kcm/folderselectionmodel.cpp:111
 #, kde-kuit-format
 msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid "<filename>%1</filename><nl/>will be included in the backup"
-msgstr "<filename>%1</filename><nl/>će biti uključen u backup"
+msgstr "<filename>%1</filename><nl/>将会被包括在备份中"
 
 #: kcm/folderselectionmodel.cpp:115
 #, kde-kuit-format
@@ -1128,8 +1081,8 @@ msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup but contains folders that will"
 msgstr ""
-"<filename>%1</filename><nl/> <emphasis>neće</emphasis> biti uključen u "
-"backup, ali sadrži foldere koji će biti uključeni."
+"<filename>%1</filename><nl/>将<emphasis>不会</emphasis>被包括在备份中，但包含"
+"它的文件夹会。"
 
 #: kcm/folderselectionmodel.cpp:119
 #, kde-kuit-format
@@ -1137,24 +1090,22 @@ msgctxt "@info:tooltip %1 is the path of the folder in a listview"
 msgid ""
 "<filename>%1</filename><nl/> will <emphasis>not</emphasis> be included in "
 "the backup"
-msgstr ""
-"<filename>%1</filename><nl/> <emphasis>neće</emphasis> biti uključen u "
-"backup."
+msgstr "<filename>%1</filename><nl/>将<emphasis>不会</emphasis>被包括在备份中"
 
 #: kcm/kupkcm.cpp:49
 #, kde-format
 msgid "Kup Configuration Module"
-msgstr "Konfiguracijski modul aplikacije Kup"
+msgstr "Kup配置模块"
 
 #: kcm/kupkcm.cpp:51
 #, kde-format
 msgid "Configuration of backup plans for the Kup backup system"
-msgstr "Postavka planova za sigurnosne kopijeza Kup backup sistem"
+msgstr "Kup 备份系统的备份计划设置"
 
 #: kcm/kupkcm.cpp:54
 #, kde-format
 msgid "Maintainer"
-msgstr "Održavatelj"
+msgstr "维护者"
 
 #: kcm/kupkcm.cpp:87
 #, kde-format
@@ -1163,36 +1114,33 @@ msgid ""
 "plan you need to install either of</p><ul><li>bup, for versioned backups</"
 "li><li>rsync, for synchronized backups</li></ul>"
 msgstr ""
-"<h2>Nedostaju programi za backup</h2><p>Prije nego možete aktivirati bilo "
-"koji plan sigurnosnih kopija, morate instalirati ili</p><ul><li>bup, za "
-"verzionirane kopije ili</li><li>rsync, za sinhronizovane kopije</li></ul>"
+"<h2>备份程序丢失</h2><p>在您启动任何备份计划之前，您需要先安装</"
+"p><ul><li>bup，给版本备份使用</li><li>rsync，给同步备份使用</li></ul>\""
 
 #: kcm/kupkcm.cpp:168
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Warning"
-msgstr "Upozorenje"
+msgstr "警告"
 
 #: kcm/kupkcm.cpp:170
 #, kde-kuit-format
 msgctxt "@info %1 is the name of the backup plan"
 msgid ""
 "%1 does not have a destination!<nl/>No backups will be saved by this plan."
-msgstr ""
-"%1 nema odredište!<nl/>Rezervne kopije iz ove specifikacije neće biti "
-"spašene."
+msgstr "%1 没有目的地！<nl/>这个计划中将不会有备份被储存。"
 
 #: kcm/kupkcm.cpp:227
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Add New Plan"
-msgstr "Dodaj novi plan"
+msgstr "增加新计划"
 
 #: kcm/kupkcm.cpp:238
 #, kde-kuit-format
 msgctxt "@option:check"
 msgid "Backups Enabled"
-msgstr "Backupi uključeni"
+msgstr "备份已启用"
 
 #: kcm/kupkcm.cpp:249
 #, kde-kuit-format
@@ -1204,19 +1152,19 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Configure"
-msgstr "Podesi"
+msgstr "配置"
 
 #: kcm/planstatuswidget.cpp:51
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Remove"
-msgstr "Ukloni"
+msgstr "移除"
 
 #: kcm/planstatuswidget.cpp:54
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Duplicate"
-msgstr ""
+msgstr "重复"
 
 #: kioslave/bupslave.cpp:92 kioslave/bupslave.cpp:149 kioslave/bupslave.cpp:186
 #: kioslave/bupslave.cpp:249 kioslave/bupslave.cpp:271
@@ -1225,23 +1173,23 @@ msgid ""
 "No bup repository found.\n"
 "%1"
 msgstr ""
-"bup repozitorij nije pronađen.\n"
+"找不到 bup 的储存库。\n"
 "%1"
 
 #: plasmoid/contents/ui/FullRepresentation.qml:88
 #, kde-format
 msgid "Save new backup"
-msgstr ""
+msgstr "保存新备份"
 
 #: plasmoid/contents/ui/FullRepresentation.qml:94
 #, kde-format
 msgid "Show files"
-msgstr "Prikaži datoteke"
+msgstr "显示文件"
 
 #: plasmoid/contents/ui/FullRepresentation.qml:99
 #, kde-format
 msgid "Show log file"
-msgstr "Prikaži log datoteku"
+msgstr "显示日志文件"
 
 #. i18n: file: filedigger/restoredialog.ui:14
 #. i18n: ectx: property (windowTitle), widget (QDialog, RestoreDialog)
@@ -1249,7 +1197,7 @@ msgstr "Prikaži log datoteku"
 #, kde-format
 msgctxt "@title:window"
 msgid "Restore Guide"
-msgstr "Vodič za povratak podataka"
+msgstr "恢复向导"
 
 #. i18n: file: filedigger/restoredialog.ui:55
 #. i18n: ectx: property (text), widget (QPushButton, mRestoreOriginalButton)
@@ -1257,7 +1205,7 @@ msgstr "Vodič za povratak podataka"
 #, kde-format
 msgctxt "@action:button"
 msgid "Restore to original location"
-msgstr "Vratite na originalnu lokaciju"
+msgstr "还原到原始位置"
 
 #. i18n: file: filedigger/restoredialog.ui:78
 #. i18n: ectx: property (text), widget (QPushButton, mRestoreCustomButton)
@@ -1265,7 +1213,7 @@ msgstr "Vratite na originalnu lokaciju"
 #, kde-format
 msgctxt "@action:button"
 msgid "Choose where to restore"
-msgstr "Odaberite gdje vratiti"
+msgstr "选择要还原的地方"
 
 #. i18n: file: filedigger/restoredialog.ui:132
 #. i18n: ectx: property (text), widget (QPushButton, mDestBackButton)
@@ -1273,7 +1221,7 @@ msgstr "Odaberite gdje vratiti"
 #, kde-format
 msgctxt "@action:button"
 msgid "Back"
-msgstr "Nazad"
+msgstr "返回"
 
 #. i18n: file: filedigger/restoredialog.ui:144
 #. i18n: ectx: property (text), widget (QPushButton, mDestNextButton)
@@ -1281,7 +1229,7 @@ msgstr "Nazad"
 #, kde-format
 msgctxt "@action:button"
 msgid "Next"
-msgstr "Naprijed"
+msgstr "下一步"
 
 #. i18n: file: filedigger/restoredialog.ui:175
 #. i18n: ectx: property (text), widget (QRadioButton, mNewNameRadioButton)
@@ -1289,7 +1237,7 @@ msgstr "Naprijed"
 #, kde-format
 msgctxt "@option:radio "
 msgid "Restore the folder under a new name"
-msgstr "Vrati folder pod novim imenom"
+msgstr "以新名称还原文件夹"
 
 #. i18n: file: filedigger/restoredialog.ui:208
 #. i18n: ectx: property (text), widget (QRadioButton, mOverwriteRadioButton)
@@ -1297,7 +1245,7 @@ msgstr "Vrati folder pod novim imenom"
 #, kde-format
 msgctxt "@option:radio"
 msgid "Merge folders"
-msgstr "Udruži foldere"
+msgstr "合并文件夹"
 
 #. i18n: file: filedigger/restoredialog.ui:238
 #. i18n: ectx: property (text), widget (QLabel, mConfirmOverwriteLabel)
@@ -1307,8 +1255,7 @@ msgctxt "@info Question to user, in dialog"
 msgid ""
 "The following files would be overwritten, please confirm that you wish to "
 "continue."
-msgstr ""
-"Navedene datoteke će biti prepisane, molim potvrdite da želite nastaviti."
+msgstr "下列文件将会被覆盖，请确认你想要继续。"
 
 #. i18n: file: filedigger/restoredialog.ui:274
 #. i18n: ectx: property (text), widget (QPushButton, mOverwriteBackButton)
@@ -1316,7 +1263,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button go to previous page in dialog"
 msgid "Back"
-msgstr "Nazad"
+msgstr "返回"
 
 #. i18n: file: filedigger/restoredialog.ui:286
 #. i18n: ectx: property (text), widget (QPushButton, mConfirmButton)
@@ -1324,7 +1271,7 @@ msgstr "Nazad"
 #, kde-format
 msgctxt "@action:button User answers \"yes I confirm: overwrite files\""
 msgid "Confirm"
-msgstr "Potvrdi"
+msgstr "确认"
 
 #. i18n: file: filedigger/restoredialog.ui:341
 #. i18n: ectx: property (text), widget (QLabel, mErrorLabel)
@@ -1332,7 +1279,7 @@ msgstr "Potvrdi"
 #, kde-format
 msgctxt "@label above the detailed error message"
 msgid "An error occured while restoring:"
-msgstr "Greška prilikom vraćanja podataka:"
+msgstr "还原时遇到错误："
 
 #. i18n: file: filedigger/restoredialog.ui:372
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -1340,14 +1287,14 @@ msgstr "Greška prilikom vraćanja podataka:"
 #, kde-format
 msgctxt "@label"
 msgid "Restoration completed successfully!"
-msgstr "Vraćanje podataka uspjelo!"
+msgstr "还原成功完成！"
 
 #. i18n: file: filedigger/restoredialog.ui:413
 #. i18n: ectx: property (text), widget (QPushButton, mOpenDestinationButton)
 #: po/rc.cpp:39 rc.cpp:39
 #, kde-format
 msgid "Open Destination"
-msgstr "Otvori odredište"
+msgstr "打开目标路径"
 
 #. i18n: file: filedigger/restoredialog.ui:472
 #. i18n: ectx: property (text), widget (QPushButton, mCloseButton)
@@ -1355,20 +1302,20 @@ msgstr "Otvori odredište"
 #, kde-format
 msgctxt "@action:button"
 msgid "Close"
-msgstr "Zatvori"
+msgstr "关闭"
 
 #: po/rc.cpp:43 po/rc.cpp:58 settings/backupplan.cpp:69 rc.cpp:43 rc.cpp:58
 #, kde-format
 msgid "Backups"
-msgstr "Backupi"
+msgstr "备份"
 
 #: po/rc.cpp:44 rc.cpp:44
 msgid "Configure backup plans"
-msgstr "Podesite backup plan"
+msgstr "设定备份计划"
 
 #: po/rc.cpp:45 rc.cpp:45
 msgid "backup,recovery,safety"
-msgstr "rezervna kopija, oporavak, sigurnost"
+msgstr "备份、还原、安全"
 
 #: po/rc.cpp:46 rc.cpp:46
 msgid "Kup"
@@ -1376,56 +1323,55 @@ msgstr "Kup"
 
 #: po/rc.cpp:48 rc.cpp:48
 msgid "Start taking backup"
-msgstr "Pokrenite backup"
+msgstr "开始进行备份"
 
 #: po/rc.cpp:49 rc.cpp:49
 msgid "A question if user wants to start taking a backup"
-msgstr "Pitanje da li korisnik želi da pokrene novi backup"
+msgstr "如果使用者想要开始进行备份的话会被询问一个问题"
 
 #: po/rc.cpp:50 rc.cpp:50
 msgid "Backup succeeded"
-msgstr "Backup uspješan"
+msgstr "备份成功"
 
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Saving of backup successfully completed"
-msgstr "Pohrana backupa završena"
+msgstr "储存备份成功完成"
 
 #: po/rc.cpp:52 rc.cpp:52
 msgid "Backup failed"
-msgstr "Backup neuspješan"
+msgstr "备份失败"
 
 #: po/rc.cpp:53 rc.cpp:53
 msgid "Saving of backup failed, offer user to see log file"
-msgstr ""
-"Spašavanje backupa nije uspjelo, ponuditi korisniku da pogleda log daTOTEKU"
+msgstr "备份储存失败，建议使用者查看日志文件。"
 
 #: po/rc.cpp:54 rc.cpp:54
 msgid "Integrity check completed"
-msgstr "Provjera integriteta završena"
+msgstr "完整性校验成功"
 
 #: po/rc.cpp:55 rc.cpp:55
 msgid "Finished checking integrity of backup archive"
-msgstr "Završena provjera integriteta backup arhive"
+msgstr "备份压缩文件的完整性校验完成"
 
 #: po/rc.cpp:56 rc.cpp:56
 msgid "Repair completed"
-msgstr "Popravka završena"
+msgstr "修复已完成"
 
 #: po/rc.cpp:57 rc.cpp:57
 msgid "Finished repairing backup archive"
-msgstr "Završen popravak backup arhive"
+msgstr "修复备份压缩文件已完成"
 
 #: po/rc.cpp:59 rc.cpp:59
 msgid "Status of backup plans"
-msgstr ""
+msgstr "备份计划的状态"
 
 #: po/rc.cpp:60 rc.cpp:60
 msgid "Backup Status"
-msgstr ""
+msgstr "备份状态"
 
 #: po/rc.cpp:61 rc.cpp:61
 msgid "Displays status of backup plans"
-msgstr ""
+msgstr "显示备份计划的状态"
 
 #: settings/backupplan.cpp:38
 #, kde-kuit-format
@@ -1433,34 +1379,34 @@ msgctxt ""
 "@label Default name for a new backup plan, %1 is the number of the plan in "
 "order"
 msgid "Backup plan %1"
-msgstr "Backup plan %1"
+msgstr "备份计划 %1"
 
 #: settings/backupplan.cpp:101
 #, kde-format
 msgctxt "default description of newly duplicated backup plan"
 msgid "%1 (copy)"
-msgstr ""
+msgstr "%1 (副本)"
 
 #: settings/backupplan.cpp:213
 #, kde-format
 msgctxt "%1 is fancy formatted date"
 msgid "Last saved: %1"
-msgstr ""
+msgstr "最后储存：%1"
 
 #: settings/backupplan.cpp:218
 #, kde-format
 msgctxt "%1 is storage size of archive"
 msgid "Size: %1"
-msgstr ""
+msgstr "大小：%1"
 
 #: settings/backupplan.cpp:223
 #, kde-format
 msgctxt "%1 is free storage space"
 msgid "Free space: %1"
-msgstr "Slobodan prostor: %1"
+msgstr "剩余空间：%1"
 
 #: settings/backupplan.cpp:227
 #, kde-kuit-format
 msgctxt "@label"
 msgid "This backup plan has never been run."
-msgstr "Ovaj backup plan nikad nije pokrenut."
+msgstr "这个备份计划从未运行过。"

@@ -1,25 +1,27 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# antoneliasson <devel@antoneliasson.se>, 2015.
-# Simon Persson <simon.persson@mykolab.com>, 2012-2014.
-# Simon Persson <simon.persson@mykolab.com>, 2014-2015, 2017.
+# be737b1762eba35f6d1c528e71054ca2, 2015
+# be737b1762eba35f6d1c528e71054ca2, 2015
+# Simon Persson <simon.persson@mykolab.com>, 2012-2014
+# Simon Persson <simon.persson@mykolab.com>, 2014-2015,2018
+# Simon Persson <simon.persson@mykolab.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2018-01-05 16:00+0800\n"
-"PO-Revision-Date: 2017-04-22 11:59+0800\n"
+"POT-Creation-Date: 2018-12-31 14:58+0800\n"
+"PO-Revision-Date: 2018-12-31 05:57+0000\n"
 "Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
-"Language-Team: English <kde-i18n-doc@kde.org>\n"
+"Language-Team: Swedish (http://www.transifex.com/kup/kup/language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 2.0\n"
 
 #: daemon/bupjob.cpp:47 daemon/buprepairjob.cpp:38
 #: daemon/bupverificationjob.cpp:37
@@ -137,8 +139,8 @@ msgstr "Reparationen lyckades! Se loggfil för detaljer."
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid ""
-"Backup repair was not necessary. Your backups are not corrupted. See log file "
-"for more details."
+"Backup repair was not necessary. Your backups are not corrupted. See log "
+"file for more details."
 msgstr ""
 "Reparation behövdes inte, dina säkerhetskopior är ok. Se loggfil för "
 "detaljer."
@@ -242,25 +244,25 @@ msgctxt "status in tooltip"
 msgid "Backup destination available"
 msgstr "Destination tillgänglig"
 
-#: daemon/kupdaemon.cpp:269 daemon/planexecutor.cpp:84
+#: daemon/kupdaemon.cpp:269 daemon/planexecutor.cpp:85
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Backup status OK"
 msgstr "Status OK"
 
-#: daemon/kupdaemon.cpp:276 daemon/planexecutor.cpp:86
+#: daemon/kupdaemon.cpp:276 daemon/planexecutor.cpp:87
 #, kde-format
 msgctxt "status in tooltip"
 msgid "New backup suggested"
 msgstr "Ny säkerhetskopia rekommenderas"
 
-#: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:88
+#: daemon/kupdaemon.cpp:283 daemon/planexecutor.cpp:89
 #, kde-format
 msgctxt "status in tooltip"
 msgid "New backup needed"
 msgstr "Ny säkerhetskopia behövs"
 
-#: daemon/main.cpp:41
+#: daemon/main.cpp:43
 #, kde-kuit-format
 msgctxt "@info:shell Error message at startup"
 msgid ""
@@ -270,13 +272,13 @@ msgstr ""
 "Kup är inte aktivt, aktivera det från modulen i systeminställningarna. Du "
 "kan göra det genom att köra <command>kcmshell5 kup</command>."
 
-#: daemon/main.cpp:47
+#: daemon/main.cpp:49
 #, kde-kuit-format
 msgctxt "@title"
 msgid "Kup Daemon"
 msgstr "Kupdemon"
 
-#: daemon/main.cpp:48
+#: daemon/main.cpp:50
 #, kde-format
 msgid ""
 "Kup is a flexible backup solution using the backup storage system 'bup'. "
@@ -288,53 +290,53 @@ msgstr ""
 "säkerhetskopior, endast de delar av filer som har ändrats sedan förra "
 "kopieringen kopieras på nytt."
 
-#: daemon/main.cpp:51 kcm/kupkcm.cpp:52
+#: daemon/main.cpp:53 kcm/kupkcm.cpp:52
 #, kde-format
 msgid "Copyright (C) 2011-2015 Simon Persson"
 msgstr "Upphovsrätt (C) 2011-2015 Simon Persson"
 
-#: daemon/main.cpp:53 filedigger/main.cpp:51 kcm/kupkcm.cpp:54
+#: daemon/main.cpp:55 filedigger/main.cpp:50 kcm/kupkcm.cpp:54
 #, kde-format
 msgid "Simon Persson"
 msgstr "Simon Persson"
 
-#: daemon/main.cpp:54 filedigger/main.cpp:52 kcm/kupkcm.cpp:55
+#: daemon/main.cpp:56 filedigger/main.cpp:51 kcm/kupkcm.cpp:55
 #, kde-kuit-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Simon Persson"
 
-#: daemon/main.cpp:54 filedigger/main.cpp:52 kcm/kupkcm.cpp:56
+#: daemon/main.cpp:56 filedigger/main.cpp:51 kcm/kupkcm.cpp:56
 #, kde-kuit-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "simonpersson1@gmail.com"
 
-#: daemon/planexecutor.cpp:76
+#: daemon/planexecutor.cpp:77
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Saving backup"
 msgstr "Sparar säkerhetskopia"
 
-#: daemon/planexecutor.cpp:78
+#: daemon/planexecutor.cpp:79
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Checking backup integrity"
 msgstr "Kontrollerar integritet"
 
-#: daemon/planexecutor.cpp:80
+#: daemon/planexecutor.cpp:81
 #, kde-format
 msgctxt "status in tooltip"
 msgid "Repairing backups"
 msgstr "Reparerar säkerhetskopior"
 
-#: daemon/planexecutor.cpp:118 daemon/planexecutor.cpp:133
+#: daemon/planexecutor.cpp:119 daemon/planexecutor.cpp:134
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Do you want to save a first backup now?"
 msgstr "Vill du spara den första säkerhetskopian nu?"
 
-#: daemon/planexecutor.cpp:121
+#: daemon/planexecutor.cpp:122
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -344,7 +346,7 @@ msgstr ""
 "Det har gått %1 sedan förra säkerhetskopian sparades.\n"
 "Vill du ta en ny nu?"
 
-#: daemon/planexecutor.cpp:137
+#: daemon/planexecutor.cpp:138
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -354,58 +356,58 @@ msgstr ""
 "Du har varit aktiv i %1 sedan förra säkerhetskopieringen.\n"
 "Vill du spara en ny kopia nu?"
 
-#: daemon/planexecutor.cpp:170 daemon/planexecutor.cpp:200
-#: daemon/planexecutor.cpp:278
+#: daemon/planexecutor.cpp:171 daemon/planexecutor.cpp:201
+#: daemon/planexecutor.cpp:279
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Yes"
 msgstr "Ja"
 
-#: daemon/planexecutor.cpp:170 daemon/planexecutor.cpp:201
-#: daemon/planexecutor.cpp:279
+#: daemon/planexecutor.cpp:171 daemon/planexecutor.cpp:202
+#: daemon/planexecutor.cpp:280
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "No"
 msgstr "Nej"
 
-#: daemon/planexecutor.cpp:192
+#: daemon/planexecutor.cpp:193
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Saving of Backup Failed"
 msgstr "Säkerhetskopiering misslyckades"
 
-#: daemon/planexecutor.cpp:197 daemon/planexecutor.cpp:275
-#: daemon/planexecutor.cpp:309
+#: daemon/planexecutor.cpp:198 daemon/planexecutor.cpp:276
+#: daemon/planexecutor.cpp:310
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Show log file"
 msgstr "Visa loggfil"
 
-#: daemon/planexecutor.cpp:221
+#: daemon/planexecutor.cpp:222
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Backup Saved"
 msgstr "Säkerhetskopiering färdig"
 
-#: daemon/planexecutor.cpp:222
+#: daemon/planexecutor.cpp:223
 #, kde-kuit-format
 msgctxt "@info notification"
 msgid "Saving backup completed successfully."
 msgstr "Färdig med att spara säkerhetskopia."
 
-#: daemon/planexecutor.cpp:271
+#: daemon/planexecutor.cpp:272
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Integrity Check Completed"
 msgstr "Färdig med integritetskontroll"
 
-#: daemon/planexecutor.cpp:306
+#: daemon/planexecutor.cpp:307
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "Repair Completed"
 msgstr "Färdig med reparation"
 
-#: daemon/planexecutor.cpp:337 po/rc.cpp:47 rc.cpp:47
+#: daemon/planexecutor.cpp:338 po/rc.cpp:47 rc.cpp:47
 #, kde-format
 msgid "Kup Backup System"
 msgstr "Kup Säkerhetskopiering"
@@ -420,57 +422,54 @@ msgstr ""
 "Programmet <application>rsync</application> behövs men kunde inte hittas, "
 "det kanske inte är installerat?"
 
-#: filedigger/main.cpp:47
-#, kde-kuit-format
-msgctxt "@title"
-msgid "File Digger"
-msgstr "Filgrävaren"
-
-#: filedigger/main.cpp:48
-#, kde-format
-msgid "Browser for bup archives."
-msgstr "Browser för bup arkiv"
-
-#: filedigger/main.cpp:49
-#, kde-format
-msgid "Copyright (C) 2013-2015 Simon Persson"
-msgstr "Upphovsrätt (C) 2013-2015 Simon Persson"
-
-#: filedigger/main.cpp:59
-#, kde-format
-msgid "Name of the branch to be opened."
-msgstr "Namn på arkivgren att öppna"
-
-#: filedigger/main.cpp:61
-#, kde-format
-msgid "Path to the bup repository to be opened."
-msgstr "Sökväg till det bup-arkiv som ska öppnas"
-
-#: filedigger/main.cpp:70
-#, kde-format
-msgctxt "@info:shell Error message at startup"
-msgid ""
-"You must supply the path to a bup or git repository that you wish to open "
-"for viewing."
-msgstr "Du måste ge sökvägen till det bup-, eller git-arkiv som du vill öppna."
-
-#: filedigger/main.cpp:85
+#: filedigger/filedigger.cpp:103
 #, kde-kuit-format
 msgctxt "@info messagebox, %1 is a folder path"
 msgid ""
-"The backup archive <filename>%1</filename> could not be opened. Check if the "
+"The backup archive <filename>%1</filename> could not be opened.Check if the "
 "backups really are located there."
 msgstr ""
 "Arkivet med säkerhetskopior, <filename>%1</filename>, kunde inte öppnas. "
 "Kolla att detta verkligen är platsen där säkerhetskopiorna ligger."
 
-#: filedigger/main.cpp:92
+#: filedigger/filedigger.cpp:111
 #, kde-kuit-format
 msgctxt "@info messagebox"
 msgid "You do not have permission needed to read this backup archive."
 msgstr "Du har inte tillräckliga rättigheter för att läsa detta arkivet."
 
-#: filedigger/mergedvfs.cpp:108
+#: filedigger/filedigger.cpp:160
+#, kde-format
+msgid "Select location of backup archive to open."
+msgstr "Välj vilket arkiv med säkerhetskopior du vill öppna."
+
+#: filedigger/main.cpp:46
+#, kde-kuit-format
+msgctxt "@title"
+msgid "File Digger"
+msgstr "Filgrävaren"
+
+#: filedigger/main.cpp:47
+#, kde-format
+msgid "Browser for bup archives."
+msgstr "Browser för bup arkiv"
+
+#: filedigger/main.cpp:48
+#, kde-format
+msgid "Copyright (C) 2013-2015 Simon Persson"
+msgstr "Upphovsrätt (C) 2013-2015 Simon Persson"
+
+#: filedigger/main.cpp:58
+#, kde-format
+msgid "Name of the branch to be opened."
+msgstr "Namn på arkivgren att öppna"
+
+#: filedigger/main.cpp:60
+#, kde-format
+msgid "Path to the bup repository to be opened."
+msgstr "Sökväg till det bup-arkiv som ska öppnas"
+
+#: filedigger/mergedvfs.cpp:109
 #, kde-kuit-format
 msgctxt "@info messagebox"
 msgid ""
@@ -480,43 +479,43 @@ msgstr ""
 "Kunde inte läsa arkivet med säkerhetskopiorna, det kanske är någon fil som "
 "har blivit skadad. Vill du köra en integritetskontroll?"
 
-#: filedigger/mergedvfs.cpp:156
+#: filedigger/mergedvfs.cpp:157
 #, kde-kuit-format
 msgctxt "added after folder name in some cases"
 msgid " (folder)"
 msgstr "(mapp)"
 
-#: filedigger/mergedvfs.cpp:158
+#: filedigger/mergedvfs.cpp:159
 #, kde-kuit-format
 msgctxt "added after file name in some cases"
 msgid " (symlink)"
 msgstr "(symbolisk länk)"
 
-#: filedigger/mergedvfs.cpp:160
+#: filedigger/mergedvfs.cpp:161
 #, kde-kuit-format
 msgctxt "added after file name in some cases"
 msgid " (file)"
 msgstr "(fil)"
 
-#: filedigger/restoredialog.cpp:115 kcm/backupplanwidget.cpp:451
+#: filedigger/restoredialog.cpp:119 kcm/backupplanwidget.cpp:451
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "New Folder..."
 msgstr "Ny Mapp..."
 
-#: filedigger/restoredialog.cpp:141 filedigger/restoredialog.cpp:160
+#: filedigger/restoredialog.cpp:145 filedigger/restoredialog.cpp:164
 #, kde-kuit-format
 msgctxt "@info message bar appearing on top"
 msgid "No destination was selected, please select one."
 msgstr "Ingen destination vald, du måste välja en."
 
-#: filedigger/restoredialog.cpp:251
+#: filedigger/restoredialog.cpp:259
 #, kde-kuit-format
 msgctxt "@info message bar appearing on top"
 msgid "There was a problem while getting a list of all files to restore: %1"
 msgstr "Det uppstod ett problem när antal filer att återställa undersöktes: %1"
 
-#: filedigger/restoredialog.cpp:264
+#: filedigger/restoredialog.cpp:273
 #, kde-kuit-format
 msgctxt "@info message bar appearing on top"
 msgid ""
@@ -526,7 +525,7 @@ msgstr ""
 "Destinationsenheten har inte tillräckligt med plats ledigt. Välj en annan "
 "enhet eller frigör plats först."
 
-#: filedigger/restoredialog.cpp:274
+#: filedigger/restoredialog.cpp:284
 #, kde-kuit-format
 msgctxt ""
 "added to the suggested filename when restoring, %1 is the time when backup "
@@ -534,37 +533,37 @@ msgctxt ""
 msgid " - saved at %1"
 msgstr " - sparad %1"
 
-#: filedigger/restoredialog.cpp:275
+#: filedigger/restoredialog.cpp:285
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Folder already exists, please choose a solution"
 msgstr "Mappen finns redan, välj en lösning"
 
-#: filedigger/restoredialog.cpp:281
+#: filedigger/restoredialog.cpp:291
 #, kde-kuit-format
 msgctxt "@info"
 msgid "File already exists"
 msgstr "Filen finns redan"
 
-#: filedigger/restoredialog.cpp:294
+#: filedigger/restoredialog.cpp:304
 #, kde-kuit-format
 msgctxt "@info message bar appearing on top"
 msgid "The new name entered already exists, please enter a different one."
 msgstr "Det nya namnet är upptaget, välj ett annat."
 
-#: filedigger/restoredialog.cpp:371 kcm/dirselector.cpp:50
+#: filedigger/restoredialog.cpp:375 kcm/dirselector.cpp:50
 #, kde-kuit-format
 msgctxt "default folder name when creating a new folder"
 msgid "New Folder"
 msgstr "Ny Mapp"
 
-#: filedigger/restoredialog.cpp:376 kcm/dirselector.cpp:55
+#: filedigger/restoredialog.cpp:380 kcm/dirselector.cpp:55
 #, kde-kuit-format
 msgctxt "@title:window"
 msgid "New Folder"
 msgstr "Skapa Ny Mapp"
 
-#: filedigger/restoredialog.cpp:377 kcm/dirselector.cpp:56
+#: filedigger/restoredialog.cpp:381 kcm/dirselector.cpp:56
 #, kde-kuit-format
 msgctxt "@label:textbox"
 msgid ""
@@ -574,12 +573,12 @@ msgstr ""
 "Skapa ny mapp i:\n"
 "%1"
 
-#: filedigger/restoredialog.cpp:390 kcm/dirselector.cpp:68
+#: filedigger/restoredialog.cpp:394 kcm/dirselector.cpp:68
 #, kde-format
 msgid "A folder named %1 already exists."
 msgstr "En mapp med namnet %1 finns redan."
 
-#: filedigger/restoredialog.cpp:396 kcm/dirselector.cpp:74
+#: filedigger/restoredialog.cpp:400 kcm/dirselector.cpp:74
 #, kde-format
 msgid "You do not have permission to create %1."
 msgstr "Du har inte rättighet att skapa %1."
@@ -593,8 +592,8 @@ msgstr "Återställer"
 #: filedigger/restorejob.cpp:100
 #, kde-kuit-format
 msgctxt "progress report, label"
-msgid "File:"
-msgstr "Fil: "
+msgid "File"
+msgstr "Fil"
 
 #: filedigger/versionlistdelegate.cpp:135
 #, kde-kuit-format
@@ -1200,6 +1199,12 @@ msgctxt "@option:check"
 msgid "Backups Enabled"
 msgstr "Säkerhetskopiering aktivt"
 
+#: kcm/kupkcm.cpp:249
+#, kde-kuit-format
+msgctxt "@action:button"
+msgid "Open and restore from existing backups"
+msgstr "Öppna och återställ från sparade säkerhetskopior"
+
 #: kcm/planstatuswidget.cpp:48
 #, kde-kuit-format
 msgctxt "@action:button"
@@ -1462,45 +1467,3 @@ msgstr "Tillgängligt utrymme: %1"
 msgctxt "@label"
 msgid "This backup plan has never been run."
 msgstr "Denna säkerhetskopieringen har aldrig gjorts."
-
-#~ msgctxt "@title:window"
-#~ msgid "Backups"
-#~ msgstr "Säkerhetskopior"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Backups"
-#~ msgstr "Säkerhetskopior"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Configure Backups"
-#~ msgstr "Inställningar"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Take Backup Now"
-#~ msgstr "Ta Ny Säkerhetskopia"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Show Log File"
-#~ msgstr "Visa loggfil"
-
-#~ msgctxt "@title:window"
-#~ msgid "Backup Device Available - %1"
-#~ msgstr "Destination för säkerhetskopior tillgänglig - %1"
-
-#~ msgctxt "@info notification"
-#~ msgid ""
-#~ "Saving backup did not complete successfully. See log file for more "
-#~ "details."
-#~ msgstr "Säkerhetskopiering misslyckades. Se loggfil för detaljer."
-
-#~ msgctxt "@label %1 is fancy formatted date, %2 is time of day"
-#~ msgid "Last backup was taken %1 at %2.\n"
-#~ msgstr "Senaste säkerhetskopieringen gjordes %1 kl %2.\n"
-
-#~ msgctxt "@label %1 is storage size of archive"
-#~ msgid "The size of the backup archive was %1.\n"
-#~ msgstr "Storleken på arkivet var %1.\n"
-
-#~ msgctxt "@label %1 is free storage space"
-#~ msgid "The destination still had %1 available.\n"
-#~ msgstr "Lagringsplatsen hade fortfarande %1 tillgängligt.\n"
