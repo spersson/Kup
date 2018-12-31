@@ -21,9 +21,6 @@ rm daemon/kupdaemon.notifyrc.template.h
 intltool-extract --quiet --type=gettext/ini dataengine/plasma-dataengine-kup.desktop.template
 cat dataengine/plasma-dataengine-kup.desktop.template.h >> ${WDIR}/rc.cpp
 rm dataengine/plasma-dataengine-kup.desktop.template.h
-intltool-extract --quiet --type=gettext/ini filedigger/filedigger.desktop.template
-cat filedigger/filedigger.desktop.template.h >> ${WDIR}/rc.cpp
-rm filedigger/filedigger.desktop.template.h
 intltool-extract --quiet --type=gettext/ini plasmoid/metadata.desktop.template
 cat plasmoid/metadata.desktop.template.h >> ${WDIR}/rc.cpp
 rm plasmoid/metadata.desktop.template.h
@@ -56,7 +53,6 @@ cd ${WDIR}
 intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/kcm/kcm_kup.desktop.template ${BASEDIR}/kcm/kcm_kup.desktop
 intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/daemon/kupdaemon.notifyrc.template ${BASEDIR}/daemon/kupdaemon.notifyrc
 intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/dataengine/plasma-dataengine-kup.desktop.template ${BASEDIR}/dataengine/plasma-dataengine-kup.desktop
-intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/filedigger/filedigger.desktop.template ${BASEDIR}/filedigger/filedigger.desktop
 intltool-merge --quiet --desktop-style ${WDIR} ${BASEDIR}/plasmoid/metadata.desktop.template ${BASEDIR}/plasmoid/metadata.desktop
 echo "Done merging translations"
 

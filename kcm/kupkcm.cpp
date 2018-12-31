@@ -246,6 +246,9 @@ void KupKcm::createSettingsFrontPage() {
 	lVLayout->addWidget(lScrollArea);
 	mFrontPage->setLayout(lVLayout);
 
+	QPushButton *lFilediggerButton = new QPushButton(xi18nc("@action:button", "Open and restore from existing backups"));
+	connect(lFilediggerButton, &QPushButton::clicked, []{KProcess::startDetached(QStringLiteral("kup-filedigger"));});
+	mVerticalLayout->addWidget(lFilediggerButton);
 	mVerticalLayout->addStretch(1);
 	lCentralWidget->setLayout(mVerticalLayout);
 }

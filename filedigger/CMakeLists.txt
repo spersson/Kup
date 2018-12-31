@@ -41,4 +41,3 @@ ${libgit_link_name}
 
 ########### install files ###############
 install(TARGETS kup-filedigger ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES filedigger.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
