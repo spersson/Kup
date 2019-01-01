@@ -94,7 +94,7 @@ void KupEngine::checkConnection(QLocalSocket::LocalSocketState pState) {
 }
 
 void KupEngine::setPlanData(int i, const QJsonObject &pPlan, const QString &pKey) {
-	setData(QString::number(i), pKey, pPlan[pKey].toVariant());
+	setData(QString(QStringLiteral("plan %1")).arg(i), pKey, pPlan[pKey].toVariant());
 }
 
 void KupEngine::setCommonData(const QJsonObject &pCommonStatus, const QString &pKey) {

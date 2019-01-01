@@ -105,7 +105,7 @@ Item {
 	}
 
 	function getPlanStatus(planNumber, key){
-		return backupPlans.data[planNumber.toString()][key];
+		return backupPlans.data["plan " + planNumber.toString()][key];
 	}
 
 	function startOperation(i, name) {
