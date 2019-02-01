@@ -43,7 +43,7 @@ int main(int pArgCount, char **pArgArray) {
 
 	KLocalizedString::setApplicationDomain("kup");
 
-	KAboutData lAbout(QStringLiteral("kupfiledigger"), xi18nc("@title", "File Digger"), QStringLiteral("0.7.2"),
+	KAboutData lAbout(QStringLiteral("kupfiledigger"), xi18nc("@title", "File Digger"), QStringLiteral("0.7.3"),
 	                  i18n("Browser for bup archives."),
 	                  KAboutLicense::GPL, i18n("Copyright (C) 2013-2015 Simon Persson"),
 	                  QString(), QString(), "simonpersson1@gmail.com");

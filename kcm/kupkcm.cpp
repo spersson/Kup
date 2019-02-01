@@ -47,7 +47,7 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
    : KCModule(pParent, pArgs)
 {
 	KAboutData lAbout(QStringLiteral("kcm_kup"), i18n("Kup Configuration Module"),
-	                  QStringLiteral("0.7.2"),
+	                  QStringLiteral("0.7.3"),
 	                  i18n("Configuration of backup plans for the Kup backup system"),
 	                  KAboutLicense::GPL, i18n("Copyright (C) 2011-2015 Simon Persson"),
 	                  QString(), QString(), "simonpersson1@gmail.com");
