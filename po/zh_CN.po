@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# maz-1 <ohmygod19993@gmail.com>, 2018
+# maz-1 <ohmygod19993@gmail.com>, 2018-2019
 # Simon Persson <simon.persson@mykolab.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2018-12-31 14:58+0800\n"
-"PO-Revision-Date: 2018-12-31 05:49+0000\n"
-"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
+"POT-Creation-Date: 2019-02-01 15:58+0800\n"
+"PO-Revision-Date: 2019-01-05 07:08+0000\n"
+"Last-Translator: maz-1 <ohmygod19993@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/kup/kup/language/"
 "zh_CN/)\n"
 "Language: zh_CN\n"
@@ -418,7 +418,7 @@ msgstr "你没有读取这个备份压缩文件的必须权限。"
 #: filedigger/filedigger.cpp:160
 #, kde-format
 msgid "Select location of backup archive to open."
-msgstr ""
+msgstr "选择要打开的备份压缩文件路径。"
 
 #: filedigger/main.cpp:46
 #, kde-kuit-format
@@ -1146,7 +1146,7 @@ msgstr "备份已启用"
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Open and restore from existing backups"
-msgstr ""
+msgstr "打开已存在的备份并从中恢复"
 
 #: kcm/planstatuswidget.cpp:48
 #, kde-kuit-format

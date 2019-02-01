@@ -7,7 +7,7 @@
 # HinzundKunz <martin.tlustos@gmail.com>, 2015
 # jrabe, 2016
 # jrabe, 2016
-# HinzundKunz <martin.tlustos@gmail.com>, 2015-2018
+# HinzundKunz <martin.tlustos@gmail.com>, 2015-2019
 # Matthias Schuster Scharmer <shalokshalom@protonmail.ch>, 2015
 # Simon Persson <simon.persson@mykolab.com>, 2014,2016,2018
 msgid ""
@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: kup\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/Kup+Backup+System?"
 "content=147465\n"
-"POT-Creation-Date: 2018-12-31 14:58+0800\n"
-"PO-Revision-Date: 2018-12-31 05:50+0000\n"
-"Last-Translator: Simon Persson <simon.persson@mykolab.com>\n"
+"POT-Creation-Date: 2019-02-01 15:58+0800\n"
+"PO-Revision-Date: 2019-01-03 16:13+0000\n"
+"Last-Translator: HinzundKunz <martin.tlustos@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/kup/kup/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -459,7 +459,7 @@ msgstr ""
 #: filedigger/filedigger.cpp:160
 #, kde-format
 msgid "Select location of backup archive to open."
-msgstr ""
+msgstr "Auswahl der zu öffnenden Sicherungsdatei"
 
 #: filedigger/main.cpp:46
 #, kde-kuit-format
@@ -1233,7 +1233,7 @@ msgstr "Datensicherungen aktiviert"
 #, kde-kuit-format
 msgctxt "@action:button"
 msgid "Open and restore from existing backups"
-msgstr ""
+msgstr "Öffnen und Wiederherstellen aus bestehenden Sicherungen"
 
 #: kcm/planstatuswidget.cpp:48
 #, kde-kuit-format
