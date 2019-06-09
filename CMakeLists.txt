@@ -19,7 +19,7 @@ else (USE_SYSTEM_LIBGIT2)
   set(libgit_link_name git24kup)
 endif (USE_SYSTEM_LIBGIT2)
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug" OR ${CMAKE_BUILD_TYPE} STREQUAL "DebugFull")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug" OR "${CMAKE_BUILD_TYPE}" STREQUAL "DebugFull")
   message(WARNING "enabling debug output!")
   add_definitions(-DDEBUG)
 else()
