@@ -75,12 +75,14 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 		lDisconnectedLabel = xi18nc("@item:inlistbox this text is added if selected drive is disconnected", " (disconnected)");
 	} else {
 		lDisconnectedLabel = QString();
-		QString lFreeSpace = xi18nc("@label %1 is amount of free storage space of hard drive","%1 free",
-		                           lFormat.formatByteSize(lTotalSize - lUsedSize));
-		int lTextWidth = QApplication::fontMetrics().width(lFreeSpace);
-		lTextEnd -= lTextWidth + cMargin;
-		pPainter->drawText(pOption.rect.topRight() + QPoint(-cMargin - lTextWidth,
-		                                                    cMargin+QApplication::fontMetrics().height()), lFreeSpace);
+		if(lTotalSize > 0) {
+			QString lFreeSpace = xi18nc("@label %1 is amount of free storage space of hard drive","%1 free",
+			                            lFormat.formatByteSize(lTotalSize - lUsedSize));
+			int lTextWidth = QApplication::fontMetrics().width(lFreeSpace);
+			lTextEnd -= lTextWidth + cMargin;
+			QPoint lOffset = QPoint(-cMargin - lTextWidth, cMargin + QApplication::fontMetrics().height());
+			pPainter->drawText(pOption.rect.topRight() + lOffset, lFreeSpace);
+		}
 	}
 
 	QString lDeviceDescription = pIndex.data(DriveSelection::DeviceDescription).toString();
