@@ -40,8 +40,6 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	lDefaultIncludeList << QDir::homePath();
 	addItemStringList(QStringLiteral("Paths included"), mPathsIncluded, lDefaultIncludeList);
 	QStringList lDefaultExcludeList;
-	lDefaultExcludeList << QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
-	lDefaultExcludeList << QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.cache");
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.bup");
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.thumbnails");
