@@ -169,9 +169,7 @@ void DriveSelection::delayedDeviceAdded() {
 
 		Solid::StorageAccess *lAccess = lVolumeDevice.as<Solid::StorageAccess>();
 		connect(lAccess, SIGNAL(accessibilityChanged(bool,QString)), SLOT(accessabilityChanged(bool,QString)));
-		if(!lAccess->isAccessible()) {
-			lAccess->setup();
-		} else {
+		if(lAccess->isAccessible()) {
 			KDiskFreeSpaceInfo lInfo = KDiskFreeSpaceInfo::freeSpaceInfo(lAccess->filePath());
 			if(lInfo.isValid()) {
 				lItem->setData(lInfo.size(), DriveSelection::TotalSpace);
@@ -182,6 +180,9 @@ void DriveSelection::delayedDeviceAdded() {
 				mSelectedAndAccessible = true;
 				emit selectedDriveIsAccessibleChanged(true);
 			}
+		} else if(lVolume->usage() != Solid::StorageVolume::Encrypted) {
+			// Don't bother the user with password prompt just for sake of storage volume space info
+			lAccess->setup();
 		}
 		if(lNeedsToBeAdded) {
 			mDrivesModel->appendRow(lItem);
