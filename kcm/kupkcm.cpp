@@ -32,6 +32,7 @@
 #include <QPushButton>
 #include <QScrollArea>
 #include <QStackedLayout>
+#include <QVersionNumber>
 
 #include <KAboutData>
 #include <KConfigDialogManager>
@@ -40,6 +41,8 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KProcess>
+
+#include <restichelper.h>
 
 K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
 
@@ -81,14 +84,32 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 		mRsyncVersion = lOutput.split(QLatin1Char(' '), QString::SkipEmptyParts).at(2);
 	}
 
-	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
+    QVersionNumber resticVersion = ResticHelper::version();
+    if (!resticVersion.isNull())
+        mResticVersion = resticVersion.toString();
+	
+	KProcess lResticProcess;
+    lResticProcess << QStringLiteral("restic") << QStringLiteral("version");
+    lResticProcess.setOutputChannelMode(KProcess::MergedChannels);
+    lExitCode = lResticProcess.execute();
+	if(lExitCode >= 0) {
+        QString lOutput = QString::fromLocal8Bit(lResticProcess.readLine());
+		QStringList tokens = lOutput.split(QLatin1Char(' '), QString::SkipEmptyParts);
+        QVersionNumber version = QVersionNumber::fromString(tokens[1]);
+        if (version.minorVersion() == 8 || version.minorVersion() == 9)
+            mResticVersion = tokens[1];
+    }
+
+	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty() && mResticVersion.isEmpty()) {
 		QLabel *lSorryIcon = new QLabel;
 		lSorryIcon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-error")).pixmap(64, 64));
 		QString lInstallMessage = i18n("<h2>Backup programs are missing</h2>"
 		                               "<p>Before you can activate any backup plan you need to "
 		                               "install either of</p>"
 		                               "<ul><li>bup, for versioned backups</li>"
-		                               "<li>rsync, for synchronized backups</li></ul>");
+                                       "<li>restic, for versioned backups</li>"
+		                               "<li>rsync, for synchronized backups</li>"
+		                               "</ul>");
 		QLabel *lSorryText = new QLabel(lInstallMessage);
 		lSorryText->setWordWrap(true);
 		QHBoxLayout *lHLayout = new QHBoxLayout;
@@ -122,7 +143,7 @@ QSize KupKcm::sizeHint() const {
 }
 
 void KupKcm::load() {
-	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty()) {
+	if(mBupVersion.isEmpty() && mRsyncVersion.isEmpty() && mResticVersion.isEmpty()) {
 		return;
 	}
 	// status will be set correctly after construction, set to checked here to
@@ -255,6 +276,7 @@ void KupKcm::createSettingsFrontPage() {
 
 void KupKcm::createPlanWidgets(int pIndex) {
 	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion,
+                                                         mResticVersion,
 	                                                     mRsyncVersion, mPar2Available);
 	connect(lPlanWidget, SIGNAL(requestOverviewReturn()), this, SLOT(showFrontPage()));
 	KConfigDialogManager *lConfigManager = new KConfigDialogManager(lPlanWidget, mPlans.at(pIndex));

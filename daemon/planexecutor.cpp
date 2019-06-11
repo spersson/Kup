@@ -25,6 +25,8 @@
 #include "kupdaemon.h"
 #include "kupdaemon_debug.h"
 #include "rsyncjob.h"
+#include "resticjob.h"
+#include "restichelper.h"
 
 #include <QDBusConnection>
 #include <QDBusReply>
@@ -398,16 +400,22 @@ void PlanExecutor::updateAccumulatedUsageTime() {
 	}
 }
 
+inline void run_filedigger(const QString &repoPath, const QString &type)
+{
+    QStringList args = QStringList() << QStringLiteral("-t") << type
+                                     << repoPath;
+    KProcess::startDetached(QStringLiteral("kup-filedigger"), args);
+}
+
 void PlanExecutor::showBackupFiles() {
 	if(mState == NOT_AVAILABLE)
 		return;
-	if(mPlan->mBackupType == BackupPlan::BupType) {
-		QStringList lArgs;
-		lArgs << QStringLiteral("--title") << mPlan->mDescription;
-		lArgs << mDestinationPath;
-		KProcess::startDetached(QStringLiteral("kup-filedigger"), lArgs);
+    if(mPlan->mBackupType == BackupPlan::BupType) {
+        run_filedigger(mDestinationPath, QSL("bup"));
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
 		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QStringLiteral("inode/directory"), nullptr);
+	} else if(mPlan->mBackupType == BackupPlan::ResticType) {
+        run_filedigger(mDestinationPath, QSL("restic"));
 	}
 }
 
@@ -416,6 +424,8 @@ BackupJob *PlanExecutor::createBackupJob() {
 		return new BupJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
 		return new RsyncJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
+	} else if(mPlan->mBackupType == BackupPlan::ResticType) {
+		return new ResticJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	}
 	qCWarning(KUPDAEMON) << "Invalid backup type in configuration!";
 	return nullptr;

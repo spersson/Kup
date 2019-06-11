@@ -43,8 +43,8 @@
 
 #define KUP_TMP_RESTORE_FOLDER QStringLiteral("_kup_temporary_restore_folder_")
 
-RestoreDialog::RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent)
-   : QDialog(parent), mUI(new Ui::RestoreDialog), mSourceInfo(pPathInfo)
+RestoreDialog::RestoreDialog(BackupType backupType, const BupSourceInfo &pPathInfo, QWidget *parent)
+   : QDialog(parent), mUI(new Ui::RestoreDialog), mSourceInfo(pPathInfo), mBackupType(backupType)
 {
 	mSourceFileName = mSourceInfo.mPathInRepo.section(QDir::separator(), -1);
 
@@ -59,6 +59,10 @@ RestoreDialog::RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent)
 
 	mUI->mRestoreOriginalButton->setMinimumHeight(mUI->mRestoreOriginalButton->sizeHint().height() * 2);
 	mUI->mRestoreCustomButton->setMinimumHeight(mUI->mRestoreCustomButton->sizeHint().height() * 2);
+
+	// Cannot do this at the moment for restic.
+	if (backupType == BackupType::B_T_RESTIC)
+		mUI->mRestoreOriginalButton->setEnabled(false);
 
 	connect(mUI->mRestoreOriginalButton, SIGNAL(clicked()), SLOT(setOriginalDestination()));
 	connect(mUI->mRestoreCustomButton, SIGNAL(clicked()), SLOT(setCustomDestination()));
@@ -120,12 +124,17 @@ void RestoreDialog::setCustomDestination() {
 		connect(lNewFolderButton, SIGNAL(clicked()), SLOT(createNewFolder()));
 		mUI->mDestinationHLayout->insertWidget(0, lNewFolderButton);
 	} else if(!mSourceInfo.mIsDirectory && mFileWidget == nullptr) {
-		QFileInfo lFileInfo(mSourceInfo.mPathInRepo);
-		do {
-			lFileInfo.setFile(lFileInfo.absolutePath()); // check the file's directory first, not the file.
-		} while(!lFileInfo.exists());
-		QUrl lStartSelection = QUrl::fromLocalFile(lFileInfo.absoluteFilePath() + '/' + mSourceFileName);
-		mFileWidget = new KFileWidget(lStartSelection, this);
+		if (mBackupType == BackupType::B_T_BUP) {
+			QFileInfo lFileInfo(mSourceInfo.mPathInRepo);
+			do {
+				lFileInfo.setFile(lFileInfo.absolutePath()); // check the file's directory first, not the file.
+			} while(!lFileInfo.exists());
+			QUrl lStartSelection = QUrl::fromLocalFile(lFileInfo.absoluteFilePath() + '/' + mSourceFileName);
+			mFileWidget = new KFileWidget(lStartSelection, this);
+		}
+		else
+			mFileWidget = new KFileWidget(QUrl::fromLocalFile(QDir::home().absolutePath()), this);
+
 		mFileWidget->setOperationMode(KFileWidget::Saving);
 		mFileWidget->setMode(KFile::File | KFile::LocalOnly);
 		mUI->mDestinationVLayout->insertWidget(0, mFileWidget);

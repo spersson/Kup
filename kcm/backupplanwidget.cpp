@@ -39,6 +39,8 @@
 #include <QThread>
 #include <QTimer>
 #include <QTreeView>
+#include <QSpinBox>
+#include <QFormLayout>
 
 #include <KComboBox>
 #include <KConfigDialogManager>
@@ -469,6 +471,7 @@ QUrl DirDialog::url() const {
 
 
 BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupVersion,
+                                   const QString &pResticVersion,
                                    const QString &pRsyncVersion, bool pPar2Available)
    : QWidget(), mBackupPlan(pBackupPlan)
 {
@@ -482,7 +485,7 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupV
 	connect(mConfigureButton, SIGNAL(clicked()), this, SIGNAL(requestOverviewReturn()));
 
 	mConfigPages = new KPageWidget;
-	mConfigPages->addPage(createTypePage(pBupVersion, pRsyncVersion));
+	mConfigPages->addPage(createTypePage(pBupVersion, pResticVersion, pRsyncVersion));
 	mConfigPages->addPage(createSourcePage());
 	mConfigPages->addPage(createDestinationPage());
 	mConfigPages->addPage(createSchedulePage());
@@ -505,7 +508,9 @@ void BackupPlanWidget::saveExtraData() {
 	mDriveSelection->saveExtraData();
 }
 
-KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, const QString &pRsyncVersion) {
+KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion,
+												  const QString &pResticVersion,
+												  const QString &pRsyncVersion) {
 	mVersionedRadio = new QRadioButton;
 	QString lVersionedInfo = xi18nc("@info", "This type of backup is an <emphasis>archive</emphasis>. It contains both "
 	                               "the latest version of your files and earlier backed up versions. "
@@ -552,6 +557,24 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	} else {
 		mSyncedRadio->setText(xi18nc("@option:radio", "Synchronized Backup"));
 	}
+	
+	mResticRadio = new QRadioButton;
+	QString lResticInfo = xi18nc("@info",
+								 "This type of backup is a versioned backup based on <application>Restic</application>.");
+	QLabel* lResticInfoLabel = new QLabel(lResticInfo);
+	lResticInfoLabel->setWordWrap(true);
+	QWidget *lResticWidget = new QWidget;
+	lResticWidget->setVisible(false);
+	connect(mResticRadio, SIGNAL(toggled(bool)), lResticWidget, SLOT(setVisible(bool)));
+	if(pResticVersion.isEmpty()) {
+		mResticRadio->setText(xi18nc("@option:radio", "Versioned backup based on Restic (not available "
+													  "because <application>Restic</application> is not installed)"));
+		mResticRadio->setEnabled(false);
+		lResticWidget->setEnabled(false);
+	} else {
+		mResticRadio->setText(xi18nc("@option:radio", "Versioned backup based on Restic"));
+	}
+	
 	KButtonGroup *lButtonGroup = new KButtonGroup;
 	lButtonGroup->setObjectName(QStringLiteral("kcfg_Backup type"));
 	lButtonGroup->setFlat(true);
@@ -570,13 +593,22 @@ KPageWidgetItem *BackupPlanWidget::createTypePage(const QString &pBupVersion, co
 	lSyncedVLayout->addWidget(lSyncedInfoLabel, 0, 1);
 	lSyncedWidget->setLayout(lSyncedVLayout);
 
+	QGridLayout *lResticVLayout = new QGridLayout;
+	lResticVLayout->setColumnMinimumWidth(0, lIndentation);
+	lResticVLayout->setContentsMargins(0, 0, 0, 0);
+	lResticVLayout->addWidget(lResticInfoLabel, 0, 1);
+	lResticWidget->setLayout(lResticVLayout);
+
 	QVBoxLayout *lVLayout = new QVBoxLayout;
 	lVLayout->addWidget(mVersionedRadio);
 	lVLayout->addWidget(lVersionedWidget);
 	lVLayout->addWidget(mSyncedRadio);
 	lVLayout->addWidget(lSyncedWidget);
+	lVLayout->addWidget(mResticRadio);
+	lVLayout->addWidget(lResticWidget);
 	lVLayout->addStretch();
 	lButtonGroup->setLayout(lVLayout);
+
 	KPageWidgetItem *lPage = new KPageWidgetItem(lButtonGroup);
 	lPage->setName(xi18nc("@title", "Backup Type"));
 	lPage->setHeader(xi18nc("@label", "Select what type of backup you want"));
@@ -872,17 +904,224 @@ KPageWidgetItem *BackupPlanWidget::createAdvancedPage(bool pPar2Available) {
 	lVerificationWidget->setLayout(lVerificationLayout);
 	connect(mVersionedRadio, SIGNAL(toggled(bool)), lVerificationWidget, SLOT(setVisible(bool)));
 
+	QWidget *removalWidget = createRemovalGroup(lIndentation);
+	removalWidget->setVisible(mResticRadio->isChecked());
+	connect(mResticRadio, SIGNAL(toggled(bool)),
+			removalWidget, SLOT(setVisible(bool)));
+
 	lAdvancedLayout->addWidget(lShowHiddenCheckBox);
 	lAdvancedLayout->addLayout(lShowHiddenLayout);
 	lAdvancedLayout->addWidget(lVerificationWidget);
 	lAdvancedLayout->addWidget(lRecoveryWidget);
+	lAdvancedLayout->addWidget(removalWidget);
 	lAdvancedLayout->addStretch();
 	lAdvancedWidget->setLayout(lAdvancedLayout);
+
 	KPageWidgetItem *lPage = new KPageWidgetItem(lAdvancedWidget);
 	lPage->setName(xi18nc("@title", "Advanced"));
 	lPage->setHeader(xi18nc("@label", "Extra options for advanced users"));
 	lPage->setIcon(QIcon::fromTheme(QStringLiteral("preferences-other")));
 	return lPage;
+}
+
+QWidget *BackupPlanWidget::createRemovalGroup(int pIndentation)
+{
+	// TODO: Remove this param if unneeded.
+	Q_UNUSED(pIndentation);
+
+	QGroupBox *lGroup = new QGroupBox;
+	lGroup->setTitle(i18n("Removal options"));
+
+	QLabel *lDescription = new QLabel(i18n("A versioned backup keeps older versions "
+										   "of your files and stores also files that "
+										   "were deleted. You can use these options "
+										   "to prevent your backup from growing indefinitely."));
+	lDescription->setWordWrap(true);
+
+	// Keep last n.
+	QCheckBox *lKeepLastNCb;
+	QSpinBox *lKeepLastNSb;
+	createRemoveRow(&lKeepLastNCb, "Always keep the last n snapshots:",
+					&lKeepLastNSb, mResticRadio->isChecked(), 5,
+					QStringLiteral("kcfg_Keep last n"),
+					i18n("Never delete the last (more recent) n snapshots."));
+
+	// Keep hourly.
+	QCheckBox *lKeepHourlyCb;
+	QSpinBox *lKeepHourlySb;
+	createRemoveRow(&lKeepHourlyCb, "Keep hourly for last n hours:",
+					&lKeepHourlySb, mResticRadio->isChecked(), 5,
+					QStringLiteral("kcfg_Keep hourly"),
+					i18n("For the last n hours in which a snapshot was "
+						 "made, keep only the last snapshot for each hour."));
+
+	// Keep daily.
+	QCheckBox *lKeepDailyCb;
+	QSpinBox *lKeepDailySb;
+	createRemoveRow(&lKeepDailyCb, "Keep daily for last n days:",
+					&lKeepDailySb, mResticRadio->isChecked(), 5,
+					QStringLiteral("kcfg_Keep daily"),
+					i18n("For the last n days in which a snapshot was "
+						 "made, keep only the last snapshot for that day."));
+
+	// Keep monthly.
+	QCheckBox *lKeepMonthlyCb;
+	QSpinBox *lKeepMonthlySb;
+	createRemoveRow(&lKeepMonthlyCb, "Keep monthly for last n months:",
+					&lKeepMonthlySb, mResticRadio->isChecked(), 5,
+					QStringLiteral("kcfg_Keep monthly"),
+					i18n("For the last n months in which a snapshot was "
+						 "made, keep only the last snapshot for each month."));
+
+	// Keep yearly.
+	QCheckBox *lKeepYearlyCb;
+	QSpinBox *lKeepYearlySb;
+	createRemoveRow(&lKeepYearlyCb, "Keep yearly for the last n years:",
+					&lKeepYearlySb, mResticRadio->isChecked(), 5,
+					QStringLiteral("kcfg_Keep yearly"),
+					i18n("For the last n years in which a snapshot was "
+						 "made, keep only the last snapshot for each year."));
+
+	// Keep within duration.
+	QString lKeepWithinDurationTT = i18n("Keep <b>all</b> snapshots which "
+										 "have been made within a specified "
+										 "duration from the latest snapshot.");
+	QCheckBox *lKeepWithinDuration = new QCheckBox(xi18nc("@option:check",
+														  "Keep all snapshots within duration:"));
+	lKeepWithinDuration->setObjectName(QStringLiteral("kcfg_Keep within duration"));
+	lKeepWithinDuration->setToolTip(lKeepWithinDurationTT);
+
+	mDurationYears = new QSpinBox;
+	mDurationYears->setEnabled(mResticRadio->isChecked());
+	mDurationYears->setValue(1);
+	mDurationYears->setObjectName(QStringLiteral("kcfg_Keep within duration years"));
+	mDurationYears->setToolTip(lKeepWithinDurationTT);
+	connect(lKeepWithinDuration, SIGNAL(toggled(bool)),
+			mDurationYears, SLOT(setEnabled(bool)));
+	connect(mDurationYears, SIGNAL(valueChanged(int)),
+			this, SLOT(refreshDuration()));
+
+	mDurationMonths = new QSpinBox;
+	mDurationMonths->setEnabled(mResticRadio->isChecked());
+	mDurationMonths->setValue(0);
+	mDurationMonths->setObjectName(QStringLiteral("kcfg_Keep within duration months"));
+	mDurationMonths->setToolTip(lKeepWithinDurationTT);
+	connect(lKeepWithinDuration, SIGNAL(toggled(bool)),
+			mDurationMonths, SLOT(setEnabled(bool)));
+	connect(mDurationMonths, SIGNAL(valueChanged(int)),
+			this, SLOT(refreshDuration()));
+
+	mDurationDays = new QSpinBox;
+	mDurationDays->setEnabled(mResticRadio->isChecked());
+	mDurationDays->setValue(0);
+	mDurationDays->setObjectName(QStringLiteral("kcfg_Keep within duration days"));
+	mDurationDays->setToolTip(lKeepWithinDurationTT);
+	connect(lKeepWithinDuration, SIGNAL(toggled(bool)),
+			mDurationDays, SLOT(setEnabled(bool)));
+	connect(mDurationDays, SIGNAL(valueChanged(int)),
+			this, SLOT(refreshDuration()));
+
+	QHBoxLayout *lYearsLayout = new QHBoxLayout;
+	lYearsLayout->addWidget(mDurationYears);
+	lYearsLayout->addWidget(new QLabel(i18n("years")));
+
+	QHBoxLayout *lMonthsLayout = new QHBoxLayout;
+	lMonthsLayout->addWidget(mDurationMonths);
+	lMonthsLayout->addWidget(new QLabel(i18n("months")));
+
+	QHBoxLayout *lDaysLayout = new QHBoxLayout;
+	lDaysLayout->addWidget(mDurationDays);
+	lDaysLayout->addWidget(new QLabel(i18n("days")));
+
+	// Build summary.
+	mDurationSummary = new QLabel;
+	mDurationSummary->setEnabled(mResticRadio->isChecked());
+	connect(lKeepWithinDuration, SIGNAL(toggled(bool)),
+			mDurationSummary, SLOT(setEnabled(bool)));
+
+	refreshDuration();
+
+	// Separator.
+	QFrame* f = new QFrame;
+	f->setFrameStyle(QFrame::Plain);
+	f->setFrameShape(QFrame::HLine);
+
+	QFormLayout *layout = new QFormLayout;
+	layout->setContentsMargins(20, 20, 20, 20);
+	layout->setSpacing(20);
+	layout->addRow(lDescription);
+	layout->addRow(f);
+	layout->addRow(lKeepLastNCb, lKeepLastNSb);
+	layout->addRow(lKeepHourlyCb, lKeepHourlySb);
+	layout->addRow(lKeepDailyCb, lKeepDailySb);
+	layout->addRow(lKeepWithinDuration, lYearsLayout);
+	layout->addRow(new QWidget, lMonthsLayout);
+	layout->addRow(new QWidget, lDaysLayout);
+	layout->addRow(mDurationSummary);
+
+	lGroup->setLayout(layout);
+
+	return lGroup;
+}
+
+void BackupPlanWidget::createRemoveRow(QCheckBox **cb,
+									   const char *label,
+									   QSpinBox **sb,
+									   bool cbValue,
+									   int sbValue,
+									   const QString &kcfgLabel,
+									   const QString &tooltip)
+{
+	(*cb) = new QCheckBox(xi18nc("@option:check", label));
+	(*cb)->setChecked(cbValue);
+	(*cb)->setObjectName(kcfgLabel);
+	(*cb)->setToolTip(tooltip);
+
+	(*sb) = new QSpinBox;
+	(*sb)->setValue(sbValue);
+	(*sb)->setEnabled(false);
+	(*sb)->setObjectName(QString("%1 value").arg(kcfgLabel));
+	(*sb)->setToolTip(tooltip);
+	connect(*cb, SIGNAL(toggled(bool)),
+			*sb, SLOT(setEnabled(bool)));
+}
+
+void BackupPlanWidget::refreshDuration()
+{
+	// Build summary.
+	QString summary;
+	if (mDurationYears->value() > 0
+			&& mDurationMonths->value() > 0
+			&& mDurationDays->value() > 0)
+		summary = i18n("All snapshots within %1 year(s), %2 month(s) and %3 day(s) will be preserved.",
+					   mDurationYears->value(),
+					   mDurationMonths->value(),
+					   mDurationDays->value());
+	else if (mDurationYears->value() > 0 && mDurationMonths->value() > 0)
+		summary = i18n("All snapshots within %1 year(s) and %2 month(s) will be preserved.",
+					   mDurationYears->value(),
+					   mDurationMonths->value());
+	else if (mDurationYears->value() > 0 && mDurationDays->value() > 0)
+		summary = i18n("All snapshots within %1 year(s) and %2 day(s) will be preserved.",
+					   mDurationYears->value(),
+					   mDurationDays->value());
+	else if (mDurationMonths->value() > 0 && mDurationDays->value() > 0)
+		summary = i18n("All snapshots within %1 month(s) and %2 day(s) will be preserved.",
+					   mDurationMonths->value(),
+					   mDurationDays->value());
+	else if (mDurationYears->value() > 0)
+		summary = i18n("All snapshots within %1 year(s) will be preserved.",
+					   mDurationYears->value());
+	else if (mDurationMonths->value() > 0)
+		summary = i18n("All snapshots within %1 month(s) will be preserved.",
+					   mDurationMonths->value());
+	else if (mDurationDays->value() > 0)
+		summary = i18n("All snapshots within %1 day(s) will be preserved.",
+					   mDurationDays->value());
+	else
+		summary = QString();
+
+	mDurationSummary->setText(summary);
 }
 
 void BackupPlanWidget::openDriveDestDialog() {

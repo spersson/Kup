@@ -60,9 +60,9 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 	switch (pRole) {
 	case Qt::DisplayRole:
 		return lFormat.formatRelativeDateTime(QDateTime::fromTime_t(lData->mModifiedDate), QLocale::ShortFormat);
-	case VersionBupUrlRole: {
+	case VersionUrlRole: {
 		QUrl lUrl;
-		mNode->getBupUrl(pIndex.row(), &lUrl);
+		mNode->getUrl(pIndex.row(), &lUrl);
 		return lUrl;
 	}
 	case VersionMimeTypeRole:
@@ -74,7 +74,7 @@ QVariant VersionListModel::data(const QModelIndex &pIndex, int pRole) const {
 		return lData->size();
 	case VersionSourceInfoRole: {
 		BupSourceInfo lSourceInfo;
-		mNode->getBupUrl(pIndex.row(), &lSourceInfo.mBupKioPath, &lSourceInfo.mRepoPath, &lSourceInfo.mBranchName,
+		mNode->getUrl(pIndex.row(), &lSourceInfo.mBupKioPath, &lSourceInfo.mRepoPath, &lSourceInfo.mBranchName,
 		                 &lSourceInfo.mCommitTime, &lSourceInfo.mPathInRepo);
 		lSourceInfo.mIsDirectory = mNode->isDirectory();
 		lSourceInfo.mSize = lData->size();

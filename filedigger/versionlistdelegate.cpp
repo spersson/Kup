@@ -136,6 +136,8 @@ VersionItemAnimation::VersionItemAnimation(QWidget *pParent)
 	connect(mOpenButton, SIGNAL(focusChangeRequested(bool)), SLOT(changeFocus(bool)), Qt::QueuedConnection);
 	mRestoreButton = new Button(xi18nc("@action:button", "Restore"), pParent);
 	connect(mRestoreButton, SIGNAL(focusChangeRequested(bool)), SLOT(changeFocus(bool)), Qt::QueuedConnection);
+	mCopyButton = new Button(xi18nc("@action:button", "Copy"), pParent);
+	connect(mCopyButton, SIGNAL(focusChangeRequested(bool)), SLOT(changeFocus(bool)), Qt::QueuedConnection);
 	QPropertyAnimation *lHeightAnimation = new QPropertyAnimation(this, "extraHeight", this);
 	lHeightAnimation->setStartValue(0.0);
 	lHeightAnimation->setEndValue(1.0);
@@ -163,6 +165,9 @@ void VersionItemAnimation::changeFocus(bool pForward) {
 	} else if(sender() == mRestoreButton) {
 		mOpenButton->mStyleOption.state |= QStyle::State_HasFocus;
 		mParent->update(mOpenButton->mStyleOption.rect);
+	} else if (sender() == mCopyButton) {
+		mCopyButton->mStyleOption.state |= QStyle::State_HasFocus;
+		mParent->update(mCopyButton->mStyleOption.rect);
 	}
 }
 
@@ -170,16 +175,20 @@ void VersionItemAnimation::setFocus(bool pFocused) {
 	if(!pFocused) {
 		mOpenButton->mStyleOption.state &= ~QStyle::State_HasFocus;
 		mRestoreButton->mStyleOption.state &= ~QStyle::State_HasFocus;
+		mCopyButton->mStyleOption.state &= ~QStyle::State_HasFocus;
 	} else {
 		mOpenButton->mStyleOption.state |= QStyle::State_HasFocus;
 		mRestoreButton->mStyleOption.state &= ~QStyle::State_HasFocus;
+		mCopyButton->mStyleOption.state &= ~QStyle::State_HasFocus;
 	}
 	mParent->update(mOpenButton->mStyleOption.rect);
 	mParent->update(mRestoreButton->mStyleOption.rect);
+	mParent->update(mCopyButton->mStyleOption.rect);
 }
 
-VersionListDelegate::VersionListDelegate(QAbstractItemView *pItemView, QObject *pParent) :
+VersionListDelegate::VersionListDelegate(BackupType backupType, QAbstractItemView *pItemView, QObject *pParent) :
    QAbstractItemDelegate(pParent)
+ , mBackupType(backupType)
 {
 	mView = pItemView;
 	mModel = pItemView->model();
@@ -217,14 +226,19 @@ void VersionListDelegate::paint(QPainter *pPainter, const QStyleOptionViewItem &
 		pPainter->save();
 		pPainter->setClipRect(pOption.rect);
 
-		lAnimation->mRestoreButton->setPosition(pOption.rect.topRight() +
-		                                       QPoint(-cMargin,
-		                                              pOption.fontMetrics.height() + 2*cMargin));
+		lAnimation->mCopyButton->setPosition(pOption.rect.topRight() +
+												QPoint(-cMargin,
+													   pOption.fontMetrics.height() + 2*cMargin));
+		lAnimation->mCopyButton->paint(pPainter, lAnimation->opacity());
+
+		lAnimation->mRestoreButton->setPosition(lAnimation->mCopyButton->mStyleOption.rect.topLeft() +
+		                                    QPoint(-cMargin , 0));
 		lAnimation->mRestoreButton->paint(pPainter, lAnimation->opacity());
 
 		lAnimation->mOpenButton->setPosition(lAnimation->mRestoreButton->mStyleOption.rect.topLeft() +
-		                                    QPoint(-cMargin , 0));
+											 QPoint(-cMargin, 0));
 		lAnimation->mOpenButton->paint(pPainter, lAnimation->opacity());
+
 		pPainter->restore();
 	}
 }
@@ -237,9 +251,10 @@ QSize VersionListDelegate::sizeHint(const QStyleOptionViewItem &pOption, const Q
 		int lButtonHeight = lAnimation->mOpenButton->mStyleOption.rect.height();
 		lExtraHeight = lAnimation->extraHeight() * (lButtonHeight + cMargin);
 		lExtraWidth = lAnimation->mOpenButton->mStyleOption.rect.width() +
-		              lAnimation->mRestoreButton->mStyleOption.rect.width();
+				lAnimation->mRestoreButton->mStyleOption.rect.width() +
+				lAnimation->mCopyButton->mStyleOption.rect.width();
 	}
-	return QSize(lExtraWidth, cMargin*2 + pOption.fontMetrics.height() + lExtraHeight);
+	return QSize(lExtraWidth, cMargin*3 + pOption.fontMetrics.height() + lExtraHeight);
 }
 
 bool VersionListDelegate::eventFilter(QObject *pObject, QEvent *pEvent) {
@@ -249,6 +264,9 @@ bool VersionListDelegate::eventFilter(QObject *pObject, QEvent *pEvent) {
 		}
 		if(lAnimation->mRestoreButton->event(pEvent)) {
 			emit restoreRequested(lAnimation->mIndex);
+		}
+		if (lAnimation->mCopyButton->event(pEvent)) {
+			emit copyRequested(lAnimation->mIndex);
 		}
 	}
 	return QAbstractItemDelegate::eventFilter(pObject, pEvent);

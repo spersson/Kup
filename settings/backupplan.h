@@ -39,7 +39,7 @@ public:
 	QString mDescription;
 	QStringList mPathsIncluded;
 	QStringList mPathsExcluded;
-	enum BackupType {BupType = 0, RsyncType};
+	enum BackupType {BupType = 0, RsyncType, ResticType};
 	qint32 mBackupType;
 
 	enum ScheduleType {MANUAL=0, INTERVAL, USAGE};
@@ -62,6 +62,22 @@ public:
 	bool mShowHiddenFolders;
 	bool mGenerateRecoveryInfo;
 	bool mCheckBackups;
+
+	// Restic.
+	bool mKeepLastN;
+	int mKeepLastNValue;
+	bool mKeepHourly;
+	int mKeepHourlyValue;
+	bool mKeepDaily;
+	int mKeepDailyValue;
+	bool mKeepMonthly;
+	int mKeepMonthlyValue;
+	bool mKeepYearly;
+	int mKeepYearlyValue;
+	bool mKeepWithinDuration;
+	int mKeepWithinDurationYears;
+	int mKeepWithinDurationMonths;
+	int mKeepWithinDurationDays;
 
 	QDateTime mLastCompleteBackup;
 	// Size of the last backup in bytes.

@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright Simon Persson                                               *
- *   simonpersson1@gmail.com                                               *
+ *   Copyright Luca Carlon                                                 *
+ *   carlon.luca@gmail.com                                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -21,33 +21,36 @@
 #ifndef MERGEDVFS_H
 #define MERGEDVFS_H
 
-#include <git2.h>
-uint qHash(git_oid pOid);
-bool operator ==(const git_oid &pOidA, const git_oid &pOidB);
 #include <QHash>
 #include <QObject>
-
 #include <QUrl>
+#include <QMapIterator>
 
 #include <sys/stat.h>
 
+class MergedNode;
+typedef QMap<QString, MergedNode *> NameMap;
+typedef QMapIterator<QString, MergedNode *> NameMapIterator;
+
 struct VersionData {
-	VersionData(bool pChunkedFile, const git_oid *pOid, quint64 pCommitTime, quint64 pModifiedDate)
-	   :mChunkedFile(pChunkedFile), mOid(*pOid), mCommitTime(pCommitTime), mModifiedDate(pModifiedDate)
+	VersionData(quint64 pCommitTime, quint64 pModifiedDate)
+	   :mCommitTime(pCommitTime), mModifiedDate(pModifiedDate)
 	{
 		mSizeIsValid = false;
 	}
 
-	VersionData(const git_oid *pOid, quint64 pCommitTime, quint64 pModifiedDate, quint64 pSize)
-	   :mOid(*pOid), mCommitTime(pCommitTime), mModifiedDate(pModifiedDate), mSize(pSize)
+	VersionData(quint64 pCommitTime, quint64 pModifiedDate, quint64 pSize)
+	   :mCommitTime(pCommitTime), mModifiedDate(pModifiedDate), mSize(pSize)
 	{
 		mSizeIsValid = true;
 	}
 
-	quint64 size();
+	virtual ~VersionData() {}
+
+	virtual quint64 size() = 0;
+
 	bool mSizeIsValid;
-	bool mChunkedFile;
-	git_oid mOid;
+
 	quint64 mCommitTime;
 	quint64 mModifiedDate;
 
@@ -55,7 +58,6 @@ protected:
 	quint64 mSize;
 };
 
-class MergedNode;
 typedef QList<MergedNode*> MergedNodeList;
 typedef QListIterator<MergedNode*> MergedNodeListIterator;
 typedef QList<VersionData *> VersionList;
@@ -68,37 +70,37 @@ public:
 	MergedNode(QObject *pParent, const QString &pName, uint pMode);
 	virtual ~MergedNode() {
 		if(mSubNodes != nullptr) {
+			qDeleteAll(*mSubNodes);
 			delete mSubNodes;
 		}
 	}
 	bool isDirectory() const { return S_ISDIR(mMode); }
-	void getBupUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPath = nullptr, QString *pBranchName = nullptr,
-	               quint64 *pCommitTime = nullptr, QString *pPathInRepo = nullptr) const;
 	virtual MergedNodeList &subNodes();
 	const VersionList *versionList() const { return &mVersionList; }
-	uint mode() const { return mMode; }
-	static void askForIntegrityCheck();
 
-protected:
-	virtual void generateSubNodes();
+	virtual void getUrl(int pVersionIndex, QUrl *pComplete, QString *pRepoPath = nullptr, QString *pBranchName = nullptr,
+				   quint64 *pCommitTime = nullptr, QString *pPathInRepo = nullptr) const = 0;
+	virtual void askForIntegrityCheck() = 0;
 
-	static git_repository *mRepository;
-	uint mMode;
+public:
 	VersionList mVersionList;
 	MergedNodeList *mSubNodes;
+	uint mMode;
+
+protected:
+	virtual void generateSubNodes() = 0;
 };
 
-class MergedRepository: public MergedNode {
+class MergedRepository : public QObject
+{
 	Q_OBJECT
 public:
-	MergedRepository(QObject *pParent, const QString &pRepositoryPath, const QString &pBranchName);
-	virtual ~MergedRepository();
-
-	bool open();
-	bool readBranch();
-	bool permissionsOk();
-
-	QString mBranchName;
+	MergedRepository(QObject* parent = nullptr) : QObject(parent) {}
+	virtual ~MergedRepository() {}
+	virtual bool open() = 0;
+	virtual bool readBranch() = 0;
+	virtual bool permissionsOk() = 0;
+	virtual MergedNode *rootNode() const = 0;
 };
 
 #endif // MERGEDVFS_H

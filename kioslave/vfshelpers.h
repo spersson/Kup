@@ -29,6 +29,11 @@ class QBuffer;
 #define DEFAULT_MODE_DIRECTORY 0040755
 #define DEFAULT_MODE_FILE 0100644
 
+enum BackupType {
+	B_T_BUP,
+	B_T_RESTIC
+};
+
 class VintStream: public QObject {
 	Q_OBJECT
 

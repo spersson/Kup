@@ -22,6 +22,7 @@ add_library(kcm_kup MODULE ${kcm_kup_SRCS})
 add_definitions(-DTRANSLATION_DOMAIN="kup")
 
 target_link_libraries(kcm_kup
+resticcore
 Qt5::Core
 Qt5::DBus
 Qt5::Gui
