@@ -89,15 +89,7 @@ void RsyncJob::performJob() {
 			mRsyncProcess << QStringLiteral("--exclude=") + lExclude;
 		}
 	}
-
-	if(mBackupPlan.mPathsIncluded.count() == 1) {
-		// Add a slash to the end so that rsync takes only the contents of the folder, not the folder itself.
-		QString lInclude = mBackupPlan.mPathsIncluded.first();
-		ensureTrailingSlash(lInclude);
-		mRsyncProcess << lInclude;
-	} else  {
-		mRsyncProcess << mBackupPlan.mPathsIncluded;
-	}
+	mRsyncProcess << mBackupPlan.mPathsIncluded;
 	mRsyncProcess << mDestinationPath;
 
 	connect(&mRsyncProcess, SIGNAL(started()), SLOT(slotRsyncStarted()));
