@@ -195,9 +195,8 @@ void FileScanner::checkPathForProblems(const QFileInfo &pFileInfo) {
 
 bool FileScanner::isSymlinkProblematic(const QString &pTarget) {
 	QFileInfo lTargetInfo(pTarget);
-	return lTargetInfo.exists() && !isPathIncluded(pTarget) &&
-	      !pTarget.startsWith(QStringLiteral("/tmp/")) &&
-	      !pTarget.startsWith(QStringLiteral("/var/tmp/"));
+	return lTargetInfo.exists() && !isPathIncluded(pTarget)
+	        && pTarget.startsWith(QStringLiteral("/home/"));
 }
 
 void FileScanner::scanFolder(const QString &pPath) {
