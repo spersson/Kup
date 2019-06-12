@@ -75,6 +75,7 @@ Comment[tl]=Tanong kung gusto ng taga-gamit na magsimula ng pagkuha ng seguridad
 Comment[zh_CN]=如果使用者想要开始进行备份的话会被询问一个问题
 Comment[zh_TW]=如果使用者想要開始進行備份的話會被詢問一個問題
 Action=Popup
+Urgency=Normal
 
 [Event/BackupSucceeded]
 Name=Backup succeeded
@@ -110,6 +111,7 @@ Comment[sv]=Färdig med att spara säkerhetskopia
 Comment[zh_CN]=储存备份成功完成
 Comment[zh_TW]=儲存備份成功完成
 Action=Popup
+Urgency=Normal
 
 [Event/BackupFailed]
 Name=Backup failed
@@ -148,6 +150,7 @@ Comment[tl]=Ang pag-impok ng seguridad na kopya ay nabigo, paki-tingnan ang list
 Comment[zh_CN]=备份储存失败，建议使用者查看日志文件。
 Comment[zh_TW]=備份儲存失敗，建議使用者查看記錄檔。
 Action=Popup
+Urgency=Normal
 
 [Event/IntegrityCheckCompleted]
 Name=Integrity check completed
@@ -187,6 +190,7 @@ Comment[tl]=Natapos na ang pagsisiyasat ang integridad ng arkibo ng seguridad na
 Comment[zh_CN]=备份压缩文件的完整性校验完成
 Comment[zh_TW]=備份壓縮檔的完整性校驗完成
 Action=Popup
+Urgency=Normal
 
 [Event/RepairCompleted]
 Name=Repair completed
@@ -226,3 +230,4 @@ Comment[tl]=Natapos na ang pag-aayos sa arkibo ng seguridad na kopya
 Comment[zh_CN]=修复备份压缩文件已完成
 Comment[zh_TW]=修復備份壓縮檔完成
 Action=Popup
+Urgency=Normal
