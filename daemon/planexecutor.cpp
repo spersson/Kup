@@ -157,6 +157,7 @@ void PlanExecutor::enterAvailableState() {
 }
 
 void PlanExecutor::enterNotAvailableState() {
+	discardUserQuestion();
 	mSchedulingTimer->stop();
 	mState = NOT_AVAILABLE;
 	emit stateChanged();
