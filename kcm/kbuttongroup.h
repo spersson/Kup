@@ -54,7 +54,7 @@ public:
     /**
      * Destroys the widget.
      */
-    ~KButtonGroup();
+    ~KButtonGroup() override;
 
     /**
      * Return the index of the selected QAbstractButton, among the QAbstractButton's
@@ -99,7 +99,7 @@ protected:
     /**
      * Reimplemented from QGroupBox.
      */
-    void childEvent(QChildEvent *event) Q_DECL_OVERRIDE;
+    void childEvent(QChildEvent *event) override;
 
 private:
     Q_PRIVATE_SLOT(d, void slotClicked(int id))

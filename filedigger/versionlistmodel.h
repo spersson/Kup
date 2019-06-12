@@ -42,8 +42,8 @@ class VersionListModel : public QAbstractListModel
 public:
 	explicit VersionListModel(QObject *parent = 0);
 	void setNode(const MergedNode *pNode);
-	int rowCount(const QModelIndex &pParent) const;
-	QVariant data(const QModelIndex &pIndex, int pRole) const;
+	int rowCount(const QModelIndex &pParent) const override;
+	QVariant data(const QModelIndex &pIndex, int pRole) const override;
 
 protected:
 	const VersionList *mVersionList;

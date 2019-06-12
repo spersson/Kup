@@ -41,7 +41,7 @@ public:
 		ErrorSuggestRepair
 	};
 
-	void start() Q_DECL_OVERRIDE;
+	void start() override;
 
 protected slots:
 	virtual void performJob() = 0;

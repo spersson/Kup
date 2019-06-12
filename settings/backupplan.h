@@ -79,7 +79,7 @@ public:
 	static QString iconName(Status pStatus);
 
 protected:
-	virtual void usrRead();
+	void usrRead() override;
 	int mPlanNumber;
 };
 

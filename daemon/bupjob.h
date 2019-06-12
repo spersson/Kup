@@ -36,7 +36,7 @@ public:
 	BupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon);
 
 protected slots:
-	void performJob() Q_DECL_OVERRIDE;
+	void performJob() override;
 	void slotCheckingStarted();
 	void slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 	void slotIndexingStarted();
@@ -48,8 +48,8 @@ protected slots:
 	void slotReadBupErrors();
 
 protected:
-	bool doSuspend() Q_DECL_OVERRIDE;
-	bool doResume() Q_DECL_OVERRIDE;
+	bool doSuspend() override;
+	bool doResume() override;
 
 	KProcess mFsckProcess;
 	KProcess mIndexProcess;

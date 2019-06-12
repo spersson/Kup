@@ -75,7 +75,7 @@ protected slots:
 	void updateSelection(const QItemSelection &pSelected, const QItemSelection &pDeselected);
 
 protected:
-	virtual void paintEvent(QPaintEvent *pPaintEvent);
+	void paintEvent(QPaintEvent *pPaintEvent) override;
 	int findItem(const DataType pField, const QString &pSearchString, QStandardItem **pReturnedItem = nullptr) const;
 
 	QStandardItemModel *mDrivesModel;

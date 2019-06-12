@@ -40,14 +40,14 @@ public:
 	EDExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon);
 
 public slots:
-	virtual void checkStatus();
-	virtual void showBackupFiles();
+	void checkStatus() override;
+	void showBackupFiles() override;
 
 protected slots:
 	void deviceAdded(const QString &pUdi);
 	void deviceRemoved(const QString &pUdi);
 	void updateAccessibility();
-	virtual void startBackup();
+	void startBackup() override;
 	void slotBackupDone(KJob *pJob);
 	void slotBackupSizeDone(KJob *pJob);
 

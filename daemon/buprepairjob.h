@@ -35,7 +35,7 @@ public:
 	BupRepairJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon);
 
 protected slots:
-	void performJob() Q_DECL_OVERRIDE;
+	void performJob() override;
 	void slotRepairStarted();
 	void slotRepairDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 

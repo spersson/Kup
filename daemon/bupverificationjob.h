@@ -35,7 +35,7 @@ public:
 	BupVerificationJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon);
 
 protected slots:
-	void performJob() Q_DECL_OVERRIDE;
+	void performJob() override;
 	void slotCheckingStarted();
 	void slotCheckingDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 

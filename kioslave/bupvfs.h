@@ -31,7 +31,7 @@ class Node: public QObject, public Metadata {
 	Q_OBJECT
 public:
 	Node(QObject *pParent, const QString &pName, quint64 pMode);
-	virtual ~Node() {}
+	~Node() override {}
 	virtual int readMetadata(VintStream &pMetadataStream);
 	Node *resolve(const QString &pPath, bool pFollowLinks = false);
 	Node *resolve(const QStringList &pPathList, bool pFollowLinks = false);
@@ -52,7 +52,7 @@ class Directory: public Node {
 	Q_OBJECT
 public:
 	Directory(QObject *pParent, const QString &pName, quint64 pMode);
-	virtual ~Directory() {
+	~Directory() override {
 		if(mSubNodes != nullptr) {
 			delete mSubNodes;
 		}
@@ -88,7 +88,7 @@ public:
 		return 0; // success
 	}
 	virtual int read(QByteArray &pChunk, int pReadSize = -1) = 0;
-	virtual int readMetadata(VintStream &pMetadataStream);
+	int readMetadata(VintStream &pMetadataStream) override;
 
 protected:
 	virtual quint64 calculateSize() = 0;
@@ -100,12 +100,12 @@ class BlobFile: public File {
 	Q_OBJECT
 public:
 	BlobFile(Node *pParent, const git_oid *pOid, const QString &pName, quint64 pMode);
-	virtual ~BlobFile();
-	virtual int read(QByteArray &pChunk, int pReadSize = -1);
+	~BlobFile() override;
+	int read(QByteArray &pChunk, int pReadSize = -1) override;
 
 protected:
 	git_blob *cachedBlob();
-	virtual quint64 calculateSize();
+	quint64 calculateSize() override;
 	git_oid mOid;
 	git_blob *mBlob;
 };
@@ -128,12 +128,12 @@ class ChunkFile: public File {
 	Q_OBJECT
 public:
 	ChunkFile(Node *pParent, const git_oid *pOid, const QString &pName, quint64 pMode);
-	virtual ~ChunkFile();
-	virtual int seek(quint64 pOffset);
-	virtual int read(QByteArray &pChunk, int pReadSize = -1);
+	~ChunkFile() override;
+	int seek(quint64 pOffset) override;
+	int read(QByteArray &pChunk, int pReadSize = -1) override;
 
 protected:
-	virtual quint64 calculateSize();
+	quint64 calculateSize() override;
 
 	git_oid mOid;
 	git_blob *mCurrentBlob;
@@ -155,7 +155,7 @@ public:
 	ArchivedDirectory(Node *pParent, const git_oid *pOid, const QString &pName, quint64 pMode);
 
 protected:
-	virtual void generateSubNodes();
+	void generateSubNodes() override;
 	git_oid mOid;
 	git_blob *mMetadataBlob;
 	git_tree *mTree;
@@ -166,10 +166,10 @@ class Branch: public Directory {
 	Q_OBJECT
 public:
 	Branch(Node *pParent, const char *pName);
-	virtual void reload();
+	void reload() override;
 
 protected:
-	virtual void generateSubNodes();
+	void generateSubNodes() override;
 	QByteArray mRefName;
 };
 
@@ -178,13 +178,13 @@ class Repository: public Directory {
 	Q_OBJECT
 public:
 	Repository(QObject *pParent, const QString &pRepositoryPath);
-	virtual ~Repository();
+	~Repository() override;
 	bool isValid() {
 		return mRepository != nullptr && mRevisionWalker != nullptr;
 	}
 
 protected:
-	virtual void generateSubNodes();
+	void generateSubNodes() override;
 };
 
 

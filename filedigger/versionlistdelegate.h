@@ -37,7 +37,7 @@ public:
 
 	void setPosition(const QPoint &pTopRight);
 	void paint(QPainter *pPainter, float pOpacity);
-	bool event(QEvent *pEvent);
+	bool event(QEvent *pEvent) override;
 
 signals:
 	void focusChangeRequested(bool pForward);
@@ -77,10 +77,10 @@ class VersionListDelegate : public QAbstractItemDelegate
 	Q_OBJECT
 public:
 	explicit VersionListDelegate(QAbstractItemView *pItemView, QObject *pParent = 0);
-	~VersionListDelegate();
-	virtual void paint(QPainter *pPainter, const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const;
-	virtual QSize sizeHint(const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const;
-	virtual bool eventFilter(QObject *pObject, QEvent *pEvent);
+	~VersionListDelegate() override;
+	void paint(QPainter *pPainter, const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const override;
+	QSize sizeHint(const QStyleOptionViewItem &pOption, const QModelIndex &pIndex) const override;
+	bool eventFilter(QObject *pObject, QEvent *pEvent) override;
 
 signals:
 	void openRequested(const QModelIndex &pIndex);

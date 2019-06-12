@@ -41,7 +41,7 @@ signals:
 	void mountsChanged();
 
 protected:
-	virtual void run();
+	void run() override;
 };
 
 
@@ -59,10 +59,10 @@ public:
 	~FSExecutor();
 
 public slots:
-	virtual void checkStatus();
+	void checkStatus() override;
 
 protected slots:
-	virtual void startBackup();
+	void startBackup() override;
 	void slotBackupDone(KJob *pJob);
 	void slotBackupSizeDone(KJob *pJob);
 	void checkMountPoints();

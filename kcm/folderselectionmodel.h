@@ -50,9 +50,9 @@ public:
 		IncludeStateRole = 7777
 	};
 
-	Qt::ItemFlags flags(const QModelIndex &pIndex) const Q_DECL_OVERRIDE;
-	QVariant data(const QModelIndex& pIndex, int pRole = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-	bool setData(const QModelIndex& pIndex, const QVariant& pValue, int pRole = Qt::EditRole) Q_DECL_OVERRIDE;
+	Qt::ItemFlags flags(const QModelIndex &pIndex) const override;
+	QVariant data(const QModelIndex& pIndex, int pRole = Qt::DisplayRole) const override;
+	bool setData(const QModelIndex& pIndex, const QVariant& pValue, int pRole = Qt::EditRole) override;
 
 	void setIncludedPaths(QSet<QString> pIncludedPaths);
 	void setExcludedPaths(QSet<QString> pExcludedPaths);
@@ -69,7 +69,7 @@ public:
 	*/
 	void excludePath(const QString &pPath);
 
-	int columnCount(const QModelIndex&) const Q_DECL_OVERRIDE { return 1; }
+	int columnCount(const QModelIndex&) const override { return 1; }
 
 	InclusionState inclusionState(const QModelIndex &pIndex) const;
 	InclusionState inclusionState(const QString &pPath) const;

@@ -44,10 +44,10 @@ class RestoreDialog : public QDialog
 
 public:
 	explicit RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent = 0);
-	~RestoreDialog();
+	~RestoreDialog() override;
 
 protected:
-	void changeEvent(QEvent *pEvent);
+	void changeEvent(QEvent *pEvent) override;
 
 protected slots:
 	void setOriginalDestination();

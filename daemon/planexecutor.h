@@ -44,7 +44,7 @@ class PlanExecutor : public QObject
 	Q_OBJECT
 public:
 	PlanExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon);
-	virtual ~PlanExecutor();
+	~PlanExecutor() override;
 
 	BackupPlan::ScheduleType scheduleType() {
 		return (BackupPlan::ScheduleType)mPlan->mScheduleType;

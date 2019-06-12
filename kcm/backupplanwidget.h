@@ -46,7 +46,7 @@ class FileScanner : public QObject {
 	Q_OBJECT
 public:
 	FileScanner();
-	bool event(QEvent *pEvent) Q_DECL_OVERRIDE;
+	bool event(QEvent *pEvent) override;
 
 public slots:
 	void includePath(QString pPath);

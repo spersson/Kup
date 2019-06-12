@@ -66,7 +66,7 @@ class MergedNode: public QObject {
 	friend class VersionData;
 public:
 	MergedNode(QObject *pParent, const QString &pName, uint pMode);
-	virtual ~MergedNode() {
+	~MergedNode() override {
 		if(mSubNodes != nullptr) {
 			delete mSubNodes;
 		}
@@ -92,7 +92,7 @@ class MergedRepository: public MergedNode {
 	Q_OBJECT
 public:
 	MergedRepository(QObject *pParent, const QString &pRepositoryPath, const QString &pBranchName);
-	virtual ~MergedRepository();
+	~MergedRepository() override;
 
 	bool open();
 	bool readBranch();

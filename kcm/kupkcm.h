@@ -43,11 +43,11 @@ class KupKcm : public KCModule
 	Q_OBJECT
 public:
 	KupKcm(QWidget *pParent, const QVariantList &pArgs);
-	virtual QSize sizeHint() const override;
+	QSize sizeHint() const override;
 
 public slots:
-	virtual void load();
-	virtual void save();
+	void load() override;
+	void save() override;
 
 	void updateChangedStatus();
 	void showFrontPage();

@@ -30,8 +30,8 @@ class DriveSelectionDelegate : public QStyledItemDelegate
 {
 public:
 	DriveSelectionDelegate(QListView *pParent);
-	virtual void paint(QPainter* pPainter, const QStyleOptionViewItem& pOption, const QModelIndex& pIndex) const;
-	virtual QSize sizeHint(const QStyleOptionViewItem& pOption, const QModelIndex& pIndex) const;
+	void paint(QPainter* pPainter, const QStyleOptionViewItem& pOption, const QModelIndex& pIndex) const override;
+	QSize sizeHint(const QStyleOptionViewItem& pOption, const QModelIndex& pIndex) const override;
 private:
 	QRect warningRect(const QRect &pRect, const QModelIndex &pIndex) const;
 	QString warningText(const QModelIndex &pIndex) const;

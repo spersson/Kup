@@ -43,7 +43,7 @@ class KupDaemon : public QObject
 
 public:
 	KupDaemon();
-	virtual ~KupDaemon();
+	~KupDaemon() override;
 	bool shouldStart();
 	void setupGuiStuff();
 	void slotShutdownRequest(QSessionManager &pManager);

@@ -36,7 +36,7 @@ public:
 	RsyncJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon);
 
 protected slots:
-	void performJob() Q_DECL_OVERRIDE;
+	void performJob() override;
 
 protected slots:
 	void slotRsyncStarted();
@@ -44,9 +44,9 @@ protected slots:
 	void slotReadRsyncOutput();
 
 protected:
-	bool doKill() Q_DECL_OVERRIDE;
-	bool doSuspend() Q_DECL_OVERRIDE;
-	bool doResume() Q_DECL_OVERRIDE;
+	bool doKill() override;
+	bool doSuspend() override;
+	bool doResume() override;
 
 	KProcess mRsyncProcess;
 	QElapsedTimer mInfoRateLimiter;

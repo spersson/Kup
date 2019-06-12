@@ -36,15 +36,15 @@ class BupSlave : public SlaveBase
 {
 public:
 	BupSlave(const QByteArray &pPoolSocket, const QByteArray &pAppSocket);
-	virtual ~BupSlave();
-	virtual void close();
-	virtual void get(const QUrl &pUrl);
-	virtual void listDir(const QUrl &pUrl) ;
-	virtual void open(const QUrl &pUrl, QIODevice::OpenMode pMode);
-	virtual void read(filesize_t pSize);
-	virtual void seek(filesize_t pOffset);
-	virtual void stat(const QUrl &pUrl);
-	virtual void mimetype(const QUrl &pUrl);
+	~BupSlave() override;
+	void close() override;
+	void get(const QUrl &pUrl) override;
+	void listDir(const QUrl &pUrl) override ;
+	void open(const QUrl &pUrl, QIODevice::OpenMode pMode) override;
+	void read(filesize_t pSize) override;
+	void seek(filesize_t pOffset) override;
+	void stat(const QUrl &pUrl) override;
+	void mimetype(const QUrl &pUrl) override;
 
 private:
 	bool checkCorrectRepository(const QUrl &pUrl, QStringList &pPathInRepository);

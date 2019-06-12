@@ -32,14 +32,14 @@ class RestoreJob : public KJob
 public:
 	explicit RestoreJob(const QString &pRepositoryPath, const QString &pSourcePath, const QString &pRestorationPath,
 	                    int pTotalDirCount, quint64 pTotalFileSize, const QHash<QString, quint64> &pFileSizes);
-	virtual void start();
+	void start() override;
 
 protected slots:
 	void slotRestoringStarted();
 	void slotRestoringDone(int pExitCode, QProcess::ExitStatus pExitStatus);
 
 protected:
-	virtual void timerEvent(QTimerEvent *pTimerEvent);
+	void timerEvent(QTimerEvent *pTimerEvent) override;
 	void makeNice(int pPid);
 	void moveFolder();
 
