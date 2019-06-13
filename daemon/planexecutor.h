@@ -85,6 +85,7 @@ protected slots:
 
 	void exitBackupRunningState(bool pWasSuccessful);
 	void enterAvailableState();
+	void askUserOrStart(const QString& pUserQuestion);
 	void enterNotAvailableState();
 
 	void askUser(const QString &pQuestion);

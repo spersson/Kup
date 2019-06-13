@@ -52,7 +52,7 @@ public:
 
 public slots:
 	void reloadConfig();
-	void runIntegrityCheck(QString pPath);
+	void runIntegrityCheck(const QString& pPath);
 
 private:
 	void setupExecutors();
@@ -62,8 +62,8 @@ private:
 	KSharedConfigPtr mConfig;
 	KupSettings *mSettings;
 	QList<PlanExecutor *> mExecutors;
-	QTimer *mUsageAccTimer;
-	QTimer *mStatusUpdateTimer;
+	QTimer *mUsageAccTimer{};
+	QTimer *mStatusUpdateTimer{};
 	bool mWaitingToReloadConfig;
 	KUiServerJobTracker *mJobTracker;
 	QLocalServer *mLocalServer;

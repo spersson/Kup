@@ -63,7 +63,7 @@ typedef QListIterator<VersionData *> VersionListIterator;
 
 class MergedNode: public QObject {
 	Q_OBJECT
-	friend class VersionData;
+	friend struct VersionData;
 public:
 	MergedNode(QObject *pParent, const QString &pName, uint pMode);
 	~MergedNode() override {

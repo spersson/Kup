@@ -128,7 +128,7 @@ void FSExecutor::slotBackupDone(KJob *pJob) {
 		exitBackupRunningState(false);
 	} else {
 		notifyBackupSucceeded();
-		mPlan->mLastCompleteBackup = QDateTime::currentDateTime().toUTC();
+		mPlan->mLastCompleteBackup = QDateTime::currentDateTimeUtc();
 		KDiskFreeSpaceInfo lSpaceInfo = KDiskFreeSpaceInfo::freeSpaceInfo(mDestinationPath);
 		if(lSpaceInfo.isValid())
 			mPlan->mLastAvailableSpace = (double)lSpaceInfo.available();
@@ -146,7 +146,7 @@ void FSExecutor::slotBackupSizeDone(KJob *pJob) {
 		KNotification::event(KNotification::Error, xi18nc("@title:window", "Problem"), pJob->errorText());
 		mPlan->mLastBackupSize = -1.0; //unknown size
 	} else {
-		KIO::DirectorySizeJob *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);
+		auto *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);
 		mPlan->mLastBackupSize = (double)lSizeJob->totalSize();
 	}
 	mPlan->save();

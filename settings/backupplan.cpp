@@ -127,7 +127,7 @@ QDateTime BackupPlan::nextScheduledTime() {
 	return mLastCompleteBackup.addSecs(scheduleIntervalInSeconds());
 }
 
-int BackupPlan::scheduleIntervalInSeconds() {
+qint64 BackupPlan::scheduleIntervalInSeconds() {
 	Q_ASSERT(mScheduleType == 1);
 
 	switch(mScheduleIntervalUnit) {
@@ -152,12 +152,12 @@ BackupPlan::Status BackupPlan::backupStatus() {
 		return NO_STATUS;
 	}
 
-	int lStatus = 5; //trigger BAD status if schedule type is something strange
-	int lInterval = 1;
+	qint64 lStatus = 5; //trigger BAD status if schedule type is something strange
+	qint64 lInterval = 1;
 
 	switch(mScheduleType) {
 	case INTERVAL:
-		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTime().toUTC());
+		lStatus = mLastCompleteBackup.secsTo(QDateTime::currentDateTimeUtc());
 		lInterval = scheduleIntervalInSeconds();
 		break;
 	case USAGE:
@@ -168,10 +168,9 @@ BackupPlan::Status BackupPlan::backupStatus() {
 
 	if(lStatus < lInterval)
 		return GOOD;
-	else if(lStatus < lInterval * 3)
+	if(lStatus < lInterval * 3)
 		return MEDIUM;
-	else
-		return BAD;
+	return BAD;
 }
 
 QString BackupPlan::iconName(Status pStatus) {
@@ -183,9 +182,9 @@ QString BackupPlan::iconName(Status pStatus) {
 	case BAD:
 		return QStringLiteral("security-low");
 	case NO_STATUS:
-		return QStringLiteral("");
+		break;
 	}
-	return QStringLiteral("");
+	return QString();
 }
 
 void BackupPlan::usrRead() {

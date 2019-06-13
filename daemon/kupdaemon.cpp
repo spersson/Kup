@@ -140,7 +140,7 @@ void KupDaemon::reloadConfig() {
 }
 
 // This method is exposed over DBus so that filedigger can call it
-void KupDaemon::runIntegrityCheck(QString pPath) {
+void KupDaemon::runIntegrityCheck(const QString& pPath) {
 	foreach(PlanExecutor *lExecutor, mExecutors) {
 		// if caller passes in an empty path, startsWith will return true and we will try to check
 		// all backup plans.
@@ -308,7 +308,7 @@ void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 	lStatus["any plan busy"] = lAnyPlanBusy;
 	lStatus["no plan reason"] = mExecutors.isEmpty()
 	      ? i18n("No backup plans configured")
-	       : QStringLiteral("");
+	       : QString();
 	QJsonArray lPlans;
 	foreach(PlanExecutor *lExecutor, mExecutors) {
 		QJsonObject lPlan;
@@ -317,7 +317,7 @@ void KupDaemon::sendStatus(QLocalSocket *pSocket) {
 		lPlan[QStringLiteral("status heading")] = lExecutor->currentActivityTitle();
 		lPlan[QStringLiteral("status details")] = lExecutor->mPlan->statusText();
 		lPlan[QStringLiteral("icon name")] = BackupPlan::iconName(lExecutor->mPlan->backupStatus());
-		lPlan[QStringLiteral("log file exists")] = QFileInfo(lExecutor->mLogFilePath).exists();
+		lPlan[QStringLiteral("log file exists")] = QFileInfo::exists(lExecutor->mLogFilePath);
 		lPlan[QStringLiteral("busy")] = lExecutor->busy();
 		lPlans.append(lPlan);
 	}

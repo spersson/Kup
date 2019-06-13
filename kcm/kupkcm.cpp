@@ -44,7 +44,7 @@
 K_PLUGIN_FACTORY(KupKcmFactory, registerPlugin<KupKcm>();)
 
 KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
-   : KCModule(pParent, pArgs)
+    : KCModule(pParent, pArgs)
 {
 	KAboutData lAbout(QStringLiteral("kcm_kup"), i18n("Kup Configuration Module"),
 	                  QStringLiteral("0.7.3"),
@@ -91,7 +91,7 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 		                               "<li>rsync, for synchronized backups</li></ul>");
 		QLabel *lSorryText = new QLabel(lInstallMessage);
 		lSorryText->setWordWrap(true);
-		QHBoxLayout *lHLayout = new QHBoxLayout;
+		auto *lHLayout = new QHBoxLayout;
 		lHLayout->addWidget(lSorryIcon);
 		lHLayout->addWidget(lSorryText, 1);
 		setLayout(lHLayout);
@@ -118,7 +118,7 @@ KupKcm::KupKcm(QWidget *pParent, const QVariantList &pArgs)
 
 QSize KupKcm::sizeHint() const {
 	int lBaseWidth = fontMetrics().width('M');
-	return QSize(lBaseWidth * 65, lBaseWidth * 35);
+	return {lBaseWidth * 65, lBaseWidth * 35};
 }
 
 void KupKcm::load() {
@@ -214,9 +214,9 @@ void KupKcm::showFrontPage() {
 
 void KupKcm::createSettingsFrontPage() {
 	mFrontPage = new QWidget;
-	QHBoxLayout *lHLayout = new QHBoxLayout;
-	QVBoxLayout *lVLayout = new QVBoxLayout;
-	QScrollArea *lScrollArea = new QScrollArea;
+	auto *lHLayout = new QHBoxLayout;
+	auto *lVLayout = new QVBoxLayout;
+	auto *lScrollArea = new QScrollArea;
 	QWidget *lCentralWidget = new QWidget(lScrollArea);
 	mVerticalLayout = new QVBoxLayout;
 	lScrollArea->setWidget(lCentralWidget);
@@ -224,7 +224,7 @@ void KupKcm::createSettingsFrontPage() {
 	lScrollArea->setFrameStyle(QFrame::NoFrame);
 
 	QPushButton *lAddPlanButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-add")),
-	                                             xi18nc("@action:button", "Add New Plan"));
+	                                              xi18nc("@action:button", "Add New Plan"));
 	connect(lAddPlanButton, &QPushButton::clicked, [this]{
 		mPlans.append(new BackupPlan(mPlans.count() + 1, mConfig, this));
 		mConfigManagers.append(nullptr);
@@ -254,13 +254,13 @@ void KupKcm::createSettingsFrontPage() {
 }
 
 void KupKcm::createPlanWidgets(int pIndex) {
-	BackupPlanWidget *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion,
-	                                                     mRsyncVersion, mPar2Available);
+	auto *lPlanWidget = new BackupPlanWidget(mPlans.at(pIndex), mBupVersion,
+	                                         mRsyncVersion, mPar2Available);
 	connect(lPlanWidget, SIGNAL(requestOverviewReturn()), this, SLOT(showFrontPage()));
-	KConfigDialogManager *lConfigManager = new KConfigDialogManager(lPlanWidget, mPlans.at(pIndex));
+	auto *lConfigManager = new KConfigDialogManager(lPlanWidget, mPlans.at(pIndex));
 	lConfigManager->setObjectName(objectName());
 	connect(lConfigManager, SIGNAL(widgetModified()), this, SLOT(updateChangedStatus()));
-	PlanStatusWidget *lStatusWidget = new PlanStatusWidget(mPlans.at(pIndex));
+	auto *lStatusWidget = new PlanStatusWidget(mPlans.at(pIndex));
 	connect(lStatusWidget, &PlanStatusWidget::removeMe, [=]{
 		if(pIndex < mSettings->mNumberOfPlans)
 			partiallyRemovePlan(pIndex);

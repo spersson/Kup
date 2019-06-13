@@ -31,7 +31,7 @@ class KupJob : public Plasma::ServiceJob
 
 public:
 	KupJob(int pPlanNumber, QLocalSocket *pSocket, const QString &pOperation,
-	       QMap<QString, QVariant> &pParameters, QObject *pParent = 0);
+	       QMap<QString, QVariant> &pParameters, QObject *pParent = nullptr);
 
 protected:
 	void start() override;

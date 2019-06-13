@@ -57,7 +57,7 @@ void EDExecutor::deviceAdded(const QString &pUdi) {
 	if(!lDevice.is<Solid::StorageVolume>()) {
 		return;
 	}
-	Solid::StorageVolume *lVolume = lDevice.as<Solid::StorageVolume>();
+	auto *lVolume = lDevice.as<Solid::StorageVolume>();
 	QString lUUID = lVolume->uuid();
 	if(lUUID.isEmpty()) { //seems to happen for vfat partitions
 		Solid::Device lDriveDevice;
@@ -142,10 +142,10 @@ void EDExecutor::slotBackupDone(KJob *pJob) {
 		exitBackupRunningState(false);
 	} else {
 		notifyBackupSucceeded();
-		mPlan->mLastCompleteBackup = QDateTime::currentDateTime().toUTC();
+		mPlan->mLastCompleteBackup = QDateTime::currentDateTimeUtc();
 		KDiskFreeSpaceInfo lSpaceInfo = KDiskFreeSpaceInfo::freeSpaceInfo(mDestinationPath);
 		if(lSpaceInfo.isValid())
-			mPlan->mLastAvailableSpace = (double)lSpaceInfo.available();
+			mPlan->mLastAvailableSpace = static_cast<double>(lSpaceInfo.available());
 		else
 			mPlan->mLastAvailableSpace = -1.0; //unknown size
 
@@ -160,8 +160,8 @@ void EDExecutor::slotBackupSizeDone(KJob *pJob) {
 		KNotification::event(KNotification::Error, xi18nc("@title:window", "Problem"), pJob->errorText());
 		mPlan->mLastBackupSize = -1.0; //unknown size
 	} else {
-		KIO::DirectorySizeJob *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);
-		mPlan->mLastBackupSize = (double)lSizeJob->totalSize();
+		auto *lSizeJob = qobject_cast<KIO::DirectorySizeJob *>(pJob);
+		mPlan->mLastBackupSize = static_cast<double>(lSizeJob->totalSize());
 	}
 	mPlan->save();
 	exitBackupRunningState(pJob->error() == 0);

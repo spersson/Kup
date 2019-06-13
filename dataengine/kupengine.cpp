@@ -44,9 +44,8 @@ Plasma::Service *KupEngine::serviceForSource(const QString &pSource) {
 	int lPlanNumber = pSource.toInt(&lIntOk);
 	if(lIntOk) {
 		return new KupService(lPlanNumber, mSocket, this);
-	} else {
-		return nullptr;
 	}
+	return nullptr;
 }
 
 void KupEngine::processData() {

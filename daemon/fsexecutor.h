@@ -56,7 +56,7 @@ Q_OBJECT
 
 public:
 	FSExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon);
-	~FSExecutor();
+	~FSExecutor() override;
 
 public slots:
 	void checkStatus() override;

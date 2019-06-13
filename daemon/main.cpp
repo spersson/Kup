@@ -37,7 +37,7 @@ extern "C" int Q_DECL_EXPORT kdemain(int argc, char *argv[]) {
 
 	qCDebug(KUPDAEMON) << "Running Kup daemon...";
 
-	KupDaemon *lDaemon = new KupDaemon();
+	auto *lDaemon = new KupDaemon();
 	if(!lDaemon->shouldStart()) {
 		qCCritical(KUPDAEMON) << xi18nc("@info:shell Error message at startup",
 										"Kup is not enabled, enable it from the "

@@ -33,7 +33,7 @@ class KupService : public Plasma::Service
 	Q_OBJECT
 
 public:
-	 KupService(int pPlanNumber, QLocalSocket *pSocket, QObject *pParent = 0);
+	 KupService(int pPlanNumber, QLocalSocket *pSocket, QObject *pParent = nullptr);
 	 ServiceJob *createJob(const QString &pOperation, QMap<QString, QVariant> &pParameters) override;
 
 protected:

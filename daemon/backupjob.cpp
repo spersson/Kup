@@ -32,7 +32,7 @@
 #include <QTimer>
 
 BackupJob::BackupJob(const BackupPlan &pBackupPlan, const QString &pDestinationPath, const QString &pLogFilePath, KupDaemon *pKupDaemon)
-   :KJob(), mBackupPlan(pBackupPlan), mDestinationPath(pDestinationPath), mLogFilePath(pLogFilePath), mKupDaemon(pKupDaemon)
+   :mBackupPlan(pBackupPlan), mDestinationPath(pDestinationPath), mLogFilePath(pLogFilePath), mKupDaemon(pKupDaemon)
 {
 	mLogFile.setFileName(mLogFilePath);
 	mLogFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
@@ -49,7 +49,7 @@ void BackupJob::makeNice(int pPid) {
 	// See linux documentation Documentation/block/ioprio.txt for details of the syscall
 	syscall(SYS_ioprio_set, 1, pPid, 3 << 13 | 7);
 #endif
-	setpriority(PRIO_PROCESS, pPid, 19);
+	setpriority(PRIO_PROCESS, static_cast<uint>(pPid), 19);
 }
 
 QString BackupJob::quoteArgs(const QStringList &pCommand) {

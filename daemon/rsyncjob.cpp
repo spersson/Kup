@@ -21,7 +21,7 @@
 #include "rsyncjob.h"
 #include "kuputils.h"
 
-#include <signal.h>
+#include <csignal>
 
 #include <QRegularExpression>
 #include <QTextStream>
@@ -119,11 +119,12 @@ void RsyncJob::slotRsyncFinished(int pExitCode, QProcess::ExitStatus pExitStatus
 }
 
 void RsyncJob::slotReadRsyncOutput() {
-	bool lValidInfo = false, lValidFileName = false;
+	bool lValidInfo = false;
+	bool lValidFileName = false;
 	QString lFileName;
-	ulong lPercent;
-	qulonglong lTransfered;
-	double lSpeed;
+	ulong lPercent{};
+	qulonglong lTransfered{};
+	double lSpeed{};
 	QChar lUnit;
 	QRegularExpression lProgressInfoExp(QStringLiteral("^\\s+([\\d,\\.]+)\\s+(\\d+)%\\s+(\\d*[,\\.]\\d+)(\\S)"));
 	// very ugly and rough indication that this is a file path... what else to do..
@@ -136,7 +137,7 @@ void RsyncJob::slotReadRsyncOutput() {
 		if(lMatch.hasMatch()) {
 			lValidInfo = true;
 			lTransfered = lMatch.captured(1).remove(',').remove('.').toULongLong();
-			lPercent = qMax(lMatch.captured(2).toULong(), (ulong)1);
+			lPercent = qMax(lMatch.captured(2).toULong(), 1UL);
 			lSpeed = QLocale().toDouble(lMatch.captured(3));
 			lUnit = lMatch.captured(4).at(0);
 		} else {
@@ -157,7 +158,7 @@ void RsyncJob::slotReadRsyncOutput() {
 			} else if(lUnit == 'G') {
 				lSpeed *= 1e9;
 			}
-			emitSpeed(lSpeed);
+			emitSpeed(static_cast<ulong>(lSpeed));
 			if(lPercent > 5) { // the rounding to integer percent gives big error with small percentages
 				setProcessedAmount(KJob::Bytes, lTransfered);
 				setTotalAmount(KJob::Bytes, lTransfered*100/lPercent);

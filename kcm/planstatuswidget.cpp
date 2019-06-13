@@ -29,12 +29,12 @@
 #include <KLocalizedString>
 
 PlanStatusWidget::PlanStatusWidget(BackupPlan *pPlan, QWidget *pParent)
-   : QGroupBox(pParent), mPlan(pPlan)
+    : QGroupBox(pParent), mPlan(pPlan)
 {
-	QVBoxLayout *lVLayout1 = new QVBoxLayout;
-	QVBoxLayout *lVLayout2 = new QVBoxLayout;
-	QHBoxLayout *lHLayout1 = new QHBoxLayout;
-	QHBoxLayout *lHLayout2 = new QHBoxLayout;
+	auto *lVLayout1 = new QVBoxLayout;
+	auto *lVLayout2 = new QVBoxLayout;
+	auto *lHLayout1 = new QHBoxLayout;
+	auto *lHLayout2 = new QHBoxLayout;
 
 	mDescriptionLabel = new QLabel(mPlan->mDescription);
 	QFont lDescriptionFont = mDescriptionLabel->font();

@@ -227,25 +227,21 @@ FolderSelectionModel::InclusionState FolderSelectionModel::inclusionState(const 
 	if(mIncludedPaths.contains(pPath)) {
 		return StateIncluded;
 	}
-	else if(mExcludedPaths.contains(pPath)) {
+	if(mExcludedPaths.contains(pPath)) {
 		return StateExcluded;
 	}
-	else {
-		QString lParent = pPath.section(QDir::separator(), 0, -2, QString::SectionSkipEmpty|QString::SectionIncludeLeadingSep);
-		if(lParent.isEmpty()) {
-			return StateNone;
-		}
-		else {
-			InclusionState state = inclusionState(lParent);
-			if(state == StateNone) {
-				return StateNone;
-			} else if(state == StateIncluded || state == StateIncludeInherited) {
-				return StateIncludeInherited;
-			} else {
-				return StateExcludeInherited;
-			}
-		}
+	QString lParent = pPath.section(QDir::separator(), 0, -2, QString::SectionSkipEmpty|QString::SectionIncludeLeadingSep);
+	if(lParent.isEmpty()) {
+		return StateNone;
 	}
+	InclusionState state = inclusionState(lParent);
+	if(state == StateNone) {
+		return StateNone;
+	}
+	if(state == StateIncluded || state == StateIncludeInherited) {
+		return StateIncludeInherited;
+	}
+	return StateExcludeInherited;
 }
 
 bool FolderSelectionModel::hiddenFoldersVisible() const {

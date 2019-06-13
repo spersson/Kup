@@ -55,7 +55,7 @@ DriveSelection::DriveSelection(BackupPlan *pBackupPlan, QWidget *parent)
 	setWordWrap(true);
 
 	if(!mBackupPlan->mExternalUUID.isEmpty()) {
-		QStandardItem *lItem = new QStandardItem();
+		auto *lItem = new QStandardItem();
 		lItem->setEditable(false);
 		lItem->setData(QString(), DriveSelection::UDI);
 		lItem->setData(mBackupPlan->mExternalUUID, DriveSelection::UUID);
@@ -84,7 +84,7 @@ QString DriveSelection::mountPathOfSelectedDrive() const {
 		findItem(DriveSelection::UUID, mSelectedUuid, &lItem);
 		if(lItem != nullptr) {
 			Solid::Device lDevice(lItem->data(DriveSelection::UDI).toString());
-			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
+			auto *lAccess = lDevice.as<Solid::StorageAccess>();
 			if(lAccess) {
 				return lAccess->filePath();
 			}
@@ -98,7 +98,7 @@ void DriveSelection::deviceAdded(const QString &pUdi) {
 	if(!lDevice.is<Solid::StorageDrive>()) {
 		return;
 	}
-	Solid::StorageDrive *lDrive = lDevice.as<Solid::StorageDrive>();
+	auto *lDrive = lDevice.as<Solid::StorageDrive>();
 	if(!lDrive->isHotpluggable() && !lDrive->isRemovable()) {
 		return;
 	}
@@ -124,7 +124,7 @@ void DriveSelection::delayedDeviceAdded() {
 	// filter out some volumes that should not be visible
 	QList<Solid::Device> lVolumeDeviceList;
 	foreach(Solid::Device lVolumeDevice, lDeviceList) {
-		Solid::StorageVolume *lVolume = lVolumeDevice.as<Solid::StorageVolume>();
+		auto *lVolume = lVolumeDevice.as<Solid::StorageVolume>();
 		if(lVolume && !lVolume->isIgnored() && (
 		         lVolume->usage() == Solid::StorageVolume::FileSystem ||
 		         lVolume->usage() == Solid::StorageVolume::Encrypted)) {
@@ -137,7 +137,7 @@ void DriveSelection::delayedDeviceAdded() {
 
 	int lPartitionNumber = 1;
 	foreach(Solid::Device lVolumeDevice, lVolumeDeviceList) {
-		Solid::StorageVolume *lVolume = lVolumeDevice.as<Solid::StorageVolume>();
+		auto *lVolume = lVolumeDevice.as<Solid::StorageVolume>();
 		QString lUuid = lVolume->uuid();
 		if(lUuid.isEmpty()) { //seems to happen for vfat partitions
 			lUuid += lParentDevice.description();
@@ -167,7 +167,7 @@ void DriveSelection::delayedDeviceAdded() {
 		lItem->setData(mSyncedBackupType && lVolume->fsType() == QStringLiteral("vfat"),
 		               DriveSelection::SymlinkLossWarning);
 
-		Solid::StorageAccess *lAccess = lVolumeDevice.as<Solid::StorageAccess>();
+		auto *lAccess = lVolumeDevice.as<Solid::StorageAccess>();
 		connect(lAccess, SIGNAL(accessibilityChanged(bool,QString)), SLOT(accessabilityChanged(bool,QString)));
 		if(lAccess->isAccessible()) {
 			KDiskFreeSpaceInfo lInfo = KDiskFreeSpaceInfo::freeSpaceInfo(lAccess->filePath());
@@ -219,7 +219,7 @@ void DriveSelection::accessabilityChanged(bool pAccessible, const QString &pUdi)
 	if(lItem != nullptr) {
 		if(pAccessible) {
 			Solid::Device lDevice(pUdi);
-			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
+			auto *lAccess = lDevice.as<Solid::StorageAccess>();
 			if(lAccess) {
 				KDiskFreeSpaceInfo lInfo = KDiskFreeSpaceInfo::freeSpaceInfo(lAccess->filePath());
 				if(lInfo.isValid()) {
@@ -250,7 +250,7 @@ void DriveSelection::updateSelection(const QItemSelection &pSelected, const QIte
 		QString lUdiOfSelected = lIndex.data(DriveSelection::UDI).toString();
 		if(!lUdiOfSelected.isEmpty()) {
 			Solid::Device lDevice(lUdiOfSelected);
-			Solid::StorageAccess *lAccess = lDevice.as<Solid::StorageAccess>();
+			auto *lAccess = lDevice.as<Solid::StorageAccess>();
 			if(lAccess != nullptr) {
 				lIsAccessible = lAccess->isAccessible();
 			}
@@ -281,7 +281,8 @@ void DriveSelection::paintEvent(QPaintEvent *pPaintEvent) {
 void DriveSelection::setSelectedDrive(const QString &pUuid) {
 	if(pUuid == mSelectedUuid) {
 		return;
-	} else if(pUuid.isEmpty()) {
+	}
+	if(pUuid.isEmpty()) {
 		clearSelection();
 	} else {
 		QStandardItem *lItem;

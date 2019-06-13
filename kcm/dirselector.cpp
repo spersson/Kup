@@ -48,7 +48,7 @@ QUrl DirSelector::url() const {
 void DirSelector::createNewFolder() {
 	bool lUserAccepted;
 	QString lNameSuggestion = xi18nc("default folder name when creating a new folder", "New Folder");
-	if(QFileInfo(url().adjusted(QUrl::StripTrailingSlash).path() + '/' + lNameSuggestion).exists()) {
+	if(QFileInfo::exists(url().adjusted(QUrl::StripTrailingSlash).path() + '/' + lNameSuggestion)) {
 		lNameSuggestion = KIO::suggestName(url(), lNameSuggestion);
 	}
 

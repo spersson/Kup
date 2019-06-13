@@ -44,7 +44,7 @@ static QString sPwrMgmtInterface = QStringLiteral("org.freedesktop.PowerManageme
 PlanExecutor::PlanExecutor(BackupPlan *pPlan, KupDaemon *pKupDaemon)
    :QObject(pKupDaemon), mState(NOT_AVAILABLE), mPlan(pPlan), mQuestion(nullptr),
      mFailNotification(nullptr), mIntegrityNotification(nullptr), mRepairNotification(nullptr),
-     mKupDaemon(pKupDaemon), mSleepCookie(0)
+     mLastState(NOT_AVAILABLE), mKupDaemon(pKupDaemon), mSleepCookie(0)
 {
 	QString lCachePath = QString::fromLocal8Bit(qgetenv("XDG_CACHE_HOME").constData());
 	if(lCachePath.isEmpty()) {
@@ -79,20 +79,19 @@ QString PlanExecutor::currentActivityTitle() {
 		return i18nc("status in tooltip", "Checking backup integrity");
 	case REPAIRING:
 		return i18nc("status in tooltip", "Repairing backups");
-	default:
-		switch (mPlan->backupStatus()) {
-		case BackupPlan::GOOD:
-			return i18nc("status in tooltip", "Backup status OK");
-		case BackupPlan::MEDIUM:
-			return i18nc("status in tooltip", "New backup suggested");
-		case BackupPlan::BAD:
-			return i18nc("status in tooltip", "New backup needed");
-		case BackupPlan::NO_STATUS:
-			return QStringLiteral("");
-		default:
-			return QString();
-		}
+	default:;
 	}
+
+	switch (mPlan->backupStatus()) {
+	case BackupPlan::GOOD:
+		return i18nc("status in tooltip", "Backup status OK");
+	case BackupPlan::MEDIUM:
+		return i18nc("status in tooltip", "New backup suggested");
+	case BackupPlan::BAD:
+		return i18nc("status in tooltip", "New backup needed");
+	default:;
+	}
+	return QString();
 }
 
 // dispatcher code for entering one of the available states
@@ -101,58 +100,46 @@ void PlanExecutor::enterAvailableState() {
 		mState = WAITING_FOR_FIRST_BACKUP; //initial child state of "Available" state
 		emit stateChanged();
 	}
-
-	bool lShouldBeTakenNow = false;
-	bool lShouldBeTakenLater = false;
-	int lTimeUntilNextWakeup;
-	QString lUserQuestion;
-	QDateTime lNow = QDateTime::currentDateTime().toUTC();
-
+	QDateTime lNow = QDateTime::currentDateTimeUtc();
 	switch(mPlan->mScheduleType) {
 	case BackupPlan::MANUAL:
 		break;
 	case BackupPlan::INTERVAL: {
 		QDateTime lNextTime = mPlan->nextScheduledTime();
 		if(!lNextTime.isValid() || lNextTime < lNow) {
-			lShouldBeTakenNow = true;
 			if(!mPlan->mLastCompleteBackup.isValid())
-				lUserQuestion = xi18nc("@info", "Do you want to save a first backup now?");
+				askUserOrStart(xi18nc("@info", "Do you want to save a first backup now?"));
 			else {
-				QString t = KFormat().formatSpelloutDuration(mPlan->mLastCompleteBackup.secsTo(lNow) * 1000);
-				lUserQuestion = xi18nc("@info", "It has been %1 since last backup was saved.\n"
-				                                "Save a new backup now?", t);
+				QString t = KFormat().formatSpelloutDuration(static_cast<quint64>(mPlan->mLastCompleteBackup.secsTo(lNow)) * 1000);
+				askUserOrStart(xi18nc("@info", "It has been %1 since last backup was saved.\n"
+				                               "Save a new backup now?", t));
 			}
 		} else {
-			lShouldBeTakenLater = true;
-			lTimeUntilNextWakeup = lNow.secsTo(lNextTime)*1000;
+			// schedule a wakeup for asking again when the time is right.
+			mSchedulingTimer->start(static_cast<int>(lNow.secsTo(lNextTime)*1000));
 		}
 		break;
 	}
 	case BackupPlan::USAGE:
 		if(!mPlan->mLastCompleteBackup.isValid()) {
-			lShouldBeTakenNow = true;
-			lUserQuestion = xi18nc("@info", "Do you want to save a first backup now?");
-		} else if(mPlan->mAccumulatedUsageTime > (quint32)mPlan->mUsageLimit * 3600) {
-			lShouldBeTakenNow = true;
+			askUserOrStart(xi18nc("@info", "Do you want to save a first backup now?"));
+		} else if(mPlan->mAccumulatedUsageTime > static_cast<quint32>(mPlan->mUsageLimit) * 3600) {
 			QString t = KFormat().formatSpelloutDuration(mPlan->mAccumulatedUsageTime * 1000);
-			lUserQuestion = xi18nc("@info", "You have been active for %1 since last backup was saved.\n"
-			                                "Save a new backup now?", t);
+			askUserOrStart(xi18nc("@info", "You have been active for %1 since last backup was saved.\n"
+			                               "Save a new backup now?", t));
 		}
 		break;
 	}
+}
 
-	if(lShouldBeTakenNow) {
-		// Only ask the first time after destination has become available.
-		// Always ask if power saving is active.
-		if( (mPlan->mAskBeforeTakingBackup && mState == WAITING_FOR_FIRST_BACKUP) ||
-		    powerSaveActive()) {
-			askUser(lUserQuestion);
-		} else {
-			startBackupSaveJob();
-		}
-	} else if(lShouldBeTakenLater){
-		// schedule a wakeup for asking again when the time is right.
-		mSchedulingTimer->start(lTimeUntilNextWakeup);
+void PlanExecutor::askUserOrStart(const QString& pUserQuestion) {
+	// Only ask the first time after destination has become available.
+	// Always ask if power saving is active.
+	if( (mPlan->mAskBeforeTakingBackup && mState == WAITING_FOR_FIRST_BACKUP) ||
+	    powerSaveActive()) {
+		askUser(pUserQuestion);
+	} else {
+		startBackupSaveJob();
 	}
 }
 
@@ -415,7 +402,8 @@ void PlanExecutor::showBackupFiles() {
 BackupJob *PlanExecutor::createBackupJob() {
 	if(mPlan->mBackupType == BackupPlan::BupType) {
 		return new BupJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
-	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
+	}
+	if(mPlan->mBackupType == BackupPlan::RsyncType) {
 		return new RsyncJob(*mPlan, mDestinationPath, mLogFilePath, mKupDaemon);
 	}
 	qCWarning(KUPDAEMON) << "Invalid backup type in configuration!";

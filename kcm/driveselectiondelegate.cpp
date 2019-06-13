@@ -47,8 +47,8 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 
 	QApplication::style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &pOption, pPainter);
 
-	KIO::filesize_t lTotalSize = pIndex.data(DriveSelection::TotalSpace).value<KIO::filesize_t>();
-	KIO::filesize_t lUsedSize = pIndex.data(DriveSelection::UsedSpace).value<KIO::filesize_t>();
+	auto lTotalSize = pIndex.data(DriveSelection::TotalSpace).value<KIO::filesize_t>();
+	auto lUsedSize = pIndex.data(DriveSelection::UsedSpace).value<KIO::filesize_t>();
 
 	bool lIsDisconnected = pIndex.data(DriveSelection::UDI).toString().isEmpty();
 
@@ -138,7 +138,7 @@ QRect DriveSelectionDelegate::warningRect(const QRect &pRect, const QModelIndex 
 	QRect lTextLocation = pRect.adjusted(cMargin, 5*cMargin + QApplication::fontMetrics().height(), -cMargin, -cMargin);
 	QString lWarningText = warningText(pIndex);
 	if(lWarningText.isEmpty()) {
-		return QRect();
+		return {};
 	}
 	QRect lTextBoundary = QApplication::fontMetrics().boundingRect(lTextLocation, Qt::TextWordWrap, lWarningText);
 	int lIconSize = 48;

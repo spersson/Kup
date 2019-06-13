@@ -72,7 +72,7 @@ public:
 	quint32 mAccumulatedUsageTime;
 
 	virtual QDateTime nextScheduledTime();
-	virtual int scheduleIntervalInSeconds();
+	virtual qint64 scheduleIntervalInSeconds();
 
 	enum Status {GOOD, MEDIUM, BAD, NO_STATUS};
 	Status backupStatus();

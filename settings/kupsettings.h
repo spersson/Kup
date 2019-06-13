@@ -28,7 +28,7 @@ class KupSettings : public KCoreConfigSkeleton
 {
 	Q_OBJECT
 public:
-	explicit KupSettings(KSharedConfigPtr pConfig, QObject *pParent = 0);
+	explicit KupSettings(KSharedConfigPtr pConfig, QObject *pParent = nullptr);
 
 	// Common enable of backup plans
 	bool mBackupsEnabled;

@@ -29,7 +29,7 @@ class DirSelector : public QTreeView
 {
 	Q_OBJECT
 public:
-	explicit DirSelector(QWidget *pParent = 0);
+	explicit DirSelector(QWidget *pParent = nullptr);
 	QUrl url() const;
 
 signals:
