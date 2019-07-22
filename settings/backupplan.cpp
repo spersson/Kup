@@ -44,6 +44,7 @@ BackupPlan::BackupPlan(int pPlanNumber, KSharedConfigPtr pConfig, QObject *pPare
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.bup");
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.thumbnails");
 	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.local/share/Trash");
+	lDefaultExcludeList << QDir::homePath() + QStringLiteral("/.local/share/baloo");
 	QMutableStringListIterator i(lDefaultExcludeList);
 	while(i.hasNext()) {
 		ensureNoTrailingSlash(i.next());
