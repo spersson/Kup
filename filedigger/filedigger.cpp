@@ -60,7 +60,7 @@ void FileDigger::updateVersionModel(const QModelIndex &pCurrent, const QModelInd
 
 void FileDigger::open(const QModelIndex &pIndex) {
 	KRun::runUrl(pIndex.data(VersionBupUrlRole).value<QUrl>(),
-	             pIndex.data(VersionMimeTypeRole).toString(), this);
+	             pIndex.data(VersionMimeTypeRole).toString(), this, KRun::RunFlags());
 
 }
 
@@ -149,7 +149,7 @@ void FileDigger::createRepoView(MergedRepository *pRepository) {
 			break;
 		}
 	}
-	mMergedVfsView->selectionModel()->setCurrentIndex(lIndex.child(0,0), QItemSelectionModel::Select);
+	mMergedVfsView->selectionModel()->setCurrentIndex(mMergedVfsModel->index(0, 0, lIndex), QItemSelectionModel::Select);
 	setCentralWidget(lSplitter);
 }
 

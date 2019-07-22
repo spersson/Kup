@@ -35,7 +35,6 @@ class DirSelector;
 class KFileWidget;
 class KMessageWidget;
 class KWidgetJobTracker;
-class QSignalMapper;
 class QTreeWidget;
 
 class RestoreDialog : public QDialog
@@ -79,7 +78,6 @@ private:
 	quint64 mDestinationSize; //size of files about to be overwritten
 	quint64 mSourceSize; //size of files about to be read
 	KMessageWidget *mMessageWidget;
-	QSignalMapper *mSignalMapper;
 	QString mSavedWorkingDirectory;
 	QString mSourceFileName;
 	QHash<QString, quint64> mFileSizes;

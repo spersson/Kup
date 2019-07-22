@@ -133,7 +133,7 @@ void DriveSelection::delayedDeviceAdded() {
 	}
 
 	// simplest attempt at getting the same partition numbering every time a device is plugged in
-	qSort(lVolumeDeviceList.begin(), lVolumeDeviceList.end(), deviceLessThan);
+	std::sort(lVolumeDeviceList.begin(), lVolumeDeviceList.end(), deviceLessThan);
 
 	int lPartitionNumber = 1;
 	foreach(Solid::Device lVolumeDevice, lVolumeDeviceList) {

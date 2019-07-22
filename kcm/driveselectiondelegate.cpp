@@ -78,7 +78,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 		if(lTotalSize > 0) {
 			QString lFreeSpace = xi18nc("@label %1 is amount of free storage space of hard drive","%1 free",
 			                            lFormat.formatByteSize(lTotalSize - lUsedSize));
-			int lTextWidth = QApplication::fontMetrics().width(lFreeSpace);
+			int lTextWidth = QApplication::fontMetrics().horizontalAdvance(lFreeSpace);
 			lTextEnd -= lTextWidth + cMargin;
 			QPoint lOffset = QPoint(-cMargin - lTextWidth, cMargin + QApplication::fontMetrics().height());
 			pPainter->drawText(pOption.rect.topRight() + lOffset, lFreeSpace);
@@ -124,7 +124,7 @@ void DriveSelectionDelegate::paint(QPainter* pPainter, const QStyleOptionViewIte
 QSize DriveSelectionDelegate::sizeHint(const QStyleOptionViewItem& pOption, const QModelIndex& pIndex) const {
 	Q_UNUSED(pOption)
 	QSize lSize;
-	lSize.setWidth(cMargin*2 + QApplication::fontMetrics().width(pIndex.data().toString()));
+	lSize.setWidth(cMargin*2 + QApplication::fontMetrics().horizontalAdvance(pIndex.data().toString()));
 	lSize.setHeight(cMargin*5 + QApplication::fontMetrics().height());
 	int lIconSize = 48;
 	QRect lWarningRect = warningRect(mListView->rect().adjusted(lIconSize + cMargin, 0, 0, 0), pIndex);

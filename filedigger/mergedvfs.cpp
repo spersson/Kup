@@ -200,9 +200,9 @@ void MergedNode::generateSubNodes() {
 		}
 		git_tree_free(lTree);
 	}
-	qSort(mSubNodes->begin(), mSubNodes->end(), mergedNodeLessThan);
+	std::sort(mSubNodes->begin(), mSubNodes->end(), mergedNodeLessThan);
 	foreach(MergedNode *lNode, *mSubNodes) {
-		qSort(lNode->mVersionList.begin(), lNode->mVersionList.end(), versionGreaterThan);
+		std::sort(lNode->mVersionList.begin(), lNode->mVersionList.end(), versionGreaterThan);
 	}
 }
 

@@ -473,7 +473,7 @@ BackupPlanWidget::BackupPlanWidget(BackupPlan *pBackupPlan, const QString &pBupV
 {
 	mDescriptionEdit = new KLineEdit;
 	mDescriptionEdit->setObjectName(QStringLiteral("kcfg_Description"));
-	mDescriptionEdit->setClearButtonShown(true);
+	mDescriptionEdit->setClearButtonEnabled(true);
 	QLabel *lDescriptionLabel = new QLabel(xi18nc("@label", "Description:"));
 	lDescriptionLabel->setBuddy(mDescriptionEdit);
 	mConfigureButton = new QPushButton(QIcon::fromTheme(QStringLiteral("go-previous-view")),
@@ -645,7 +645,7 @@ KPageWidgetItem *BackupPlanWidget::createDestinationPage() {
 	mDriveDestEdit->setObjectName(QStringLiteral("kcfg_External drive destination path"));
 	mDriveDestEdit->setToolTip(xi18nc("@info:tooltip",
 	                                  "The specified folder will be created if it does not exist."));
-	mDriveDestEdit->setClearButtonShown(true);
+	mDriveDestEdit->setClearButtonEnabled(true);
 	QLabel *lDriveDestLabel = new QLabel(xi18nc("@label:textbox", "Folder on Destination Drive:"));
 	lDriveDestLabel->setToolTip(xi18nc("@info:tooltip",
 	                                   "The specified folder will be created if it does not exist."));

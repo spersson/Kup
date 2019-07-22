@@ -38,7 +38,6 @@
 #include <QDir>
 #include <QInputDialog>
 #include <QPushButton>
-#include <QSignalMapper>
 #include <QTimer>
 
 #define KUP_TMP_RESTORE_FOLDER QStringLiteral("_kup_temporary_restore_folder_")
@@ -68,14 +67,8 @@ RestoreDialog::RestoreDialog(const BupSourceInfo &pPathInfo, QWidget *parent)
 	mUI->mTopLevelVLayout->insertWidget(0, mMessageWidget);
 	connect(mUI->mDestBackButton, SIGNAL(clicked()), mMessageWidget, SLOT(hide()));
 	connect(mUI->mDestNextButton, SIGNAL(clicked()), SLOT(checkDestinationSelection()));
-
-	mSignalMapper = new QSignalMapper(this);
-	connect(mSignalMapper, SIGNAL(mapped(int)), mUI->mStackedWidget, SLOT(setCurrentIndex(int)));
-	mSignalMapper->setMapping(mUI->mDestBackButton, 0);
-	connect(mUI->mDestBackButton, SIGNAL(clicked()), mSignalMapper, SLOT(map()));
-	mSignalMapper->setMapping(mUI->mOverwriteBackButton, 0);
-	connect(mUI->mOverwriteBackButton, SIGNAL(clicked()), mSignalMapper, SLOT(map()));
-
+	connect(mUI->mDestBackButton, &QPushButton::clicked, [=]{mUI->mStackedWidget->setCurrentIndex(0);});
+	connect(mUI->mOverwriteBackButton, &QPushButton::clicked, [=]{mUI->mStackedWidget->setCurrentIndex(0);});
 	connect(mUI->mConfirmButton, SIGNAL(clicked()), SLOT(fileOverwriteConfirmed()));
 	connect(mUI->mOpenDestinationButton, SIGNAL(clicked()), SLOT(openDestinationFolder()));
 }
@@ -235,7 +228,7 @@ void RestoreDialog::collectSourceListing(KIO::Job *pJob, const KIO::UDSEntryList
 			}
 		} else {
 			if(!it->isLink()) {
-				quint64 lEntrySize = it->numberValue(KIO::UDSEntry::UDS_SIZE);
+				quint64 lEntrySize = static_cast<quint64>(it->numberValue(KIO::UDSEntry::UDS_SIZE));
 				mSourceSize += lEntrySize;
 				mFileSizes.insert(mSourceFileName + QDir::separator() + lEntryName, lEntrySize);
 			}
@@ -277,7 +270,7 @@ void RestoreDialog::completePrechecks() {
 	} else if(mUI->mFileConflictList->count() > 0) {
 		qCDebug(KUPFILEDIGGER) << "Detected file conflicts.";
 		if(mSourceInfo.mIsDirectory) {
-			QString lDateString = QLocale().toString(QDateTime::fromTime_t(mSourceInfo.mCommitTime).toLocalTime());
+			QString lDateString = QLocale().toString(QDateTime::fromTime_t(static_cast<uint>(mSourceInfo.mCommitTime)).toLocalTime());
 			lDateString.replace(QLatin1Char('/'), QLatin1Char('-')); // make sure no slashes in suggested folder name
 			mUI->mNewFolderNameEdit->setText(mSourceFileName +
 			                                 xi18nc("added to the suggested filename when restoring, %1 is the time when backup was taken",
@@ -320,7 +313,7 @@ void RestoreDialog::startRestoring() {
 	QString lSourcePath(QDir::separator());
 	lSourcePath.append(mSourceInfo.mBranchName);
 	lSourcePath.append(QDir::separator());
-	QDateTime lCommitTime = QDateTime::fromTime_t(mSourceInfo.mCommitTime);
+	QDateTime lCommitTime = QDateTime::fromTime_t(static_cast<uint>(mSourceInfo.mCommitTime));
 	lSourcePath.append(lCommitTime.toString(QStringLiteral("yyyy-MM-dd-hhmmss")));
 	lSourcePath.append(mSourceInfo.mPathInRepo);
 	qCDebug(KUPFILEDIGGER) << "Starting restore. Source path: " << lSourcePath << ", restore path: " << mRestorationPath;
@@ -410,7 +403,7 @@ void RestoreDialog::openDestinationFolder() {
 	KRun::runUrl(QUrl::fromLocalFile(mSourceInfo.mIsDirectory ?
 	                                    mFolderToCreate.absoluteFilePath() :
 	                                    mDestination.absolutePath()),
-	             QStringLiteral("inode/directory"), nullptr);
+	             QStringLiteral("inode/directory"), nullptr, KRun::RunFlags());
 }
 
 void RestoreDialog::moveFolder() {

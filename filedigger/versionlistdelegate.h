@@ -23,7 +23,6 @@
 
 #include <QAbstractItemDelegate>
 #include <QParallelAnimationGroup>
-#include <QSignalMapper>
 
 
 class Button : public QObject {

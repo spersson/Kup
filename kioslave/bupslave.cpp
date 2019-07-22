@@ -352,9 +352,9 @@ QString BupSlave::getGroupName(gid_t pGid) {
 
 void BupSlave::createUDSEntry(Node *pNode, UDSEntry &pUDSEntry, int pDetails) {
 	pUDSEntry.clear();
-	pUDSEntry.insert(KIO::UDSEntry::UDS_NAME, pNode->objectName());
+	pUDSEntry.fastInsert(KIO::UDSEntry::UDS_NAME, pNode->objectName());
 	if(!pNode->mSymlinkTarget.isEmpty()) {
-		pUDSEntry.insert(KIO::UDSEntry::UDS_LINK_DEST, pNode->mSymlinkTarget);
+		pUDSEntry.fastInsert(KIO::UDSEntry::UDS_LINK_DEST, pNode->mSymlinkTarget);
 		if(pDetails > 1) {
 			Node *lNode = qobject_cast<Node *>(pNode->parent())->resolve(pNode->mSymlinkTarget, true);
 			if(lNode != nullptr) { // follow symlink only if details > 1 and it leads to something
@@ -362,20 +362,20 @@ void BupSlave::createUDSEntry(Node *pNode, UDSEntry &pUDSEntry, int pDetails) {
 			}
 		}
 	}
-	pUDSEntry.insert(KIO::UDSEntry::UDS_FILE_TYPE, pNode->mMode & S_IFMT);
-	pUDSEntry.insert(KIO::UDSEntry::UDS_ACCESS, pNode->mMode & 07777);
+	pUDSEntry.fastInsert(KIO::UDSEntry::UDS_FILE_TYPE, pNode->mMode & S_IFMT);
+	pUDSEntry.fastInsert(KIO::UDSEntry::UDS_ACCESS, pNode->mMode & 07777);
 	if(pDetails > 0) {
         quint64 lSize = 0;
 		File *lFile = qobject_cast<File *>(pNode);
 		if(lFile != nullptr) {
 			lSize = lFile->size();
 		}
-        pUDSEntry.insert(KIO::UDSEntry::UDS_SIZE, static_cast<qint64>(lSize));
-		pUDSEntry.insert(KIO::UDSEntry::UDS_MIME_TYPE, pNode->mMimeType);
-		pUDSEntry.insert(KIO::UDSEntry::UDS_ACCESS_TIME, pNode->mAtime);
-		pUDSEntry.insert(KIO::UDSEntry::UDS_MODIFICATION_TIME, pNode->mMtime);
-        pUDSEntry.insert(KIO::UDSEntry::UDS_USER, getUserName(static_cast<uint>(pNode->mUid)));
-        pUDSEntry.insert(KIO::UDSEntry::UDS_GROUP, getGroupName(static_cast<uint>(pNode->mGid)));
+		pUDSEntry.fastInsert(KIO::UDSEntry::UDS_SIZE, static_cast<qint64>(lSize));
+		pUDSEntry.fastInsert(KIO::UDSEntry::UDS_MIME_TYPE, pNode->mMimeType);
+		pUDSEntry.fastInsert(KIO::UDSEntry::UDS_ACCESS_TIME, pNode->mAtime);
+		pUDSEntry.fastInsert(KIO::UDSEntry::UDS_MODIFICATION_TIME, pNode->mMtime);
+		pUDSEntry.fastInsert(KIO::UDSEntry::UDS_USER, getUserName(static_cast<uint>(pNode->mUid)));
+		pUDSEntry.fastInsert(KIO::UDSEntry::UDS_GROUP, getGroupName(static_cast<uint>(pNode->mGid)));
 	}
 }
 

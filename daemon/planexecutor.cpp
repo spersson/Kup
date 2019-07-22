@@ -213,7 +213,7 @@ void PlanExecutor::notifyBackupSucceeded() {
 }
 
 void PlanExecutor::showLog() {
-	KRun::runUrl(QUrl::fromLocalFile(mLogFilePath), QStringLiteral("text/x-log"), nullptr);
+	KRun::runUrl(QUrl::fromLocalFile(mLogFilePath), QStringLiteral("text/x-log"), nullptr, KRun::RunFlags());
 }
 
 void PlanExecutor::startIntegrityCheck() {
@@ -395,7 +395,7 @@ void PlanExecutor::showBackupFiles() {
 		lArgs << mDestinationPath;
 		KProcess::startDetached(QStringLiteral("kup-filedigger"), lArgs);
 	} else if(mPlan->mBackupType == BackupPlan::RsyncType) {
-		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QStringLiteral("inode/directory"), nullptr);
+		KRun::runUrl(QUrl::fromLocalFile(mDestinationPath), QStringLiteral("inode/directory"), nullptr, KRun::RunFlags());
 	}
 }
 
